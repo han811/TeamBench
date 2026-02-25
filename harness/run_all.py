@@ -94,20 +94,9 @@ def grade_run(task_name: str, task_dir: str, run_dir: str) -> dict:
     submission = os.path.join(run_dir, "submission")
     score_path = os.path.join(reports, "score.json")
 
-    # Check attestation
-    att_path = os.path.join(submission, "attestation.json")
-    if not os.path.isfile(att_path):
-        score = {
-            "pass": False,
-            "primary": {"success": 0},
-            "secondary": {},
-            "failure_modes": ["missing_attestation"],
-        }
-        pathlib.Path(score_path).parent.mkdir(parents=True, exist_ok=True)
-        pathlib.Path(score_path).write_text(json.dumps(score, indent=2))
-        return score
-
     # Run grader — pass expected.json as $5 if it exists (seed-aware grading)
+    # Note: attestation check is handled within each grader (not pre-filtered here)
+    # so we always get partial credit and full diagnostics even when attestation is missing.
     grade_script = os.path.join(task_dir, "grade.sh")
     expected_path = os.path.join(reports, "expected.json")
     grade_args = ["bash", grade_script, workspace, reports, submission, task_dir]
