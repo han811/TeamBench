@@ -145,7 +145,9 @@ class RunCommandTool(Tool):
         self.cwd = cwd
         self.allowed = allowed
 
-    def execute(self, cmd: str, **kwargs) -> ToolResult:
+    def execute(self, cmd: str = "", **kwargs) -> ToolResult:
+        if not cmd:
+            return ToolResult(stderr="Error: 'cmd' parameter is required", exit_code=1)
         if not self.allowed:
             return ToolResult(stderr="Permission denied: this role cannot execute commands.", exit_code=1)
         try:
@@ -177,7 +179,9 @@ class ReadFileTool(Tool):
             return os.path.join(self.base_dir, path)
         return os.path.abspath(path)
 
-    def execute(self, path: str, **kwargs) -> ToolResult:
+    def execute(self, path: str = "", **kwargs) -> ToolResult:
+        if not path:
+            return ToolResult(stderr="Error: 'path' parameter is required", exit_code=1)
         abs_path = self._resolve(path)
         if not any(abs_path.startswith(root) for root in self.allowed_roots):
             return ToolResult(stderr=f"Permission denied: cannot read {path}", exit_code=1)
@@ -205,7 +209,11 @@ class WriteFileTool(Tool):
             return os.path.join(self.base_dir, path)
         return os.path.abspath(path)
 
-    def execute(self, path: str, content: str, **kwargs) -> ToolResult:
+    def execute(self, path: str = "", content: str = "", **kwargs) -> ToolResult:
+        if not path:
+            return ToolResult(stderr="Error: 'path' parameter is required", exit_code=1)
+        if not content and content != "":
+            return ToolResult(stderr="Error: 'content' parameter is required", exit_code=1)
         abs_path = self._resolve(path)
         if not any(abs_path.startswith(root) for root in self.allowed_roots):
             return ToolResult(stderr=f"Permission denied: cannot write {path}", exit_code=1)
@@ -226,7 +234,11 @@ class SendMessageTool(Tool):
         self.messages_dir = messages_dir
         self.sender_role = sender_role
 
-    def execute(self, to: str, content: str, **kwargs) -> ToolResult:
+    def execute(self, to: str = "", content: str = "", **kwargs) -> ToolResult:
+        if not to:
+            return ToolResult(stderr="Error: 'to' parameter is required (e.g., 'executor', 'verifier')", exit_code=1)
+        if not content:
+            return ToolResult(stderr="Error: 'content' parameter is required", exit_code=1)
         from datetime import datetime, timezone
         msg = {
             "ts": datetime.now(timezone.utc).isoformat(),
