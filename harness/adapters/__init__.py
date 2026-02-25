@@ -34,7 +34,11 @@ def create_adapter(model: str, temperature: float = 0.2, **kwargs):
         from harness.adapters.anthropic_adapter import AnthropicAdapter
         return AnthropicAdapter(model=model, temperature=temperature, **kwargs)
 
+    if model_lower.startswith("mock"):
+        from harness.adapters.mock_adapter import MockAdapter
+        return MockAdapter(temperature=temperature, **kwargs)
+
     raise ValueError(
         f"Cannot determine adapter for model '{model}'. "
-        "Use a model name starting with 'gemini-', 'gpt-', 'o1', 'o3', or 'claude-'."
+        "Use a model name starting with 'gemini-', 'gpt-', 'o1', 'o3', 'claude-', or 'mock'."
     )

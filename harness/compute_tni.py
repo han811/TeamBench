@@ -3,17 +3,25 @@ TeamBench — Teamwork Necessity Index (TNI) computation.
 
 TNI = (S_team - S_restricted) / max(epsilon, S_full - S_restricted)
 
-Requires three batch result files from:
-  1. Single-agent / Full access (oracle upper bound)
-  2. Single-agent / Restricted (TeamBench constraints applied)
-  3. Multi-agent / Team (proposed teamwork)
+Multiple input modes:
+  A. From ablation results (all 5 conditions in one file)
+  B. From individual condition result files
+  C. From direct success rates
 
 Usage:
+    # From ablation results
+    python -m harness.compute_tni --ablation shared/ablation_results.json
+
+    # From individual result files
     python -m harness.compute_tni \
         --oracle shared/oracle_results.json \
         --restricted shared/restricted_results.json \
         --team shared/team_results.json \
         --output shared/tni_report.json
+
+    # From direct rates (quick what-if analysis)
+    python -m harness.compute_tni \
+        --oracle-rate 0.85 --restricted-rate 0.20 --team-rate 0.72
 """
 from __future__ import annotations
 import argparse
@@ -134,13 +142,82 @@ def compute_per_domain_tni(
     return result
 
 
+def _print_report(overall: dict, per_domain: dict | None = None) -> None:
+    """Pretty-print TNI report to stdout."""
+    print("=" * 60)
+    print("  TEAMWORK NECESSITY INDEX REPORT")
+    print("=" * 60)
+    print(f"  S_full (oracle):      {overall['s_full']:.1%}")
+    print(f"  S_restricted:         {overall['s_restricted']:.1%}")
+    print(f"  S_team:               {overall['s_team']:.1%}")
+    print(f"  Necessity Gap:        {overall['necessity_gap']:.1%}")
+    print(f"  Collaboration Gain:   {overall['collaboration_gain']:.1%}")
+    print(f"  TNI:                  {overall['tni']:.4f}")
+    print(f"  Interpretation:       {overall['interpretation']}")
+
+    if per_domain:
+        print()
+        print("  Per-domain TNI:")
+        for domain, dtn in per_domain.items():
+            print(f"    {domain:20s}  TNI={dtn['tni']:.4f}  ({dtn['interpretation']})")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Compute Teamwork Necessity Index")
-    ap.add_argument("--oracle", required=True, help="Path to oracle (full-access) batch results")
-    ap.add_argument("--restricted", required=True, help="Path to restricted (single-agent) batch results")
-    ap.add_argument("--team", required=True, help="Path to team (multi-agent) batch results")
+
+    # Mode A: ablation file
+    ap.add_argument("--ablation", help="Path to ablation_results.json (all 5 conditions)")
+
+    # Mode B: individual result files
+    ap.add_argument("--oracle", help="Path to oracle (full-access) batch results")
+    ap.add_argument("--restricted", help="Path to restricted (single-agent) batch results")
+    ap.add_argument("--team", help="Path to team (multi-agent) batch results")
+
+    # Mode C: direct rates
+    ap.add_argument("--oracle-rate", type=float, help="Oracle success rate (0-1)")
+    ap.add_argument("--restricted-rate", type=float, help="Restricted success rate (0-1)")
+    ap.add_argument("--team-rate", type=float, help="Team success rate (0-1)")
+
     ap.add_argument("--output", default="shared/tni_report.json", help="Output path")
     args = ap.parse_args()
+
+    # Mode A: ablation file
+    if args.ablation:
+        ablation = load_results(args.ablation)
+        metrics = ablation.get("metrics", {})
+        overall = {
+            "s_full": metrics.get("s_oracle", metrics.get("s_full", 0)),
+            "s_restricted": metrics.get("s_restricted", 0),
+            "s_team": metrics.get("s_full", 0),
+            "necessity_gap": metrics.get("necessity_gap", 0),
+            "collaboration_gain": metrics.get("s_full", 0) - metrics.get("s_restricted", 0),
+            "tni": metrics.get("tni", 0),
+            "interpretation": metrics.get("interpretation", {}).get("tni", ""),
+        }
+        report = {"overall": overall, "source": args.ablation, "metrics": metrics}
+        os.makedirs(os.path.dirname(os.path.abspath(args.output)), exist_ok=True)
+        with open(args.output, "w") as f:
+            json.dump(report, f, indent=2)
+        _print_report(overall)
+        print(f"\n  Report saved to: {args.output}")
+        return
+
+    # Mode C: direct rates
+    if args.oracle_rate is not None and args.restricted_rate is not None and args.team_rate is not None:
+        overall = compute_tni(args.oracle_rate, args.restricted_rate, args.team_rate)
+        report = {"overall": overall}
+        os.makedirs(os.path.dirname(os.path.abspath(args.output)), exist_ok=True)
+        with open(args.output, "w") as f:
+            json.dump(report, f, indent=2)
+        _print_report(overall)
+        print(f"\n  Report saved to: {args.output}")
+        return
+
+    # Mode B: individual result files (original behavior)
+    if not (args.oracle and args.restricted and args.team):
+        ap.print_help()
+        print("\nProvide --ablation, --oracle/--restricted/--team, or --*-rate flags.")
+        return
 
     oracle = load_results(args.oracle)
     restricted = load_results(args.restricted)
@@ -160,26 +237,12 @@ def main() -> None:
         "per_task": per_task,
     }
 
-    os.makedirs(os.path.dirname(args.output), exist_ok=True)
+    os.makedirs(os.path.dirname(os.path.abspath(args.output)), exist_ok=True)
     with open(args.output, "w") as f:
         json.dump(report, f, indent=2)
 
-    print("=" * 60)
-    print("  TEAMWORK NECESSITY INDEX REPORT")
-    print("=" * 60)
-    print(f"  S_full (oracle):      {overall['s_full']:.1%}")
-    print(f"  S_restricted:         {overall['s_restricted']:.1%}")
-    print(f"  S_team:               {overall['s_team']:.1%}")
-    print(f"  Necessity Gap:        {overall['necessity_gap']:.1%}")
-    print(f"  Collaboration Gain:   {overall['collaboration_gain']:.1%}")
-    print(f"  TNI:                  {overall['tni']:.4f}")
-    print(f"  Interpretation:       {overall['interpretation']}")
-    print()
-    print("  Per-domain TNI:")
-    for domain, dtn in per_domain.items():
-        print(f"    {domain:20s}  TNI={dtn['tni']:.4f}  ({dtn['interpretation']})")
-    print()
-    print(f"  Report saved to: {args.output}")
+    _print_report(overall, per_domain)
+    print(f"\n  Report saved to: {args.output}")
 
 
 if __name__ == "__main__":
