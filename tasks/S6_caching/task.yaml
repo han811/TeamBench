@@ -1,0 +1,11 @@
+task_id: S6_caching
+domain: software
+network: false
+time_limit_sec: 900
+seeds: [0, 1, 2]
+difficulty: hard
+languages: [python]
+tags: [caching, performance, invalidation, flask, ttl]
+workspace_file_count: 2
+lines_changed_expected: 80
+parameterized: true

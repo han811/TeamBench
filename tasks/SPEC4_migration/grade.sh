@@ -173,7 +173,7 @@ assert found_unique, f'No unique index found on {new_contact}'
 print('UNIQUE_INDEX_OK')
 \"" "no_unique_index"
 
-# ── Check 10: FK present in schema (via table SQL or PRAGMA) ──────────────
+# ── Check 10: FK present in schema (via PRAGMA foreign_key_list) ──────────
 check "python3 -c \"
 import sqlite3, json
 expected  = json.load(open('$EXPECTED'))
@@ -183,13 +183,9 @@ conn      = sqlite3.connect('database.db')
 cur       = conn.cursor()
 cur.execute(f'PRAGMA foreign_key_list({table})')
 fks = cur.fetchall()
-# Also check sqlite_master for REFERENCES keyword as fallback
-cur.execute(\"SELECT sql FROM sqlite_master WHERE type='table' AND name=?\", (table,))
-tbl_sql = (cur.fetchone() or [''])[0] or ''
 conn.close()
 fk_found = any(str(fk[2]).lower() == ref_table.lower() for fk in fks)
-ref_in_sql = ref_table.lower() in tbl_sql.lower() or 'references' in tbl_sql.lower()
-assert fk_found or ref_in_sql, f'FK to {ref_table} not found in schema (fks={fks})'
+assert fk_found, f'FK to {ref_table} not found via PRAGMA foreign_key_list (got: {fks})'
 print('FK_OK')
 \"" "fk_missing"
 

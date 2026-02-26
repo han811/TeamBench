@@ -515,10 +515,11 @@ if __name__ == "__main__":
         indexes: list[dict],
     ) -> str:
         status_vals_str = ", ".join(f'`"{v}"`' for v in status_vals)
-        new_cols_sql = "\n".join(
-            f"    {col}   {sql_type} NOT NULL DEFAULT {sql_dflt},"
+        new_cols_sql_parts = [
+            f"    {col}   {sql_type} NOT NULL DEFAULT {sql_dflt}"
             for col, sql_type, _py, sql_dflt in new_cols
-        )
+        ]
+        new_cols_sql = ",\n".join(new_cols_sql_parts)
         new_cols_list = "\n".join(
             f"   - `{col}` {sql_type} — default: `{sql_dflt}`"
             for col, sql_type, _py, sql_dflt in new_cols

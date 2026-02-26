@@ -1,0 +1,11 @@
+task_id: O5_container_debug
+domain: ops
+network: false
+time_limit_sec: 1200
+seeds: [0, 1, 2]
+difficulty: hard
+languages: [python, javascript, go, dockerfile]
+tags: [container, docker, debugging, devops, configuration]
+workspace_file_count: 3
+lines_changed_expected: 10
+parameterized: true

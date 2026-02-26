@@ -1,0 +1,13 @@
+task_id: INC6_deadlock
+domain: incident_response
+network: false
+time_limit_sec: 900
+seeds: [0, 1, 2]
+difficulty: expert
+roles: [planner, executor, verifier]
+languages: [python]
+tags: [deadlock, concurrency, threading, lock-ordering, debugging, python]
+workspace_file_count: 5
+lines_changed_expected: 5
+parameterized: true
+grading: tasks/INC6_deadlock/grade.sh

@@ -187,7 +187,7 @@ print(f\"SERVICE_FUNCTIONAL: {smoke_fn} present\")
 # has a fix construct that is specific to this leak type and not in the original
 # red herring code (using function-name anchored context).
 check "python3 -c '
-import json
+import json, sys
 expected = json.load(open(\"$EXPECTED\"))
 leak_type = expected[\"leak_type\"]
 
@@ -208,9 +208,11 @@ fix_constructs = {
     \"unbounded_cache\":      [\"maxsize=\", \"MAX =\", \"MAX=\", \"if len(\", \"maxlen\"],
     \"event_listener_leak\":  [\"remove(\", \"unsubscribe(\", \"once\", \"one_shot\"],
     \"connection_pool_leak\": [\"finally:\", \"with conn\", \"__RELEASE_CHECK__\"],
-    \"circular_reference\":   [\"weakref.ref\", \"weak_ref\", \".pop(\"],
+    \"circular_reference\":   [\"weakref\", \"weak_ref\", \"del \", \".pop(\"],
     \"global_list_append\":   [\"maxlen=\", \"deque(maxlen\", \"if len(\", \"[-\"],
 }
+
+anchors = leak_fn_anchors.get(leak_type, [])
 
 # Special check for connection_pool_leak: find a non-comment line with .release(conn
 if leak_type == \"connection_pool_leak\":
@@ -227,8 +229,6 @@ if leak_type == \"connection_pool_leak\":
     if release_lines:
         print(f\"LEAK_FN_FIXED (connection_pool): non-comment release call found\")
         sys.exit(0)
-
-anchors = leak_fn_anchors.get(leak_type, [])
 constructs = fix_constructs.get(leak_type, [])
 
 # Find the leak function in the file

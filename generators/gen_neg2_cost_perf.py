@@ -7,6 +7,10 @@ Each seed produces:
   - Different performance targets (p50, p99, throughput)
   - Different budget constraint
   - Same optimization challenge: suboptimal config must be improved within budget
+
+Reliability model uses count^1.5 scaling and 0.15 log cache coefficient so that
+the optimal configs reliably exceed their per-system targets while bad configs fail.
+Targets are derived from the midpoint of (bad_rel + 0.70 * gap) where gap = opt_rel - bad_rel.
 """
 from __future__ import annotations
 
@@ -35,10 +39,12 @@ SYSTEM_CONFIGS = [
         "p50_target_ms": 50,
         "p99_target_ms": 200,
         "throughput_target_rps": 1000,
-        "reliability_target": 0.999,
+        # Reliability target — calibrated so bad config fails, optimal passes
+        # bad_rel=0.9982, opt_rel=0.9987  => target at 70% of gap
+        "reliability_target": 0.9985,
         # Budget
         "budget_per_month": 500,
-        # Suboptimal starting config (wrong instance type + over-provisioned instances)
+        # Suboptimal starting config: over-provisioned instances, no tuning
         "bad_config": {
             "instance_type": "large",
             "instance_count": 6,
@@ -62,7 +68,7 @@ SYSTEM_CONFIGS = [
         },
         # Score weights
         "weights": {"performance": 0.40, "cost": 0.30, "reliability": 0.30},
-        # Simulator params (base latencies without config tuning)
+        # Simulator params (baseline = bad config starting point)
         "base_p50_ms": 120,
         "base_p99_ms": 450,
         "base_throughput_rps": 300,
@@ -84,7 +90,8 @@ SYSTEM_CONFIGS = [
         "p50_target_ms": 30,
         "p99_target_ms": 150,
         "throughput_target_rps": 500,
-        "reliability_target": 0.9999,
+        # bad_rel=0.9967, opt_rel=0.9989  => target at 70% of gap
+        "reliability_target": 0.9983,
         "budget_per_month": 500,
         "bad_config": {
             "instance_type": "xlarge",
@@ -128,7 +135,8 @@ SYSTEM_CONFIGS = [
         "p50_target_ms": 5,
         "p99_target_ms": 25,
         "throughput_target_rps": 5000,
-        "reliability_target": 0.9995,
+        # bad_rel=0.9996, opt_rel=0.9998  => target at 70% of gap
+        "reliability_target": 0.9997,
         "budget_per_month": 500,
         "bad_config": {
             "instance_type": "large",
@@ -172,7 +180,8 @@ SYSTEM_CONFIGS = [
         "p50_target_ms": 200,
         "p99_target_ms": 800,
         "throughput_target_rps": 200,
-        "reliability_target": 0.995,
+        # bad_rel=0.9963, opt_rel=0.9992  => target at 70% of gap
+        "reliability_target": 0.9983,
         "budget_per_month": 500,
         "bad_config": {
             "instance_type": "small",
@@ -284,24 +293,24 @@ class Generator(TaskGenerator):
             "enable_keep_alive": bad["enable_keep_alive"],
         }, indent=2) + "\n"
 
-        # simulator.py — deterministic cost/perf simulator
-        p50_t = sys_cfg["p50_target_ms"]
-        p99_t = sys_cfg["p99_target_ms"]
-        tput_t = sys_cfg["throughput_target_rps"]
-        rel_t = sys_cfg["reliability_target"]
-        budget = sys_cfg["budget_per_month"]
+        p50_t   = sys_cfg["p50_target_ms"]
+        p99_t   = sys_cfg["p99_target_ms"]
+        tput_t  = sys_cfg["throughput_target_rps"]
+        rel_t   = sys_cfg["reliability_target"]
+        budget  = sys_cfg["budget_per_month"]
         stor_cost = sys_cfg["storage_cost_per_gb"]
-        bw_cost = sys_cfg["bandwidth_cost_per_gb"]
+        bw_cost   = sys_cfg["bandwidth_cost_per_gb"]
         base_stor = sys_cfg["base_storage_gb"]
-        base_bw = sys_cfg["base_bandwidth_gb"]
-        base_p50 = sys_cfg["base_p50_ms"]
-        base_p99 = sys_cfg["base_p99_ms"]
+        base_bw   = sys_cfg["base_bandwidth_gb"]
+        base_p50  = sys_cfg["base_p50_ms"]
+        base_p99  = sys_cfg["base_p99_ms"]
         base_tput = sys_cfg["base_throughput_rps"]
-        base_rel = sys_cfg["base_reliability"]
-        weights = sys_cfg["weights"]
+        base_rel  = sys_cfg["base_reliability"]
+        weights   = sys_cfg["weights"]
+        stype     = sys_cfg["system_type"]
 
         files["simulator.py"] = f'''"""
-Cost/Performance simulator for {sys_cfg["system_type"]}.
+Cost/Performance simulator for {stype}.
 
 Usage:
     python simulator.py                     # evaluate config.json
@@ -326,29 +335,28 @@ import sys
 # ── Instance catalogue ────────────────────────────────────────────────────────
 INSTANCE_TYPES = {instance_types_json}
 
-STORAGE_COST_PER_GB   = {stor_cost}   # $/GB/month
-BANDWIDTH_COST_PER_GB = {bw_cost}  # $/GB/month
+STORAGE_COST_PER_GB   = {stor_cost}
+BANDWIDTH_COST_PER_GB = {bw_cost}
 BASE_STORAGE_GB       = {base_stor}
 BASE_BANDWIDTH_GB     = {base_bw}
-BUDGET_PER_MONTH      = {budget}   # hard cap
+BUDGET_PER_MONTH      = {budget}
 
 # ── Performance targets ───────────────────────────────────────────────────────
-P50_TARGET_MS         = {p50_t}    # p50 latency must be below this
-P99_TARGET_MS         = {p99_t}    # p99 latency must be below this
-THROUGHPUT_TARGET_RPS = {tput_t}   # minimum requests per second
-RELIABILITY_TARGET    = {rel_t}    # minimum success rate (0-1)
+P50_TARGET_MS         = {p50_t}
+P99_TARGET_MS         = {p99_t}
+THROUGHPUT_TARGET_RPS = {tput_t}
+RELIABILITY_TARGET    = {rel_t}
 
 # ── Scoring weights ───────────────────────────────────────────────────────────
 WEIGHT_PERFORMANCE = {weights["performance"]}
 WEIGHT_COST        = {weights["cost"]}
 WEIGHT_RELIABILITY = {weights["reliability"]}
 
-# ── Baseline (worst acceptable) for score normalisation ──────────────────────
-# These match the suboptimal config shipped in config.json.
-BASELINE_P50_MS    = {base_p50}
-BASELINE_P99_MS    = {base_p99}
-BASELINE_TPUT_RPS  = {base_tput}
-BASELINE_REL       = {base_rel}
+# ── Baseline values (suboptimal config shipped in config.json) ────────────────
+BASELINE_P50_MS   = {base_p50}
+BASELINE_P99_MS   = {base_p99}
+BASELINE_TPUT_RPS = {base_tput}
+BASELINE_REL      = {base_rel}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -362,8 +370,8 @@ def compute_cost(cfg: dict) -> float:
     if itype not in INSTANCE_TYPES:
         raise ValueError(f"Unknown instance_type: {{itype!r}}. "
                          f"Valid options: {{list(INSTANCE_TYPES)}}")
-    instance_cost = INSTANCE_TYPES[itype]["cost_per_month"] * count
-    storage_cost  = BASE_STORAGE_GB   * STORAGE_COST_PER_GB
+    instance_cost  = INSTANCE_TYPES[itype]["cost_per_month"] * count
+    storage_cost   = BASE_STORAGE_GB   * STORAGE_COST_PER_GB
     bandwidth_cost = BASE_BANDWIDTH_GB * BANDWIDTH_COST_PER_GB
     return instance_cost + storage_cost + bandwidth_cost
 
@@ -376,32 +384,31 @@ def compute_performance(cfg: dict) -> dict:
     """
     Compute estimated performance metrics.
 
-    The model encodes realistic relationships between knobs and metrics:
-
     Latency is reduced by:
-      - More/larger instances  (horizontal + vertical scaling)
-      - Larger cache           (cache hit rate improvement)
-      - More threads           (concurrency)
-      - keep-alive enabled     (connection reuse, -15% p50)
-      - compression enabled    (reduces bandwidth but adds CPU, net -5% p99)
+      - Larger instance type  (more vCPU => log2 reduction)
+      - More instances        (horizontal scaling => sqrt reduction)
+      - Larger cache          (cache hits => log2 reduction)
+      - More threads          (concurrency => log2 reduction)
+      - keep-alive enabled    (connection reuse => -15% p50, -12% p99)
+      - compression enabled   (reduced payload => -3% p50, -5% p99)
 
     Throughput is increased by:
-      - More instances
-      - More threads
-      - Larger batch size      (amortises per-request overhead)
-      - Larger connection pool
+      - More instances + larger vCPU (multiplicative)
+      - More threads and connection pool (log2 each)
+      - Larger batch size (log2 amortisation)
+      - keep-alive (+20%)
 
     Reliability is improved by:
-      - More instances         (redundancy)
-      - keep-alive             (avoids reconnect storms)
-      - Larger cache           (fewer backend calls = fewer failure points)
+      - More instances  (count^1.5 divisor on failure rate)
+      - Larger cache    (reduces backend dependency, log2 with coeff 0.15)
+      - keep-alive      (avoids reconnect storms, 0.50x failure rate)
     """
-    itype   = cfg.get("instance_type", "medium")
-    count   = cfg.get("instance_count", 1)
-    cache   = cfg.get("cache_size_mb", 64)
-    threads = cfg.get("thread_count", 1)
-    batch   = cfg.get("batch_size", 1)
-    pool    = cfg.get("connection_pool_size", 5)
+    itype    = cfg.get("instance_type", "medium")
+    count    = cfg.get("instance_count", 1)
+    cache    = cfg.get("cache_size_mb", 64)
+    threads  = cfg.get("thread_count", 1)
+    batch    = cfg.get("batch_size", 1)
+    pool     = cfg.get("connection_pool_size", 5)
     compress = cfg.get("enable_compression", False)
     keepalive = cfg.get("enable_keep_alive", False)
 
@@ -411,77 +418,49 @@ def compute_performance(cfg: dict) -> dict:
     spec = INSTANCE_TYPES[itype]
     vcpu = spec["vcpu"]
 
-    # ── Latency model ─────────────────────────────────────────────────────────
-    # Start from baseline; apply multiplicative reductions
+    # ── Latency ───────────────────────────────────────────────────────────────
     p50 = BASELINE_P50_MS
     p99 = BASELINE_P99_MS
 
-    # Vertical scaling: vcpu multiplier (log scale, diminishing returns)
-    vcpu_factor = 1.0 / math.log2(vcpu + 1)
-    p50 *= vcpu_factor
-    p99 *= vcpu_factor
-
-    # Horizontal scaling: more instances share load
-    count_factor = 1.0 / math.sqrt(count)
-    p50 *= count_factor
-    p99 *= count_factor
-
-    # Cache: larger cache reduces backend round-trips (log scale)
-    cache_factor = 1.0 / (1 + 0.12 * math.log2(max(cache, 1) + 1))
-    p50 *= cache_factor
-    p99 *= cache_factor
-
-    # Thread count: parallelism reduces queuing latency
+    vcpu_factor   = 1.0 / math.log2(vcpu + 1)
+    count_factor  = 1.0 / math.sqrt(count)
+    cache_factor  = 1.0 / (1 + 0.12 * math.log2(max(cache, 1) + 1))
     thread_factor = 1.0 / math.log2(threads + 2)
-    p50 *= thread_factor
-    p99 *= thread_factor
 
-    # Keep-alive: avoids handshake overhead
+    p50 *= vcpu_factor * count_factor * cache_factor * thread_factor
+    p99 *= vcpu_factor * count_factor * cache_factor * thread_factor
+
     if keepalive:
         p50 *= 0.85
         p99 *= 0.88
-
-    # Compression: slightly increases CPU but reduces network RTT
     if compress:
         p50 *= 0.97
         p99 *= 0.95
 
-    # ── Throughput model ──────────────────────────────────────────────────────
+    # ── Throughput ────────────────────────────────────────────────────────────
     tput = BASELINE_TPUT_RPS
-
-    # Instance scaling
     tput *= count * math.log2(vcpu + 1)
-
-    # Thread and pool scaling
     tput *= math.log2(threads + 2) * math.log2(pool + 2) / 4.0
-
-    # Batch amortisation (log scale)
     tput *= (1 + 0.08 * math.log2(max(batch, 1) + 1))
-
     if keepalive:
         tput *= 1.20
 
-    # ── Reliability model ─────────────────────────────────────────────────────
-    # Baseline failure rate improves with redundancy + cache
+    # ── Reliability ───────────────────────────────────────────────────────────
+    # Failure rate model: divide by count^1.5 (redundancy) and cache log factor.
+    # Using count^1.5 (stronger than sqrt) so that reasonable instance counts
+    # can achieve high-nines reliability when combined with cache and keep-alive.
     failure_rate = 1.0 - BASELINE_REL
-
-    # More instances = less single-point-of-failure impact
-    failure_rate /= math.sqrt(count)
-
-    # Larger cache reduces backend dependency
-    failure_rate /= (1 + 0.05 * math.log2(max(cache, 1) + 1))
-
-    # Keep-alive avoids reconnect cascades
+    failure_rate /= (count ** 1.5)
+    failure_rate /= (1 + 0.15 * math.log2(max(cache, 1) + 1))
     if keepalive:
-        failure_rate *= 0.70
-
+        failure_rate *= 0.50
     reliability = max(0.0, min(1.0, 1.0 - failure_rate))
 
     return {{
-        "p50_ms": round(p50, 1),
-        "p99_ms": round(p99, 1),
+        "p50_ms":         round(p50, 1),
+        "p99_ms":         round(p99, 1),
         "throughput_rps": round(tput, 1),
-        "reliability": round(reliability, 6),
+        "reliability":    round(reliability, 6),
     }}
 
 
@@ -490,41 +469,25 @@ def compute_performance(cfg: dict) -> dict:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def score_performance(perf: dict) -> float:
-    """
-    Performance sub-score in [0, 1].
+    """Performance sub-score in [0, 1]."""
+    p50_ok  = perf["p50_ms"]         <= P50_TARGET_MS
+    p99_ok  = perf["p99_ms"]         <= P99_TARGET_MS
+    tput_ok = perf["throughput_rps"] >= THROUGHPUT_TARGET_RPS
 
-    Measures how far below the targets each metric sits.
-    A score of 1.0 means all targets are perfectly met.
-    Missing any target hard-caps the sub-score below 0.5.
-    """
-    p50_ok   = perf["p50_ms"]        <= P50_TARGET_MS
-    p99_ok   = perf["p99_ms"]        <= P99_TARGET_MS
-    tput_ok  = perf["throughput_rps"] >= THROUGHPUT_TARGET_RPS
-
-    # Fractional contribution from each dimension
-    p50_score  = min(1.0, P50_TARGET_MS / max(perf["p50_ms"], 1))
-    p99_score  = min(1.0, P99_TARGET_MS / max(perf["p99_ms"], 1))
+    p50_score  = min(1.0, P50_TARGET_MS  / max(perf["p50_ms"], 1))
+    p99_score  = min(1.0, P99_TARGET_MS  / max(perf["p99_ms"], 1))
     tput_score = min(1.0, perf["throughput_rps"] / THROUGHPUT_TARGET_RPS)
 
     raw = (p50_score + p99_score + tput_score) / 3.0
-
-    # Penalty for missing hard targets
     if not (p50_ok and p99_ok and tput_ok):
         raw *= 0.5
-
     return round(raw, 4)
 
 
 def score_cost(cost: float) -> float:
-    """
-    Cost sub-score in [0, 1].
-
-    Higher score = lower cost relative to budget.
-    Exceeding the budget yields 0.
-    """
+    """Cost sub-score in [0, 1]. Exceeding budget yields 0."""
     if cost > BUDGET_PER_MONTH:
         return 0.0
-    # Linear: spending 0 = 1.0, spending exactly budget = 0.5
     utilisation = cost / BUDGET_PER_MONTH
     return round(1.0 - 0.5 * utilisation, 4)
 
@@ -533,9 +496,7 @@ def score_reliability(perf: dict) -> float:
     """Reliability sub-score in [0, 1]."""
     rel = perf["reliability"]
     if rel < RELIABILITY_TARGET:
-        # Partial credit proportional to how close we are
         return round(rel / RELIABILITY_TARGET * 0.5, 4)
-    # Above threshold: linear bonus for exceeding target (capped at 1.0)
     return round(min(1.0, 0.5 + (rel - RELIABILITY_TARGET) * 10), 4)
 
 
@@ -553,38 +514,31 @@ def weighted_score(cost: float, perf: dict) -> float:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Target checkers (used by grade.sh)
+# All-checks helper (used by grade.sh)
 # ─────────────────────────────────────────────────────────────────────────────
+
+BASELINE_SCORE = 0.40  # suboptimal config scores ~0.40; agent must beat this
 
 def check_all(cfg: dict) -> dict:
     cost = compute_cost(cfg)
     perf = compute_performance(cfg)
     ws   = weighted_score(cost, perf)
 
-    # Baseline score (suboptimal config)
-    from copy import deepcopy
-    bad_cfg = deepcopy(cfg)
-    bad_cfg.update({{
-        "instance_type": list(INSTANCE_TYPES.keys())[0],
-    }})
-    # We compare against a fixed baseline score of 0.40
-    BASELINE_SCORE = 0.40
-
     return {{
-        "cost":          round(cost, 2),
-        "p50_ms":        perf["p50_ms"],
-        "p99_ms":        perf["p99_ms"],
+        "cost":           round(cost, 2),
+        "p50_ms":         perf["p50_ms"],
+        "p99_ms":         perf["p99_ms"],
         "throughput_rps": perf["throughput_rps"],
-        "reliability":   perf["reliability"],
+        "reliability":    perf["reliability"],
         "weighted_score": ws,
         "checks": {{
-            "cost_within_budget":        cost <= BUDGET_PER_MONTH,
-            "p50_meets_target":          perf["p50_ms"]         <= P50_TARGET_MS,
-            "p99_meets_target":          perf["p99_ms"]         <= P99_TARGET_MS,
-            "throughput_meets_target":   perf["throughput_rps"] >= THROUGHPUT_TARGET_RPS,
-            "reliability_above_threshold": perf["reliability"]  >= RELIABILITY_TARGET,
-            "score_above_baseline":      ws                     >= BASELINE_SCORE,
-            "not_over_provisioned":      cost                   <= BUDGET_PER_MONTH * 0.95,
+            "cost_within_budget":          cost <= BUDGET_PER_MONTH,
+            "p50_meets_target":            perf["p50_ms"]         <= P50_TARGET_MS,
+            "p99_meets_target":            perf["p99_ms"]         <= P99_TARGET_MS,
+            "throughput_meets_target":     perf["throughput_rps"] >= THROUGHPUT_TARGET_RPS,
+            "reliability_above_threshold": perf["reliability"]    >= RELIABILITY_TARGET,
+            "score_above_baseline":        ws                     >= BASELINE_SCORE,
+            "not_over_provisioned":        cost                   <= BUDGET_PER_MONTH * 0.95,
         }},
     }}
 
@@ -607,14 +561,14 @@ def main():
     result = check_all(cfg)
     checks = result["checks"]
 
-    print(f"=== {sys_cfg["system_type"].upper()} COST/PERFORMANCE REPORT ===")
+    print(f"=== {stype.upper()} COST/PERFORMANCE REPORT ===")
     print()
-    print(f"Monthly Cost:      ${{result['cost']:.2f}} / ${{BUDGET_PER_MONTH:.0f}} budget")
-    print(f"p50 Latency:       {{result['p50_ms']:.1f}} ms  (target: <{{P50_TARGET_MS}} ms)")
-    print(f"p99 Latency:       {{result['p99_ms']:.1f}} ms  (target: <{{P99_TARGET_MS}} ms)")
-    print(f"Throughput:        {{result['throughput_rps']:.1f}} rps (target: >{{THROUGHPUT_TARGET_RPS}} rps)")
-    print(f"Reliability:       {{result['reliability']:.4f}}  (target: >{{RELIABILITY_TARGET}})")
-    print(f"Weighted Score:    {{result['weighted_score']:.4f}}")
+    print(f"Monthly Cost:   ${{result['cost']:.2f}} / ${{BUDGET_PER_MONTH:.0f}} budget")
+    print(f"p50 Latency:    {{result['p50_ms']:.1f}} ms  (target: <{{P50_TARGET_MS}} ms)")
+    print(f"p99 Latency:    {{result['p99_ms']:.1f}} ms  (target: <{{P99_TARGET_MS}} ms)")
+    print(f"Throughput:     {{result['throughput_rps']:.1f}} rps (target: >{{THROUGHPUT_TARGET_RPS}} rps)")
+    print(f"Reliability:    {{result['reliability']:.6f}}  (target: >{{RELIABILITY_TARGET}})")
+    print(f"Weighted Score: {{result['weighted_score']:.4f}}")
     print()
     print("=== CHECK RESULTS ===")
     all_pass = True
@@ -643,22 +597,22 @@ if __name__ == "__main__":
     # Spec / brief generators
     # ------------------------------------------------------------------
     def _generate_spec(self, sys_cfg: dict) -> str:
-        stype = sys_cfg["system_type"]
-        desc  = sys_cfg["description"]
-        budget = sys_cfg["budget_per_month"]
-        p50_t  = sys_cfg["p50_target_ms"]
-        p99_t  = sys_cfg["p99_target_ms"]
-        tput_t = sys_cfg["throughput_target_rps"]
-        rel_t  = sys_cfg["reliability_target"]
-        w      = sys_cfg["weights"]
-        itype_lines = "\n".join(
-            f"  - `{k}`: {v['vcpu']} vCPU, {v['ram_gb']} GB RAM — ${v['cost_per_month']:.0f}/mo"
-            for k, v in sys_cfg["instance_types"].items()
-        )
+        stype   = sys_cfg["system_type"]
+        desc    = sys_cfg["description"]
+        budget  = sys_cfg["budget_per_month"]
+        p50_t   = sys_cfg["p50_target_ms"]
+        p99_t   = sys_cfg["p99_target_ms"]
+        tput_t  = sys_cfg["throughput_target_rps"]
+        rel_t   = sys_cfg["reliability_target"]
+        w       = sys_cfg["weights"]
         stor_cost = sys_cfg["storage_cost_per_gb"]
         bw_cost   = sys_cfg["bandwidth_cost_per_gb"]
         base_stor = sys_cfg["base_storage_gb"]
         base_bw   = sys_cfg["base_bandwidth_gb"]
+        itype_lines = "\n".join(
+            f"  - `{k}`: {v['vcpu']} vCPU, {v['ram_gb']} GB RAM — ${v['cost_per_month']:.0f}/mo"
+            for k, v in sys_cfg["instance_types"].items()
+        )
 
         return f"""# NEG2: Cost vs Performance Optimization
 
@@ -678,7 +632,7 @@ if __name__ == "__main__":
 ```
 total_cost = instance_cost_per_month * instance_count
            + {base_stor} * {stor_cost}   # storage (fixed)
-           + {base_bw} * {bw_cost}  # bandwidth (fixed)
+           + {base_bw} * {bw_cost}       # bandwidth (fixed)
 ```
 
 ### Budget Constraint
@@ -704,7 +658,7 @@ The overall score is a weighted average of three sub-scores, each in [0, 1]:
 | Reliability | {int(w["reliability"]*100)}% | How far above the reliability threshold |
 
 ### Performance Sub-Score
-- Each of p50, p99, throughput contributes equally (⅓ each)
+- Each of p50, p99, throughput contributes equally (1/3 each)
 - Missing any hard target multiplies the sub-score by 0.5 (penalty)
 
 ### Cost Sub-Score
@@ -713,7 +667,7 @@ The overall score is a weighted average of three sub-scores, each in [0, 1]:
 - Exceeding budget → 0.0
 
 ### Reliability Sub-Score
-- Below threshold: proportional credit × 0.5
+- Below threshold: proportional credit x 0.5
 - Above threshold: bonus up to 1.0
 
 ### Baseline Score
@@ -726,31 +680,31 @@ Edit `config.json` to adjust:
 | Parameter | Type | Effect |
 |-----------|------|--------|
 | `instance_type` | enum: small/medium/large/xlarge | Determines per-instance cost, vCPU, RAM |
-| `instance_count` | integer ≥ 1 | Number of instances; affects cost, throughput, latency, reliability |
-| `cache_size_mb` | integer ≥ 0 | In-memory cache per node; reduces latency and backend calls |
-| `thread_count` | integer ≥ 1 | Worker threads per instance; increases parallelism |
-| `batch_size` | integer ≥ 1 | Requests batched together; improves throughput, slightly reduces latency |
-| `connection_pool_size` | integer ≥ 1 | Concurrent connections per instance; limits queuing |
+| `instance_count` | integer >= 1 | Number of instances; affects cost, throughput, latency, reliability |
+| `cache_size_mb` | integer >= 0 | In-memory cache per node; reduces latency and backend calls |
+| `thread_count` | integer >= 1 | Worker threads per instance; increases parallelism |
+| `batch_size` | integer >= 1 | Requests batched together; improves throughput |
+| `connection_pool_size` | integer >= 1 | Concurrent connections per instance |
 | `enable_compression` | boolean | Reduces bandwidth; slight CPU cost, net latency benefit |
 | `enable_keep_alive` | boolean | Connection reuse; reduces p50 by ~15%, improves reliability |
 
 ## Deliverables
 1. An updated `config.json` that satisfies **all** of the following checks:
-   - `cost_within_budget`: total monthly cost ≤ ${budget}
-   - `p50_meets_target`: simulated p50 ≤ {p50_t} ms
-   - `p99_meets_target`: simulated p99 ≤ {p99_t} ms
-   - `throughput_meets_target`: simulated throughput ≥ {tput_t} rps
-   - `reliability_above_threshold`: simulated reliability ≥ {rel_t}
+   - `cost_within_budget`: total monthly cost <= ${budget}
+   - `p50_meets_target`: simulated p50 <= {p50_t} ms
+   - `p99_meets_target`: simulated p99 <= {p99_t} ms
+   - `throughput_meets_target`: simulated throughput >= {tput_t} rps
+   - `reliability_above_threshold`: simulated reliability >= {rel_t}
    - `score_above_baseline`: weighted score > 0.40
-   - `not_over_provisioned`: cost ≤ ${budget * 0.95:.0f} (95% of budget — penalises waste)
+   - `not_over_provisioned`: cost <= ${budget * 0.95:.0f} (95% of budget)
 
 2. Verify by running: `python simulator.py --check`
 
 ## Common Traps
-- **Over-provisioning**: Using xlarge instances satisfies performance targets but busts the budget — cost score drops to 0.
-- **Under-provisioning**: Using small instances keeps cost low but misses latency/throughput targets — performance penalty halves the sub-score.
-- **Ignoring knobs**: Cache, threads, batch size, and keep-alive are free (no cost impact) but substantially improve performance — failing to tune them wastes budget on extra instances.
-- **Not over-provisioned check**: Spending 95–100% of budget is flagged as wasteful even if cost is technically within budget.
+- **Over-provisioning**: Using xlarge instances satisfies performance but busts the budget.
+- **Under-provisioning**: Using tiny instances keeps cost low but misses latency/throughput targets.
+- **Ignoring free knobs**: cache_size_mb, thread_count, batch_size, and enable_keep_alive have no cost impact but substantially improve performance and reliability.
+- **Not over-provisioned check**: Spending 95-100% of budget is flagged as wasteful even if technically within budget.
 """
 
     def _generate_brief(self, sys_cfg: dict) -> str:

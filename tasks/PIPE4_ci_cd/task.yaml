@@ -1,0 +1,13 @@
+task_id: PIPE4_ci_cd
+domain: pipeline
+network: false
+time_limit_sec: 900
+seeds: [0, 1, 2, 3]
+difficulty: medium
+languages: [bash, python]
+tags: [ci-cd, pipeline, deployment, env-vars, artifact, stage-order, scripting]
+workspace_file_count: 8
+lines_changed_expected: 30
+parameterized: true
+roles: [planner, executor, verifier]
+grading: tasks/PIPE4_ci_cd/grade.sh

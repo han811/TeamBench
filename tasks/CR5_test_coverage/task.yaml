@@ -1,0 +1,11 @@
+task_id: CR5_test_coverage
+domain: testing
+network: false
+time_limit_sec: 900
+seeds: [0, 1, 2]
+difficulty: medium
+languages: [python]
+tags: [test-coverage, tni-pattern-a, mutation-testing, error-handling, edge-cases]
+workspace_file_count: 4
+lines_changed_expected: 60
+parameterized: true

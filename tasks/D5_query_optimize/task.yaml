@@ -1,0 +1,12 @@
+task_id: D5_query_optimize
+domain: data
+network: false
+time_limit_sec: 1200
+seeds: [0, 1, 2]
+difficulty: hard
+languages: [python, sql]
+tags: [sql, query-optimization, indexes, n-plus-1, aggregation, sqlite, performance]
+workspace_file_count: 4
+lines_changed_expected: 50
+parameterized: true
+tni_patterns: [A, C]

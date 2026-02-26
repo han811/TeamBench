@@ -1,0 +1,11 @@
+task_id: SEC8_dependency_audit
+domain: security
+network: false
+time_limit_sec: 900
+seeds: [0, 1, 2]
+difficulty: expert
+languages: [python]
+tags: [dependency-audit, cve-patching, supply-chain, version-pinning, breaking-change]
+workspace_file_count: 4
+lines_changed_expected: 3
+parameterized: true

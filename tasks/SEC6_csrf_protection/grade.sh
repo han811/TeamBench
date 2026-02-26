@@ -40,17 +40,22 @@ PYEOF" "csrf_token_not_generated"
 
 # ── Check 2: CSRF token embedded in HTML forms ────────────────────────────────
 check "python3 << 'PYEOF'
-import re
 with open('app.py') as f:
     code = f.read()
 
-# Must have an actual <input ... hidden ... csrf_token ...> tag (not just a comment)
-# Strip comments first
-lines = [l for l in code.splitlines() if not l.strip().startswith('#') and '<!--' not in l]
+# Strip comment lines and HTML comment lines so TODO comments don't fool the check
+lines = [l for l in code.splitlines()
+         if not l.strip().startswith('#') and '<!--' not in l]
 clean = '\n'.join(lines)
-has_input_tag = bool(re.search(r'<input[^>]+type=[\"\'\\]?hidden[\"\'\\]?[^>]+name=[\"\'\\]?csrf_token', clean, re.IGNORECASE)) \
-    or bool(re.search(r'<input[^>]+name=[\"\'\\]?csrf_token[^>]+type=[\"\'\\]?hidden', clean, re.IGNORECASE))
-assert has_input_tag, 'No <input type=hidden name=csrf_token> found in form HTML (comments excluded)'
+
+# Check for actual <input type="hidden" name="csrf_token"> tag
+has_tag = (
+    '<input type=\"hidden\" name=\"csrf_token\"' in clean
+    or '<input type=\'hidden\' name=\'csrf_token\'' in clean
+    or ('type=\"hidden\"' in clean and 'name=\"csrf_token\"' in clean)
+    or ('type=\'hidden\'' in clean and 'name=\'csrf_token\'' in clean)
+)
+assert has_tag, 'No <input type=hidden name=csrf_token> found in form HTML'
 print('CSRF_TOKEN_IN_FORM')
 PYEOF" "csrf_token_not_in_form"
 

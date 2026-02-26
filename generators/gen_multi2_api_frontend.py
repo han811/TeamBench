@@ -67,8 +67,8 @@ WRONG_RESPONSE_KEYS = [
     ("items",   "entries"),
 ]
 
-# Wrong status codes for POST
-WRONG_POST_STATUS = [200, 202, 204, 400]
+# Wrong status codes for POST (exclude 400 — it's used for real validation errors)
+WRONG_POST_STATUS = [200, 202, 204]
 
 # Wrong pagination fields
 WRONG_PAGINATION_FIELDS = [
@@ -374,7 +374,7 @@ def create_{singular}():
         "SELECT id, {f1}, {f2}, {f3}, created_at FROM {resource} WHERE id = ?",
         (cur.lastrowid,),
     ).fetchone()
-    return jsonify({{"item": dict(row)}}), {post_status}
+    return jsonify({{"item": dict(row)}}), {post_status}  # POST_STATUS_HERE
 
 
 @app.route("/api/{resource}/<int:item_id>", methods=["GET"])

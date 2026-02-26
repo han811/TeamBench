@@ -33,6 +33,20 @@ RETENTION_PY="$WORKSPACE/retention.py"
 SEED_SQL="$WORKSPACE/seed_data.sql"
 DB_PATH="$WORKSPACE/grade_test.db"
 
+# Helper: initialise DB from seed_data.sql using Python's sqlite3 module
+init_db() {
+  "$PYTHON" -c "
+import sqlite3, os
+db = '$DB_PATH'
+sql_file = '$SEED_SQL'
+if os.path.exists(db): os.remove(db)
+conn = sqlite3.connect(db)
+conn.executescript(open(sql_file).read())
+conn.commit()
+conn.close()
+" 2>/dev/null
+}
+
 # ── Check 1: retention.py exists and has valid Python syntax ──────────────────
 check "$PYTHON -m py_compile '$RETENTION_PY' && echo OK" "retention_py_syntax_error"
 
@@ -84,11 +98,8 @@ print(\"PII_TYPES_CORRECT\")
 
 if [ -f "$RETENTION_PY" ] && [ -f "$SEED_SQL" ] && [ -f "$EXPECTED" ]; then
 
-# Initialise a fresh test DB for grading
-rm -f "$DB_PATH"
-sqlite3 "$DB_PATH" < "$SEED_SQL" 2>/dev/null || true
-
 # ── Check 6: run_retention() runs without exception and returns a dict ────────
+init_db
 check "$PYTHON -c '
 import sys, json; sys.path.insert(0, \"$WORKSPACE\")
 from retention import run_retention
@@ -100,11 +111,8 @@ assert not missing, \"Summary dict missing keys: \" + str(missing)
 print(\"RUN_RETENTION_RETURNS_DICT\")
 '" "run_retention_bad_return"
 
-# Re-init DB for subsequent checks
-rm -f "$DB_PATH"
-sqlite3 "$DB_PATH" < "$SEED_SQL" 2>/dev/null || true
-
 # ── Check 7: Audit log entries are written before deletion ────────────────────
+init_db
 check "$PYTHON -c '
 import sys, json, sqlite3; sys.path.insert(0, \"$WORKSPACE\")
 from retention import run_retention
@@ -115,50 +123,43 @@ conn.close()
 assert audit_count > 0, \"retention_audit table is empty — audit entries must be written\"
 assert result[\"audit_entries_written\"] > 0, \"audit_entries_written counter is 0\"
 assert result[\"audit_entries_written\"] == audit_count, (
-    f\"audit_entries_written={result['"'"'audit_entries_written'"'"']} but table has {audit_count} rows\"
+    f\"audit_entries_written={result[chr(39)+'audit_entries_written'+chr(39)]} but table has {audit_count} rows\"
 )
 print(\"AUDIT_LOG_WRITTEN\")
 '" "audit_log_not_written"
 
-# Re-init DB
-rm -f "$DB_PATH"
-sqlite3 "$DB_PATH" < "$SEED_SQL" 2>/dev/null || true
-
 # ── Check 8: Legal hold prevents deletion ────────────────────────────────────
+init_db
 check "$PYTHON -c '
 import sys, json, sqlite3; sys.path.insert(0, \"$WORKSPACE\")
-from retention import run_retention, TABLE_NAMES, RETENTION_DAYS
+from retention import run_retention, TABLE_NAMES
 result = run_retention(\"$DB_PATH\")
 conn = sqlite3.connect(\"$DB_PATH\")
-# All records with legal_hold=1 that are expired must still exist
 held_still_present = 0
+now_literal = \"now\"
 for tid, table in TABLE_NAMES.items():
     try:
         rows = conn.execute(
-            f\"SELECT COUNT(*) FROM {table} WHERE legal_hold=1 AND expires_at < datetime('"'"'now'"'"')\"
+            \"SELECT COUNT(*) FROM \" + table + \" WHERE legal_hold=1 AND expires_at < datetime(?)\",
+            (now_literal,)
         ).fetchone()[0]
         held_still_present += rows
     except Exception:
         pass
 conn.close()
-assert held_still_present > 0, (
-    \"All legal_hold records were deleted — legal hold must prevent deletion\"
-)
+assert held_still_present > 0, \"All legal_hold records were deleted — legal hold must prevent deletion\"
 print(\"LEGAL_HOLD_PREVENTS_DELETION\")
 '" "legal_hold_not_respected"
 
-# Re-init DB
-rm -f "$DB_PATH"
-sqlite3 "$DB_PATH" < "$SEED_SQL" 2>/dev/null || true
-
 # ── Check 9: Exempt records have skipped_exempt audit entries ─────────────────
+init_db
 check "$PYTHON -c '
 import sys, json, sqlite3; sys.path.insert(0, \"$WORKSPACE\")
 from retention import run_retention
 result = run_retention(\"$DB_PATH\")
 conn = sqlite3.connect(\"$DB_PATH\")
 skipped_audit = conn.execute(
-    \"SELECT COUNT(*) FROM retention_audit WHERE action='"'"'skipped_exempt'"'"'\"
+    \"SELECT COUNT(*) FROM retention_audit WHERE action=?\", (\"skipped_exempt\",)
 ).fetchone()[0]
 conn.close()
 assert result[\"skipped_exempt\"] > 0, \"skipped_exempt count is 0 — exempt records must be skipped\"
@@ -166,44 +167,35 @@ assert skipped_audit > 0, \"No skipped_exempt audit entries found in retention_a
 print(\"EXEMPT_RECORDS_SKIPPED\")
 '" "exempt_records_not_skipped"
 
-# Re-init DB
-rm -f "$DB_PATH"
-sqlite3 "$DB_PATH" < "$SEED_SQL" 2>/dev/null || true
-
 # ── Check 10: PII records are anonymized before deletion ──────────────────────
+init_db
 check "$PYTHON -c '
 import sys, json, sqlite3; sys.path.insert(0, \"$WORKSPACE\")
 from retention import run_retention, PII_TYPES, TABLE_NAMES
 result = run_retention(\"$DB_PATH\")
-assert result[\"anonymized\"] > 0, (
-    \"anonymized count is 0 — PII records must be anonymized before deletion\"
-)
+assert result[\"anonymized\"] > 0, \"anonymized count is 0 — PII records must be anonymized before deletion\"
 conn = sqlite3.connect(\"$DB_PATH\")
-# Check audit trail for anonymized entries
 anon_audit = conn.execute(
-    \"SELECT COUNT(*) FROM retention_audit WHERE action='"'"'anonymized'"'"'\"
+    \"SELECT COUNT(*) FROM retention_audit WHERE action=?\", (\"anonymized\",)
 ).fetchone()[0]
 conn.close()
 assert anon_audit > 0, \"No anonymized audit entries found — anonymize step must write audit entry\"
 print(\"PII_ANONYMIZED_BEFORE_DELETE\")
 '" "pii_not_anonymized"
 
-# Re-init DB
-rm -f "$DB_PATH"
-sqlite3 "$DB_PATH" < "$SEED_SQL" 2>/dev/null || true
-
 # ── Check 11: Fresh records (not expired) are NOT deleted ─────────────────────
+init_db
 check "$PYTHON -c '
 import sys, json, sqlite3; sys.path.insert(0, \"$WORKSPACE\")
 from retention import run_retention, TABLE_NAMES
 result = run_retention(\"$DB_PATH\")
 conn = sqlite3.connect(\"$DB_PATH\")
-# Records with expires_at far in the future must still exist
 fresh_count = 0
+cutoff = \"2090-01-01\"
 for tid, table in TABLE_NAMES.items():
     try:
         rows = conn.execute(
-            f\"SELECT COUNT(*) FROM {table} WHERE expires_at > datetime('"'"'2090-01-01'"'"')\"
+            \"SELECT COUNT(*) FROM \" + table + \" WHERE expires_at > ?\", (cutoff,)
         ).fetchone()[0]
         fresh_count += rows
     except Exception:
@@ -213,11 +205,8 @@ assert fresh_count > 0, \"Fresh (unexpired) records were deleted — only expire
 print(\"FRESH_RECORDS_UNTOUCHED\")
 '" "fresh_records_deleted"
 
-# Re-init DB
-rm -f "$DB_PATH"
-sqlite3 "$DB_PATH" < "$SEED_SQL" 2>/dev/null || true
-
 # ── Check 12: Audit log entries have all required fields ─────────────────────
+init_db
 check "$PYTHON -c '
 import sys, json, sqlite3; sys.path.insert(0, \"$WORKSPACE\")
 from retention import run_retention
@@ -228,38 +217,28 @@ entries = conn.execute(\"SELECT * FROM retention_audit\").fetchall()
 conn.close()
 assert len(entries) > 0, \"retention_audit is empty\"
 required_cols = {\"data_type\", \"record_id\", \"action\", \"reason\", \"processed_at\"}
+valid_actions = {\"anonymized\", \"deleted\", \"skipped_exempt\"}
 for entry in entries:
     keys = set(entry.keys())
     missing = required_cols - keys
     assert not missing, \"Audit entry missing columns: \" + str(missing)
-    assert entry[\"action\"] in (\"anonymized\", \"deleted\", \"skipped_exempt\"), (
-        \"Invalid action value: \" + str(entry[\"action\"])
-    )
+    assert entry[\"action\"] in valid_actions, \"Invalid action value: \" + str(entry[\"action\"])
     assert entry[\"processed_at\"], \"processed_at must not be empty\"
 print(\"AUDIT_ENTRIES_WELL_FORMED\")
 '" "audit_entries_malformed"
 
-# Re-init DB
-rm -f "$DB_PATH"
-sqlite3 "$DB_PATH" < "$SEED_SQL" 2>/dev/null || true
-
 # ── Check 13: Deleted count matches expected expired non-exempt records ────────
+init_db
 check "$PYTHON -c '
 import sys, json, sqlite3; sys.path.insert(0, \"$WORKSPACE\")
 from retention import run_retention, TABLE_NAMES
-# Count expired non-exempt records BEFORE retention run
 conn_before = sqlite3.connect(\"$DB_PATH\")
 expected_deletable = 0
+now_q = chr(39) + \"now\" + chr(39)
 for tid, table in TABLE_NAMES.items():
     try:
         rows = conn_before.execute(
-            f\"\"\"SELECT COUNT(*) FROM {table}
-                WHERE expires_at < datetime('"'"'now'"'"')
-                  AND legal_hold = 0
-                  AND regulatory_audit = 0
-                  AND active_dispute = 0
-                  AND consent_pending = 0
-                  AND tax_investigation = 0\"\"\"
+            f\"SELECT COUNT(*) FROM {table} WHERE expires_at < datetime({now_q}) AND legal_hold=0 AND regulatory_audit=0 AND active_dispute=0 AND consent_pending=0 AND tax_investigation=0\"
         ).fetchone()[0]
         expected_deletable += rows
     except Exception:
@@ -267,7 +246,7 @@ for tid, table in TABLE_NAMES.items():
 conn_before.close()
 result = run_retention(\"$DB_PATH\")
 assert result[\"deleted\"] == expected_deletable, (
-    f\"deleted={result['"'"'deleted'"'"']} but expected {expected_deletable} deletable records\"
+    f\"deleted={result[chr(39)+'deleted'+chr(39)]} but expected {expected_deletable} deletable records\"
 )
 print(\"DELETE_COUNT_CORRECT\")
 '" "delete_count_incorrect"

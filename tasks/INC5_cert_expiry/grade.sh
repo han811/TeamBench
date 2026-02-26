@@ -72,10 +72,9 @@ for inter in inter_certs:
     for leaf in leaf_certs:
         leaf_issued = leaf.get(\"issued_at\", \"\")
         if inter_issued and leaf_issued and inter_issued > leaf_issued:
-            errors.append(
-                f\"intermediate {inter[chr(39)+\"cert_id\"+chr(39)]} issued_at={inter_issued} \"
-                f\"> leaf {leaf[chr(39)+\"cert_id\"+chr(39)]} issued_at={leaf_issued}\"
-            )
+            inter_id = inter.get(\"cert_id\", \"unknown\")
+            leaf_id = leaf.get(\"cert_id\", \"unknown\")
+            errors.append(\"intermediate \" + inter_id + \" issued_at=\" + inter_issued + \" > leaf \" + leaf_id + \" issued_at=\" + leaf_issued)
 if errors:
     print(\"ERRORS:\", errors)
     sys.exit(1)

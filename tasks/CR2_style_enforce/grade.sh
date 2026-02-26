@@ -102,40 +102,28 @@ assert len(wildcards) == 0, f'Wildcard imports still present: {wildcards}'
 print('NO_WILDCARD_IMPORTS')
 \"" "wildcard_imports_present"
 
-# ── Check 5: Import order correct (stdlib before third-party) ─────────────────
+# ── Check 5: Import order correct (alphabetical within stdlib group) ───────────
 check "python3 -c \"
 import re
 with open('$MODULE_FILE') as f:
     code = f.read()
-# Third-party packages that should NOT appear before any stdlib import
-third_party = ['requests', 'numpy', 'yaml', 'boto3', 'np']
 lines = code.split('\n')
-import_lines = [(i, l.strip()) for i, l in enumerate(lines) if re.match(r'^import |^from \S+ import', l.strip())]
-# Find the first third-party import line index
-first_tp = None
-for idx, (lineno, imp) in enumerate(import_lines):
-    for pkg in third_party:
-        if re.match(r'^import ' + re.escape(pkg) + r'(\s|$)', imp) or \
-           re.match(r'^from ' + re.escape(pkg) + r'(\s|\.|$)', imp):
-            if first_tp is None:
-                first_tp = (idx, lineno, imp)
-if first_tp is not None:
-    tp_idx, tp_lineno, tp_imp = first_tp
-    # All imports before first_tp must also be third-party, OR there must be
-    # a blank line between the last stdlib and first third-party
-    # Check: no stdlib import appears AFTER first third-party without a blank line separator
-    import sys
-    stdlib_after = []
-    for idx2, (lineno2, imp2) in enumerate(import_lines[tp_idx+1:], tp_idx+1):
-        pkg_name = re.match(r'^import (\S+)', imp2)
-        if pkg_name:
-            name = pkg_name.group(1).split('.')[0]
-            if name in sys.stdlib_module_names if hasattr(sys, 'stdlib_module_names') else name not in third_party:
-                # Check if there is a blank line between tp and this import
-                between_lines = lines[tp_lineno+1:lineno2]
-                if not any(l.strip() == '' for l in between_lines):
-                    stdlib_after.append(imp2)
-    assert len(stdlib_after) == 0, f'stdlib imports after third-party without blank separator: {stdlib_after}'
+# Collect consecutive top-level 'import X' lines (simple imports, no from-imports)
+import_names = []
+for line in lines:
+    stripped = line.strip()
+    # Stop collecting at blank line or non-import line after we've started
+    m = re.match(r'^import (\S+)', stripped)
+    if m:
+        import_names.append(m.group(1).split('.')[0].lower())
+    elif stripped.startswith('from ') or stripped == '' or stripped.startswith('#'):
+        if import_names:
+            break
+# Check the collected block is sorted
+assert import_names == sorted(import_names), \
+    f'stdlib imports not in alphabetical order: {import_names}'
+assert len(import_names) >= 3, \
+    f'Expected at least 3 import statements, found {len(import_names)}'
 print('IMPORT_ORDER_OK')
 \"" "import_order_incorrect"
 

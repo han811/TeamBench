@@ -1,0 +1,11 @@
+task_id: NEG3_tech_debt
+domain: software
+network: false
+time_limit_sec: 900
+seeds: [0, 1, 2]
+difficulty: medium
+languages: [python]
+tags: [tech-debt, prioritization, refactoring, tradeoff-analysis]
+workspace_file_count: 5
+lines_changed_expected: 40
+parameterized: true

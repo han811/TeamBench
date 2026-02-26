@@ -227,6 +227,7 @@ import json, re
 
 expected = json.load(open('$EXPECTED'))
 contracts = expected.get('edge_contracts', {})
+bugs = expected.get('bugs', {})
 errors = []
 
 for edge_key, contract in contracts.items():
@@ -234,6 +235,10 @@ for edge_key, contract in contracts.items():
     if len(parts) != 2:
         continue
     caller = parts[0]
+    bug_info = bugs.get(caller, {})
+    bug_types = bug_info.get('types', [bug_info.get('type', '')])
+    if 'wrong_response_field' not in bug_types:
+        continue
     correct_field = contract.get('correct_field', '')
     wrong_field   = contract.get('wrong_field', '')
     if not correct_field or not wrong_field or correct_field == wrong_field:
@@ -243,19 +248,18 @@ for edge_key, contract in contracts.items():
         src = open(server_path).read()
     except FileNotFoundError:
         continue
-    # Check that wrong_field is not used where correct_field should be
-    # We look for resp.get(\"wrong_field\") which would be the bug
-    bug_pattern = f'resp.get(\"{wrong_field}\")'
-    fix_pattern = f'resp.get(\"{correct_field}\")'
+    # Pattern uses resp.get(\"field\" to match both resp.get(\"f\") and resp.get(\"f\", None)
+    bug_pattern = f'resp.get(\\\"{wrong_field}\\\"'
+    fix_pattern = f'resp.get(\\\"{correct_field}\\\"'
     if bug_pattern in src and fix_pattern not in src:
-        errors.append(f'{caller}: still reads wrong field \"{wrong_field}\" instead of \"{correct_field}\"')
+        errors.append(f'{caller}: still reads wrong field \\\"{wrong_field}\\\" instead of \\\"{correct_field}\\\"')
 
 assert not errors, 'Wrong response fields: ' + '; '.join(errors)
 \"" "wrong_response_fields_remain"
 
   # ── 11. Error handling present in services that had missing_error_handling bug ──
   check "python3 -c \"
-import json
+import json, ast, textwrap
 
 expected = json.load(open('$EXPECTED'))
 bugs = expected.get('bugs', {})
@@ -263,14 +267,28 @@ errors = []
 
 for svc, bug_info in bugs.items():
     bug_types = bug_info.get('types', [bug_info.get('type', '')])
-    if 'missing_error_handling' in bug_types:
-        server_path = f'{svc}/server.py'
-        try:
-            src = open(server_path).read()
-        except FileNotFoundError:
-            continue
-        if 'try:' not in src or 'except' not in src:
-            errors.append(f'{svc}: missing_error_handling bug not fixed (no try/except found)')
+    if 'missing_error_handling' not in bug_types:
+        continue
+    server_path = f'{svc}/server.py'
+    try:
+        src = open(server_path).read()
+    except FileNotFoundError:
+        continue
+    # Extract the process() function body and check it contains try/except
+    # (not just the _http_post helper which always has try/except)
+    in_process = False
+    process_lines = []
+    for line in src.split('\\\n'):
+        if line.startswith('def process('):
+            in_process = True
+            process_lines = [line]
+        elif in_process:
+            if line.startswith('def ') or line.startswith('class '):
+                break
+            process_lines.append(line)
+    process_src = '\\\n'.join(process_lines)
+    if 'try:' not in process_src or 'except' not in process_src:
+        errors.append(f'{svc}: process() has no try/except for upstream call')
 
 assert not errors, '; '.join(errors)
 \"" "missing_error_handling_not_fixed"
@@ -293,17 +311,28 @@ for edge_key, contract in contracts.items():
     bug_types = bug_info.get('types', [bug_info.get('type', '')])
     if 'wrong_http_method' not in bug_types:
         continue
-    wrong_method  = contract.get('wrong_method', 'GET')
+    wrong_method   = contract.get('wrong_method', 'GET')
     correct_method = contract.get('correct_method', 'POST')
     server_path = f'{caller}/server.py'
     try:
         src = open(server_path).read()
     except FileNotFoundError:
         continue
-    # Check method= argument in _http_post call
-    bug_str = f'method=\"{wrong_method}\"'
-    fix_str = f'method=\"{correct_method}\"'
-    if bug_str in src and fix_str not in src:
+    # Check method= argument in _http_post call within process()
+    in_process = False
+    process_lines = []
+    for line in src.split('\\\n'):
+        if line.startswith('def process('):
+            in_process = True
+            process_lines = [line]
+        elif in_process:
+            if line.startswith('def ') or line.startswith('class '):
+                break
+            process_lines.append(line)
+    process_src = '\\\n'.join(process_lines)
+    bug_str = f'method=\\\"{wrong_method}\\\"'
+    fix_str = f'method=\\\"{correct_method}\\\"'
+    if bug_str in process_src and fix_str not in process_src:
         errors.append(f'{caller}: still uses wrong HTTP method {wrong_method} instead of {correct_method}')
 
 assert not errors, '; '.join(errors)

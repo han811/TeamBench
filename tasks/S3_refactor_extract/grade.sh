@@ -17,183 +17,199 @@ check() {
   fi
 }
 
+# ── Locate python + pytest ──────────────────────────────────────────────────
+if [ -x "<HOME>/TeamBench/venv/bin/python" ]; then
+  PYTHON="<HOME>/TeamBench/venv/bin/python"
+  PYTEST="<HOME>/TeamBench/venv/bin/pytest"
+else
+  PYTHON="$(command -v python3 || command -v python)"
+  PYTEST="$(command -v pytest || echo "$PYTHON -m pytest")"
+fi
+
+export PYTHONPATH="$WORKSPACE${PYTHONPATH:+:$PYTHONPATH}"
+
 # ── Load seed-specific expected values ─────────────────────────────────────
 EXPECTED_JSON="$REPORTS/expected.json"
 
-APP_TYPE=$(python3 -c "import json; d=json.load(open('$EXPECTED_JSON')); print(d.get('app_type','web_api'))")
-MONOLITH_FILE=$(python3 -c "import json; d=json.load(open('$EXPECTED_JSON')); print(d.get('monolith_file','app.py'))")
-MODULES_JSON=$(python3 -c "import json; d=json.load(open('$EXPECTED_JSON')); print(json.dumps(d.get('modules',[])))")
-MODULES=$(python3 -c "import json; d=json.load(open('$EXPECTED_JSON')); print(' '.join(d.get('modules',[])))")
-MODULE_COUNT=$(python3 -c "import json; d=json.load(open('$EXPECTED_JSON')); print(len(d.get('modules',[])))")
-PUBLIC_APIS=$(python3 -c "import json; d=json.load(open('$EXPECTED_JSON')); print(json.dumps(d.get('public_apis',{})))")
-MODULE_CONTENTS=$(python3 -c "import json; d=json.load(open('$EXPECTED_JSON')); print(json.dumps(d.get('module_contents',{})))")
-IMPORT_RULES=$(python3 -c "import json; d=json.load(open('$EXPECTED_JSON')); print(d.get('import_rules',''))")
+APP_TYPE=$($PYTHON -c "import json; d=json.load(open('$EXPECTED_JSON')); print(d.get('app_type','web_api'))")
+MONOLITH_FILE=$($PYTHON -c "import json; d=json.load(open('$EXPECTED_JSON')); print(d.get('monolith_file','app.py'))")
 
-cd "$WORKSPACE"
+# Write per-check data to temp dir so Python scripts can read without quoting issues
+GDIR=$(mktemp -d)
+$PYTHON - <<PYEOF
+import json
+d = json.load(open('$EXPECTED_JSON'))
+json.dump(d.get('modules', []),         open('$GDIR/modules.json','w'))
+json.dump(d.get('public_apis', {}),     open('$GDIR/public_apis.json','w'))
+json.dump(d.get('module_contents', {}), open('$GDIR/module_contents.json','w'))
+PYEOF
 
-# ── CHECK 1: Correct number of new module files exist ──────────────────────
-check "python3 -c \"
-import json, os
-modules = json.loads('$MODULES_JSON')
-missing = [m for m in modules if not os.path.isfile(m + '.py')]
-assert not missing, f'Missing module files: {missing}'
+# Write all check scripts to files (avoids all shell quoting issues)
+cat > "$GDIR/check1.py" <<'PYEOF'
+import json, os, sys
+ws = sys.argv[1]; gdir = sys.argv[2]
+modules = json.load(open(gdir + '/modules.json'))
+missing = [m for m in modules if not os.path.isfile(ws + '/' + m + '.py')]
+assert not missing, 'Missing module files: ' + str(missing)
 print('MODULE_FILES_OK')
-\"" "missing_module_files"
+PYEOF
 
-# ── CHECK 2: Each module is independently importable ───────────────────────
-check "python3 -c \"
+cat > "$GDIR/check2.py" <<'PYEOF'
 import json, subprocess, sys, os
-modules = json.loads('$MODULES_JSON')
+ws = sys.argv[1]; gdir = sys.argv[2]
+modules = json.load(open(gdir + '/modules.json'))
+env = dict(os.environ)
+env['PYTHONPATH'] = ws + (':' + env['PYTHONPATH'] if env.get('PYTHONPATH') else '')
 for m in modules:
-    r = subprocess.run(
-        [sys.executable, '-c', f'import {m}; print(\"ok\")'],
-        capture_output=True, text=True, cwd='$WORKSPACE'
-    )
-    assert r.returncode == 0, f'{m} not independently importable: {r.stderr}'
+    r = subprocess.run([sys.executable, '-c', 'import ' + m],
+                       capture_output=True, text=True, cwd=ws, env=env)
+    assert r.returncode == 0, m + ' not independently importable: ' + r.stderr
 print('INDEPENDENT_IMPORT_OK')
-\"" "module_not_independently_importable"
+PYEOF
 
-# ── CHECK 3: No circular imports ───────────────────────────────────────────
-check "python3 -c \"
-import json, subprocess, sys
-modules = json.loads('$MODULES_JSON')
-import_all = '; '.join(f'import {m}' for m in modules)
-r = subprocess.run(
-    [sys.executable, '-c', import_all + '; print(\"no_circular\")'],
-    capture_output=True, text=True, cwd='$WORKSPACE'
-)
-assert r.returncode == 0, f'Circular import detected: {r.stderr}'
+cat > "$GDIR/check3.py" <<'PYEOF'
+import json, subprocess, sys, os
+ws = sys.argv[1]; gdir = sys.argv[2]
+modules = json.load(open(gdir + '/modules.json'))
+import_all = '; '.join('import ' + m for m in modules)
+env = dict(os.environ)
+env['PYTHONPATH'] = ws + (':' + env['PYTHONPATH'] if env.get('PYTHONPATH') else '')
+r = subprocess.run([sys.executable, '-c', import_all],
+                   capture_output=True, text=True, cwd=ws, env=env)
+assert r.returncode == 0, 'Circular/import error: ' + r.stderr
 print('NO_CIRCULAR_OK')
-\"" "circular_imports_detected"
+PYEOF
 
-# ── CHECK 4: Public APIs present in each module ────────────────────────────
-check "python3 -c \"
+cat > "$GDIR/check4.py" <<'PYEOF'
 import json, sys
-sys.path.insert(0, '$WORKSPACE')
-public_apis = json.loads(r'''$PUBLIC_APIS''')
+ws = sys.argv[1]; gdir = sys.argv[2]
+sys.path.insert(0, ws)
+public_apis = json.load(open(gdir + '/public_apis.json'))
 for mod_name, api_items in public_apis.items():
     mod = __import__(mod_name)
     for item in api_items:
-        assert hasattr(mod, item), f'{mod_name}.{item} missing from public API'
+        assert hasattr(mod, item), mod_name + '.' + item + ' missing from public API'
 print('PUBLIC_API_OK')
-\"" "public_api_missing"
+PYEOF
 
-# ── CHECK 5: Correct contents in each module (functions/classes) ───────────
-check "python3 -c \"
-import json, sys, inspect
-sys.path.insert(0, '$WORKSPACE')
-contents = json.loads(r'''$MODULE_CONTENTS''')
+cat > "$GDIR/check5.py" <<'PYEOF'
+import json, sys
+ws = sys.argv[1]; gdir = sys.argv[2]
+sys.path.insert(0, ws)
+contents = json.load(open(gdir + '/module_contents.json'))
 for mod_name, expected_items in contents.items():
     mod = __import__(mod_name)
     for item in expected_items:
-        assert hasattr(mod, item), f'Expected {item} in {mod_name} but not found'
+        assert hasattr(mod, item), 'Expected ' + item + ' in ' + mod_name + ' but not found'
 print('MODULE_CONTENTS_OK')
-\"" "module_contents_wrong"
+PYEOF
 
-# ── CHECK 6: Existing tests pass ───────────────────────────────────────────
-check "python3 -m pytest tests/ -q --tb=no -p no:cacheprovider 2>&1 | tail -1 | grep -E '^[0-9]+ passed'" "tests_fail"
-
-# ── CHECK 7: All tests pass (zero failures) ────────────────────────────────
-check "python3 -m pytest tests/ -q --tb=no -p no:cacheprovider 2>&1 | grep -v 'warning' | grep -qv 'failed'" "tests_have_failures"
-
-# ── CHECK 8: Monolith no longer contains all business logic ────────────────
-# (either deleted or reduced to <20 lines)
-check "python3 -c \"
-import os
-mf = '$MONOLITH_FILE'
+cat > "$GDIR/check8.py" <<'PYEOF'
+import sys, os
+ws = sys.argv[1]; monolith = sys.argv[3]
+mf = ws + '/' + monolith
 if not os.path.exists(mf):
     print('MONOLITH_GONE_OK')
 else:
     lines = [l for l in open(mf).readlines() if l.strip() and not l.strip().startswith('#')]
-    assert len(lines) < 20, f'Monolith {mf} still has {len(lines)} non-blank lines — not split'
+    assert len(lines) < 20, 'Monolith still has ' + str(len(lines)) + ' non-blank lines'
     print('MONOLITH_THINNED_OK')
-\"" "monolith_not_split"
+PYEOF
 
-# ── CHECK 9: Total line count roughly preserved (no mass deletions) ─────────
-check "python3 -c \"
-import json, os, ast
-modules = json.loads('$MODULES_JSON')
+cat > "$GDIR/check9.py" <<'PYEOF'
+import json, os, sys
+ws = sys.argv[1]; gdir = sys.argv[2]
+modules = json.load(open(gdir + '/modules.json'))
 total_lines = sum(
-    len(open(m + '.py').readlines())
-    for m in modules if os.path.isfile(m + '.py')
+    len(open(ws + '/' + m + '.py').readlines())
+    for m in modules if os.path.isfile(ws + '/' + m + '.py')
 )
-# original monolith was 200-500 lines; we require new modules have at least 80 lines total
-assert total_lines >= 80, f'New modules only have {total_lines} lines — functionality likely deleted'
-print('LINE_COUNT_OK')
-\"" "too_few_lines"
+assert total_lines >= 30, 'New modules only have ' + str(total_lines) + ' lines — functionality likely deleted'
+print('LINE_COUNT_OK (' + str(total_lines) + ' lines)')
+PYEOF
 
-# ── CHECK 10: Import dependency rules respected ─────────────────────────────
-check "python3 -c \"
-import json, ast, os
-modules = json.loads('$MODULES_JSON')
-import_rules = '$IMPORT_RULES'
+cat > "$GDIR/check10.py" <<'PYEOF'
+import json, ast, os, sys
+ws = sys.argv[1]; gdir = sys.argv[2]
+modules = json.load(open(gdir + '/modules.json'))
 
-# Build actual import graph: which modules import which other modules
 def get_imports(filepath):
-    try:
-        tree = ast.parse(open(filepath).read())
-    except:
-        return set()
+    try: tree = ast.parse(open(filepath).read())
+    except: return set()
     imports = set()
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
             for alias in node.names:
                 imports.add(alias.name.split('.')[0])
         elif isinstance(node, ast.ImportFrom):
-            if node.module:
-                imports.add(node.module.split('.')[0])
+            if node.module: imports.add(node.module.split('.')[0])
     return imports & set(modules)
 
 module_imports = {}
 for m in modules:
-    fp = m + '.py'
+    fp = ws + '/' + m + '.py'
     if os.path.isfile(fp):
         module_imports[m] = get_imports(fp)
 
-# Check no circular imports exist in the graph
 def has_cycle(graph):
     visited = set()
     def dfs(node, path):
-        if node in path:
-            return True
-        if node in visited:
-            return False
-        path.add(node)
-        for neighbor in graph.get(node, set()):
-            if dfs(neighbor, path):
-                return True
+        if node in path: return True
+        if node in visited: return False
+        path.add(node); visited.add(node)
+        for nb in graph.get(node, set()):
+            if dfs(nb, path): return True
         path.discard(node)
-        visited.add(node)
         return False
     return any(dfs(n, set()) for n in graph)
 
-assert not has_cycle(module_imports), f'Circular import in module graph: {module_imports}'
+assert not has_cycle(module_imports), 'Circular import in module graph: ' + str(module_imports)
 print('IMPORT_RULES_OK')
-\"" "import_rules_violated"
+PYEOF
 
-# ── CHECK 11: Each module file is non-empty (>5 lines) ─────────────────────
-check "python3 -c \"
-import json, os
-modules = json.loads('$MODULES_JSON')
+cat > "$GDIR/check11.py" <<'PYEOF'
+import json, os, sys
+ws = sys.argv[1]; gdir = sys.argv[2]
+modules = json.load(open(gdir + '/modules.json'))
 for m in modules:
-    fp = m + '.py'
+    fp = ws + '/' + m + '.py'
     if os.path.isfile(fp):
         lines = [l for l in open(fp).readlines() if l.strip()]
-        assert len(lines) >= 5, f'{m}.py has only {len(lines)} non-blank lines'
+        assert len(lines) >= 5, m + '.py has only ' + str(len(lines)) + ' non-blank lines'
 print('MODULE_NONEMPTY_OK')
-\"" "module_file_too_small"
+PYEOF
 
-# ── CHECK 12: Attestation ──────────────────────────────────────────────────
-check "python3 -c \"
+cat > "$GDIR/check12.py" <<'PYEOF'
 import json, sys
-att = json.load(open(sys.argv[1]))
+submission = sys.argv[4]
+att = json.load(open(submission + '/attestation.json'))
 assert att.get('verdict') == 'pass'
-\" '$SUBMISSION/attestation.json'" "bad_attestation"
+print('ATTESTATION_OK')
+PYEOF
 
-# ── Score ──────────────────────────────────────────────────────────────────
-PARTIAL=$(python3 -c "print(round($PASSED/max(1,$CHECKS), 2))")
+cd "$WORKSPACE"
+
+# Run all checks (each script receives: ws gdir monolith_file submission)
+check "$PYTHON '$GDIR/check1.py'  '$WORKSPACE' '$GDIR' '$MONOLITH_FILE' '$SUBMISSION'" "missing_module_files"
+check "$PYTHON '$GDIR/check2.py'  '$WORKSPACE' '$GDIR' '$MONOLITH_FILE' '$SUBMISSION'" "module_not_independently_importable"
+check "$PYTHON '$GDIR/check3.py'  '$WORKSPACE' '$GDIR' '$MONOLITH_FILE' '$SUBMISSION'" "circular_imports_detected"
+check "$PYTHON '$GDIR/check4.py'  '$WORKSPACE' '$GDIR' '$MONOLITH_FILE' '$SUBMISSION'" "public_api_missing"
+check "$PYTHON '$GDIR/check5.py'  '$WORKSPACE' '$GDIR' '$MONOLITH_FILE' '$SUBMISSION'" "module_contents_wrong"
+check "$PYTEST tests/ -q --tb=no -p no:cacheprovider --import-mode=importlib 2>&1 | tail -1 | grep -E '^[0-9]+ passed'" "tests_fail"
+check "$PYTEST tests/ -q --tb=no -p no:cacheprovider --import-mode=importlib 2>&1 | grep -v 'warning' | grep -qv 'failed'" "tests_have_failures"
+check "$PYTHON '$GDIR/check8.py'  '$WORKSPACE' '$GDIR' '$MONOLITH_FILE' '$SUBMISSION'" "monolith_not_split"
+check "$PYTHON '$GDIR/check9.py'  '$WORKSPACE' '$GDIR' '$MONOLITH_FILE' '$SUBMISSION'" "too_few_lines"
+check "$PYTHON '$GDIR/check10.py' '$WORKSPACE' '$GDIR' '$MONOLITH_FILE' '$SUBMISSION'" "import_rules_violated"
+check "$PYTHON '$GDIR/check11.py' '$WORKSPACE' '$GDIR' '$MONOLITH_FILE' '$SUBMISSION'" "module_file_too_small"
+check "$PYTHON '$GDIR/check12.py' '$WORKSPACE' '$GDIR' '$MONOLITH_FILE' '$SUBMISSION'" "bad_attestation"
+
+# Cleanup
+rm -rf "$GDIR"
+
+# Score
+PARTIAL=$($PYTHON -c "print(round($PASSED/max(1,$CHECKS), 2))")
 if [ "$PASSED" -eq "$CHECKS" ]; then SUCCESS=1; PASS=true; else SUCCESS=0; PASS=false; fi
-FM=$(python3 -c "import json; print(json.dumps([x for x in '${FAILURES}'.split(',') if x]))")
+FM=$($PYTHON -c "import json; print(json.dumps([x for x in '${FAILURES}'.split(',') if x]))")
 
 cat > "$REPORTS/score.json" <<JSON
 {

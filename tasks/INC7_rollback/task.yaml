@@ -1,0 +1,11 @@
+task_id: INC7_rollback
+domain: incident
+difficulty: hard
+languages: [python]
+network: false
+time_limit_sec: 900
+seeds: [0, 1, 2]
+parameterized: true
+workspace_file_count: 7
+lines_changed_expected: 80
+tags: [incident-response, rollback, deployment, data-preservation, ordered-steps]

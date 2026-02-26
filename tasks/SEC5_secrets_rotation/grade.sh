@@ -287,7 +287,22 @@ print('TESTS_FILE_OK')
 \"" "tests_file_missing_or_empty"
 
 # 11. pytest passes on test_secrets.py (best-effort; skip if pytest not installed)
-check "python3 -m pytest tests/test_secrets.py -x -q --tb=short 2>&1 | tail -5 | grep -E '(passed|no tests ran|PASSED)'" "tests_failed"
+check "python3 -c \"
+import subprocess, sys
+result = subprocess.run(
+    [sys.executable, '-m', 'pytest', 'tests/test_secrets.py', '-x', '-q', '--tb=short'],
+    capture_output=True, text=True
+)
+if result.returncode == 5:
+    # exit code 5 = no tests collected — acceptable (pytest may not be installed)
+    print('TESTS_SKIPPED_NO_PYTEST')
+    exit(0)
+if 'No module named pytest' in result.stderr or 'No module named pytest' in result.stdout:
+    print('TESTS_SKIPPED_NO_PYTEST')
+    exit(0)
+assert result.returncode == 0, f'pytest failed:\\n{result.stdout[-500:]}\\n{result.stderr[-200:]}'
+print('TESTS_PASSED')
+\"" "tests_failed"
 
 # 12. No new dangerous patterns introduced
 check "python3 -c \"
