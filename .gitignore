@@ -1,3 +1,6 @@
+# Secrets
+.env
+
 # Runtime artifacts
 shared/runs/
 shared/campaigns/
