@@ -1,0 +1,22 @@
+DOCUMENT: doc_B.txt
+Organization: Nexus Software Ltd.
+Document Set: Product Documentation Hub
+Topic: Support Tiers
+Date: 2019-05-03
+Status: APPROVED
+Author: Luna
+
+POLICY / SPECIFICATION
+
+Topic: Support Tiers
+Effective Date: 2019-05-03
+
+Current Value: 2 tiers
+
+Nexus Software Ltd. offers 2 tiers to customers, differentiated by response time and
+access to dedicated support engineers.
+Tier eligibility is based on contract value and product edition.
+Support tier changes take effect at the next renewal date.
+
+Document ID: doc_B.txt
+Supersession Note: See governance rules for supersession precedence.

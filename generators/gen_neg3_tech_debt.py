@@ -591,8 +591,8 @@ class {app}:
         if len(data) > {max_size_val}:
             raise ValueError("Batch too large")
 
-        formatted = {format_call}
         record = dict(data)
+        formatted = {format_call}
         record["_formatted"] = formatted
 
         attempt = 0
@@ -611,8 +611,10 @@ class {app}:
         return self._db.list_all()
 
 {transform_body}
-{fetch_body}{dead_legacy}
+{fetch_body}
 '''
+        # Append module-level dead code after the class (outside f-string to avoid {{ }} escaping)
+        service_py += dead_legacy
         # Remove extra blank lines
         import re
         service_py = re.sub(r'\n{4,}', '\n\n\n', service_py)

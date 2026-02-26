@@ -1,0 +1,44 @@
+{
+  "questions": [
+    {
+      "id": "Q1",
+      "question": "For the support tiers specification at Nexus Software Ltd., doc_E.txt is dated 2021-03-28 while doc_B.txt is dated 2019-05-03. Which document is authoritative and why?",
+      "answer": ""
+    },
+    {
+      "id": "Q2",
+      "question": "What is the uptime SLA target for the Nexus Software Ltd. production environment?",
+      "answer": ""
+    },
+    {
+      "id": "Q3",
+      "question": "What pricing model does Nexus Software Ltd. use for its standard tier?",
+      "answer": ""
+    },
+    {
+      "id": "Q4",
+      "question": "According to the temporal priority rules for Nexus Software Ltd. documents, can a DRAFT document dated 2024 supersede an APPROVED document dated 2020 on the same topic?",
+      "answer": ""
+    },
+    {
+      "id": "Q5",
+      "question": "For the feature flags specification at Nexus Software Ltd., doc_F.txt is dated 2025-03-22 while doc_C.txt is dated 2022-07-14. Which document is authoritative and why?",
+      "answer": ""
+    },
+    {
+      "id": "Q6",
+      "question": "If a newer document dated 2025 contradicts a Founding Document dated 2018 on the same topic, which document is authoritative at Nexus Software Ltd.?",
+      "answer": ""
+    },
+    {
+      "id": "Q7",
+      "question": "Which document is the authoritative source for the pricing model specification at Nexus Software Ltd.?",
+      "answer": ""
+    },
+    {
+      "id": "Q8",
+      "question": "How many support tiers does Nexus Software Ltd. offer to customers?",
+      "answer": ""
+    }
+  ]
+}

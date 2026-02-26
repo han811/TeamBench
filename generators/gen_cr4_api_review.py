@@ -278,9 +278,6 @@ class Generator(TaskGenerator):
         f1  = domain["field1"]
         f2  = domain["field2"]
         f3  = domain["field3"]
-        v1  = domain["val1"]
-        v2  = domain["val2"]
-        v3  = domain["val3"]
         ff  = domain["filter_field"]
 
         # V5: route prefix (does NOT start with /api/v1/)
@@ -288,6 +285,12 @@ class Generator(TaskGenerator):
             prefix = f"{v5_bad_prefix}/{rs}"
         else:
             prefix = f"/{rs}"
+
+        # V1: use a distinct sub-path for create so it never conflicts with
+        # the GET list route even when v1_bad == "GET".
+        # The violation is: the endpoint that SHOULD be POST /{rs} is instead
+        # registered as {v1_bad} at /{rs}/new — agents must move it to POST /{rs}.
+        create_path = f"{prefix}/new"
 
         return f'''"""
 {domain["title"]}
@@ -316,22 +319,27 @@ def _new_id() -> str:
 
 # ===========================================================================
 # VIOLATION SUMMARY (all must be fixed):
-#   V1: create_{r} uses {v1_bad} instead of POST
-#   V2: search route is /{v2_bad} (camelCase) instead of /search
+#   V1: create_{r} is at "{create_path}" with method {v1_bad} instead of
+#       POST at "{prefix}"
+#   V2: search route is "{prefix}/{v2_bad}" (camelCase) instead of
+#       "{prefix}/search" with snake_case function name
 #   V3: list_{rs} returns all records with no pagination
-#   V4: wrong status codes on create (returns {v4_create}), not-found
-#       (returns {v4_notfound}), delete (returns {v4_delete}),
-#       and client errors (returns {v4_client} instead of 400)
+#   V4: wrong status codes — create returns {v4_create} (need 201),
+#       not-found returns {v4_notfound} (need 404),
+#       delete returns {v4_delete} (need 204),
+#       client errors return {v4_client} (need 400)
 #   V5: all routes use prefix "{prefix}" instead of /api/v1/{rs}
 #   V6: error responses are bare strings, not JSON {{error, code}} objects
 # ===========================================================================
 
 
-@app.route("{prefix}", methods=["{v1_bad}"])
+# VIOLATION V1: create endpoint uses wrong method AND wrong path
+# Correct: POST {prefix}  |  Current: {v1_bad} {create_path}
+@app.route("{create_path}", methods=["{v1_bad}"])
 def create_{r}():
     """Create a new {r}.
 
-    VIOLATION V1: Uses {v1_bad} instead of POST.
+    VIOLATION V1: Route is {v1_bad} {create_path} — should be POST {prefix}.
     VIOLATION V5: Route missing /api/v1/ prefix.
     """
     data = request.get_json(force=True) or {{}}
@@ -409,12 +417,13 @@ def delete_{r}(item_id: str):
     return jsonify({{"deleted": True}}), {v4_delete}
 
 
+# VIOLATION V2: camelCase route and function name
 @app.route("{prefix}/{v2_bad}", methods=["GET"])
 def {v2_bad}():
     """Search/filter {rs}.
 
     VIOLATION V2: Route and function use camelCase name '{v2_bad}'.
-                  Should be snake_case '/search' and function 'search_{rs}'.
+                  Should be /search with function 'search_{rs}'.
     VIOLATION V5: Route missing /api/v1/ prefix.
     """
     filter_val = request.args.get("{ff}")

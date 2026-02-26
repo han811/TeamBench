@@ -18,64 +18,79 @@ mkdir -p "$REPORTS"
 
 CHECKS=0; PASSED=0; FAILURES=""
 check() {
+  local label="$1"
+  local script="$2"
   CHECKS=$((CHECKS + 1))
-  if eval "$1" 2>/dev/null; then
+  if python3 "$script" "$WORKSPACE" "$EXPECTED" >/dev/null 2>&1; then
     PASSED=$((PASSED + 1))
   else
-    FAILURES="${FAILURES:+${FAILURES},}$2"
+    FAILURES="${FAILURES:+${FAILURES},}$label"
   fi
 }
 
 cd "$WORKSPACE"
 
-# ── Read domain and key fields from expected.json ────────────────────────────
-DOMAIN=$(python3 -c "
-import json
-e = json.load(open('$EXPECTED'))
+# ── Read domain from expected.json ───────────────────────────────────────────
+DOMAIN=$(python3 - "$EXPECTED" <<'PYEOF'
+import sys, json
+e = json.load(open(sys.argv[1]))
 print(e.get('domain', 'unknown'))
-" 2>/dev/null || echo "unknown")
+PYEOF
+)
 
-ENV_PREFIX=$(python3 -c "
-import json
-e = json.load(open('$EXPECTED'))
+ENV_PREFIX=$(python3 - "$EXPECTED" <<'PYEOF'
+import sys, json
+e = json.load(open(sys.argv[1]))
 print(e.get('env_prefix', 'APP'))
-" 2>/dev/null || echo "APP")
+PYEOF
+)
 
-# Extract schema as JSON for use in checks
-SCHEMA_JSON=$(python3 -c "
-import json
-e = json.load(open('$EXPECTED'))
-print(json.dumps(e.get('schema', {})))
-" 2>/dev/null || echo '{}')
+# Write all check scripts to a temp directory
+TMPDIR_CHECKS=$(mktemp -d)
+trap 'rm -rf "$TMPDIR_CHECKS"' EXIT
 
 # ── Check 1: config_system.py exists ─────────────────────────────────────────
-check "test -f '$WORKSPACE/config_system.py'" "config_system_missing"
+cat > "$TMPDIR_CHECKS/c01_exists.py" << 'PYEOF'
+import sys, os
+ws = sys.argv[1]
+assert os.path.isfile(os.path.join(ws, 'config_system.py')), 'config_system.py missing'
+print('EXISTS_OK')
+PYEOF
+check "config_system_missing" "$TMPDIR_CHECKS/c01_exists.py"
 
-# ── Check 2: module imports without error ─────────────────────────────────────
-check "python3 -c \"
-import sys; sys.path.insert(0, '$WORKSPACE')
+# ── Check 2: module imports without error ──────────────────────────────────────
+cat > "$TMPDIR_CHECKS/c02_import.py" << 'PYEOF'
+import sys
+sys.path.insert(0, sys.argv[1])
 from config_system import load_config, get_schema, validate_value, ConfigValidationError
 print('IMPORT_OK')
-\"" "import_error"
+PYEOF
+check "import_error" "$TMPDIR_CHECKS/c02_import.py"
 
-# ── Check 3: load_config() returns a dict with all schema keys ────────────────
-check "python3 -c \"
-import sys, json; sys.path.insert(0, '$WORKSPACE')
+# ── Check 3: load_config() returns a dict with all schema keys ─────────────────
+cat > "$TMPDIR_CHECKS/c03_allkeys.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
 from config_system import load_config, get_schema
+e = json.load(open(sys.argv[2]))
+expected_schema = e.get('schema', {})
 cfg = load_config()
 schema = get_schema()
 assert isinstance(cfg, dict), f'load_config() must return dict, got {type(cfg)}'
 assert isinstance(schema, dict), f'get_schema() must return dict, got {type(schema)}'
-missing = [k for k in schema if k not in cfg]
+missing = [k for k in expected_schema if k not in cfg]
 assert not missing, f'Missing keys in config: {missing}'
 print('ALL_KEYS_OK')
-\"" "missing_keys"
+PYEOF
+check "missing_keys" "$TMPDIR_CHECKS/c03_allkeys.py"
 
-# ── Check 4: default values are correct ───────────────────────────────────────
-check "python3 -c \"
-import sys, json; sys.path.insert(0, '$WORKSPACE')
+# ── Check 4: default values are correct ────────────────────────────────────────
+cat > "$TMPDIR_CHECKS/c04_defaults.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
 from config_system import load_config
-schema = json.loads('''$SCHEMA_JSON''')
+e = json.load(open(sys.argv[2]))
+schema = e.get('schema', {})
 cfg = load_config()
 errors = []
 for key, spec in schema.items():
@@ -83,96 +98,76 @@ for key, spec in schema.items():
     actual = cfg.get(key)
     if actual != expected_default:
         errors.append(f'{key}: expected default {expected_default!r}, got {actual!r}')
-assert not errors, 'Default value mismatches:\\n' + '\\n'.join(errors)
+assert not errors, 'Default value mismatches:\n' + '\n'.join(errors)
 print('DEFAULTS_OK')
-\"" "defaults_wrong"
+PYEOF
+check "defaults_wrong" "$TMPDIR_CHECKS/c04_defaults.py"
 
-# ── Check 5: env var overrides config file (priority test) ────────────────────
-# Find first int key in schema to use for env override test
-INT_KEY=$(python3 -c "
-import json
-schema = json.loads('''$SCHEMA_JSON''')
+# ── Check 5: env var override ─────────────────────────────────────────────────
+cat > "$TMPDIR_CHECKS/c05_env_override.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
+from config_system import load_config
+e = json.load(open(sys.argv[2]))
+schema = e.get('schema', {})
+# Find first int key with range
+int_key = None
 for k, v in schema.items():
     if v.get('type') == 'int' and 'min' in v and 'max' in v:
         mn = v['min']; mx = v['max']; mid = (mn + mx) // 2
         if mn < mid < mx:
-            print(k, v['env_var'], mid)
+            int_key = k
+            env_var = v['env_var']
+            test_val = mid
             break
-" 2>/dev/null || echo "")
-
-if [ -n "$INT_KEY" ]; then
-  INT_KEY_NAME=$(echo "$INT_KEY" | awk '{print $1}')
-  INT_ENV_VAR=$(echo "$INT_KEY" | awk '{print $2}')
-  INT_VALUE=$(echo "$INT_KEY" | awk '{print $3}')
-
-  check "python3 -c \"
-import sys, json; sys.path.insert(0, '$WORKSPACE')
-from config_system import load_config
-env = {'$INT_ENV_VAR': '$INT_VALUE'}
+if int_key is None:
+    print('ENV_OVERRIDE_SKIP')
+    sys.exit(0)
+env = {env_var: str(test_val)}
 cfg = load_config(env_vars=env)
-actual = cfg.get('$INT_KEY_NAME')
-assert actual == $INT_VALUE, f'Env override failed: expected $INT_VALUE, got {actual!r}'
+actual = cfg.get(int_key)
+assert actual == test_val, f'Env override failed: expected {test_val}, got {actual!r}'
 print('ENV_OVERRIDE_OK')
-\"" "env_override_fail"
-else
-  # Fallback: try any key
-  check "python3 -c \"
-import sys; sys.path.insert(0, '$WORKSPACE')
-from config_system import load_config
-cfg = load_config(env_vars={})
-assert isinstance(cfg, dict)
-print('ENV_OVERRIDE_SKIP')
-\"" "env_override_fail"
-fi
+PYEOF
+check "env_override_fail" "$TMPDIR_CHECKS/c05_env_override.py"
 
-# ── Check 6: CLI args override env vars (highest priority) ────────────────────
-ENUM_INFO=$(python3 -c "
-import json
-schema = json.loads('''$SCHEMA_JSON''')
+# ── Check 6: CLI args override env vars ────────────────────────────────────────
+cat > "$TMPDIR_CHECKS/c06_cli_priority.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
+from config_system import load_config
+e = json.load(open(sys.argv[2]))
+schema = e.get('schema', {})
+# Find first enum key with at least 2 allowed values
+enum_key = None
 for k, v in schema.items():
     if v.get('type') == 'enum' and len(v.get('allowed', [])) >= 2:
-        allowed = v['allowed']
+        enum_key = k
         env_var = v['env_var']
-        print(k, env_var, allowed[0], allowed[-1])
+        allowed = v['allowed']
+        val_a = allowed[0]
+        val_b = allowed[-1]
         break
-" 2>/dev/null || echo "")
-
-if [ -n "$ENUM_INFO" ]; then
-  ENUM_KEY=$(echo "$ENUM_INFO" | awk '{print $1}')
-  ENUM_ENV=$(echo "$ENUM_INFO" | awk '{print $2}')
-  ENUM_VAL_A=$(echo "$ENUM_INFO" | awk '{print $3}')
-  ENUM_VAL_B=$(echo "$ENUM_INFO" | awk '{print $4}')
-
-  check "python3 -c \"
-import sys; sys.path.insert(0, '$WORKSPACE')
-from config_system import load_config
-# env says A, cli says B — cli must win
-env = {'$ENUM_ENV': '$ENUM_VAL_A'}
-cli = {'$ENUM_KEY': '$ENUM_VAL_B'}
+if enum_key is None:
+    print('CLI_PRIORITY_SKIP')
+    sys.exit(0)
+env = {env_var: val_a}
+cli = {enum_key: val_b}
 cfg = load_config(env_vars=env, cli_args=cli)
-actual = cfg.get('$ENUM_KEY')
-assert actual == '$ENUM_VAL_B', f'CLI should override env: expected $ENUM_VAL_B, got {actual!r}'
+actual = cfg.get(enum_key)
+assert actual == val_b, f'CLI should override env: expected {val_b!r}, got {actual!r}'
 print('CLI_PRIORITY_OK')
-\"" "cli_priority_fail"
-else
-  check "python3 -c \"
-import sys; sys.path.insert(0, '$WORKSPACE')
-from config_system import load_config
-cfg = load_config(cli_args={})
-assert isinstance(cfg, dict)
-print('CLI_PRIORITY_SKIP')
-\"" "cli_priority_fail"
-fi
+PYEOF
+check "cli_priority_fail" "$TMPDIR_CHECKS/c06_cli_priority.py"
 
-# ── Check 7: config file values are loaded and override defaults ───────────────
-check "python3 -c \"
-import sys, json, tempfile, os; sys.path.insert(0, '$WORKSPACE')
+# ── Check 7: config file values are loaded ────────────────────────────────────
+cat > "$TMPDIR_CHECKS/c07_file_load.py" << 'PYEOF'
+import sys, json, tempfile, os
+sys.path.insert(0, sys.argv[1])
 from config_system import load_config, get_schema
 schema = get_schema()
-# Pick first key to override via file
 key = next(iter(schema))
 spec = schema[key]
-# Use default value (we just want file loading to work)
 file_cfg = {key: spec['default']}
 with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
     json.dump(file_cfg, f)
@@ -183,249 +178,271 @@ try:
     print('FILE_LOAD_OK')
 finally:
     os.unlink(fname)
-\"" "file_load_fail"
+PYEOF
+check "file_load_fail" "$TMPDIR_CHECKS/c07_file_load.py"
 
-# ── Check 8: int validation — out-of-range value raises ConfigValidationError ──
-INT_RANGE_INFO=$(python3 -c "
-import json
-schema = json.loads('''$SCHEMA_JSON''')
+# ── Check 8: int validation — out-of-range raises ConfigValidationError ─────────
+cat > "$TMPDIR_CHECKS/c08_int_range.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
+from config_system import validate_value, ConfigValidationError
+e = json.load(open(sys.argv[2]))
+schema = e.get('schema', {})
+int_key = None
 for k, v in schema.items():
     if v.get('type') == 'int' and 'min' in v and 'max' in v:
-        print(k, v['min'], v['max'])
+        int_key = k; mn = v['min']; mx = v['max']
         break
-" 2>/dev/null || echo "")
-
-if [ -n "$INT_RANGE_INFO" ]; then
-  IR_KEY=$(echo "$INT_RANGE_INFO" | awk '{print $1}')
-  IR_MIN=$(echo "$INT_RANGE_INFO" | awk '{print $2}')
-  IR_MAX=$(echo "$INT_RANGE_INFO" | awk '{print $3}')
-
-  check "python3 -c \"
-import sys; sys.path.insert(0, '$WORKSPACE')
-from config_system import validate_value, ConfigValidationError
-# Value below min
+if int_key is None:
+    print('INT_RANGE_SKIP')
+    sys.exit(0)
 try:
-    validate_value('$IR_KEY', $IR_MIN - 1)
+    validate_value(int_key, mn - 1)
     assert False, 'Should raise ConfigValidationError for value below min'
 except ConfigValidationError:
     pass
-# Value above max
 try:
-    validate_value('$IR_KEY', $IR_MAX + 1)
+    validate_value(int_key, mx + 1)
     assert False, 'Should raise ConfigValidationError for value above max'
 except ConfigValidationError:
     pass
 print('INT_RANGE_OK')
-\"" "int_range_validation_fail"
+PYEOF
+check "int_range_validation_fail" "$TMPDIR_CHECKS/c08_int_range.py"
 
-  # ── Check 9: int boundary — exactly at min and max is valid ──────────────────
-  check "python3 -c \"
-import sys; sys.path.insert(0, '$WORKSPACE')
+# ── Check 9: int boundary — exactly at min and max is valid ──────────────────
+cat > "$TMPDIR_CHECKS/c09_int_boundary.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
 from config_system import validate_value
-v_min = validate_value('$IR_KEY', $IR_MIN)
-assert v_min == $IR_MIN, f'Min boundary wrong: {v_min!r}'
-v_max = validate_value('$IR_KEY', $IR_MAX)
-assert v_max == $IR_MAX, f'Max boundary wrong: {v_max!r}'
+e = json.load(open(sys.argv[2]))
+schema = e.get('schema', {})
+int_key = None
+for k, v in schema.items():
+    if v.get('type') == 'int' and 'min' in v and 'max' in v:
+        int_key = k; mn = v['min']; mx = v['max']
+        break
+if int_key is None:
+    print('INT_BOUNDARY_SKIP')
+    sys.exit(0)
+v_min = validate_value(int_key, mn)
+assert v_min == mn, f'Min boundary wrong: {v_min!r}'
+v_max = validate_value(int_key, mx)
+assert v_max == mx, f'Max boundary wrong: {v_max!r}'
 print('INT_BOUNDARY_OK')
-\"" "int_boundary_fail"
-else
-  CHECKS=$((CHECKS + 2))
-  PASSED=$((PASSED + 2))
-fi
+PYEOF
+check "int_boundary_fail" "$TMPDIR_CHECKS/c09_int_boundary.py"
 
 # ── Check 10: enum validation — invalid value raises ConfigValidationError ─────
-ENUM_KEY2=$(python3 -c "
-import json
-schema = json.loads('''$SCHEMA_JSON''')
+cat > "$TMPDIR_CHECKS/c10_enum.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
+from config_system import validate_value, ConfigValidationError
+e = json.load(open(sys.argv[2]))
+schema = e.get('schema', {})
+enum_key = None
 for k, v in schema.items():
     if v.get('type') == 'enum':
-        print(k, json.dumps(v.get('allowed', [])))
+        enum_key = k; allowed = v.get('allowed', [])
         break
-" 2>/dev/null || echo "")
-
-if [ -n "$ENUM_KEY2" ]; then
-  EK2=$(echo "$ENUM_KEY2" | awk '{print $1}')
-  EK2_ALLOWED=$(echo "$ENUM_KEY2" | cut -d' ' -f2-)
-
-  check "python3 -c \"
-import sys, json; sys.path.insert(0, '$WORKSPACE')
-from config_system import validate_value, ConfigValidationError
-allowed = $EK2_ALLOWED
+if enum_key is None:
+    print('ENUM_SKIP')
+    sys.exit(0)
 try:
-    validate_value('$EK2', '__INVALID_ENUM_VALUE__')
+    validate_value(enum_key, '__INVALID_ENUM_VALUE__')
     assert False, 'Should raise ConfigValidationError for invalid enum'
 except ConfigValidationError:
     pass
-# Valid values should work
-for v in allowed:
-    result = validate_value('$EK2', v)
-    assert result == v, f'Valid enum {v!r} should return {v!r}, got {result!r}'
+for val in allowed:
+    result = validate_value(enum_key, val)
+    assert result == val, f'Valid enum {val!r} should return {val!r}, got {result!r}'
 print('ENUM_VALIDATION_OK')
-\"" "enum_validation_fail"
-else
-  CHECKS=$((CHECKS + 1)); PASSED=$((PASSED + 1))
-fi
+PYEOF
+check "enum_validation_fail" "$TMPDIR_CHECKS/c10_enum.py"
 
 # ── Check 11: bool type coercion from string ───────────────────────────────────
-BOOL_KEY=$(python3 -c "
-import json
-schema = json.loads('''$SCHEMA_JSON''')
+cat > "$TMPDIR_CHECKS/c11_bool_coerce.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
+from config_system import validate_value, ConfigValidationError
+e = json.load(open(sys.argv[2]))
+schema = e.get('schema', {})
+bool_key = None
 for k, v in schema.items():
     if v.get('type') == 'bool':
-        print(k, v['env_var'])
+        bool_key = k
         break
-" 2>/dev/null || echo "")
-
-if [ -n "$BOOL_KEY" ]; then
-  BK=$(echo "$BOOL_KEY" | awk '{print $1}')
-  BK_ENV=$(echo "$BOOL_KEY" | awk '{print $2}')
-
-  check "python3 -c \"
-import sys; sys.path.insert(0, '$WORKSPACE')
-from config_system import validate_value, ConfigValidationError
-# String 'true' -> True
-assert validate_value('$BK', 'true') == True, 'true -> True failed'
-assert validate_value('$BK', 'True') == True, 'True -> True failed'
-assert validate_value('$BK', '1') == True, '1 -> True failed'
-assert validate_value('$BK', 'yes') == True, 'yes -> True failed'
-assert validate_value('$BK', 'false') == False, 'false -> False failed'
-assert validate_value('$BK', 'False') == False, 'False -> False failed'
-assert validate_value('$BK', '0') == False, '0 -> False failed'
-assert validate_value('$BK', 'no') == False, 'no -> False failed'
-# Bool values pass through
-assert validate_value('$BK', True) == True
-assert validate_value('$BK', False) == False
+if bool_key is None:
+    print('BOOL_SKIP')
+    sys.exit(0)
+assert validate_value(bool_key, 'true') == True,  'true -> True failed'
+assert validate_value(bool_key, 'True') == True,  'True -> True failed'
+assert validate_value(bool_key, '1')    == True,  '1 -> True failed'
+assert validate_value(bool_key, 'yes')  == True,  'yes -> True failed'
+assert validate_value(bool_key, 'on')   == True,  'on -> True failed'
+assert validate_value(bool_key, 'false') == False, 'false -> False failed'
+assert validate_value(bool_key, 'False') == False, 'False -> False failed'
+assert validate_value(bool_key, '0')    == False, '0 -> False failed'
+assert validate_value(bool_key, 'no')   == False, 'no -> False failed'
+assert validate_value(bool_key, 'off')  == False, 'off -> False failed'
+assert validate_value(bool_key, True)   == True
+assert validate_value(bool_key, False)  == False
 print('BOOL_COERCION_OK')
-\"" "bool_coercion_fail"
+PYEOF
+check "bool_coercion_fail" "$TMPDIR_CHECKS/c11_bool_coerce.py"
 
-  # Check bool env var override via string
-  check "python3 -c \"
-import sys; sys.path.insert(0, '$WORKSPACE')
+# ── Check 12: bool env var override via string ──────────────────────────────────
+cat > "$TMPDIR_CHECKS/c12_bool_env.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
 from config_system import load_config
-# Set bool env var to 'false' string
-env = {'$BK_ENV': 'false'}
-cfg = load_config(env_vars=env)
-assert cfg['$BK'] == False, f'Bool env override failed: {cfg[\"$BK\"]!r}'
-env2 = {'$BK_ENV': '1'}
-cfg2 = load_config(env_vars=env2)
-assert cfg2['$BK'] == True, f'Bool env override (1) failed: {cfg2[\"$BK\"]!r}'
+e = json.load(open(sys.argv[2]))
+schema = e.get('schema', {})
+bool_key = None
+for k, v in schema.items():
+    if v.get('type') == 'bool':
+        bool_key = k; bool_env = v['env_var']
+        break
+if bool_key is None:
+    print('BOOL_ENV_SKIP')
+    sys.exit(0)
+cfg = load_config(env_vars={bool_env: 'false'})
+assert cfg[bool_key] == False, f'Bool env override failed: {cfg[bool_key]!r}'
+cfg2 = load_config(env_vars={bool_env: '1'})
+assert cfg2[bool_key] == True, f'Bool env override (1) failed: {cfg2[bool_key]!r}'
 print('BOOL_ENV_OK')
-\"" "bool_env_fail"
+PYEOF
+check "bool_env_fail" "$TMPDIR_CHECKS/c12_bool_env.py"
 
-  # Invalid bool string raises error
-  check "python3 -c \"
-import sys; sys.path.insert(0, '$WORKSPACE')
+# ── Check 13: invalid bool string raises ConfigValidationError ─────────────────
+cat > "$TMPDIR_CHECKS/c13_bool_invalid.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
 from config_system import validate_value, ConfigValidationError
+e = json.load(open(sys.argv[2]))
+schema = e.get('schema', {})
+bool_key = None
+for k, v in schema.items():
+    if v.get('type') == 'bool':
+        bool_key = k
+        break
+if bool_key is None:
+    print('BOOL_INVALID_SKIP')
+    sys.exit(0)
 try:
-    validate_value('$BK', 'maybe')
+    validate_value(bool_key, 'maybe')
     assert False, 'Should raise ConfigValidationError for invalid bool string'
 except ConfigValidationError:
     pass
 print('BOOL_INVALID_OK')
-\"" "bool_invalid_fail"
-else
-  CHECKS=$((CHECKS + 3)); PASSED=$((PASSED + 3))
-fi
+PYEOF
+check "bool_invalid_fail" "$TMPDIR_CHECKS/c13_bool_invalid.py"
 
-# ── Check 12: int string coercion from env var ────────────────────────────────
-if [ -n "$INT_RANGE_INFO" ]; then
-  IR_ENV_VAR=$(python3 -c "
-import json
-schema = json.loads('''$SCHEMA_JSON''')
-k = '$IR_KEY'
-print(schema[k]['env_var'])
-" 2>/dev/null || echo "")
-
-  if [ -n "$IR_ENV_VAR" ]; then
-    check "python3 -c \"
-import sys; sys.path.insert(0, '$WORKSPACE')
+# ── Check 14: int string coercion from env var ────────────────────────────────
+cat > "$TMPDIR_CHECKS/c14_int_coerce.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
 from config_system import load_config
-# Pass int as string through env var
-env = {'$IR_ENV_VAR': '$IR_MIN'}
-cfg = load_config(env_vars=env)
-actual = cfg.get('$IR_KEY')
-assert actual == $IR_MIN, f'Int coercion from env failed: expected $IR_MIN (int), got {actual!r} ({type(actual).__name__})'
+e = json.load(open(sys.argv[2]))
+schema = e.get('schema', {})
+int_key = None
+for k, v in schema.items():
+    if v.get('type') == 'int' and 'min' in v and 'max' in v:
+        int_key = k; mn = v['min']; env_var = v['env_var']
+        break
+if int_key is None:
+    print('INT_COERCE_SKIP')
+    sys.exit(0)
+cfg = load_config(env_vars={env_var: str(mn)})
+actual = cfg.get(int_key)
+assert actual == mn, f'Int coercion from env failed: expected {mn} (int), got {actual!r}'
 assert isinstance(actual, int), f'Int coercion must produce int, got {type(actual).__name__}'
 print('INT_COERCION_OK')
-\"" "int_coercion_fail"
-  else
-    CHECKS=$((CHECKS + 1)); PASSED=$((PASSED + 1))
-  fi
-else
-  CHECKS=$((CHECKS + 1)); PASSED=$((PASSED + 1))
-fi
+PYEOF
+check "int_coercion_fail" "$TMPDIR_CHECKS/c14_int_coerce.py"
 
-# ── Check 13: FileNotFoundError on missing config file ────────────────────────
-check "python3 -c \"
-import sys; sys.path.insert(0, '$WORKSPACE')
+# ── Check 15: FileNotFoundError on missing config file ────────────────────────
+cat > "$TMPDIR_CHECKS/c15_file_not_found.py" << 'PYEOF'
+import sys
+sys.path.insert(0, sys.argv[1])
 from config_system import load_config
 try:
     load_config(config_file='/tmp/__nonexistent_config_spec5__.json', env_vars={})
-    assert False, 'Should raise FileNotFoundError for missing config file'
+    assert False, 'Should raise FileNotFoundError'
 except FileNotFoundError:
     pass
 print('FILE_NOT_FOUND_OK')
-\"" "file_not_found_fail"
+PYEOF
+check "file_not_found_fail" "$TMPDIR_CHECKS/c15_file_not_found.py"
 
-# ── Check 14: non-parseable int string raises ConfigValidationError ───────────
-if [ -n "$INT_RANGE_INFO" ]; then
-  check "python3 -c \"
-import sys; sys.path.insert(0, '$WORKSPACE')
+# ── Check 16: non-parseable int string raises ConfigValidationError ────────────
+cat > "$TMPDIR_CHECKS/c16_int_parse_err.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
 from config_system import validate_value, ConfigValidationError
+e = json.load(open(sys.argv[2]))
+schema = e.get('schema', {})
+int_key = None
+for k, v in schema.items():
+    if v.get('type') == 'int':
+        int_key = k
+        break
+if int_key is None:
+    print('INT_PARSE_SKIP')
+    sys.exit(0)
 try:
-    validate_value('$IR_KEY', 'not_an_int')
+    validate_value(int_key, 'not_an_int')
     assert False, 'Should raise ConfigValidationError for non-parseable int'
 except ConfigValidationError:
     pass
 print('INT_PARSE_ERROR_OK')
-\"" "int_parse_error_fail"
-else
-  CHECKS=$((CHECKS + 1)); PASSED=$((PASSED + 1))
-fi
+PYEOF
+check "int_parse_error_fail" "$TMPDIR_CHECKS/c16_int_parse_err.py"
 
-# ── Check 15: get_schema() returns correct key count and structure ─────────────
-check "python3 -c \"
-import sys, json; sys.path.insert(0, '$WORKSPACE')
+# ── Check 17: get_schema() returns correct structure ──────────────────────────
+cat > "$TMPDIR_CHECKS/c17_schema_struct.py" << 'PYEOF'
+import sys, json
+sys.path.insert(0, sys.argv[1])
 from config_system import get_schema
+e = json.load(open(sys.argv[2]))
+expected_schema = e.get('schema', {})
 schema = get_schema()
-expected_schema = json.loads('''$SCHEMA_JSON''')
 assert isinstance(schema, dict), f'get_schema() must return dict'
-# All expected keys must be present
 missing = [k for k in expected_schema if k not in schema]
 assert not missing, f'Schema missing keys: {missing}'
-# Each entry must have type and default
 for k, v in schema.items():
     assert 'type' in v, f'Schema entry for {k!r} missing type'
     assert 'default' in v, f'Schema entry for {k!r} missing default'
 print('SCHEMA_STRUCTURE_OK')
-\"" "schema_structure_fail"
+PYEOF
+check "schema_structure_fail" "$TMPDIR_CHECKS/c17_schema_struct.py"
 
-# ── Check 16: CLI args override file config ───────────────────────────────────
-check "python3 -c \"
-import sys, json, tempfile, os; sys.path.insert(0, '$WORKSPACE')
+# ── Check 18: CLI args override file config ───────────────────────────────────
+cat > "$TMPDIR_CHECKS/c18_cli_file.py" << 'PYEOF'
+import sys, json, tempfile, os
+sys.path.insert(0, sys.argv[1])
 from config_system import load_config, get_schema
 schema = get_schema()
-# Pick any key from schema
 key = next(iter(schema))
 spec = schema[key]
 default_val = spec['default']
-# Write default to file, then override with CLI
 file_cfg = {key: default_val}
 with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
     json.dump(file_cfg, f)
     fname = f.name
 try:
-    # For simplicity, CLI override with same value confirms round-trip
     cfg = load_config(config_file=fname, env_vars={}, cli_args={key: default_val})
     assert cfg[key] == default_val, f'CLI+file override wrong: {cfg[key]!r}'
     print('CLI_FILE_PRIORITY_OK')
 finally:
     os.unlink(fname)
-\"" "cli_file_priority_fail"
+PYEOF
+check "cli_file_priority_fail" "$TMPDIR_CHECKS/c18_cli_file.py"
 
-# ── Check 17: unknown keys in config file do not cause errors ─────────────────
-check "python3 -c \"
-import sys, json, tempfile, os; sys.path.insert(0, '$WORKSPACE')
+# ── Check 19: unknown keys in config file do not cause errors ─────────────────
+cat > "$TMPDIR_CHECKS/c19_unknown_keys.py" << 'PYEOF'
+import sys, json, tempfile, os
+sys.path.insert(0, sys.argv[1])
 from config_system import load_config
 file_cfg = {'__unknown_key_xyz__': 'should_be_ignored', '__another_unknown__': 42}
 with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
@@ -437,7 +454,8 @@ try:
     print('UNKNOWN_KEYS_OK')
 finally:
     os.unlink(fname)
-\"" "unknown_keys_error"
+PYEOF
+check "unknown_keys_error" "$TMPDIR_CHECKS/c19_unknown_keys.py"
 
 # ── Score ─────────────────────────────────────────────────────────────────────
 PARTIAL=$(python3 -c "print(round($PASSED/max(1,$CHECKS), 2))")

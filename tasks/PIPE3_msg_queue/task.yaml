@@ -1,0 +1,13 @@
+task_id: PIPE3_msg_queue
+domain: pipeline
+network: false
+time_limit_sec: 1200
+seeds: [0, 1, 2]
+difficulty: hard
+languages: [python]
+tags: [message-queue, consumer, ack, dedup, envelope, field-mapping, dead-letter]
+workspace_file_count: 4
+lines_changed_expected: 40
+parameterized: true
+roles: [planner, executor, verifier]
+grading: tasks/PIPE3_msg_queue/grade.sh

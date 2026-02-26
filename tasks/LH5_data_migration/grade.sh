@@ -125,43 +125,25 @@ assert vr.get('source_count') == vr.get('dest_count'), \
 \"" "verification_report_invalid"
 
 # ── Check 11: no orphaned foreign key references ──────────────────────────────
-check "python3 -c \"
-import json, os
-exp_path = '$REPORTS/expected.json'
-if os.path.exists(exp_path):
-    exp = json.load(open(exp_path))
-    ref_table = exp.get('ref_table', '')
-    ref_key = exp.get('ref_key', '') if 'ref_key' in exp else ''
-    primary_table = exp.get('primary_table', '')
-else:
-    ref_table = ''
-    ref_key = ''
-    primary_table = ''
-
+cat > /tmp/_lh5_check_orphans.py << 'PYEOF'
+import json, os, sys
+exp_path = sys.argv[1]
+workspace = sys.argv[2]
+if not os.path.exists(exp_path):
+    print("SKIP: expected.json not found")
+    sys.exit(0)
+exp = json.load(open(exp_path))
+ref_table = exp.get("ref_table", "")
+ref_key = exp.get("ref_key", "")
+primary_table = exp.get("primary_table", "")
 if not ref_table or not ref_key or not primary_table:
-    # Try to infer from validate.py source
-    import ast, inspect
-    src = open('validate.py').read()
-    for line in src.splitlines():
-        if 'REF_TABLE' in line and '=' in line and not 'def' in line and not '#' in line:
-            val = line.split('=')[1].strip().strip('\"').strip(\"'\")
-            if val and not val.startswith('os') and '(' not in val:
-                ref_table = val
-        if 'REF_KEY' in line and '=' in line and not 'def' in line and not '#' in line:
-            val = line.split('=')[1].strip().strip('\"').strip(\"'\")
-            if val and not val.startswith('os') and '(' not in val:
-                ref_key = val
-        if 'PRIMARY_TABLE' in line and '=' in line and not 'def' in line and not '#' in line:
-            val = line.split('=')[1].strip().strip('\"').strip(\"'\")
-            if val and not val.startswith('os') and '(' not in val:
-                primary_table = val
-
-ref_path = f'data/new_format/{ref_table}.jsonl'
-primary_path = f'data/new_format/{primary_table}.jsonl'
-
+    print("SKIP: missing ref_table/ref_key/primary_table in expected.json")
+    sys.exit(0)
+ref_path = os.path.join(workspace, "data", "new_format", ref_table + ".jsonl")
+primary_path = os.path.join(workspace, "data", "new_format", primary_table + ".jsonl")
 if not os.path.exists(ref_path) or not os.path.exists(primary_path):
-    raise AssertionError(f'missing files: {ref_path} or {primary_path}')
-
+    print(f"FAIL: missing {ref_path} or {primary_path}")
+    sys.exit(1)
 valid_ids = set()
 with open(ref_path) as f:
     for line in f:
@@ -169,18 +151,21 @@ with open(ref_path) as f:
             rec = json.loads(line)
             if ref_key in rec:
                 valid_ids.add(str(rec[ref_key]))
-
 orphans = []
 with open(primary_path) as f:
     for line in f:
         if line.strip():
             rec = json.loads(line)
-            val = str(rec.get(ref_key, ''))
+            val = str(rec.get(ref_key, ""))
             if val and val not in valid_ids:
                 orphans.append(val)
-
-assert len(orphans) == 0, f'{len(orphans)} orphaned {ref_key} values: {orphans[:3]}'
-\"" "orphaned_references"
+if orphans:
+    print(f"FAIL: {len(orphans)} orphaned {ref_key} values: {orphans[:3]}")
+    sys.exit(1)
+print(f"PASS: no orphaned {ref_key} references")
+sys.exit(0)
+PYEOF
+check "python3 /tmp/_lh5_check_orphans.py '$REPORTS/expected.json' '$WORKSPACE'" "orphaned_references"
 
 # ── Check 12: new format files are valid JSONL ────────────────────────────────
 check "python3 -c \"

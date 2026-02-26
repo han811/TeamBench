@@ -39,9 +39,12 @@ TTL_B=$($PYTHON -c "import json; d=json.load(open('$EXPECTED_JSON')); print(d['t
 UNCACHEABLE=$($PYTHON -c "import json; d=json.load(open('$EXPECTED_JSON')); print(d['uncacheable_resource'])")
 KEY_FORMAT=$($PYTHON -c "import json; d=json.load(open('$EXPECTED_JSON')); print(d['cache_key_format'])")
 CACHE_PREFIX=$($PYTHON -c "import json; d=json.load(open('$EXPECTED_JSON')); print(d['cache_prefix'])")
-CACHEABLE_JSON=$($PYTHON -c "import json; d=json.load(open('$EXPECTED_JSON')); print(json.dumps(d['cacheable_resources']))")
-CACHE_KEYS_JSON=$($PYTHON -c "import json; d=json.load(open('$EXPECTED_JSON')); print(json.dumps(d['cache_keys']))")
-INV_RULES_JSON=$($PYTHON -c "import json; d=json.load(open('$EXPECTED_JSON')); print(json.dumps(d['invalidation_rules']))")
+CACHEABLE_JSON=$($PYTHON -c "import json; d=json.load(open('$EXPECTED_JSON')); print(json.dumps(d['cacheable_resources'], separators=(',',':')))")
+CACHE_KEYS_JSON=$($PYTHON -c "import json; d=json.load(open('$EXPECTED_JSON')); print(json.dumps(d['cache_keys'], separators=(',',':')))")
+INV_RULES_JSON=$($PYTHON -c "import json; d=json.load(open('$EXPECTED_JSON')); print(json.dumps(d['invalidation_rules'], separators=(',',':')))")
+
+# Export JSON vars so Python can read them via os.environ (avoids shell glob expansion of brackets)
+export CACHEABLE_JSON CACHE_KEYS_JSON INV_RULES_JSON
 
 cd "$WORKSPACE"
 

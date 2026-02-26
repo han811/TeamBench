@@ -1,0 +1,27 @@
+DOCUMENT: doc_D.txt
+Organization: Nexus Software Ltd.
+Document Set: Product Documentation Hub
+Topic: Pricing Model
+Date: 2021-03-28
+Status: APPROVED
+Author: Atlas
+
+FOUNDING DOCUMENT NOTICE
+This is a Founding Document for the Pricing Model policy area.
+Per governance rules, Founding Documents are always authoritative
+and are not superseded by later documents, regardless of date.
+
+POLICY / SPECIFICATION
+
+Topic: Pricing Model
+Effective Date: 2021-03-28
+
+Current Value: usage-based billing
+
+Nexus Software Ltd. standard tier products are sold using usage-based billing.
+Pricing is reviewed annually by the Finance and Product committees.
+Custom pricing arrangements require VP-level approval.
+All pricing changes must be communicated to customers 30 days in advance.
+
+Document ID: doc_D.txt
+Supersession Note: See governance rules for supersession precedence.

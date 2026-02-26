@@ -1,0 +1,22 @@
+DOCUMENT: doc_C.txt
+Organization: Nexus Software Ltd.
+Document Set: Product Documentation Hub
+Topic: Feature Flags
+Date: 2022-07-14
+Status: APPROVED
+Author: Kira
+
+POLICY / SPECIFICATION
+
+Topic: Feature Flags
+Effective Date: 2022-07-14
+
+Current Value: ConfigCat
+
+All feature flag management at Nexus Software Ltd. is handled through ConfigCat.
+Flags must be reviewed and cleaned up within 30 days of full rollout.
+Feature flags for billing-related features require Finance team approval.
+Flag configurations are audited quarterly.
+
+Document ID: doc_C.txt
+Supersession Note: See governance rules for supersession precedence.

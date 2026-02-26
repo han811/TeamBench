@@ -794,11 +794,11 @@ def test_errors_are_logged(client, caplog):
     """Errors must be logged (not silently swallowed)."""
     import logging
     with caplog.at_level(logging.ERROR):
-        client.get("/{resource}s/__nonexistent_resource_xyz__",
+        client.get("{not_found_url}",
                    headers={{"Authorization": "Bearer valid-token"}})
     # Either the caplog captured something or the module uses its own logger
     # We just verify the endpoint doesn't crash silently
-    resp = client.get("/{resource}s/__nonexistent_resource_xyz__",
+    resp = client.get("{not_found_url}",
                       headers={{"Authorization": "Bearer valid-token"}})
     assert resp.status_code in (404, 401), (
         "Expected 404 or 401 for unknown resource, got generic 500"

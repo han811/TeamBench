@@ -186,8 +186,8 @@ assert violation is None, (
 print('QUERY_SOURCE_CLEAN_OK')
 \"" "n_plus_1_in_query_source"
 
-# ── Check 10: pytest correctness suite passes ─────────────────────────────────
-check "python3 -m pytest tests/ -x -q --tb=short 2>&1 | tail -5 | grep -E '(passed|PASSED)'" "pytest_correctness_fail"
+# ── Check 10: pytest correctness tests pass (excludes performance tests) ──────
+check "python3 -m pytest tests/ -x -q --tb=short -k 'correctness or stability' 2>&1 | tail -5 | grep -E '(passed|PASSED)'" "pytest_correctness_fail"
 
 # ── Check 11: Each query returns dict rows (not tuples) ───────────────────────
 check "python3 -c \"

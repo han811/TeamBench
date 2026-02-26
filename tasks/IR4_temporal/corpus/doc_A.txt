@@ -1,0 +1,22 @@
+DOCUMENT: doc_A.txt
+Organization: Nexus Software Ltd.
+Document Set: Product Documentation Hub
+Topic: Sla Targets
+Date: 2024-01-19
+Status: APPROVED
+Author: Hassan
+
+POLICY / SPECIFICATION
+
+Topic: Sla Targets
+Effective Date: 2024-01-19
+
+Current Value: 99.95%
+
+The Nexus Software Ltd. production environment is committed to an uptime SLA of 99.95%.
+SLA breaches must be disclosed in the monthly service report.
+Planned maintenance windows do not count against SLA measurement.
+Customer credits for SLA breaches are defined in the customer agreement.
+
+Document ID: doc_A.txt
+Supersession Note: See governance rules for supersession precedence.
