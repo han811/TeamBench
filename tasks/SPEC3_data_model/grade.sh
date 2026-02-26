@@ -852,19 +852,28 @@ print('CASCADE_OK')
 fi
 
 # ── Final scoring ─────────────────────────────────────────────────────────────
-SCORE=$(python3 -c "print(round($PASSED / max($CHECKS, 1), 3))")
+PARTIAL=$(python3 -c "print(round($PASSED / max($CHECKS, 1), 3))")
+if [ "$PASSED" -eq "$CHECKS" ]; then PASS=true; SUCCESS=1; else PASS=false; SUCCESS=0; fi
 
-cat > "$REPORTS/result.json" <<EOF
+# Build failure_modes JSON array
+FM="[]"
+if [ -n "$FAILURES" ]; then
+  FM=$(python3 -c "
+import json
+print(json.dumps([f.strip() for f in '$FAILURES'.split(',') if f.strip()]))
+")
+fi
+
+cat > "$REPORTS/score.json" <<JSON
 {
-  "checks": $CHECKS,
-  "passed": $PASSED,
-  "score": $SCORE,
-  "failures": "$FAILURES",
-  "domain": "$DOMAIN"
+  "pass": $PASS,
+  "primary": {"success": $SUCCESS},
+  "secondary": {"checks_passed": $PASSED, "checks_total": $CHECKS, "partial_score": $PARTIAL, "domain": "$DOMAIN"},
+  "failure_modes": $FM
 }
-EOF
+JSON
 
-echo "SPEC3_data_model | domain=$DOMAIN | $PASSED/$CHECKS checks passed | score=$SCORE"
+echo "SPEC3_data_model | domain=$DOMAIN | $PASSED/$CHECKS checks passed | partial=$PARTIAL"
 if [ -n "$FAILURES" ]; then
   echo "Failed checks: $FAILURES"
 fi
