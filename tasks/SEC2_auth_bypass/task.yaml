@@ -1,0 +1,11 @@
+task_id: SEC2_auth_bypass
+domain: security
+network: false
+time_limit_sec: 900
+seeds: [0, 1, 2]
+difficulty: hard
+languages: [python]
+tags: [authentication, jwt, auth-bypass, secure-coding, owasp]
+workspace_file_count: 4
+lines_changed_expected: 15
+parameterized: true

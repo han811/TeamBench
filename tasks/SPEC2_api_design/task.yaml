@@ -1,0 +1,13 @@
+task_id: SPEC2_api_design
+domain: specification
+difficulty: medium
+roles: [planner, executor, verifier]
+grading: tasks/SPEC2_api_design/grade.sh
+languages: [python]
+network: false
+time_limit_sec: 900
+seeds: [0, 1, 2, 3, 4]
+parameterized: true
+workspace_file_count: 4
+lines_changed_expected: 80
+tags: [specification, api, rest, flask, openapi, implementation]

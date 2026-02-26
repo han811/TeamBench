@@ -1,0 +1,13 @@
+task_id: INC2_data_corruption
+domain: incident_response
+network: false
+time_limit_sec: 900
+seeds: [0, 1, 2, 3]
+difficulty: hard
+roles: [planner, executor, verifier]
+languages: [python]
+tags: [data-recovery, corruption, json, shadow-fields]
+workspace_file_count: 3
+lines_changed_expected: 40
+parameterized: true
+grading: tasks/INC2_data_corruption/grade.sh

@@ -1,0 +1,13 @@
+task_id: PIPE1_etl_fix
+domain: pipeline
+network: false
+time_limit_sec: 900
+seeds: [0, 1, 2, 3]
+difficulty: medium
+languages: [python]
+tags: [etl, schema-mapping, type-conversion, pipeline, json]
+workspace_file_count: 4
+lines_changed_expected: 50
+parameterized: true
+roles: [planner, executor, verifier]
+grading: tasks/PIPE1_etl_fix/grade.sh

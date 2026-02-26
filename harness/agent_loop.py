@@ -117,6 +117,8 @@ class AgentLoop:
         turns: list[AgentTurn] = []
         consecutive_no_tool = 0
         max_no_tool_turns = 3  # Break if stuck with no tool calls for N turns
+        recent_tool_signatures: list[str] = []  # Track repeated identical calls
+        max_repeated_tool = 3  # Break if same tool+args repeated N times
 
         for turn_num in range(self.max_turns):
             turn = AgentTurn(turn=turn_num, role=self.config.role)
@@ -193,6 +195,16 @@ class AgentLoop:
             else:
                 consecutive_no_tool = 0
 
+            # Track repeated identical tool calls (read-loop detection)
+            if turn.tool_calls:
+                sig = json.dumps(
+                    [{"name": tc["name"], "args": tc["args"]} for tc in turn.tool_calls],
+                    sort_keys=True,
+                )
+                recent_tool_signatures.append(sig)
+            else:
+                recent_tool_signatures.append("")
+
             print(f"  [{self.config.role}] Turn {turn_num}: "
                   f"{len(turn.tool_calls)} tool calls, done={turn.done}")
 
@@ -204,5 +216,22 @@ class AgentLoop:
                 print(f"  [{self.config.role}] Breaking: {max_no_tool_turns} turns with no tool calls")
                 turn.done = True
                 break
+
+            # Break read loops: same tool+args repeated N times consecutively
+            if len(recent_tool_signatures) >= max_repeated_tool:
+                last_n = recent_tool_signatures[-max_repeated_tool:]
+                if last_n[0] and all(s == last_n[0] for s in last_n):
+                    # Nudge the agent to try a different approach
+                    messages.append({
+                        "role": "user",
+                        "content": (
+                            "WARNING: You have repeated the exact same tool call "
+                            f"{max_repeated_tool} times. You appear to be stuck. "
+                            "Try a DIFFERENT approach: modify the file, run a command, "
+                            "or use a different tool. If you are done, output DONE."
+                        ),
+                    })
+                    # Allow one more chance, then force-break on next repeat
+                    max_repeated_tool += 2  # Raise threshold so nudge fires once
 
         return turns

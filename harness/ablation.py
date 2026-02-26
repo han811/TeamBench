@@ -95,10 +95,16 @@ def _make_oracle_config(
         system_prompt=(
             "You are an Oracle agent with FULL access to the task specification and workspace.\n"
             "You can execute commands, read/write any allowed file, and write the attestation.\n"
-            "Your goal: complete the task and write attestation.json with verdict='pass'.\n"
-            "Use run(cmd=...) to execute commands in the workspace.\n"
-            "Use read(path=...) to read files, write(path=...) to write files.\n"
-            "Write attestation.json in the submission directory when done.\n"
+            "Your goal: complete the task and write attestation.json with verdict='pass'.\n\n"
+            "IMPORTANT workflow:\n"
+            "1. Read the spec (already provided) to understand ALL requirements.\n"
+            "2. Read relevant workspace files ONCE to understand current state.\n"
+            "3. TAKE ACTION: modify files using write() or run commands to fix issues.\n"
+            "4. Verify your changes work by running tests or checking output.\n"
+            "5. Write attestation.json and output DONE.\n\n"
+            "DO NOT read the same file more than twice. After reading, ACT on what you learned.\n"
+            "If you are unsure, make your best attempt rather than re-reading files.\n"
+            "Use run(cmd=...) for commands, read(path=...) for files, write(path=..., content=...) for edits.\n"
             "Output DONE when complete."
         ),
         tools=[
@@ -388,18 +394,28 @@ def run_ablation_condition(
 def compute_ablation_metrics(
     condition_scores: dict[AblationCondition, list[bool]],
     epsilon: float = 0.01,
+    condition_partial: dict[AblationCondition, list[float]] | None = None,
 ) -> dict:
     """
-    Compute ablation metrics from per-condition pass/fail lists.
+    Compute ablation metrics from per-condition scores.
+
+    Uses partial scores (0.0-1.0) when available for more granular TNI,
+    falls back to binary pass/fail rates.
 
     Args:
         condition_scores: mapping from AblationCondition to list of bool (True=pass)
         epsilon: minimum denominator for TNI to avoid division by zero
+        condition_partial: optional mapping from AblationCondition to list of float (0.0-1.0)
 
     Returns:
         dict with TNI, planning_value, verification_value, and per-condition rates
     """
     def rate(scores: list[bool]) -> float:
+        if not scores:
+            return 0.0
+        return sum(scores) / len(scores)
+
+    def avg_partial(scores: list[float]) -> float:
         if not scores:
             return 0.0
         return sum(scores) / len(scores)
@@ -410,10 +426,23 @@ def compute_ablation_metrics(
     s_no_verify = rate(condition_scores.get(AblationCondition.TEAM_NO_VERIFY, []))
     s_no_plan = rate(condition_scores.get(AblationCondition.TEAM_NO_PLAN, []))
 
-    necessity_gap = s_oracle - s_restricted
-    tni = (s_full - s_restricted) / max(epsilon, necessity_gap)
-    planning_value = s_full - s_no_plan
-    verification_value = s_full - s_no_verify
+    # Partial-score TNI (more granular than binary)
+    if condition_partial:
+        p_oracle = avg_partial(condition_partial.get(AblationCondition.ORACLE, []))
+        p_restricted = avg_partial(condition_partial.get(AblationCondition.RESTRICTED, []))
+        p_full = avg_partial(condition_partial.get(AblationCondition.FULL, []))
+        p_no_verify = avg_partial(condition_partial.get(AblationCondition.TEAM_NO_VERIFY, []))
+        p_no_plan = avg_partial(condition_partial.get(AblationCondition.TEAM_NO_PLAN, []))
+    else:
+        p_oracle, p_restricted, p_full = s_oracle, s_restricted, s_full
+        p_no_verify, p_no_plan = s_no_verify, s_no_plan
+
+    necessity_gap = p_oracle - p_restricted
+    tni = (p_full - p_restricted) / max(epsilon, necessity_gap)
+    team_uplift = p_full - p_restricted  # Always valid, no oracle dependency
+    collab_efficiency = (p_full - p_restricted) / max(epsilon, p_oracle) if p_oracle > epsilon else 0.0
+    planning_value = p_full - p_no_plan
+    verification_value = p_full - p_no_verify
 
     return {
         "s_oracle": round(s_oracle, 4),
@@ -421,14 +450,23 @@ def compute_ablation_metrics(
         "s_full": round(s_full, 4),
         "s_no_verify": round(s_no_verify, 4),
         "s_no_plan": round(s_no_plan, 4),
+        "p_oracle": round(p_oracle, 4),
+        "p_restricted": round(p_restricted, 4),
+        "p_full": round(p_full, 4),
+        "p_no_verify": round(p_no_verify, 4),
+        "p_no_plan": round(p_no_plan, 4),
         "necessity_gap": round(necessity_gap, 4),
         "tni": round(tni, 4),
+        "team_uplift": round(team_uplift, 4),
+        "collab_efficiency": round(collab_efficiency, 4),
         "planning_value": round(planning_value, 4),
         "verification_value": round(verification_value, 4),
         "interpretation": {
             "tni": _interpret_tni(tni),
-            "planning_value": f"Planning adds {planning_value:+.1%} pass rate",
-            "verification_value": f"Verification adds {verification_value:+.1%} pass rate",
+            "team_uplift": f"Team adds {team_uplift:+.1%} over single agent",
+            "collab_efficiency": f"Team reaches {collab_efficiency:.1%} of oracle ceiling via collaboration",
+            "planning_value": f"Planning adds {planning_value:+.1%} partial score",
+            "verification_value": f"Verification adds {verification_value:+.1%} partial score",
         },
     }
 
@@ -487,8 +525,10 @@ def run_full_ablation(
     print("=" * 60)
 
     all_runs: list[dict] = []
-    # condition -> list of bool
+    # condition -> list of bool (pass/fail)
     condition_scores: dict[AblationCondition, list[bool]] = {c: [] for c in conditions}
+    # condition -> list of float (partial scores 0.0-1.0)
+    condition_partial: dict[AblationCondition, list[float]] = {c: [] for c in conditions}
 
     runs_base = os.path.join(os.path.dirname(output), "ablation_runs")
 
@@ -515,6 +555,15 @@ def run_full_ablation(
                     run_record.run_id = run_id
                     run_record.run_dir = run_dir
 
+                    # Store condition in run_meta.json for post-hoc analysis
+                    meta_path = os.path.join(run_dir, "run_meta.json")
+                    if os.path.isfile(meta_path):
+                        with open(meta_path, "r") as mf:
+                            meta = json.load(mf)
+                        meta["condition"] = condition.value
+                        with open(meta_path, "w") as mf:
+                            json.dump(meta, mf, indent=2)
+
                     orch_result = run_ablation_condition(
                         condition=condition,
                         task_dir=task_dir,
@@ -530,27 +579,35 @@ def run_full_ablation(
                     run_record.elapsed_sec = round(elapsed, 1)
 
                     condition_scores[condition].append(bool(score.get("pass", False)))
+                    partial = score.get("secondary", {}).get("partial_score", 1.0 if score.get("pass") else 0.0)
+                    condition_partial[condition].append(float(partial))
                     status = "PASS" if score.get("pass") else "FAIL"
-                    print(f"  {status} ({elapsed:.1f}s, {orch_result.total_turns} turns)")
+                    print(f"  {status} (partial={partial:.2f}, {elapsed:.1f}s, {orch_result.total_turns} turns)")
 
                 except Exception as e:
                     run_record.error = str(e)
                     run_record.elapsed_sec = round(time.time() - start_time, 1)
                     condition_scores[condition].append(False)
+                    condition_partial[condition].append(0.0)
                     print(f"  ERROR: {e}")
 
+                partial_score = run_record.score.get("secondary", {}).get(
+                    "partial_score", 1.0 if run_record.passed else 0.0
+                )
                 all_runs.append({
                     "condition": condition.value,
                     "task_id": task_name,
                     "seed": seed,
                     "run_id": run_record.run_id,
+                    "run_dir": run_record.run_dir,
                     "pass": run_record.passed,
+                    "partial_score": partial_score,
                     "elapsed_sec": run_record.elapsed_sec,
                     "failure_modes": run_record.score.get("failure_modes", []),
                     "error": run_record.error,
                 })
 
-    metrics = compute_ablation_metrics(condition_scores)
+    metrics = compute_ablation_metrics(condition_scores, condition_partial=condition_partial)
 
     report = {
         "model": model,
