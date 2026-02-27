@@ -109,7 +109,7 @@ if [ -f "${WORKSPACE}/tests/test_auth.py" ]; then
     fi
 fi
 
-partial_score=$(echo "scale=2; $partial / $total" | bc)
+partial_score=$(awk "BEGIN {printf \"%.2f\", $partial / $total}")
 findings="${findings%,}"  # Remove trailing comma
 
 cat > "${REPORTS}/score.json" <<EOF

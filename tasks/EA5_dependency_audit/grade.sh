@@ -52,7 +52,7 @@ else
     check_fail
 fi
 
-partial_score=$(echo "scale=2; $partial / $total" | bc)
+partial_score=$(awk "BEGIN {printf \"%.2f\", $partial / $total}")
 cat > "${REPORTS}/score.json" <<EOF
 {"pass":$( [ "$pass" = "true" ] && echo "true" || echo "false" ),"secondary":{"partial_score":$partial_score,"checks_passed":$partial,"total_checks":$total},"failure_modes":[]}
 EOF

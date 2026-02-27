@@ -18,7 +18,7 @@ fi
 partial=0
 [ "$ruff_errors" -eq 0 ] && partial=$((partial + 1))
 python3 -c "import sys; sys.exit(0 if float('${pylint_score:-0}') >= 9.0 else 1)" 2>/dev/null && partial=$((partial + 1))
-partial_score=$(echo "scale=1; $partial / 2" | bc)
+partial_score=$(awk "BEGIN {printf \"%.1f\", $partial / 2}")
 
 cat > "${REPORTS}/score.json" <<EOF
 {"pass":$( [ "$pass" = "true" ] && echo "true" || echo "false" ),"secondary":{"partial_score":$partial_score,"ruff_errors":$ruff_errors,"pylint_score":"${pylint_score:-0}"},"failure_modes":[]}
