@@ -164,9 +164,14 @@ class RunCommandTool(Tool):
                     exit_code=1,
                 )
         try:
+            import sys as _sys
+            run_env = os.environ.copy()
+            venv_bin = os.path.dirname(os.path.abspath(_sys.executable))
+            run_env["PATH"] = venv_bin + os.pathsep + run_env.get("PATH", "")
             res = subprocess.run(
                 cmd, shell=True, cwd=self.cwd,
                 text=True, capture_output=True, timeout=60,
+                env=run_env,
             )
             return ToolResult(stdout=res.stdout, stderr=res.stderr, exit_code=res.returncode)
         except subprocess.TimeoutExpired:
@@ -329,7 +334,7 @@ def make_planner_config(
 
 # Allowed commands for analysis planner
 _ANALYSIS_PLANNER_COMMANDS = [
-    "bandit", "ruff", "pylint", "mypy", "semgrep",
+    "bandit", "ruff", "pylint", "mypy", "semgrep", "pip-audit",
     "find", "ls", "cat", "head", "grep", "wc",
     "python", "python3",
 ]
@@ -337,14 +342,18 @@ _ANALYSIS_PLANNER_COMMANDS = [
 _ANALYSIS_PLANNER_PROMPT = """\
 You are the Planner. You are a static analysis expert with read-only access to the codebase.
 
+IMPORTANT: Commands run with the workspace as the current directory.
+Use relative paths (e.g. 'app/', '.') NOT '/workspace/' which does not exist.
+
 PHASE 1 — ANALYSIS (do this first):
-1. Explore workspace: run(cmd='find /workspace -name "*.py" | head -50')
+1. Explore workspace: run(cmd='find . -name "*.py" | head -50')
 2. Check if /task/analysis_guidance.md exists: read(path='/task/analysis_guidance.md')
    If it exists, read it for task-specific guidance before running tools.
 3. Run static analysis:
-   - Security: run(cmd='bandit -r /workspace -f json -q 2>/dev/null || bandit -r /workspace -q')
-   - Style/bugs: run(cmd='ruff check /workspace 2>/dev/null || echo "ruff not available"')
-   - Types: run(cmd='mypy /workspace --ignore-missing-imports 2>&1 | head -50')
+   - Security: run(cmd='bandit -r app/ -f json -q 2>&1 || bandit -r . -q 2>&1')
+   - Style/bugs: run(cmd='ruff check app/ 2>&1 || ruff check . 2>&1')
+   - Types: run(cmd='mypy app/ --ignore-missing-imports 2>&1 | head -50')
+   - Dependencies: run(cmd='pip-audit -r requirements.txt 2>&1') [if requirements.txt exists]
 4. Read the spec to understand requirements
 5. Write a report: write(path='/analysis/planner_report.md', content='# Analysis Report\\n...')
    Include: findings, severity, exact file:line references, false positives to ignore, action priority
