@@ -7,8 +7,10 @@ TASK_DIR="${4:-/task}"
 cd "$WORKSPACE"
 pip install ruff pylint 2>/dev/null || true
 
-ruff_errors=$(ruff check app/ 2>&1 | grep -c "error\|warning\|E[0-9]\|W[0-9]\|F[0-9]" || echo "0")
-pylint_score=$(pylint app/ 2>&1 | grep "Your code has been rated" | grep -oE "[0-9]+\.[0-9]+" | head -1 || echo "0")
+ruff_output=$(ruff check app/ 2>&1 || true)
+ruff_errors=$(echo "$ruff_output" | grep -c "error\|warning\|E[0-9]\|W[0-9]\|F[0-9]" || true)
+pylint_output=$(pylint app/ 2>&1 || true)
+pylint_score=$(echo "$pylint_output" | grep "Your code has been rated" | grep -oE "[0-9]+\.[0-9]+" | head -1 || echo "0")
 
 pass=false
 if [ "$ruff_errors" -eq 0 ] && python3 -c "import sys; sys.exit(0 if float('${pylint_score:-0}') >= 9.0 else 1)" 2>/dev/null; then

@@ -105,7 +105,14 @@ def grade_run(task_name: str, task_dir: str, run_dir: str) -> dict:
     if os.path.isfile(expected_path):
         grade_args.append(expected_path)
 
-    subprocess.run(grade_args, check=False, capture_output=True, text=True)
+    # Inject the current Python interpreter's bin dir into PATH so grade.sh
+    # picks up pip, python, mypy, ruff, pylint, pip-audit etc. from the venv.
+    import sys as _sys
+    grade_env = os.environ.copy()
+    venv_bin = os.path.dirname(os.path.abspath(_sys.executable))
+    grade_env["PATH"] = venv_bin + os.pathsep + grade_env.get("PATH", "")
+
+    subprocess.run(grade_args, check=False, capture_output=True, text=True, env=grade_env)
 
     if os.path.isfile(score_path):
         return json.loads(pathlib.Path(score_path).read_text())

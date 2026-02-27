@@ -11,7 +11,7 @@ pip install mypy 2>/dev/null || true
 
 # Run mypy and count errors
 mypy_output=$(python -m mypy app/ --ignore-missing-imports --strict 2>&1 || true)
-error_count=$(echo "$mypy_output" | grep -c "error:" || echo "999")
+error_count=$(echo "$mypy_output" | grep -c "error:" || true)
 
 pass=false
 partial_score="0.0"
@@ -27,7 +27,7 @@ fi
 
 # Check type:ignore count — spec requires exactly 3 (one per dynamic pattern)
 # Count type: ignore across all app/ files
-ignore_count=$(grep -rh "type: ignore" "${WORKSPACE}/app/" 2>/dev/null | grep -c "type: ignore" || echo "0")
+ignore_count=$(grep -rh "type: ignore" "${WORKSPACE}/app/" 2>/dev/null | grep -c "type: ignore" || true)
 
 # Fail if agent cheated by adding excessive type:ignore comments
 if [ "$ignore_count" -gt 3 ] && [ "$pass" = "true" ]; then
