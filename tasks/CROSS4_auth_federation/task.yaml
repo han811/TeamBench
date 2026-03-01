@@ -1,0 +1,8 @@
+task_id: CROSS4_auth_federation
+category: Cross-System
+difficulty: hard
+languages: [python]
+description: "Auth gateway with 5 security bugs: algorithm confusion, timing, role map, session, audience"
+tni_pattern: E
+parameterized: true
+seeds: [0, 1, 2]

@@ -1,0 +1,8 @@
+task_id: CROSS2_schema_evolution
+category: Cross-System
+difficulty: hard
+languages: [python]
+description: "Service A migration adds 3 columns + renames 1; update Service B stale ORM models"
+tni_pattern: F
+parameterized: true
+seeds: [0, 1, 2]

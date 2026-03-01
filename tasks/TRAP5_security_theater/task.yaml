@@ -1,0 +1,8 @@
+task_id: TRAP5_security_theater
+category: Adversarial
+difficulty: hard
+languages: [python]
+description: "10 audit findings; 4 high-confidence findings are false positives; 7,9 are real CVEs"
+tni_pattern: B
+parameterized: true
+seeds: [0, 1, 2]

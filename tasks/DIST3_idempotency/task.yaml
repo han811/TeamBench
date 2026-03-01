@@ -1,0 +1,8 @@
+task_id: DIST3_idempotency
+category: Distributed
+difficulty: hard
+languages: [python]
+description: "4 payment operations need idempotency keys; balance query must NOT get idempotency param"
+tni_pattern: C
+parameterized: true
+seeds: [0, 1, 2]

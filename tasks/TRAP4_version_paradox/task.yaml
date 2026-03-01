@@ -1,0 +1,8 @@
+task_id: TRAP4_version_paradox
+category: Adversarial
+difficulty: hard
+languages: [python]
+description: "v2->v3 migration; 2/6 patterns must remain as shims for vendored dependency"
+tni_pattern: B
+parameterized: true
+seeds: [0, 1, 2]

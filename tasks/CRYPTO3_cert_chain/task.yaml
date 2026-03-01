@@ -1,0 +1,8 @@
+task_id: CRYPTO3_cert_chain
+category: Security
+difficulty: expert
+languages: [python]
+description: "X.509 chain validation: naive datetime, no Subject/Issuer check, no pathLenConstraint"
+tni_pattern: A
+parameterized: true
+seeds: [0, 1, 2]

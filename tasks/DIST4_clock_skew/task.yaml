@@ -1,0 +1,8 @@
+task_id: DIST4_clock_skew
+category: Distributed
+difficulty: hard
+languages: [python]
+description: "Distributed clock skew handling bugs in event ordering and lease expiry"
+tni_pattern: A
+parameterized: true
+seeds: [0, 1, 2]

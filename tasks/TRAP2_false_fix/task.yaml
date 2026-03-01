@@ -1,0 +1,8 @@
+task_id: TRAP2_false_fix
+category: Adversarial
+difficulty: hard
+languages: [python]
+description: "8 reported bugs: 5 genuine bugs + 3 intentional design choices per ARCHITECTURE.md"
+tni_pattern: B
+parameterized: true
+seeds: [0, 1, 2]

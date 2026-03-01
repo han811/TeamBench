@@ -41,6 +41,11 @@ CATEGORIES = {
     "MULTI": ("Multi-language", "MULTI"),
     "TEST": ("Testing", "TEST"),
     "IR": ("Information Retrieval", "IR"),
+    "EA": ("Expertise-Asymmetry", "EA"),
+    "TRAP": ("Adversarial", "TRAP"),
+    "CROSS": ("Cross-System", "CROSS"),
+    "CRYPTO": ("Security", "CRYPTO"),
+    "DIST": ("Distributed", "DIST"),
 }
 
 # TNI patterns

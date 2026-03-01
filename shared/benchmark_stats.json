@@ -1,9 +1,9 @@
 {
-  "total_tasks": 80,
+  "total_tasks": 102,
   "by_difficulty": {
     "easy": 2,
-    "expert": 10,
-    "hard": 49,
+    "expert": 16,
+    "hard": 65,
     "medium": 19
   },
   "by_domain": {
@@ -26,9 +26,20 @@
     "security": 8,
     "software": 13,
     "specification": 3,
-    "testing": 5
+    "testing": 5,
+    "unknown": 22
   },
   "by_category": {
+    "Adversarial": {
+      "count": 5,
+      "tasks": [
+        "TRAP1_spec_conflict",
+        "TRAP2_false_fix",
+        "TRAP3_metric_mirage",
+        "TRAP4_version_paradox",
+        "TRAP5_security_theater"
+      ]
+    },
     "Code Review": {
       "count": 5,
       "tasks": [
@@ -37,6 +48,15 @@
         "CR3_perf_review",
         "CR4_api_review",
         "CR5_test_coverage"
+      ]
+    },
+    "Cross-System": {
+      "count": 4,
+      "tasks": [
+        "CROSS1_api_contract",
+        "CROSS2_schema_evolution",
+        "CROSS3_protocol_bridge",
+        "CROSS4_auth_federation"
       ]
     },
     "Data Engineering": {
@@ -50,6 +70,25 @@
         "D6_data_reconcile",
         "SQL1_query_repair",
         "SQL2_query_optimize"
+      ]
+    },
+    "Distributed": {
+      "count": 4,
+      "tasks": [
+        "DIST1_queue_race",
+        "DIST2_consensus_partition",
+        "DIST3_idempotency",
+        "DIST4_clock_skew"
+      ]
+    },
+    "Expertise-Asymmetry": {
+      "count": 5,
+      "tasks": [
+        "EA1_security_scan",
+        "EA2_coverage_gap",
+        "EA3_type_safety",
+        "EA4_code_quality",
+        "EA5_dependency_audit"
       ]
     },
     "Incident Response": {
@@ -125,8 +164,12 @@
       ]
     },
     "Security": {
-      "count": 8,
+      "count": 12,
       "tasks": [
+        "CRYPTO1_nonce_reuse",
+        "CRYPTO2_timing_safe",
+        "CRYPTO3_cert_chain",
+        "CRYPTO4_kdf_migration",
         "SEC1_vuln_patch",
         "SEC2_auth_bypass",
         "SEC3_crypto_upgrade",
@@ -187,13 +230,13 @@
     "html": 1,
     "javascript": 4,
     "json": 7,
-    "python": 76,
+    "python": 98,
     "sql": 3
   },
-  "parameterized": 80,
-  "static": 0,
-  "avg_seeds": 3.1,
-  "total_instances": 251,
-  "has_grader": 80,
-  "has_setup": 80
+  "parameterized": 95,
+  "static": 7,
+  "avg_seeds": 3.0,
+  "total_instances": 303,
+  "has_grader": 102,
+  "has_setup": 85
 }

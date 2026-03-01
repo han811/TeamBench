@@ -1,0 +1,8 @@
+task_id: CRYPTO4_kdf_migration
+category: Security
+difficulty: expert
+languages: [python]
+description: "MD5->Argon2id migration with format marker bug and hex-salt-as-base64 error"
+tni_pattern: C
+parameterized: true
+seeds: [0, 1, 2]
