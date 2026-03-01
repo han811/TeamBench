@@ -1,0 +1,25 @@
+% Auto-generated EA results table
+\begin{table}[t]
+\centering
+\caption{Expertise-Asymmetry experiment results. \emph{Full} = Planner+Executor+Verifier;
+\emph{No-Analysis} = Executor only (no planner); \emph{Oracle} = single agent with full spec.
+Analysis Value = Full $-$ No-Analysis partial score. Higher is better.}
+\label{tab:ea-results}
+\begin{tabular}{lcccc}
+\toprule
+Task & Tool & Full & No-Analysis & Anal.\ Value \\
+\midrule
+Security Scan & \texttt{bandit} & 50.6% & 30.7% & +19.9% \\
+Coverage Gap & \texttt{pytest-cov} & 78.8% & 71.2% & +7.7% \\
+Type Safety & \texttt{mypy} & 58.8% & 50.4% & +8.5% \\
+Code Quality & \texttt{ruff/pylint} & 50.0% & 34.6% & +15.4% \\
+Dep. Audit & \texttt{pip-audit} & 64.8% & 37.8% & +27.0% \\
+\midrule
+\emph{Gemini 2.5 Flash} & & 26.7% & 10.0% & +18.7% \\
+\emph{Gemini 2.5 Pro} & & 16.7% & 0.0% & +24.0% \\
+\emph{Gemini 3 Flash} & & 72.0% & 60.0% & +10.0% \\
+\midrule
+\textbf{Mean} & & & & \textbf{+15.7%} \\
+\bottomrule
+\end{tabular}
+\end{table}
