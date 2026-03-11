@@ -5,7 +5,7 @@ Implements ToolCallAdapter using the `openai` Python SDK.
 Supports GPT-4o, GPT-4-turbo, GPT-5-nano, GPT-5-mini, o1, o3, and other OpenAI chat models.
 
 Requires: pip install openai
-API key:  OPENAI_API_KEY environment variable or ~/CoDaS_v4/.env
+API key:  OPENAI_API_KEY environment variable or .env
 """
 from __future__ import annotations
 
@@ -33,10 +33,10 @@ def _standard_to_openai_functions(tools: list[dict]) -> list[dict]:
 
 
 def _load_all_openai_keys() -> list[str]:
-    """Load all OPENAI_API_KEY* values from ~/CoDaS_v4/.env and local .env."""
+    """Load all OPENAI_API_KEY* values from local .env."""
     keys = []
     seen = set()
-    for env_path in [os.path.expanduser("~/CoDaS_v4/.env"), ".env"]:
+    for env_path in [".env"]:
         if not os.path.exists(env_path):
             continue
         with open(env_path) as f:

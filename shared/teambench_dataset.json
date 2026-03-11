@@ -1,0 +1,2313 @@
+[
+  {
+    "task_id": "CR1_review_respond",
+    "title": "Review Respond",
+    "category": "Code Review",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.5,
+      "restricted": 0.5,
+      "team": 0.0,
+      "team_no_plan": 0.62,
+      "team_no_verify": 0.62
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "CR2_style_enforce",
+    "title": "Style Enforce",
+    "category": "Code Review",
+    "difficulty": "easy",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.92,
+      "restricted": 0.69,
+      "team": 0.77,
+      "team_no_plan": 0.77,
+      "team_no_verify": 0.69
+    },
+    "tni": 0.3478,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "CR3_perf_review",
+    "title": "Perf Review",
+    "category": "Code Review",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9,
+      "restricted": 0.9,
+      "team": 1.0,
+      "team_no_plan": 0.9,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "CR4_api_review",
+    "title": "Api Review",
+    "category": "Code Review",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.56,
+      "restricted": 0.56,
+      "team": 0.62,
+      "team_no_plan": 0.56,
+      "team_no_verify": 0.25
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "CR5_test_coverage",
+    "title": "Test Coverage",
+    "category": "Testing",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.12666666666666668,
+      "team": 0.25666666666666665,
+      "team_no_plan": 0.12666666666666668,
+      "team_no_verify": 0.15333333333333335
+    },
+    "tni": -1.0263,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "CR6_review_checklist",
+    "title": "Review Checklist",
+    "category": "Code Review",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.06,
+      "restricted": 0.06,
+      "team": 0.30333333333333334,
+      "team_no_plan": 0.2733333333333333,
+      "team_no_verify": 0.30333333333333334
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "CROSS1_api_contract",
+    "title": "Go server + Python client with 3 field name/format mismatches to reconcile",
+    "category": "Cross-System Integration",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 1.0,
+      "team": 1.0,
+      "team_no_plan": 0.9,
+      "team_no_verify": 0.4
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "CROSS2_schema_evolution",
+    "title": "Schema Evolution",
+    "category": "Cross-System Integration",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 1.0,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 0.8889
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "CROSS3_protocol_bridge",
+    "title": "JSON->proto3 bridge with 6 type bugs: int64, bytes, oneof, enum, 2 error codes",
+    "category": "Cross-System Integration",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 1.0,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "CROSS4_auth_federation",
+    "title": "Auth Federation",
+    "category": "Cross-System Integration",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 1.0,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "CROSS5_event_schema",
+    "title": "Event Schema",
+    "category": "Cross-System Integration",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.7,
+      "restricted": 1.0,
+      "team": 0.7,
+      "team_no_plan": 0.7,
+      "team_no_verify": 1.0
+    },
+    "tni": 1.0,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "CROSS6_grpc_rest_bridge",
+    "title": "gRPC-style service definition + REST gateway with 4 type conversion errors",
+    "category": "Multi-language",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 1.0,
+      "team": 0.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "CROSS7_config_drift",
+    "title": "Config Drift",
+    "category": "Operations",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.6,
+      "restricted": 0.6,
+      "team": 0.6,
+      "team_no_plan": 0.6,
+      "team_no_verify": 0.6
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "CRYPTO1_nonce_reuse",
+    "title": "AES-GCM counter nonce, PBKDF2 1000 iters, 8-byte tag: 3 bugs, salt is correct",
+    "category": "Security",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.5,
+      "restricted": 1.0,
+      "team": 1.0,
+      "team_no_plan": 0.7,
+      "team_no_verify": 1.0
+    },
+    "tni": -0.0,
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "CRYPTO2_timing_safe",
+    "title": "Fix 4 timing-unsafe secret comparisons with hmac",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 1.0,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "CRYPTO3_cert_chain",
+    "title": "X",
+    "category": "Security",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.06666666666666667,
+      "restricted": 0.06666666666666667,
+      "team": 0.06666666666666667,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.13333333333333333
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "CRYPTO4_kdf_migration",
+    "title": "MD5->Argon2id migration with format marker bug and hex-salt-as-base64 error",
+    "category": "Security",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.20000000000000004,
+      "restricted": 0.06666666666666667,
+      "team": 0.20000000000000004,
+      "team_no_plan": 0.20000000000000004,
+      "team_no_verify": 0.20000000000000004
+    },
+    "tni": 1.0,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "CRYPTO5_tls_config",
+    "title": "Tls Config",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.3,
+      "restricted": 0.19999999999999998,
+      "team": 0.3,
+      "team_no_plan": 0.3,
+      "team_no_verify": 0.19999999999999998
+    },
+    "tni": 1.0,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "CRYPTO6_token_validation",
+    "title": "Token Validation",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9,
+      "restricted": 0.9,
+      "team": 0.9,
+      "team_no_plan": 0.9,
+      "team_no_verify": 0.9
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "D1_schema_drift",
+    "title": "Schema Drift",
+    "category": "Data Engineering",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.44,
+      "restricted": 0.5,
+      "team": 0.5,
+      "team_no_plan": 0.38,
+      "team_no_verify": 0.38
+    },
+    "tni": -0.0,
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "D2_data_quality",
+    "title": "Data Quality",
+    "category": "Data Engineering",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.27,
+      "restricted": 0.82,
+      "team": 0.36,
+      "team_no_plan": 0.82,
+      "team_no_verify": 0.36
+    },
+    "tni": 0.8364,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "D3_schema_migration",
+    "title": "Schema Migration",
+    "category": "Data Engineering",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.73,
+      "restricted": 0.82,
+      "team": 0.82,
+      "team_no_plan": 0.73,
+      "team_no_verify": 0.82
+    },
+    "tni": -0.0,
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "D4_data_pipeline",
+    "title": "Data Pipeline",
+    "category": "Data Engineering",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.59,
+      "restricted": 0.59,
+      "team": 0.0,
+      "team_no_plan": 0.59,
+      "team_no_verify": 0.65
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "D5_query_optimize",
+    "title": "Query Optimize",
+    "category": "Data Engineering",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.8,
+      "restricted": 0.87,
+      "team": 0.8,
+      "team_no_plan": 0.93,
+      "team_no_verify": 0.87
+    },
+    "tni": 1.0,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "D6_data_reconcile",
+    "title": "Data Reconcile",
+    "category": "Data Engineering",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.83,
+      "restricted": 0.83,
+      "team": 0.89,
+      "team_no_plan": 0.83,
+      "team_no_verify": 0.72
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "D7_etl_reconciliation",
+    "title": "Etl Reconciliation",
+    "category": "Data Engineering",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 1.0,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 0.9
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "D8_csv_cleanup",
+    "title": "Csv Cleanup",
+    "category": "Data Engineering",
+    "difficulty": "easy",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.2966666666666667,
+      "restricted": 0.26,
+      "team": 1.0,
+      "team_no_plan": 0.5933333333333334,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "D9_schema_validation",
+    "title": "Schema Validation",
+    "category": "Data Engineering",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.8,
+      "restricted": 0.8,
+      "team": 0.9,
+      "team_no_plan": 0.8,
+      "team_no_verify": 0.8
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "DIST1_queue_race",
+    "title": "Queue Race",
+    "category": "Distributed Systems",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.3333,
+      "restricted": 0.3333,
+      "team": 0.4167,
+      "team_no_plan": 0.25,
+      "team_no_verify": 0.4167
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "DIST2_consensus_partition",
+    "title": "Consensus Partition",
+    "category": "Distributed Systems",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.4167,
+      "restricted": 0.4167,
+      "team": 0.44446666666666673,
+      "team_no_plan": 0.4167,
+      "team_no_verify": 0.4167
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "DIST3_idempotency",
+    "title": "Idempotency",
+    "category": "Distributed Systems",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.5277666666666666,
+      "restricted": 0.6667,
+      "team": 0.4166666666666667,
+      "team_no_plan": 0.7222,
+      "team_no_verify": 0.8055333333333333
+    },
+    "tni": 1.7997,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "DIST4_clock_skew",
+    "title": "Distributed clock skew handling bugs in event ordering and lease expiry",
+    "category": "Distributed Systems",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9167,
+      "restricted": 0.9444666666666667,
+      "team": 0.9722333333333334,
+      "team_no_plan": 0.8333666666666666,
+      "team_no_verify": 0.7222333333333334
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "DIST5_leader_election",
+    "title": "Bully leader election with 3 bugs + 2 network partition edge cases",
+    "category": "Distributed Systems",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.2,
+      "restricted": 0.2,
+      "team": 0.2,
+      "team_no_plan": 0.2,
+      "team_no_verify": 0.2
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "DIST6_distributed_lock",
+    "title": "Distributed Lock",
+    "category": "Distributed Systems",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 0.7000000000000001,
+      "team": 0.6333333333333333,
+      "team_no_plan": 0.5333333333333333,
+      "team_no_verify": 1.0
+    },
+    "tni": -0.2222,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "EA1_security_scan",
+    "title": "Security Scan",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "EA2_coverage_gap",
+    "title": "Add tests to reach 90% branch coverage using coverage analysis findings",
+    "category": "Testing",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "EA3_type_safety",
+    "title": "Type Safety",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "EA4_code_quality",
+    "title": "Code Quality",
+    "category": "Code Review",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "EA5_dependency_audit",
+    "title": "Fix 5 CVEs: 3 pin-only upgrades and 2 requiring API migration",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "GO1_concurrency_fix",
+    "title": "Concurrency Fix",
+    "category": "Software Eng.",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.75,
+      "restricted": 0.75,
+      "team": 0.0,
+      "team_no_plan": 0.5,
+      "team_no_verify": 0.88
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "GO2_race_condition",
+    "title": "Race Condition",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.92,
+      "restricted": 0.92,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "INC10_rollback_plan",
+    "title": "Three services failed after a coordinated deployment",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.4,
+      "restricted": 0.4,
+      "team": 0.0,
+      "team_no_plan": 0.4,
+      "team_no_verify": 0.4
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "INC1_cascade_failure",
+    "title": "Cascade Failure",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.8,
+      "restricted": 0.8,
+      "team": 0.9,
+      "team_no_plan": 0.8,
+      "team_no_verify": 0.9
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "INC2_data_corruption",
+    "title": "Data Corruption",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9,
+      "restricted": 0.9,
+      "team": 1.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "INC3_memory_leak",
+    "title": "Memory Leak",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.92,
+      "restricted": 0.83,
+      "team": 0.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.0
+    },
+    "tni": -2.0,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "INC4_dns_miscfg",
+    "title": "Dns Miscfg",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.92,
+      "restricted": 0.92,
+      "team": 1.0,
+      "team_no_plan": 0.58,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "INC5_cert_expiry",
+    "title": "Cert Expiry",
+    "category": "Incident Response",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.91,
+      "restricted": 0.91,
+      "team": 1.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "INC6_deadlock",
+    "title": "Deadlock",
+    "category": "Incident Response",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.67,
+      "restricted": 0.67,
+      "team": 0.67,
+      "team_no_plan": 0.67,
+      "team_no_verify": 0.75
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "INC7_rollback",
+    "title": "Rollback",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.83,
+      "team": 0.0,
+      "team_no_plan": 0.83,
+      "team_no_verify": 0.83
+    },
+    "tni": 1.0,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "INC8_cascading_timeout",
+    "title": "Cascading Timeout",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.6,
+      "restricted": 0.8,
+      "team": 0.7,
+      "team_no_plan": 0.8,
+      "team_no_verify": 0.8
+    },
+    "tni": 0.5,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "INC8_memory_leak",
+    "title": "Memory Leak",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.8,
+      "restricted": 0.8,
+      "team": 0.7,
+      "team_no_plan": 0.7,
+      "team_no_verify": 0.8
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "INC9_log_forensics",
+    "title": "Log Forensics",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.3,
+      "restricted": 0.2,
+      "team": 0.3,
+      "team_no_plan": 0.2,
+      "team_no_verify": 0.3
+    },
+    "tni": 1.0,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "INT1_pipeline_repair",
+    "title": "Pipeline Repair",
+    "category": "Integration",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.08,
+      "restricted": 0.42,
+      "team": 0.42,
+      "team_no_plan": 0.5,
+      "team_no_verify": 0.67
+    },
+    "tni": -0.0,
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "INT2_api_versioning",
+    "title": "Api Versioning",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 1.0,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "INT3_db_migration",
+    "title": "Db Migration",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.5,
+      "restricted": 0.6,
+      "team": 0.0,
+      "team_no_plan": 0.4,
+      "team_no_verify": 0.7
+    },
+    "tni": 2.0,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "IR1_evidence_qa",
+    "title": "Evidence Qa",
+    "category": "Information Retrieval",
+    "difficulty": "easy",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.67,
+      "restricted": 0.33,
+      "team": 0.33,
+      "team_no_plan": 0.33,
+      "team_no_verify": 0.5
+    },
+    "tni": 0.0,
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "IR2_misinformation_trap",
+    "title": "Misinformation Trap",
+    "category": "Information Retrieval",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.29,
+      "restricted": 0.29,
+      "team": 0.29,
+      "team_no_plan": 0.29,
+      "team_no_verify": 0.43
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "IR3_multi_source",
+    "title": "Multi Source",
+    "category": "Information Retrieval",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.92,
+      "restricted": 0.92,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "IR4_temporal",
+    "title": "Temporal",
+    "category": "Information Retrieval",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.93,
+      "restricted": 0.93,
+      "team": 1.0,
+      "team_no_plan": 0.93,
+      "team_no_verify": 0.87
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "IR5_search_ranking",
+    "title": "Search Ranking",
+    "category": "Information Retrieval",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.26,
+      "restricted": 0.0,
+      "team": 0.2966666666666667,
+      "team_no_plan": 0.2966666666666667,
+      "team_no_verify": 0.2966666666666667
+    },
+    "tni": 1.141,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "IR6_search_index",
+    "title": "Search Index",
+    "category": "Information Retrieval",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.0,
+      "team": 0.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "IR7_doc_clustering",
+    "title": "Doc Clustering",
+    "category": "Information Retrieval",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.75,
+      "restricted": 0.75,
+      "team": 0.75,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.88
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "IR8_search_index",
+    "title": "Search Index",
+    "category": "Information Retrieval",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.8,
+      "restricted": 0.9,
+      "team": 0.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 0.9
+    },
+    "tni": 2.0,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "JS1_api_migration",
+    "title": "Api Migration",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.43,
+      "restricted": 0.71,
+      "team": 0.0,
+      "team_no_plan": 0.57,
+      "team_no_verify": 0.0
+    },
+    "tni": 2.0,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "JS2_xss_sanitize",
+    "title": "Xss Sanitize",
+    "category": "Multi-language",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.78,
+      "restricted": 0.78,
+      "team": 0.87,
+      "team_no_plan": 0.87,
+      "team_no_verify": 0.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "LH1_long_horizon",
+    "title": "Long Horizon",
+    "category": "Long-Horizon",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.0,
+      "team": 0.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "LH2_budgeted_workflow",
+    "title": "Budgeted Workflow",
+    "category": "Long-Horizon",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.03666666666666667,
+      "restricted": 0.05666666666666667,
+      "team": 0.8333333333333334,
+      "team_no_plan": 0.06666666666666667,
+      "team_no_verify": 0.09999999999999999
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "LH3_multi_service",
+    "title": "Multi Service",
+    "category": "Operations",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9,
+      "restricted": 0.85,
+      "team": 0.95,
+      "team_no_plan": 0.9,
+      "team_no_verify": 0.95
+    },
+    "tni": 2.0,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "LH4_staged_deploy",
+    "title": "Staged Deploy",
+    "category": "Long-Horizon",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.43,
+      "restricted": 0.43,
+      "team": 0.43,
+      "team_no_plan": 0.43,
+      "team_no_verify": 0.14
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "LH5_data_migration",
+    "title": "Data Migration",
+    "category": "Long-Horizon",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.0,
+      "team": 0.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.09
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "LH6_audit_trail",
+    "title": "Audit Trail",
+    "category": "Long-Horizon",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.55,
+      "restricted": 0.55,
+      "team": 0.0,
+      "team_no_plan": 0.36,
+      "team_no_verify": 0.55
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "LH7_zero_downtime",
+    "title": "Zero Downtime",
+    "category": "Long-Horizon",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.82,
+      "restricted": 0.27,
+      "team": 0.0,
+      "team_no_plan": 0.82,
+      "team_no_verify": 0.91
+    },
+    "tni": -0.4909,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "MULTI1_fullstack_fix",
+    "title": "Fullstack Fix",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.25,
+      "restricted": 0.16666666666666666,
+      "team": 1.0,
+      "team_no_plan": 0.25,
+      "team_no_verify": 0.75
+    },
+    "tni": 2.0,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "MULTI2_api_frontend",
+    "title": "Api Frontend",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.5,
+      "restricted": 0.5,
+      "team": 0.5,
+      "team_no_plan": 0.5,
+      "team_no_verify": 0.56
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "MULTI2_microservice_debug",
+    "title": "4 bugs across Python Flask API + Go worker + Node",
+    "category": "Multi-language",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9,
+      "restricted": 0.9,
+      "team": 0.9,
+      "team_no_plan": 0.9,
+      "team_no_verify": 0.9
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "MULTI3_polyglot",
+    "title": "Polyglot",
+    "category": "Multi-language",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 1.0,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "MULTI4_monorepo_fix",
+    "title": "Monorepo Fix",
+    "category": "Multi-language",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9,
+      "restricted": 0.9,
+      "team": 1.0,
+      "team_no_plan": 0.9,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "MULTI5_deploy_pipeline",
+    "title": "Deploy Pipeline",
+    "category": "Operations",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.16666666666666666,
+      "restricted": 0.19999999999999998,
+      "team": 0.26666666666666666,
+      "team_no_plan": 0.2333333333333333,
+      "team_no_verify": 0.3
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "MULTI6_fullstack_bug",
+    "title": "Fullstack Bug",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9,
+      "restricted": 0.9,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "MULTI7_polyglot_test",
+    "title": "Polyglot Test",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9,
+      "restricted": 0.9,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "MULTI8_sdk_mismatch",
+    "title": "Sdk Mismatch",
+    "category": "Multi-language",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.25,
+      "restricted": 0.25,
+      "team": 0.29333333333333333,
+      "team_no_plan": 0.29333333333333333,
+      "team_no_verify": 0.29333333333333333
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "NEG1_tradeoff_config",
+    "title": "Tradeoff Config",
+    "category": "Negotiation",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.5,
+      "restricted": 0.5,
+      "team": 0.4,
+      "team_no_plan": 0.5,
+      "team_no_verify": 0.4
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "NEG2_cost_perf",
+    "title": "Cost Perf",
+    "category": "Operations",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 0.3333333333333333,
+      "team": 1.0,
+      "team_no_plan": 0.6666666666666666,
+      "team_no_verify": 0.3333333333333333
+    },
+    "tni": 1.0,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "NEG3_tech_debt",
+    "title": "Tech Debt",
+    "category": "Software Eng.",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.8,
+      "restricted": 0.8,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "NEG4_resource_allocation",
+    "title": "Resource Allocation",
+    "category": "Operations",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9,
+      "restricted": 0.9,
+      "team": 1.0,
+      "team_no_plan": 0.9,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "NEG5_sla_tradeoff",
+    "title": "Sla Tradeoff",
+    "category": "Operations",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9,
+      "restricted": 0.9,
+      "team": 1.0,
+      "team_no_plan": 0.9,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "O1_service_health",
+    "title": "Service Health",
+    "category": "Operations",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.0,
+      "team": 0.08333333333333333,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.16666666666666666
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "O2_incident_rootcause",
+    "title": "Incident Rootcause",
+    "category": "Operations",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.19999999999999998,
+      "restricted": 0.13333333333333333,
+      "team": 0.19999999999999998,
+      "team_no_plan": 0.13333333333333333,
+      "team_no_verify": 0.26666666666666666
+    },
+    "tni": 1.0,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "O3_log_analysis",
+    "title": "Log Analysis",
+    "category": "Operations",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.15333333333333335,
+      "restricted": 0.0,
+      "team": 0.15333333333333335,
+      "team_no_plan": 0.18000000000000002,
+      "team_no_verify": 0.15333333333333335
+    },
+    "tni": 1.0,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "O4_monitoring",
+    "title": "Monitoring",
+    "category": "Operations",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.3333333333333333,
+      "restricted": 0.0,
+      "team": 0.3333333333333333,
+      "team_no_plan": 0.31,
+      "team_no_verify": 0.3333333333333333
+    },
+    "tni": 1.0,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "O5_container_debug",
+    "title": "Container Debug",
+    "category": "Operations",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.6,
+      "restricted": 0.6,
+      "team": 0.73,
+      "team_no_plan": 0.6,
+      "team_no_verify": 0.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "O6_perf_tuning",
+    "title": "Perf Tuning",
+    "category": "Operations",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.77,
+      "restricted": 1.0,
+      "team": 0.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 0.0
+    },
+    "tni": 2.0,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "O7_capacity_planning",
+    "title": "Capacity Planning",
+    "category": "Operations",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 0.9,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "tni": 1.0,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "O8_dockerfile_fix",
+    "title": "Dockerfile Fix",
+    "category": "Operations",
+    "difficulty": "easy",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.23666666666666666,
+      "restricted": 0.23666666666666666,
+      "team": 0.2866666666666667,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "O9_logging_config",
+    "title": "Logging Config",
+    "category": "Operations",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.5,
+      "restricted": 0.5,
+      "team": 0.6,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.6
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "P1_policy_config",
+    "title": "Policy Config",
+    "category": "Policy",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.0,
+      "team": 0.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "P2_spec_arbitration",
+    "title": "Spec Arbitration",
+    "category": "Policy",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.25,
+      "restricted": 0.0,
+      "team": 0.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.5
+    },
+    "tni": 0.0,
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "P3_access_control",
+    "title": "Access Control",
+    "category": "Policy",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.30333333333333334,
+      "restricted": 0.2733333333333333,
+      "team": 0.3333333333333333,
+      "team_no_plan": 0.24333333333333332,
+      "team_no_verify": 0.30333333333333334
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "P4_data_retention",
+    "title": "Data Retention",
+    "category": "Policy",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.86,
+      "restricted": 0.57,
+      "team": 0.57,
+      "team_no_plan": 0.36,
+      "team_no_verify": 0.64
+    },
+    "tni": 0.0,
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "P5_audit_logging",
+    "title": "Audit Logging",
+    "category": "Policy",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.93,
+      "restricted": 0.93,
+      "team": 0.93,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "P6_license_check",
+    "title": "License Check",
+    "category": "Policy",
+    "difficulty": "easy",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.2866666666666667,
+      "restricted": 0.18999999999999997,
+      "team": 1.0,
+      "team_no_plan": 0.18999999999999997,
+      "team_no_verify": 1.0
+    },
+    "tni": 2.0,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "P7_data_retention",
+    "title": "Data Retention",
+    "category": "Policy",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.2966666666666667,
+      "restricted": 0.26,
+      "team": 1.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "P8_access_control",
+    "title": "Access Control",
+    "category": "Policy",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.3,
+      "restricted": 0.3,
+      "team": 0.4,
+      "team_no_plan": 0.4,
+      "team_no_verify": 0.4
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "PIPE1_etl_fix",
+    "title": "Etl Fix",
+    "category": "Pipeline",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.24333333333333332,
+      "restricted": 0.12,
+      "team": 0.24333333333333332,
+      "team_no_plan": 0.21333333333333335,
+      "team_no_verify": 0.24333333333333332
+    },
+    "tni": 1.0,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "PIPE2_api_gateway",
+    "title": "Api Gateway",
+    "category": "Pipeline",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.92,
+      "restricted": 0.92,
+      "team": 0.0,
+      "team_no_plan": 0.92,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "PIPE2_data_pipeline",
+    "title": "Data Pipeline",
+    "category": "Pipeline",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.8,
+      "restricted": 0.8,
+      "team": 0.8,
+      "team_no_plan": 0.8,
+      "team_no_verify": 0.8
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "PIPE3_msg_queue",
+    "title": "Msg Queue",
+    "category": "Pipeline",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.77,
+      "restricted": 0.77,
+      "team": 0.0,
+      "team_no_plan": 0.62,
+      "team_no_verify": 0.85
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "PIPE3_stream_processing",
+    "title": "Stream Processing",
+    "category": "Pipeline",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 1.0,
+      "team": 1.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "PIPE4_ci_cd",
+    "title": "Ci Cd",
+    "category": "Pipeline",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.93,
+      "restricted": 0.93,
+      "team": 1.0,
+      "team_no_plan": 0.93,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "S1_hidden_spec",
+    "title": "Hidden Spec",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.0,
+      "team": 0.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "S2_dependency_conflict",
+    "title": "Dependency Conflict",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.25,
+      "restricted": 0.25,
+      "team": 0.0,
+      "team_no_plan": 0.25,
+      "team_no_verify": 0.25
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "S3_refactor_extract",
+    "title": "Refactor Extract",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.17,
+      "restricted": 0.17,
+      "team": 0.17,
+      "team_no_plan": 0.17,
+      "team_no_verify": 0.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "S4_backward_compat",
+    "title": "Backward Compat",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.21,
+      "restricted": 0.21,
+      "team": 0.21,
+      "team_no_plan": 0.21,
+      "team_no_verify": 0.29
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "S5_error_handling",
+    "title": "Error Handling",
+    "category": "Software Eng.",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.06666666666666667,
+      "restricted": 0.023333333333333334,
+      "team": 0.11,
+      "team_no_plan": 0.11,
+      "team_no_verify": 0.043333333333333335
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "S6_caching",
+    "title": "Caching",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.62,
+      "team": 0.0,
+      "team_no_plan": 0.62,
+      "team_no_verify": 0.62
+    },
+    "tni": 1.0,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "S7_env_config",
+    "title": "Env Config",
+    "category": "Software Eng.",
+    "difficulty": "easy",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.23666666666666666,
+      "restricted": 0.23666666666666666,
+      "team": 0.2866666666666667,
+      "team_no_plan": 0.23666666666666666,
+      "team_no_verify": 0.2866666666666667
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "SCALE1_codebase_migration",
+    "title": "Codebase Migration",
+    "category": "Software Eng.",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.18999999999999997,
+      "restricted": 0.18999999999999997,
+      "team": 0.23666666666666666,
+      "team_no_plan": 0.21333333333333335,
+      "team_no_verify": 0.23666666666666666
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "SEC1_vuln_patch",
+    "title": "Vuln Patch",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.0,
+      "team": 0.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "SEC2_auth_bypass",
+    "title": "Auth Bypass",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9,
+      "restricted": 0.6,
+      "team": 0.7,
+      "team_no_plan": 0.9,
+      "team_no_verify": 0.7
+    },
+    "tni": 0.3333,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "SEC3_crypto_upgrade",
+    "title": "Crypto Upgrade",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.2833333333333333,
+      "restricted": 0.18000000000000002,
+      "team": 0.3066666666666667,
+      "team_no_plan": 0.25666666666666665,
+      "team_no_verify": 0.18000000000000002
+    },
+    "tni": 1.2258,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "SEC4_input_validation",
+    "title": "Input Validation",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.31,
+      "restricted": 0.31,
+      "team": 0.0,
+      "team_no_plan": 0.31,
+      "team_no_verify": 0.38
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "SEC5_secrets_rotation",
+    "title": "Secrets Rotation",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.3066666666666667,
+      "restricted": 0.22999999999999998,
+      "team": 0.64,
+      "team_no_plan": 0.0,
+      "team_no_verify": 1.0
+    },
+    "tni": 2.0,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "SEC6_csrf_protection",
+    "title": "Csrf Protection",
+    "category": "Security",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.85,
+      "restricted": 0.46,
+      "team": 0.46,
+      "team_no_plan": 0.77,
+      "team_no_verify": 0.54
+    },
+    "tni": 0.0,
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "SEC7_rate_limiting",
+    "title": "Rate Limiting",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.47,
+      "restricted": 0.53,
+      "team": 0.6,
+      "team_no_plan": 0.33,
+      "team_no_verify": 0.67
+    },
+    "tni": -1.1667,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "SEC8_dependency_audit",
+    "title": "Dependency Audit",
+    "category": "Security",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.83,
+      "restricted": 0.92,
+      "team": 0.92,
+      "team_no_plan": 0.83,
+      "team_no_verify": 0.67
+    },
+    "tni": -0.0,
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "SEC9_vuln_triage",
+    "title": "Vuln Triage",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.77,
+      "restricted": 0.69,
+      "team": 0.0,
+      "team_no_plan": 0.62,
+      "team_no_verify": 0.77
+    },
+    "tni": -2.0,
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "SPEC1_feature_impl",
+    "title": "Feature Impl",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.45,
+      "restricted": 0.45,
+      "team": 0.0,
+      "team_no_plan": 0.09,
+      "team_no_verify": 0.09
+    },
+    "classification": "TEAM-HURTS"
+  },
+  {
+    "task_id": "SPEC2_api_design",
+    "title": "Api Design",
+    "category": "Specification",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.75,
+      "restricted": 0.67,
+      "team": 0.67,
+      "team_no_plan": 0.67,
+      "team_no_verify": 0.75
+    },
+    "tni": 0.0,
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "SPEC3_data_model",
+    "title": "Data Model",
+    "category": "Specification",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.262,
+      "restricted": 0.0,
+      "team": 0.262,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.0
+    },
+    "tni": 1.0,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "SPEC4_migration",
+    "title": "Migration",
+    "category": "Data Engineering",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.85,
+      "team": 0.85,
+      "team_no_plan": 0.85,
+      "team_no_verify": 0.85
+    },
+    "tni": -0.0,
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "SPEC5_config_system",
+    "title": "Config System",
+    "category": "Specification",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.4566666666666667,
+      "restricted": 0.0,
+      "team": 0.4566666666666667,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.0
+    },
+    "tni": 1.0,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "SPEC6_rfc_impl",
+    "title": "Rfc Impl",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.95,
+      "restricted": 0.95,
+      "team": 1.0,
+      "team_no_plan": 0.95,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "SPEC7_config_schema",
+    "title": "Config Schema",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 0.9167,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "tni": 1.0,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "SQL1_query_repair",
+    "title": "Query Repair",
+    "category": "Data Engineering",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.0,
+      "team": 0.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 0.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "SQL2_query_optimize",
+    "title": "Query Optimize",
+    "category": "Data Engineering",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.47,
+      "restricted": 0.87,
+      "team": 0.87,
+      "team_no_plan": 0.47,
+      "team_no_verify": 0.47
+    },
+    "tni": -0.0,
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "SYNTH1_distributed_debug",
+    "title": "Distributed Debug",
+    "category": "Distributed Systems",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.09000000000000001,
+      "restricted": 0.09000000000000001,
+      "team": 0.18333333333333335,
+      "team_no_plan": 0.06,
+      "team_no_verify": 0.15
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "TEST1_spec_to_tests",
+    "title": "Spec To Tests",
+    "category": "Testing",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.2333333333333333,
+      "restricted": 0.09999999999999999,
+      "team": 0.26666666666666666,
+      "team_no_plan": 0.2333333333333333,
+      "team_no_verify": 0.26666666666666666
+    },
+    "tni": 1.25,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "TEST2_regression",
+    "title": "Regression",
+    "category": "Testing",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.0,
+      "team": 0.6666666666666666,
+      "team_no_plan": 0.5766666666666667,
+      "team_no_verify": 1.0
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "TEST3_integration",
+    "title": "Integration",
+    "category": "Testing",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.0,
+      "team": 0.3066666666666667,
+      "team_no_plan": 0.27666666666666667,
+      "team_no_verify": 0.27666666666666667
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "TEST4_property",
+    "title": "Property",
+    "category": "Testing",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.2866666666666667,
+      "restricted": 0.0,
+      "team": 0.2866666666666667,
+      "team_no_plan": 0.2866666666666667,
+      "team_no_verify": 0.2866666666666667
+    },
+    "tni": 1.0,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "TEST5_mutation_resistant",
+    "title": "Mutation Resistant",
+    "category": "Testing",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.22333333333333336,
+      "restricted": 0.22333333333333336,
+      "team": 0.27666666666666667,
+      "team_no_plan": 0.27666666666666667,
+      "team_no_verify": 0.3066666666666667
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "TEST6_property_based",
+    "title": "Property Based",
+    "category": "Testing",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.3,
+      "restricted": 0.09999999999999999,
+      "team": 0.6666666666666666,
+      "team_no_plan": 0.09999999999999999,
+      "team_no_verify": 1.0
+    },
+    "tni": 2.0,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "TEST7_integration_suite",
+    "title": "Integration Suite",
+    "category": "Testing",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.0,
+      "restricted": 0.26666666666666666,
+      "team": 1.0,
+      "team_no_plan": 0.26666666666666666,
+      "team_no_verify": 1.0
+    },
+    "tni": -2.0,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "TEST8_unit_basic",
+    "title": "Unit Basic",
+    "category": "Testing",
+    "difficulty": "easy",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.75,
+      "restricted": 0.75,
+      "team": 0.88,
+      "team_no_plan": 0.88,
+      "team_no_verify": 0.88
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "TEST9_mock_service",
+    "title": "Mock Service",
+    "category": "Testing",
+    "difficulty": "medium",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.2966666666666667,
+      "restricted": 0.0,
+      "team": 0.3333333333333333,
+      "team_no_plan": 0.26,
+      "team_no_verify": 1.0
+    },
+    "tni": 1.1236,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "TRAP1_spec_conflict",
+    "title": "Spec Conflict",
+    "category": "Adversarial",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 1.0,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "TRAP2_false_fix",
+    "title": "8 reported bugs: 5 genuine bugs + 3 intentional design choices per ARCHITECTURE",
+    "category": "Adversarial",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 0.9166666666666666,
+      "team": 1.0,
+      "team_no_plan": 1.0,
+      "team_no_verify": 0.7916666666666666
+    },
+    "tni": 1.0,
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "TRAP3_metric_mirage",
+    "title": "Metric Mirage",
+    "category": "Operations",
+    "difficulty": "expert",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.4,
+      "restricted": 0.4,
+      "team": 0.6,
+      "team_no_plan": 0.4,
+      "team_no_verify": 0.4
+    },
+    "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "TRAP4_version_paradox",
+    "title": "v2->v3 migration; 2/6 patterns must remain as shims for vendored dependency",
+    "category": "Adversarial",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.5533333333333333,
+      "restricted": 0.3033333333333334,
+      "team": 0.5266666666666667,
+      "team_no_plan": 0.5533333333333333,
+      "team_no_verify": 0.3033333333333334
+    },
+    "tni": 0.8933,
+    "classification": "HIGH-TNI"
+  },
+  {
+    "task_id": "TRAP5_security_theater",
+    "title": "Security Theater",
+    "category": "Adversarial",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.71,
+      "restricted": 0.71,
+      "team": 0.71,
+      "team_no_plan": 0.71,
+      "team_no_verify": 0.79
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "TRAP6_deprecated_api",
+    "title": "Deprecated Api",
+    "category": "Adversarial",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 1.0,
+      "restricted": 1.0,
+      "team": 1.0,
+      "team_no_plan": 0.0,
+      "team_no_verify": 1.0
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "TRAP7_test_pollution",
+    "title": "Test Pollution",
+    "category": "Adversarial",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.8,
+      "restricted": 0.8,
+      "team": 0.8,
+      "team_no_plan": 0.8,
+      "team_no_verify": 0.8
+    },
+    "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "TRAP8_config_override",
+    "title": "Config Override",
+    "category": "Adversarial",
+    "difficulty": "hard",
+    "has_generator": true,
+    "ablation_scores": {
+      "oracle": 0.9,
+      "restricted": 0.9,
+      "team": 0.9,
+      "team_no_plan": 0.9,
+      "team_no_verify": 0.9
+    },
+    "classification": "NEUTRAL"
+  }
+]

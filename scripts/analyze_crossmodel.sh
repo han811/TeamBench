@@ -12,11 +12,11 @@ echo "Checking result files..."
 FILES=""
 for f in shared/ablation_results/crossmodel_*.json; do
     if [ -f "$f" ]; then
-        scored=$(python3 -c "import json; d=json.load(open('$f')); runs=d.get('runs',[]); print(sum(1 for r in runs if r.get('score') is not None))")
+        scored=$(python3 -c "import json; d=json.load(open('$f')); runs=d.get('runs',[]); print(sum(1 for r in runs if r.get('partial_score') is not None))")
         total=$(python3 -c "import json; d=json.load(open('$f')); runs=d.get('runs',[]); print(len(runs))")
-        errors=$(python3 -c "import json; d=json.load(open('$f')); runs=d.get('runs',[]); print(sum(1 for r in runs if r.get('error')))")
+        errors=$(python3 -c "import json; d=json.load(open('$f')); runs=d.get('runs',[]); print(sum(1 for r in runs if r.get('error') not in (None, '')))")
         echo "  $(basename $f): $scored/$total scored, $errors errors"
-        if [ "$errors" -eq 0 ] && [ "$scored" -gt 0 ]; then
+        if [ "$scored" -gt 0 ]; then
             FILES="$FILES $f"
         fi
     fi

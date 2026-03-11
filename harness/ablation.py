@@ -60,6 +60,9 @@ class AblationCondition(str, Enum):
     EXPERTISE_NO_ANALYSIS = "expertise_no_analysis"
     EXPERTISE_NO_TEST = "expertise_no_test"
     EXPERTISE_ORACLE = "expertise_oracle"
+    # Strong baselines — single agent with enhanced prompting
+    ORACLE_COT = "oracle_cot"
+    ORACLE_2PASS = "oracle_2pass"
 
 
 @dataclass
@@ -538,6 +541,116 @@ def run_ablation_condition(
         phase = PhaseResult(phase="expertise_oracle", turns=turns)
         result.phases.append(phase)
         result.total_turns += len(turns)
+
+    elif condition == AblationCondition.ORACLE_COT:
+        # Strong baseline: single oracle agent with chain-of-thought prompt
+        # Gets 2x turns to match team compute budget (plan + execute internally)
+        oracle_config = _make_oracle_config(
+            spec_path=spec_path,
+            workspace_dir=workspace,
+            reports_dir=reports,
+            messages_dir=messages,
+            submission_dir=submission,
+            task_dir=task_dir,
+        )
+        loop = AgentLoop(
+            role_config=oracle_config,
+            adapter=adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "oracle_cot"),
+            max_turns=max_turns * 2,  # 2x turns to match team compute
+        )
+        prompt = (
+            f"You are an expert Oracle agent for task: {task_id}\n\n"
+            f"## Full Specification\n{spec_text}\n\n"
+            f"## Instructions\n"
+            f"Follow this structured approach:\n\n"
+            f"### Phase 1: Analysis & Planning (think step-by-step)\n"
+            f"1. Read the spec carefully and identify ALL requirements.\n"
+            f"2. Read workspace files to understand the current codebase state.\n"
+            f"3. Create a mental plan: list each issue to fix, in priority order.\n"
+            f"4. Identify potential pitfalls, edge cases, and dependencies.\n\n"
+            f"### Phase 2: Implementation\n"
+            f"5. Implement fixes one at a time, verifying each change.\n"
+            f"6. Run tests after each significant change.\n"
+            f"7. Cross-check your changes against ALL spec requirements.\n\n"
+            f"### Phase 3: Self-Verification\n"
+            f"8. Review your changes against the spec checklist.\n"
+            f"9. Run final tests to confirm everything works.\n"
+            f"10. Write attestation.json with verdict='pass'.\n\n"
+            f'Write: write(path="attestation.json", content=\'{{"task_id":"{task_id}","verdict":"pass","checklist":[]}}\')\n'
+            f"Output DONE when complete."
+        )
+        turns = loop.run(prompt)
+        phase = PhaseResult(phase="oracle_cot", turns=turns)
+        result.phases.append(phase)
+        result.total_turns += len(turns)
+
+    elif condition == AblationCondition.ORACLE_2PASS:
+        # Strong baseline: two-pass oracle — first pass plans, second pass executes
+        # Both passes are the SAME single agent with full access
+        oracle_config = _make_oracle_config(
+            spec_path=spec_path,
+            workspace_dir=workspace,
+            reports_dir=reports,
+            messages_dir=messages,
+            submission_dir=submission,
+            task_dir=task_dir,
+        )
+
+        # Pass 1: Analysis and planning (write plan to file)
+        loop1 = AgentLoop(
+            role_config=oracle_config,
+            adapter=adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "oracle_2pass_plan"),
+            max_turns=max_turns,
+        )
+        plan_prompt = (
+            f"You are an Oracle agent for task: {task_id} — PLANNING PASS\n\n"
+            f"## Full Specification\n{spec_text}\n\n"
+            f"## Instructions\n"
+            f"Your job in this pass is ONLY to analyze and plan. Do NOT implement yet.\n"
+            f"1. Read the spec and all relevant workspace files.\n"
+            f"2. Identify every issue, bug, or missing requirement.\n"
+            f"3. Write a detailed plan to /workspace/plan.md with:\n"
+            f"   - Each issue found (file, line, description)\n"
+            f"   - The fix needed for each issue\n"
+            f"   - Priority order for implementation\n"
+            f"   - Potential risks or tricky areas\n"
+            f'4. Use: write(path="plan.md", content="...your plan...")\n'
+            f"5. Output DONE when your plan is written.\n\n"
+            f"IMPORTANT: Do NOT modify any workspace code files. Only write plan.md."
+        )
+        turns1 = loop1.run(plan_prompt)
+        phase1 = PhaseResult(phase="oracle_2pass_plan", turns=turns1)
+        result.phases.append(phase1)
+        result.total_turns += len(turns1)
+
+        # Pass 2: Execute based on the plan
+        loop2 = AgentLoop(
+            role_config=oracle_config,
+            adapter=adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "oracle_2pass_exec"),
+            max_turns=max_turns,
+        )
+        exec_prompt = (
+            f"You are an Oracle agent for task: {task_id} — EXECUTION PASS\n\n"
+            f"## Full Specification\n{spec_text}\n\n"
+            f"## Instructions\n"
+            f"A planning pass has already analyzed the task and written a plan.\n"
+            f'1. Read the plan: read(path="plan.md")\n'
+            f"2. Execute the plan step by step — implement all fixes.\n"
+            f"3. Run tests to verify your changes.\n"
+            f"4. Write attestation.json when all requirements are met.\n\n"
+            f'write(path="attestation.json", content=\'{{"task_id":"{task_id}","verdict":"pass","checklist":[]}}\')\n'
+            f"Output DONE when complete."
+        )
+        turns2 = loop2.run(exec_prompt)
+        phase2 = PhaseResult(phase="oracle_2pass_exec", turns=turns2)
+        result.phases.append(phase2)
+        result.total_turns += len(turns2)
 
     # Check attestation verdict for non-FULL conditions
     att_path = os.path.join(submission, "attestation.json")

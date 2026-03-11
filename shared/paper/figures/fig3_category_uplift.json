@@ -14,13 +14,6 @@
     "max_uplift": 0.0
   },
   {
-    "category": "Cross-System",
-    "count": 7,
-    "avg_uplift": -0.1857,
-    "min_uplift": -1.0,
-    "max_uplift": 0.0
-  },
-  {
     "category": "Software Eng.",
     "count": 11,
     "avg_uplift": -0.1839,
@@ -35,18 +28,18 @@
     "max_uplift": 0.1
   },
   {
+    "category": "Cross-System",
+    "count": 9,
+    "avg_uplift": -0.1444,
+    "min_uplift": -1.0,
+    "max_uplift": 0.0
+  },
+  {
     "category": "Information Retrieval",
     "count": 8,
     "avg_uplift": -0.0567,
     "min_uplift": -0.9,
     "max_uplift": 0.2967
-  },
-  {
-    "category": "Distributed",
-    "count": 6,
-    "avg_uplift": -0.0296,
-    "min_uplift": -0.25,
-    "max_uplift": 0.0833
   },
   {
     "category": "Data Engineering",
@@ -56,9 +49,16 @@
     "max_uplift": 0.74
   },
   {
+    "category": "Distributed",
+    "count": 7,
+    "avg_uplift": -0.0135,
+    "min_uplift": -0.25,
+    "max_uplift": 0.0834
+  },
+  {
     "category": "Security",
-    "count": 15,
-    "avg_uplift": -0.004,
+    "count": 16,
+    "avg_uplift": -0.0037,
     "min_uplift": -0.69,
     "max_uplift": 0.41
   },
@@ -92,8 +92,8 @@
   },
   {
     "category": "Adversarial",
-    "count": 8,
-    "avg_uplift": 0.0833,
+    "count": 11,
+    "avg_uplift": 0.0788,
     "min_uplift": 0.0,
     "max_uplift": 0.36
   },

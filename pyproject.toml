@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=68.0"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "teambench"
@@ -9,18 +9,67 @@ description = "A benchmark for evaluating multi-agent LLM teamwork through OS-en
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
-dependencies = []
+authors = [
+    {name = "Yubin Kim", email = "ybkim95@gmail.com"},
+]
+keywords = ["benchmark", "multi-agent", "llm", "evaluation", "teamwork"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "click>=8.0",
+    "pyyaml>=6.0",
+]
+
+[project.urls]
+Homepage = "https://huggingface.co/spaces/ybkim95/teambench-leaderboard"
+Repository = "https://github.com/ybkim95/TeamBench"
+Leaderboard = "https://huggingface.co/spaces/ybkim95/teambench-leaderboard"
+"Bug Tracker" = "https://github.com/ybkim95/TeamBench/issues"
 
 [project.optional-dependencies]
 gemini = ["google-genai>=1.0"]
 openai = ["openai>=1.0"]
 anthropic = ["anthropic>=0.20"]
 all = ["google-genai>=1.0", "openai>=1.0", "anthropic>=0.20"]
+frameworks = [
+    "langgraph>=0.2",
+    "langchain-core>=0.3",
+    "langchain-openai>=0.2",
+    "google-adk>=0.1",
+    "crewai>=0.80",
+]
+langgraph = [
+    "langgraph>=0.2",
+    "langchain-core>=0.3",
+    "langchain-openai>=0.2",
+]
+langgraph-google = [
+    "langgraph>=0.2",
+    "langchain-core>=0.3",
+    "langchain-google-genai>=2.0",
+]
+google-adk = [
+    "google-adk>=0.1",
+]
+crewai = [
+    "crewai>=0.80",
+]
 analysis = ["matplotlib>=3.8", "numpy>=1.24"]
-dev = ["pytest>=7.0", "pyyaml>=6.0"]
+dev = ["pytest>=7.0"]
 
 [project.scripts]
 teambench = "harness.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["harness*", "generators*", "leaderboard*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

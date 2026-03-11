@@ -9,10 +9,14 @@ API key:  ANTHROPIC_API_KEY environment variable
 """
 from __future__ import annotations
 
+import logging
 import os
+import time
 from typing import Any
 
 from harness.agent_interface import AdapterResponse, ToolCallAdapter
+
+logger = logging.getLogger(__name__)
 
 
 def _standard_to_anthropic_tools(tools: list[dict]) -> list[dict]:
@@ -59,7 +63,7 @@ class AnthropicAdapter(ToolCallAdapter):
             raise ValueError(
                 "ANTHROPIC_API_KEY not set. Provide api_key or set the environment variable."
             )
-        self._client = anthropic.Anthropic(api_key=key)
+        self._client = anthropic.Anthropic(api_key=key, timeout=120.0)
 
     # ------------------------------------------------------------------
     # ToolCallAdapter interface
@@ -86,7 +90,7 @@ class AnthropicAdapter(ToolCallAdapter):
         if anthropic_tools:
             kwargs["tools"] = anthropic_tools
 
-        response = self._client.messages.create(**kwargs)
+        response = self._call_with_retry(**kwargs)
         self._track_usage(response)
         return self._parse_response(response)
 
@@ -103,10 +107,55 @@ class AnthropicAdapter(ToolCallAdapter):
     # Internal helpers
     # ------------------------------------------------------------------
 
+    def generate(
+        self,
+        messages: list[dict],
+        system_prompt: str,
+    ) -> AdapterResponse:
+        """Call Anthropic Messages API without tools and return AdapterResponse."""
+        anthropic_messages = self._build_messages(messages)
+
+        kwargs: dict[str, Any] = {
+            "model": self.model,
+            "max_tokens": self.max_tokens,
+            "temperature": self.temperature,
+            "messages": anthropic_messages,
+        }
+        if system_prompt:
+            kwargs["system"] = system_prompt
+
+        response = self._call_with_retry(**kwargs)
+        self._track_usage(response)
+        return self._parse_response(response)
+
+    def _call_with_retry(self, max_retries: int = 5, **kwargs) -> Any:
+        """Call Anthropic API with exponential backoff retry on transient errors."""
+        import anthropic
+
+        for attempt in range(max_retries):
+            try:
+                return self._client.messages.create(**kwargs)
+            except (
+                anthropic.RateLimitError,
+                anthropic.InternalServerError,
+                anthropic.APIConnectionError,
+                anthropic.APITimeoutError,
+            ) as exc:
+                if attempt == max_retries - 1:
+                    raise
+                wait = min(2 ** attempt * 5, 120)
+                logger.warning(
+                    "Anthropic API error (attempt %d/%d): %s — retrying in %ds",
+                    attempt + 1, max_retries, exc, wait,
+                )
+                time.sleep(wait)
+        raise RuntimeError("Unreachable")
+
     def _build_messages(self, messages: list[dict]) -> list[dict]:
         """Convert standard message dicts to Anthropic messages format.
 
-        Anthropic requires alternating user/assistant turns.
+        Anthropic requires alternating user/assistant turns and the
+        conversation must end with a user message (no assistant prefill).
         "tool" role (tool results already formatted as text) map to "user".
         """
         anthropic_msgs: list[dict] = []
@@ -114,9 +163,22 @@ class AnthropicAdapter(ToolCallAdapter):
             role = msg.get("role", "user")
             content = msg.get("content", "")
             if role in ("user", "tool"):
-                anthropic_msgs.append({"role": "user", "content": content})
+                mapped_role = "user"
             elif role == "assistant":
-                anthropic_msgs.append({"role": "assistant", "content": content})
+                mapped_role = "assistant"
+            else:
+                mapped_role = "user"
+
+            # Merge consecutive same-role messages
+            if anthropic_msgs and anthropic_msgs[-1]["role"] == mapped_role:
+                anthropic_msgs[-1]["content"] += "\n\n" + content
+            else:
+                anthropic_msgs.append({"role": mapped_role, "content": content})
+
+        # Ensure conversation ends with a user message (required by some models)
+        if anthropic_msgs and anthropic_msgs[-1]["role"] == "assistant":
+            anthropic_msgs.append({"role": "user", "content": "Continue."})
+
         return anthropic_msgs
 
     def _parse_response(self, response: Any) -> AdapterResponse:

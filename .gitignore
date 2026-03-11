@@ -38,3 +38,17 @@ package-lock.json
 
 # Empty corpus fallback (created at runtime)
 .empty_corpus/
+
+# Build artifacts
+dist/
+*.egg-info/
+build/
+
+# Test/run artifacts in task workspaces
+tasks/*/workspace/data/
+tasks/*/output/
+tasks/*/workspace/.coverage
+tasks/*/workspace/test_write.txt
+
+# Smoke test results
+shared/ablation_results/smoke_fix_test*.json

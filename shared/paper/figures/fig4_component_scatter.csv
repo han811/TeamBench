@@ -5,9 +5,12 @@ CR3_perf_review,Code Review,0.1,0.0,0.1,True
 CR4_api_review,Code Review,0.06,0.37,0.06,True
 CR5_test_coverage,Code Review,0.13,0.1033,0.13,True
 CR6_review_checklist,Code Review,0.03,0.0,0.2433,True
+CROSS1_api_contract,Cross-System,0.1,0.6,0.0,False
+CROSS3_protocol_bridge,Cross-System,0.0,0.0,0.0,False
 CROSS5_event_schema,Cross-System,0.0,-0.3,-0.3,False
 CROSS6_grpc_rest_bridge,Cross-System,-1.0,-1.0,-1.0,False
 CROSS7_config_drift,Cross-System,0.0,0.0,0.0,False
+CRYPTO1_nonce_reuse,Security,0.3,0.0,0.0,True
 CRYPTO5_tls_config,Security,0.0,0.1,0.1,False
 CRYPTO6_token_validation,Security,0.0,0.0,0.0,False
 D1_schema_drift,Data Engineering,0.12,0.12,0.0,True
@@ -19,6 +22,7 @@ D6_data_reconcile,Data Engineering,0.06,0.17,0.06,True
 D7_etl_reconciliation,Data Engineering,0.0,0.1,0.0,False
 D8_csv_cleanup,Data Engineering,0.4067,0.0,0.74,True
 D9_schema_validation,Data Engineering,0.1,0.1,0.1,True
+DIST1_queue_race,Distributed,0.1667,0.0,0.0834,True
 DIST5_leader_election,Distributed,0.0,0.0,0.0,False
 DIST6_distributed_lock,Distributed,0.1,-0.3667,-0.0667,False
 GO1_concurrency_fix,Software Eng.,-0.5,-0.88,-0.75,False
@@ -127,6 +131,9 @@ TEST6_property_based,Testing,0.5667,-0.3333,0.5667,True
 TEST7_integration_suite,Testing,0.7333,0.0,0.7333,True
 TEST8_unit_basic,Testing,0.0,0.0,0.13,True
 TEST9_mock_service,Testing,0.0733,-0.6667,0.3333,True
+TRAP1_spec_conflict,Adversarial,0.0,0.0,0.0,False
+TRAP3_metric_mirage,Adversarial,0.2,0.2,0.2,True
+TRAP5_security_theater,Adversarial,0.0,-0.08,0.0,False
 TRAP6_deprecated_api,Adversarial,1.0,0.0,0.0,False
 TRAP7_test_pollution,Adversarial,0.0,0.0,0.0,False
 TRAP8_config_override,Adversarial,0.0,0.0,0.0,False

@@ -8,6 +8,9 @@
 \toprule
 Task & Category & Oracle & Restricted & Full & No-Plan & No-Verify & TNI & Plan.V & Ver.V \\
 \midrule
+TRAP1\_spec\_conflict & Adversarial & \textbf{1.00} & 1.00 & 1.00 & 1.00 & 1.00 & -- & +0.00 & +0.00 \\
+TRAP3\_metric\_mirage & Adversarial & 0.40 & 0.40 & \textbf{0.60} & 0.40 & 0.40 & -- & +0.20 & +0.20 \\
+TRAP5\_security\_theater & Adversarial & \textbf{0.71} & 0.71 & 0.71 & 0.71 & 0.79 & -- & +0.00 & -0.08 \\
 TRAP6\_deprecated\_api & Adversarial & \textbf{1.00} & 1.00 & 1.00 & 0.00 & 1.00 & -- & +1.00 & +0.00 \\
 TRAP7\_test\_pollution & Adversarial & \textbf{0.80} & 0.80 & 0.80 & 0.80 & 0.80 & -- & +0.00 & +0.00 \\
 TRAP8\_config\_override & Adversarial & \textbf{0.90} & 0.90 & 0.90 & 0.90 & 0.90 & -- & +0.00 & +0.00 \\
@@ -22,6 +25,8 @@ CR3\_perf\_review & Code Review & 0.90 & 0.90 & \textbf{1.00} & 0.90 & 1.00 & --
 CR4\_api\_review & Code Review & 0.56 & 0.56 & \textbf{0.62} & 0.56 & 0.25 & -- & +0.06 & +0.37 \\
 CR5\_test\_coverage & Code Review & 0.00 & 0.13 & \textbf{0.26} & 0.13 & 0.15 & -1.03 & +0.13 & +0.10 \\
 CR6\_review\_checklist & Code Review & 0.06 & 0.06 & \textbf{0.30} & 0.27 & 0.30 & -- & +0.03 & +0.00 \\
+CROSS1\_api\_contract & Cross-System & \textbf{1.00} & 1.00 & 1.00 & 0.90 & 0.40 & -- & +0.10 & +0.60 \\
+CROSS3\_protocol\_bridge & Cross-System & \textbf{1.00} & 1.00 & 1.00 & 1.00 & 1.00 & -- & +0.00 & +0.00 \\
 CROSS5\_event\_schema & Cross-System & 0.70 & \textbf{1.00} & 0.70 & 0.70 & 1.00 & 1.00 & +0.00 & -0.30 \\
 CROSS6\_grpc\_rest\_bridge & Cross-System & \textbf{1.00} & 1.00 & 0.00 & 1.00 & 1.00 & -- & -1.00 & -1.00 \\
 CROSS7\_config\_drift & Cross-System & \textbf{0.60} & 0.60 & 0.60 & 0.60 & 0.60 & -- & +0.00 & +0.00 \\
@@ -40,6 +45,7 @@ D8\_csv\_cleanup & Data Engineering & 0.30 & 0.26 & \textbf{1.00} & 0.59 & 1.00 
 D9\_schema\_validation & Data Engineering & 0.80 & 0.80 & \textbf{0.90} & 0.80 & 0.80 & -- & +0.10 & +0.10 \\
 SQL1\_query\_repair & Data Engineering & \textbf{0.00} & 0.00 & 0.00 & 0.00 & 0.00 & -- & -- & -- \\
 SQL2\_query\_optimize & Data Engineering & 0.47 & \textbf{0.87} & 0.87 & 0.47 & 0.47 & -0.00 & +0.40 & +0.40 \\
+DIST1\_queue\_race & Distributed & 0.33 & 0.33 & \textbf{0.42} & 0.25 & 0.42 & -- & +0.17 & +0.00 \\
 DIST5\_leader\_election & Distributed & \textbf{0.20} & 0.20 & 0.20 & 0.20 & 0.20 & -- & +0.00 & +0.00 \\
 DIST6\_distributed\_lock & Distributed & \textbf{1.00} & 0.70 & 0.63 & 0.53 & 1.00 & -0.22 & +0.10 & -0.37 \\
 dist1\_queue\_race & Distributed & \textbf{0.44} & 0.36 & 0.44 & 0.42 & 0.42 & 1.00 & +0.03 & +0.03 \\
@@ -114,6 +120,7 @@ P5\_audit\_logging & Policy & \textbf{0.93} & 0.93 & 0.93 & 1.00 & 1.00 & -- & -
 P6\_license\_check & Policy & 0.29 & 0.19 & \textbf{1.00} & 0.19 & 1.00 & 2.00 & +0.81 & +0.00 \\
 P7\_data\_retention & Policy & 0.30 & 0.26 & \textbf{1.00} & 0.00 & 1.00 & -- & +1.00 & +0.00 \\
 P8\_access\_control & Policy & 0.30 & 0.30 & \textbf{0.40} & 0.40 & 0.40 & -- & +0.00 & +0.00 \\
+CRYPTO1\_nonce\_reuse & Security & 0.50 & \textbf{1.00} & 1.00 & 0.70 & 1.00 & -0.00 & +0.30 & +0.00 \\
 CRYPTO5\_tls\_config & Security & \textbf{0.30} & 0.20 & 0.30 & 0.30 & 0.20 & 1.00 & +0.00 & +0.10 \\
 CRYPTO6\_token\_validation & Security & \textbf{0.90} & 0.90 & 0.90 & 0.90 & 0.90 & -- & +0.00 & +0.00 \\
 SEC1\_vuln\_patch & Security & \textbf{0.00} & 0.00 & 0.00 & 0.00 & 0.00 & -- & -- & -- \\
@@ -157,7 +164,7 @@ TEST7\_integration\_suite & Testing & 0.00 & 0.27 & \textbf{1.00} & 0.27 & 1.00 
 TEST8\_unit\_basic & Testing & 0.75 & 0.75 & \textbf{0.88} & 0.88 & 0.88 & -- & +0.00 & +0.00 \\
 TEST9\_mock\_service & Testing & 0.30 & 0.00 & \textbf{0.33} & 0.26 & 1.00 & 1.12 & +0.07 & -0.67 \\
 \midrule
-\textbf{Average} & (148 tasks) & 0.54 & 0.53 & 0.53 & 0.51 & 0.60 & 0.64 & +0.02 & -0.06 \\
+\textbf{Average} & (155 tasks) & 0.55 & 0.54 & 0.55 & 0.52 & 0.60 & 0.63 & +0.02 & -0.05 \\
 \bottomrule
 \end{tabular}
 \end{table*}

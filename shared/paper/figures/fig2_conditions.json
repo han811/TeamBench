@@ -54,6 +54,24 @@
     "no_verify": 0.303
   },
   {
+    "task_id": "CROSS1_api_contract",
+    "category": "Cross-System",
+    "oracle": 1.0,
+    "restricted": 1.0,
+    "full": 1.0,
+    "no_plan": 0.9,
+    "no_verify": 0.4
+  },
+  {
+    "task_id": "CROSS3_protocol_bridge",
+    "category": "Cross-System",
+    "oracle": 1.0,
+    "restricted": 1.0,
+    "full": 1.0,
+    "no_plan": 1.0,
+    "no_verify": 1.0
+  },
+  {
     "task_id": "CROSS5_event_schema",
     "category": "Cross-System",
     "oracle": 0.7,
@@ -79,6 +97,15 @@
     "full": 0.6,
     "no_plan": 0.6,
     "no_verify": 0.6
+  },
+  {
+    "task_id": "CRYPTO1_nonce_reuse",
+    "category": "Security",
+    "oracle": 0.5,
+    "restricted": 1.0,
+    "full": 1.0,
+    "no_plan": 0.7,
+    "no_verify": 1.0
   },
   {
     "task_id": "CRYPTO5_tls_config",
@@ -178,6 +205,15 @@
     "full": 0.9,
     "no_plan": 0.8,
     "no_verify": 0.8
+  },
+  {
+    "task_id": "DIST1_queue_race",
+    "category": "Distributed",
+    "oracle": 0.333,
+    "restricted": 0.333,
+    "full": 0.417,
+    "no_plan": 0.25,
+    "no_verify": 0.417
   },
   {
     "task_id": "DIST5_leader_election",
@@ -1150,6 +1186,33 @@
     "full": 0.333,
     "no_plan": 0.26,
     "no_verify": 1.0
+  },
+  {
+    "task_id": "TRAP1_spec_conflict",
+    "category": "Adversarial",
+    "oracle": 1.0,
+    "restricted": 1.0,
+    "full": 1.0,
+    "no_plan": 1.0,
+    "no_verify": 1.0
+  },
+  {
+    "task_id": "TRAP3_metric_mirage",
+    "category": "Adversarial",
+    "oracle": 0.4,
+    "restricted": 0.4,
+    "full": 0.6,
+    "no_plan": 0.4,
+    "no_verify": 0.4
+  },
+  {
+    "task_id": "TRAP5_security_theater",
+    "category": "Adversarial",
+    "oracle": 0.71,
+    "restricted": 0.71,
+    "full": 0.71,
+    "no_plan": 0.71,
+    "no_verify": 0.79
   },
   {
     "task_id": "TRAP6_deprecated_api",

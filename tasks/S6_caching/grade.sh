@@ -18,11 +18,7 @@ check() {
 }
 
 # ── Locate python ───────────────────────────────────────────────────────────
-if [ -x "<HOME>/TeamBench/venv/bin/python" ]; then
-  PYTHON="<HOME>/TeamBench/venv/bin/python"
-else
-  PYTHON="$(command -v python3 || command -v python)"
-fi
+PYTHON="${PYTHON:-python3}"
 
 export PYTHONPATH="$WORKSPACE${PYTHONPATH:+:$PYTHONPATH}"
 

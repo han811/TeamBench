@@ -15,16 +15,16 @@
   },
   {
     "difficulty": "hard",
-    "count": 88,
-    "avg_uplift": -0.0277,
-    "avg_oracle": 0.5531,
-    "avg_full": 0.5236
+    "count": 92,
+    "avg_uplift": -0.0265,
+    "avg_oracle": 0.5694,
+    "avg_full": 0.5411
   },
   {
     "difficulty": "expert",
-    "count": 10,
-    "avg_uplift": -0.0673,
-    "avg_oracle": 0.5067,
-    "avg_full": 0.4683
+    "count": 13,
+    "avg_uplift": -0.03,
+    "avg_oracle": 0.4846,
+    "avg_full": 0.5154
   }
 ]

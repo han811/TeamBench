@@ -468,6 +468,24 @@
     "category": "Code Review"
   },
   {
+    "task_id": "CROSS1_api_contract",
+    "difficulty": "hard",
+    "difficulty_num": 3,
+    "oracle": 1.0,
+    "full": 1.0,
+    "team_uplift": 0.0,
+    "category": "Cross-System"
+  },
+  {
+    "task_id": "CROSS3_protocol_bridge",
+    "difficulty": "hard",
+    "difficulty_num": 3,
+    "oracle": 1.0,
+    "full": 1.0,
+    "team_uplift": 0.0,
+    "category": "Cross-System"
+  },
+  {
     "task_id": "CROSS5_event_schema",
     "difficulty": "hard",
     "difficulty_num": 3,
@@ -1215,6 +1233,24 @@
     "category": "Testing"
   },
   {
+    "task_id": "TRAP1_spec_conflict",
+    "difficulty": "hard",
+    "difficulty_num": 3,
+    "oracle": 1.0,
+    "full": 1.0,
+    "team_uplift": 0.0,
+    "category": "Adversarial"
+  },
+  {
+    "task_id": "TRAP5_security_theater",
+    "difficulty": "hard",
+    "difficulty_num": 3,
+    "oracle": 0.71,
+    "full": 0.71,
+    "team_uplift": 0.0,
+    "category": "Adversarial"
+  },
+  {
     "task_id": "TRAP6_deprecated_api",
     "difficulty": "hard",
     "difficulty_num": 3,
@@ -1242,6 +1278,15 @@
     "category": "Adversarial"
   },
   {
+    "task_id": "CRYPTO1_nonce_reuse",
+    "difficulty": "expert",
+    "difficulty_num": 4,
+    "oracle": 0.5,
+    "full": 1.0,
+    "team_uplift": 0.0,
+    "category": "Security"
+  },
+  {
     "task_id": "D6_data_reconcile",
     "difficulty": "expert",
     "difficulty_num": 4,
@@ -1249,6 +1294,15 @@
     "full": 0.89,
     "team_uplift": 0.06,
     "category": "Data Engineering"
+  },
+  {
+    "task_id": "DIST1_queue_race",
+    "difficulty": "expert",
+    "difficulty_num": 4,
+    "oracle": 0.3333,
+    "full": 0.4167,
+    "team_uplift": 0.0834,
+    "category": "Distributed"
   },
   {
     "task_id": "GO1_concurrency_fix",
@@ -1330,5 +1384,14 @@
     "full": 0.1833,
     "team_uplift": 0.0933,
     "category": "Long-Horizon"
+  },
+  {
+    "task_id": "TRAP3_metric_mirage",
+    "difficulty": "expert",
+    "difficulty_num": 4,
+    "oracle": 0.4,
+    "full": 0.6,
+    "team_uplift": 0.2,
+    "category": "Adversarial"
   }
 ]

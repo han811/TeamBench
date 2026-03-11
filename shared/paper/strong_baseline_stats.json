@@ -1,0 +1,16 @@
+{
+  "tasks_analyzed": 28,
+  "per_condition_avg": {
+    "oracle": 0.6665,
+    "restricted": 0.556,
+    "oracle_cot": 0.7163,
+    "oracle_2pass": 0.7165,
+    "team_no_verify": 0.5585,
+    "full": 0.5012
+  },
+  "team_vs_baseline": {
+    "team_wins": 1,
+    "baseline_wins": 27,
+    "ties": 0
+  }
+}

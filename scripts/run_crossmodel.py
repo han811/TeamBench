@@ -31,6 +31,8 @@ MODEL_TO_FILE = {
     "gpt-5-mini": "crossmodel_gpt5mini_seed0.json",
     "gemini-3.1-flash-lite-preview": "crossmodel_g31lite_seed0.json",
     "gemini-3-flash-preview": "crossmodel_g3flash_seed0.json",
+    "claude-sonnet-4-6": "crossmodel_sonnet46_seed0.json",
+    "claude-haiku-4-5-20251001": "crossmodel_haiku45_seed0.json",
 }
 
 

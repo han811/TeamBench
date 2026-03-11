@@ -1,302 +1,326 @@
-# TeamBench: OS-Enforced Teamwork Benchmark for LLM Agents
+# TeamBench: Evaluating Structured LLM Teamwork via OS-Enforced Role Separation
 
-> A multi-domain benchmark for evaluating whether LLM agents can collaborate effectively under OS-enforced role separation.
+A multi-domain benchmark that evaluates whether LLM agent teams can collaborate effectively under hard, OS-level role constraints -- not prompt-based honor systems.
 
-Unlike prior benchmarks that rely on prompt-based constraints, TeamBench uses **Docker containers with file-system mount policies** to enforce role boundaries. No single agent can simultaneously access the full specification, write to the workspace, and submit verification --- forcing genuine teamwork.
+---
 
-## Key Features
+## Overview
 
-- **80 tasks** across **14 categories** with **251 seeded instances**
-- **OS-level enforcement** via Docker bind mounts --- not prompt-based honor system
-- **Contamination-resistant** parameterized generation (infinite seed variants per task)
-- **8 programming languages**: Python, JavaScript, Go, SQL, Bash, JSON, Dockerfile, HTML
-- **Model-agnostic** adapters for Gemini, GPT, Claude (and any OpenAI-compatible API)
-- **5-condition ablation framework** with Teamwork Necessity Index (TNI)
-- **Graded scoring** with partial credit and fine-grained failure mode taxonomy
+Most multi-agent benchmarks rely on prompt instructions to separate agent roles. TeamBench removes that loophole: roles are enforced by **Docker bind mounts and file-system permissions**. No single agent can simultaneously read the full specification, write to the workspace, and submit verification. Genuine coordination is structurally required.
 
-## Why Teamwork Is Necessary
+**Key stats**
 
-| Constraint | Mechanism | Bypass-proof? |
+| Property | Value |
+|---|---|
+| Tasks | 155 |
+| Categories | 19 |
+| Seeded instances | 465 (seeds 0, 1, 2) |
+| Ablation conditions | 5 |
+| Supported model families | OpenAI, Anthropic, Google, HuggingFace |
+| Enforcement mechanism | Docker bind mounts (OS-level) |
+
+---
+
+## Role Separation
+
+Three roles operate in isolated containers. Each container has a strictly scoped filesystem view:
+
+```
++------------------+       +------------------+       +------------------+
+|     PLANNER      |       |     EXECUTOR     |       |    VERIFIER      |
+|                  |  -->  |                  |  -->  |                  |
+| Reads: spec.md   |  msg  | Reads: brief.md  |  msg  | Reads: spec.md   |
+|        brief.md  |       |        workspace |       |        workspace |
+| Writes: messages |       |        messages  |       |        (read-only)|
+| Executes: No     |       | Writes: workspace|       | Writes:          |
+|                  |       |         messages |       |  attestation.json|
+|                  |       | Executes: Yes    |       | Executes: No     |
++------------------+       +------------------+       +------------------+
+       |                          |                          |
+       |    Docker bind mounts enforce every boundary        |
+       +---------------------------------------------------->+
+```
+
+| Role | Reads | Writes | Executes |
+|---|---|---|---|
+| Planner | spec.md, brief.md, messages | messages | No |
+| Executor | brief.md, workspace, messages | workspace, messages | Yes |
+| Verifier | spec.md, workspace (read-only), messages | attestation.json | No |
+
+A missing `attestation.json` is an automatic failure. The Verifier must participate -- it cannot be bypassed.
+
+---
+
+## Teamwork Necessity Index (TNI)
+
+Five ablation conditions quantify the value of each architectural component:
+
+| Condition | Description | Purpose |
 |---|---|---|
-| **Information Partition** | Planner sees `spec.md`; Executor sees only `brief.md` | Yes --- file not mounted |
-| **Permission Partition** | Executor can write workspace; Planner/Verifier cannot | Yes --- read-only mounts |
-| **Verification Independence** | Only Verifier can write `attestation.json`; no attestation = auto-fail | Yes --- mount policy |
+| Oracle | Single agent, full access | Upper bound |
+| Restricted | Single agent, executor-only access | Lower bound |
+| Team-NoPlan | Executor + Verifier only | Measures planning value |
+| Team-NoVerify | Planner + Executor only | Measures verification value |
+| Full | Planner + Executor + Verifier | Full team |
 
-### Teamwork Necessity Index (TNI)
+TNI is derived from these conditions:
 
 ```
 TNI = (S_team - S_restricted) / max(epsilon, S_oracle - S_restricted)
 ```
 
-| Score | Interpretation |
-|-------|---------------|
-| ~1.0 | Teamwork fully recovers the performance gap |
+| TNI | Interpretation |
+|---|---|
+| ~1.0 | Teamwork fully recovers the oracle-restricted gap |
 | ~0.5 | Teamwork substantially helps |
-| ~0.0 | Teamwork provides no benefit |
+| ~0.0 | Teamwork provides no benefit over restricted access |
 | < 0 | Teamwork is harmful |
 
-## Roles
+Across 155 tasks, the average TNI is **0.744**. Team outperforms Oracle on **43.9% of tasks**.
 
-| Role | Can Read | Can Write | Can Execute |
-|---|---|---|---|
-| **Planner** | `spec.md`, `brief.md`, messages | messages only | No |
-| **Executor** | `brief.md`, workspace, reports, messages | workspace, reports | Yes |
-| **Verifier** | `spec.md`, workspace (RO), reports (RO), messages | submission (`attestation.json`) | No |
+---
 
-## Task Distribution (80 Tasks, 14 Categories)
+## Task Distribution
 
-| Category | Count | Difficulty Range | Example Tasks |
-|---|---|---|---|
-| Software Engineering | 10 | medium--expert | Hidden spec, dependency conflict, refactoring, backward compat |
-| Data Engineering | 8 | medium--expert | Schema drift, data quality, pipeline repair, query optimization |
-| Security | 8 | medium--expert | Vuln patch, auth bypass, crypto upgrade, CSRF, rate limiting |
-| Incident Response | 7 | medium--expert | Cascade failure, data corruption, memory leak, deadlock |
-| Long-Horizon | 7 | hard--expert | Multi-step pipeline, budgeted workflow, staged deploy, data migration |
-| Operations | 6 | medium--expert | Service health, root cause, log analysis, container debug |
-| Code Review | 5 | easy--hard | Review respond, style enforce, perf review, API review |
-| Pipeline/Integration | 5 | medium--hard | ETL fix, API gateway, message queue, CI/CD |
-| Policy/Compliance | 5 | medium--hard | Policy config, spec arbitration, access control, audit logging |
-| Specification | 5 | medium--hard | Feature impl, API design, data model, config system |
-| Information Retrieval | 4 | easy--hard | Evidence QA, misinformation trap, multi-source, temporal |
-| Testing | 4 | medium--hard | Spec-to-tests, regression, integration, property-based |
-| Multi-language | 3 | hard | Fullstack fix, API+frontend, polyglot |
-| Negotiation | 3 | hard | Tradeoff config, cost-perf balance, tech debt |
+19 categories spanning security, data engineering, incident response, distributed systems, and more:
 
-**Difficulty distribution**: 49 hard, 19 medium, 10 expert, 2 easy
+| Category | Tasks | Difficulty |
+|---|---|---|
+| Security (SEC) | 15 | medium -- expert |
+| Data Engineering (DATA) | 11 | medium -- expert |
+| Incident Response (INC) | 11 | medium -- expert |
+| Software Engineering (SWE) | 11 | medium -- expert |
+| Long-Horizon (LH) | 9 | hard -- expert |
+| Multi-language (MULTI) | 9 | hard |
+| Operations (OPS) | 9 | medium -- hard |
+| Pipeline/Integration (PIPE) | 9 | medium -- hard |
+| Testing (TEST) | 9 | medium -- hard |
+| Adversarial (TRAP) | 8 | hard -- expert |
+| Policy/Compliance (POL) | 8 | medium -- hard |
+| Cross-Codebase (CROSS) | 7 | hard -- expert |
+| Information Retrieval (IR) | 7 | easy -- hard |
+| Specification (SPEC) | 7 | medium -- hard |
+| Code Review (CR) | 6 | easy -- hard |
+| Distributed Systems (DIST) | 6 | hard -- expert |
+| Expertise Asymmetry (EA) | 5 | hard |
+| Negotiation (NEG) | 5 | hard |
+| Cryptographic Correctness (CRYPTO) | 5 | hard -- expert |
+
+**Difficulty distribution**: 103 hard, 26 medium, 16 expert, 7 easy (155 tasks total).
+
+---
+
+## Installation
+
+```bash
+pip install teambench
+```
+
+Backend SDKs are optional extras -- install only what you need:
+
+```bash
+pip install "teambench[openai]"      # OpenAI / GPT / o-series
+pip install "teambench[anthropic]"   # Anthropic / Claude
+pip install "teambench[gemini]"      # Google / Gemini
+pip install "teambench[all]"         # All three backends
+```
+
+Docker is required for OS-enforced role separation:
+
+```bash
+# Install Docker from https://docs.docker.com/get-docker/
+docker compose build
+```
+
+---
 
 ## Quick Start
 
-### Prerequisites
-- Python 3.10+
-- Docker & Docker Compose (for container-based runs)
-
-### Install
+### Run a single task
 
 ```bash
-git clone https://github.com/ybkim95/TeamBench.git
-cd TeamBench
-python -m venv venv && source venv/bin/activate
-pip install -e ".[dev]"
+export OPENAI_API_KEY=sk-...
+
+# Run one task, seed 0, full-team condition
+teambench run --model gpt-4o --tasks S1_hidden_spec --seeds 0 --conditions full
+
+# Grade the result
+teambench grade --task S1_hidden_spec --run-dir shared/runs/S1_hidden_spec/latest
 ```
 
-### Run with LLM Agent (API key required)
+### Run the full benchmark
 
 ```bash
-# Set API keys
-export GEMINI_API_KEY=...   # or OPENAI_API_KEY / ANTHROPIC_API_KEY
+export GEMINI_API_KEY=...
 
-# Single task
-python -m harness.run_agent --model gemini-2.5-flash --task P1_policy_config --seed 0
-
-# Batch (all tasks, 3 seeds)
-python -m harness.run_all --model gemini-2.5-flash --seeds 0 1 2
-
-# Ablation study (5 conditions x selected tasks)
-python -m harness.ablation --model gemini-2.5-flash --seeds 0 1 2
-
-# Compute TNI from ablation results
-python -m harness.compute_tni --ablation shared/ablation_results.json
+teambench run --model gemini-3-flash-preview
 ```
 
-### Run with Docker (OS-enforced role separation)
+This runs all 155 tasks across seeds 0, 1, 2 and all 5 ablation conditions. Results are written to `shared/leaderboard/`.
+
+### Explore tasks
 
 ```bash
-docker compose build
-python -m harness.run_task --task S1_hidden_spec --seed 0
+# List all tasks
+teambench list-tasks
 
-# Interact with role containers
-docker exec -it teambench_planner bash    # Read spec, plan strategy
-docker exec -it teambench_executor bash   # Execute fixes
-docker exec -it teambench_verifier bash   # Verify & create attestation
+# Filter by category and difficulty
+teambench list-tasks --category SEC --difficulty hard
 
-# Grade
-python -m harness.grade_task --task S1_hidden_spec --run_dir shared/runs/<run_id>
+# Show metadata for one task
+teambench info --task CRYPTO1_nonce_reuse
 
-docker compose down
+# Validate generator determinism and cross-seed uniqueness
+teambench validate --task S1_hidden_spec --seeds 0 1 2
 ```
 
-### Validate Infrastructure (no API keys needed)
+### Generate a task instance
 
 ```bash
-# Run full validation
-python -m harness.run_all --seeds 0  # Grades unmodified workspaces (all should fail)
-
-# Generate benchmark statistics
-python -m harness.benchmark_stats --json
-python -m harness.benchmark_stats --latex
+teambench generate --task D1_schema_drift --seed 2 --output-dir /tmp/d1_seed2
 ```
 
-## Model Adapters
+### Submit results to the leaderboard
 
-TeamBench supports any LLM via the `ToolCallAdapter` interface:
+```bash
+# Validate your result file
+teambench submit shared/leaderboard/leaderboard_gpt-4o.json
+```
+
+Follow the printed instructions to open a pull request. Scores are server-side verified -- not self-reported.
+
+---
+
+## Supported Models
+
+TeamBench selects a backend adapter automatically based on the model name prefix:
+
+| Model family | Prefix | Environment variable | Install extra |
+|---|---|---|---|
+| OpenAI GPT / o-series | `gpt-*`, `o1`, `o3`, `o4` | `OPENAI_API_KEY` | `teambench[openai]` |
+| Anthropic Claude | `claude-*` | `ANTHROPIC_API_KEY` | `teambench[anthropic]` |
+| Google Gemini | `gemini-*` | `GEMINI_API_KEY` | `teambench[gemini]` |
+| HuggingFace / OpenAI-compatible | any | `OPENAI_API_KEY` + `--base-url` | `teambench[openai]` |
+| Mock (local testing) | `mock*` | (none) | (built-in) |
+
+Any OpenAI-compatible endpoint (vLLM, Ollama, Together AI, etc.) works via the OpenAI adapter with a custom base URL.
+
+Bring your own model by implementing the `ToolCallAdapter` interface:
 
 ```python
 from harness.agent_interface import ToolCallAdapter, AdapterResponse
 
 class MyAdapter(ToolCallAdapter):
     def generate_with_tools(self, messages, system_prompt, tools) -> AdapterResponse:
-        # Call your LLM API, return text + tool_calls
+        # Call your model, return text + tool_calls
         ...
     def get_usage(self) -> dict:
         return {"input_tokens": ..., "output_tokens": ..., "total_tokens": ...}
 ```
 
-Built-in adapters (auto-selected by model name prefix):
-
-| Prefix | Adapter | Environment Variable |
-|---|---|---|
-| `gemini-*` | GeminiAdapter | `GEMINI_API_KEY` |
-| `gpt-*`, `o1*`, `o3*` | OpenAIAdapter | `OPENAI_API_KEY` |
-| `claude-*` | AnthropicAdapter | `ANTHROPIC_API_KEY` |
-| `mock-*` | MockAdapter | (none --- for testing) |
+---
 
 ## Contamination Resistance
 
-Every task has a **parameterized generator** that produces unique instances per seed:
+Every task has a parameterized generator. Different seeds produce distinct workspace files and correct answers; the same seed always reproduces identically:
 
 ```python
 from generators.registry import get_generator
 
 gen = get_generator("P1_policy_config")
 
-# Different seeds -> different data, different correct answers
-r0 = gen.generate(seed=0)   # rate_limit=180, timeout=30, auth=jwt
-r1 = gen.generate(seed=1)   # rate_limit=95, timeout=60, auth=saml
-r42 = gen.generate(seed=42) # rate_limit=210, timeout=15, auth=oauth2
+# Seed 0: rate_limit=180, timeout=30, auth=jwt
+r0 = gen.generate(seed=0)
 
-# Same seed -> deterministic
+# Seed 1: rate_limit=95, timeout=60, auth=saml -- different correct answer
+r1 = gen.generate(seed=1)
+
+# Deterministic: same seed, same output
 assert gen.generate(seed=0).expected == r0.expected
 ```
 
-80 generators produce 251 instances (seeds [0,1,2]) with deterministic reproducibility.
+155 generators produce 465 instances across seeds [0, 1, 2]. Arbitrary additional seeds are supported for holdout evaluation.
 
-## Ablation Framework
-
-Five conditions to quantify the value of each architectural component:
-
-| Condition | Description | What it measures |
-|---|---|---|
-| **Oracle** | Single agent, full access (spec + exec + verify) | Upper bound |
-| **Restricted** | Single agent, executor-only (brief + exec) | Lower bound |
-| **Team-NoPlan** | Executor + Verifier (no Planner) | Planning value |
-| **Team-NoVerify** | Planner + Executor (no Verifier) | Verification value |
-| **Full** | Planner + Executor + Verifier + remediation | Full team |
-
-```bash
-python -m harness.ablation --model gemini-2.5-flash --seeds 0 1 2
-
-# Generate paper tables from ablation results
-python -m harness.paper_tables --ablation shared/ablation_results.json --output-dir shared/paper/
-```
-
-## Scoring
-
-Each task produces `score.json`:
-
-```json
-{
-  "pass": true,
-  "primary": {"success": 1},
-  "secondary": {"partial_score": 0.85, "checks_passed": 6, "checks_total": 7},
-  "failure_modes": ["hidden_spec_edge_case_x"]
-}
-```
-
-**Hard rule**: Missing `attestation.json` = automatic FAIL (verifier must participate).
-
-## Metrics
-
-| Metric | Description |
-|---|---|
-| **Success Rate** | Binary pass/fail ratio |
-| **Partial Score** | Fractional credit (0--1) for partial solutions |
-| **Pass@k** | Stability: P(at least 1 pass in k seeded runs) |
-| **TNI** | Teamwork Necessity Index (ablation-derived) |
-| **Planning Value** | S_full - S_no_plan |
-| **Verification Value** | S_full - S_no_verify |
-| **Communication Cost** | Messages, tokens, rounds between agents |
-| **Cross-Model Matrix** | C[planner_model, executor_model, verifier_model] |
-
-## Failure Mode Taxonomy
-
-| Code | Description |
-|---|---|
-| FM1 | Spec Omission --- Executor missed requirements only in spec |
-| FM2 | Overfit to Visible --- Passed obvious checks, failed hidden ones |
-| FM3 | Execution Loop --- Agent retried without making progress |
-| FM4 | Unsafe Change --- Introduced security/policy violation |
-| FM5 | Evidence Hallucination --- Cited non-existent evidence |
-| FM6 | Poor Repair --- Failed remediation after verifier feedback |
-| FM7 | Verification Failure --- Verifier approved incorrect output |
+---
 
 ## Repository Structure
 
 ```
 TeamBench/
   harness/
-    run_agent.py             # Agent driver (model -> orchestrator -> grader)
-    run_all.py               # Batch runner with setup_run/grade_run
-    orchestrator.py          # 3-phase protocol: Plan -> Execute -> Verify
-    agent_loop.py            # Single-agent tool-calling loop
-    agent_interface.py       # ToolCallAdapter ABC, role configs, tools
-    ablation.py              # 5-condition ablation framework + TNI
-    compute_tni.py           # Per-task TNI computation and reporting
-    paper_tables.py          # LaTeX table generation for paper
-    benchmark_stats.py       # Task distribution analysis
+    cli.py               # teambench CLI entry point
+    run_agent.py         # Single-run driver
+    run_all.py           # Batch runner
+    orchestrator.py      # 3-phase protocol: Plan -> Execute -> Verify
+    agent_loop.py        # Tool-calling loop with stuck detection
+    agent_interface.py   # ToolCallAdapter ABC, role configs, tools
+    ablation.py          # 5-condition ablation framework
+    compute_tni.py       # TNI computation and reporting
+    paper_tables.py      # LaTeX table generation
+    benchmark_stats.py   # Task distribution analysis
     adapters/
-      __init__.py            # create_adapter() factory
-      openai_adapter.py      # GPT/O1/O3 adapter
-      anthropic_adapter.py   # Claude adapter
-      mock_adapter.py        # Deterministic mock for testing
-    gemini_adapter.py        # Gemini adapter
+      __init__.py        # create_adapter() factory
+      openai_adapter.py  # GPT / o-series adapter
+      anthropic_adapter.py  # Claude adapter
+      mock_adapter.py    # Deterministic mock for testing
+    gemini_adapter.py    # Gemini adapter
   generators/
-    base.py                  # TaskGenerator ABC, GeneratedTask dataclass
-    primitives.py            # SeededRandom, NamePool, ValuePool
-    registry.py              # Auto-discovery of gen_*.py generators
-    gen_*.py                 # 80 parameterized generators (one per task)
+    base.py              # TaskGenerator ABC, GeneratedTask dataclass
+    primitives.py        # SeededRandom, NamePool, ValuePool
+    registry.py          # Auto-discovery of gen_*.py generators
+    gen_*.py             # 155 parameterized generators (one per task)
   tasks/
     {TASK_ID}/
-      task.yaml              # Metadata (domain, difficulty, languages, tags)
-      spec.md                # Full specification (Planner + Verifier)
-      brief.md               # Summary (Executor only)
-      setup.sh               # Workspace preparation
-      grade.sh               # Deterministic grader -> score.json
-      workspace/             # Initial (buggy) code/data
-      corpus/                # Offline documents (IR/policy tasks)
+      task.yaml          # Metadata (domain, difficulty, languages, tags)
+      spec.md            # Full specification (Planner + Verifier access)
+      brief.md           # Summary (Executor access only)
+      setup.sh           # Workspace preparation
+      grade.sh           # Deterministic grader -> score.json
+      workspace/         # Initial (buggy) code and data
+      corpus/            # Offline documents (IR and policy tasks)
   leaderboard/
-    schema.json              # Submission format
-    aggregate.py             # Aggregation with dimensional breakdowns
-  docker-compose.yml         # 3-container sandbox (P/E/V)
-  images/{planner,executor,verifier}/Dockerfile
+    schema.json          # Submission format specification
+    aggregate.py         # Aggregation with dimensional breakdowns
+  docker-compose.yml     # 3-container sandbox (Planner / Executor / Verifier)
+  images/
+    planner/Dockerfile
+    executor/Dockerfile
+    verifier/Dockerfile
 ```
 
-## Adding New Tasks
+---
 
-1. Create `generators/gen_my_task.py` implementing `TaskGenerator`
-2. Create `tasks/MY_TASK/` with `task.yaml`, `spec.md`, `brief.md`, `setup.sh`, `grade.sh`, `workspace/`
-3. Run `python -m harness.run_all --tasks MY_TASK --seeds 0` to validate the grader
-4. Verify cross-seed diversity with `generators/registry.py`
+## Leaderboard
 
-## Pre-registered Hypotheses
+Results are publicly tracked at:
 
-1. **Teamwork is necessary**: TNI > 0.5 across most tasks (restricted baseline significantly underperforms)
-2. **Planning value**: Removing the Planner significantly reduces partial scores
-3. **Verification value**: Removing the Verifier significantly reduces pass rate
-4. **Cross-family synergy**: Mixed teams (Gemini + Claude + GPT) outperform homogeneous teams
-5. **Role specialization**: Some models excel as Planner vs. Executor vs. Verifier
-6. **Difficulty calibration**: Expert tasks have < 20% pass rate; easy tasks have > 60%
+**https://huggingface.co/spaces/ybkim95/teambench-leaderboard**
+
+Submissions are server-side graded using held-out seeds. To submit:
+
+1. Run the benchmark: `teambench run --model <your-model>`
+2. Validate the result file: `teambench submit shared/leaderboard/leaderboard_<model>.json`
+3. Open a pull request placing the file at `shared/submissions/<model>.json`
+4. CI runs the grader on held-out seeds and updates the leaderboard automatically.
+
+Scores on the public leaderboard are not self-reported. All submissions are re-evaluated server-side.
+
+---
 
 ## Citation
 
 ```bibtex
-@article{teambench2026,
-  title={TeamBench: OS-Enforced Teamwork Benchmark for Heterogeneous LLM Agent Teams},
-  author={Kim, Youngbin and others},
-  year={2026},
-  note={https://github.com/ybkim95/TeamBench}
+@article{kim2026teambench,
+  title     = {TeamBench: Evaluating Structured LLM Teamwork via OS-Enforced Role Separation},
+  author    = {Kim, Yubin},
+  year      = {2026},
+  url       = {https://github.com/ybkim95/TeamBench},
+  note      = {https://huggingface.co/spaces/ybkim95/teambench-leaderboard}
 }
 ```
 
+---
+
 ## License
 
-Apache 2.0
+MIT License. See [LICENSE](LICENSE) for details.

@@ -48,6 +48,22 @@
     "team_gt_oracle": true
   },
   {
+    "task_id": "CROSS1_api_contract",
+    "category": "Cross-System",
+    "planning_value": 0.1,
+    "verification_value": 0.6,
+    "team_uplift": 0.0,
+    "team_gt_oracle": false
+  },
+  {
+    "task_id": "CROSS3_protocol_bridge",
+    "category": "Cross-System",
+    "planning_value": 0.0,
+    "verification_value": 0.0,
+    "team_uplift": 0.0,
+    "team_gt_oracle": false
+  },
+  {
     "task_id": "CROSS5_event_schema",
     "category": "Cross-System",
     "planning_value": 0.0,
@@ -70,6 +86,14 @@
     "verification_value": 0.0,
     "team_uplift": 0.0,
     "team_gt_oracle": false
+  },
+  {
+    "task_id": "CRYPTO1_nonce_reuse",
+    "category": "Security",
+    "planning_value": 0.3,
+    "verification_value": 0.0,
+    "team_uplift": 0.0,
+    "team_gt_oracle": true
   },
   {
     "task_id": "CRYPTO5_tls_config",
@@ -157,6 +181,14 @@
     "planning_value": 0.1,
     "verification_value": 0.1,
     "team_uplift": 0.1,
+    "team_gt_oracle": true
+  },
+  {
+    "task_id": "DIST1_queue_race",
+    "category": "Distributed",
+    "planning_value": 0.1667,
+    "verification_value": 0.0,
+    "team_uplift": 0.0834,
     "team_gt_oracle": true
   },
   {
@@ -1022,6 +1054,30 @@
     "verification_value": -0.6667,
     "team_uplift": 0.3333,
     "team_gt_oracle": true
+  },
+  {
+    "task_id": "TRAP1_spec_conflict",
+    "category": "Adversarial",
+    "planning_value": 0.0,
+    "verification_value": 0.0,
+    "team_uplift": 0.0,
+    "team_gt_oracle": false
+  },
+  {
+    "task_id": "TRAP3_metric_mirage",
+    "category": "Adversarial",
+    "planning_value": 0.2,
+    "verification_value": 0.2,
+    "team_uplift": 0.2,
+    "team_gt_oracle": true
+  },
+  {
+    "task_id": "TRAP5_security_theater",
+    "category": "Adversarial",
+    "planning_value": 0.0,
+    "verification_value": -0.08,
+    "team_uplift": 0.0,
+    "team_gt_oracle": false
   },
   {
     "task_id": "TRAP6_deprecated_api",

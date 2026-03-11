@@ -16,7 +16,6 @@ PYTHON="${PYTHON:-}"
 if [ -z "$PYTHON" ]; then
   for candidate in \
       "$(dirname "$0")/../../../venv/bin/python" \
-      "<HOME>/TeamBench/venv/bin/python" \
       "python3"; do
     if "$candidate" -c "import json" >/dev/null 2>&1; then
       PYTHON="$candidate"

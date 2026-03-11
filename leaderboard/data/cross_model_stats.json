@@ -1,0 +1,1455 @@
+{
+  "models": [
+    "gemini-3-flash-preview",
+    "gemini-3.1-flash-lite-preview",
+    "gpt-5-mini",
+    "gpt-5-nano"
+  ],
+  "total_tasks": 28,
+  "per_model": {
+    "gemini-3-flash-preview": {
+      "task_count": 28,
+      "avg_oracle": 0.6991,
+      "avg_restricted": 0.6958,
+      "avg_team": 0.7544,
+      "avg_uplift": 0.0586,
+      "avg_tni": 0.5336,
+      "valid_tni_count": 15,
+      "team_helps_count": 14,
+      "team_helps_pct": 0.5
+    },
+    "gemini-3.1-flash-lite-preview": {
+      "task_count": 28,
+      "avg_oracle": 0.6732,
+      "avg_restricted": 0.6518,
+      "avg_team": 0.7701,
+      "avg_uplift": 0.1183,
+      "avg_tni": 0.9487,
+      "valid_tni_count": 10,
+      "team_helps_count": 16,
+      "team_helps_pct": 0.5714
+    },
+    "gpt-5-mini": {
+      "task_count": 28,
+      "avg_oracle": 0.7112,
+      "avg_restricted": 0.5904,
+      "avg_team": 0.7558,
+      "avg_uplift": 0.1653,
+      "avg_tni": 1.1821,
+      "valid_tni_count": 15,
+      "team_helps_count": 16,
+      "team_helps_pct": 0.5714
+    },
+    "gpt-5-nano": {
+      "task_count": 28,
+      "avg_oracle": 0.689,
+      "avg_restricted": 0.4284,
+      "avg_team": 0.6782,
+      "avg_uplift": 0.2498,
+      "avg_tni": 0.8412,
+      "valid_tni_count": 21,
+      "team_helps_count": 22,
+      "team_helps_pct": 0.7857
+    }
+  },
+  "pairwise_correlations": {
+    "gemini-3-flash-preview_vs_gemini-3.1-flash-lite-preview": {
+      "n_tasks": 28,
+      "spearman_tni": 0.1929,
+      "spearman_uplift": 0.3848,
+      "shared_tasks": [
+        "CR5_test_coverage",
+        "CROSS1_api_contract",
+        "CROSS3_protocol_bridge",
+        "CRYPTO1_nonce_reuse",
+        "D1_schema_drift",
+        "D8_csv_cleanup",
+        "DIST1_queue_race",
+        "INC1_cascade_failure",
+        "INC4_dns_miscfg",
+        "IR1_evidence_qa",
+        "MULTI1_fullstack_fix",
+        "NEG1_tradeoff_config",
+        "O1_service_health",
+        "O2_incident_rootcause",
+        "O3_log_analysis",
+        "P1_policy_config",
+        "P3_access_control",
+        "PIPE1_etl_fix",
+        "SEC1_vuln_patch",
+        "SEC3_crypto_upgrade",
+        "SPEC1_feature_impl",
+        "SPEC3_data_model",
+        "TEST1_spec_to_tests",
+        "TEST2_regression",
+        "TEST5_mutation_resistant",
+        "TRAP1_spec_conflict",
+        "TRAP3_metric_mirage",
+        "TRAP5_security_theater"
+      ]
+    },
+    "gemini-3-flash-preview_vs_gpt-5-mini": {
+      "n_tasks": 28,
+      "spearman_tni": 0.2308,
+      "spearman_uplift": 0.0092,
+      "shared_tasks": [
+        "CR5_test_coverage",
+        "CROSS1_api_contract",
+        "CROSS3_protocol_bridge",
+        "CRYPTO1_nonce_reuse",
+        "D1_schema_drift",
+        "D8_csv_cleanup",
+        "DIST1_queue_race",
+        "INC1_cascade_failure",
+        "INC4_dns_miscfg",
+        "IR1_evidence_qa",
+        "MULTI1_fullstack_fix",
+        "NEG1_tradeoff_config",
+        "O1_service_health",
+        "O2_incident_rootcause",
+        "O3_log_analysis",
+        "P1_policy_config",
+        "P3_access_control",
+        "PIPE1_etl_fix",
+        "SEC1_vuln_patch",
+        "SEC3_crypto_upgrade",
+        "SPEC1_feature_impl",
+        "SPEC3_data_model",
+        "TEST1_spec_to_tests",
+        "TEST2_regression",
+        "TEST5_mutation_resistant",
+        "TRAP1_spec_conflict",
+        "TRAP3_metric_mirage",
+        "TRAP5_security_theater"
+      ]
+    },
+    "gemini-3-flash-preview_vs_gpt-5-nano": {
+      "n_tasks": 28,
+      "spearman_tni": -0.181,
+      "spearman_uplift": 0.2536,
+      "shared_tasks": [
+        "CR5_test_coverage",
+        "CROSS1_api_contract",
+        "CROSS3_protocol_bridge",
+        "CRYPTO1_nonce_reuse",
+        "D1_schema_drift",
+        "D8_csv_cleanup",
+        "DIST1_queue_race",
+        "INC1_cascade_failure",
+        "INC4_dns_miscfg",
+        "IR1_evidence_qa",
+        "MULTI1_fullstack_fix",
+        "NEG1_tradeoff_config",
+        "O1_service_health",
+        "O2_incident_rootcause",
+        "O3_log_analysis",
+        "P1_policy_config",
+        "P3_access_control",
+        "PIPE1_etl_fix",
+        "SEC1_vuln_patch",
+        "SEC3_crypto_upgrade",
+        "SPEC1_feature_impl",
+        "SPEC3_data_model",
+        "TEST1_spec_to_tests",
+        "TEST2_regression",
+        "TEST5_mutation_resistant",
+        "TRAP1_spec_conflict",
+        "TRAP3_metric_mirage",
+        "TRAP5_security_theater"
+      ]
+    },
+    "gemini-3.1-flash-lite-preview_vs_gpt-5-mini": {
+      "n_tasks": 28,
+      "spearman_tni": 0.2121,
+      "spearman_uplift": 0.2028,
+      "shared_tasks": [
+        "CR5_test_coverage",
+        "CROSS1_api_contract",
+        "CROSS3_protocol_bridge",
+        "CRYPTO1_nonce_reuse",
+        "D1_schema_drift",
+        "D8_csv_cleanup",
+        "DIST1_queue_race",
+        "INC1_cascade_failure",
+        "INC4_dns_miscfg",
+        "IR1_evidence_qa",
+        "MULTI1_fullstack_fix",
+        "NEG1_tradeoff_config",
+        "O1_service_health",
+        "O2_incident_rootcause",
+        "O3_log_analysis",
+        "P1_policy_config",
+        "P3_access_control",
+        "PIPE1_etl_fix",
+        "SEC1_vuln_patch",
+        "SEC3_crypto_upgrade",
+        "SPEC1_feature_impl",
+        "SPEC3_data_model",
+        "TEST1_spec_to_tests",
+        "TEST2_regression",
+        "TEST5_mutation_resistant",
+        "TRAP1_spec_conflict",
+        "TRAP3_metric_mirage",
+        "TRAP5_security_theater"
+      ]
+    },
+    "gemini-3.1-flash-lite-preview_vs_gpt-5-nano": {
+      "n_tasks": 28,
+      "spearman_tni": 0.3044,
+      "spearman_uplift": -0.1821,
+      "shared_tasks": [
+        "CR5_test_coverage",
+        "CROSS1_api_contract",
+        "CROSS3_protocol_bridge",
+        "CRYPTO1_nonce_reuse",
+        "D1_schema_drift",
+        "D8_csv_cleanup",
+        "DIST1_queue_race",
+        "INC1_cascade_failure",
+        "INC4_dns_miscfg",
+        "IR1_evidence_qa",
+        "MULTI1_fullstack_fix",
+        "NEG1_tradeoff_config",
+        "O1_service_health",
+        "O2_incident_rootcause",
+        "O3_log_analysis",
+        "P1_policy_config",
+        "P3_access_control",
+        "PIPE1_etl_fix",
+        "SEC1_vuln_patch",
+        "SEC3_crypto_upgrade",
+        "SPEC1_feature_impl",
+        "SPEC3_data_model",
+        "TEST1_spec_to_tests",
+        "TEST2_regression",
+        "TEST5_mutation_resistant",
+        "TRAP1_spec_conflict",
+        "TRAP3_metric_mirage",
+        "TRAP5_security_theater"
+      ]
+    },
+    "gpt-5-mini_vs_gpt-5-nano": {
+      "n_tasks": 28,
+      "spearman_tni": 0.1103,
+      "spearman_uplift": 0.0644,
+      "shared_tasks": [
+        "CR5_test_coverage",
+        "CROSS1_api_contract",
+        "CROSS3_protocol_bridge",
+        "CRYPTO1_nonce_reuse",
+        "D1_schema_drift",
+        "D8_csv_cleanup",
+        "DIST1_queue_race",
+        "INC1_cascade_failure",
+        "INC4_dns_miscfg",
+        "IR1_evidence_qa",
+        "MULTI1_fullstack_fix",
+        "NEG1_tradeoff_config",
+        "O1_service_health",
+        "O2_incident_rootcause",
+        "O3_log_analysis",
+        "P1_policy_config",
+        "P3_access_control",
+        "PIPE1_etl_fix",
+        "SEC1_vuln_patch",
+        "SEC3_crypto_upgrade",
+        "SPEC1_feature_impl",
+        "SPEC3_data_model",
+        "TEST1_spec_to_tests",
+        "TEST2_regression",
+        "TEST5_mutation_resistant",
+        "TRAP1_spec_conflict",
+        "TRAP3_metric_mirage",
+        "TRAP5_security_theater"
+      ]
+    }
+  },
+  "consistent_team_helps": [
+    "D8_csv_cleanup",
+    "MULTI1_fullstack_fix",
+    "O2_incident_rootcause",
+    "P1_policy_config",
+    "PIPE1_etl_fix",
+    "TEST2_regression",
+    "TEST5_mutation_resistant"
+  ],
+  "consistent_team_hurts": [],
+  "per_task": [
+    {
+      "task_id": "CR5_test_coverage",
+      "category": "Code Review",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.38,
+          "restricted": 0.38,
+          "team": 0.38,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.38,
+          "restricted": 0.38,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.62,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.38,
+          "restricted": 0.38,
+          "team": 0.92,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.54,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.38,
+          "restricted": 0.38,
+          "team": 0.46,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.08,
+          "classification": "TEAM-HELPS"
+        }
+      }
+    },
+    {
+      "task_id": "CROSS1_api_contract",
+      "category": "Cross-System",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 1.0,
+          "restricted": 0.9,
+          "team": 0.9,
+          "necessity_gap": 0.1,
+          "tni": 0.0,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 1.0,
+          "restricted": 1.0,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.9,
+          "restricted": 0.3,
+          "team": 1.0,
+          "necessity_gap": 0.6,
+          "tni": 1.1667,
+          "team_uplift": 0.7,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.9,
+          "restricted": 0.4,
+          "team": 0.6,
+          "necessity_gap": 0.5,
+          "tni": 0.4,
+          "team_uplift": 0.2,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "CROSS3_protocol_bridge",
+      "category": "Cross-System",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 1.0,
+          "restricted": 1.0,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 1.0,
+          "restricted": 1.0,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-mini": {
+          "oracle": 1.0,
+          "restricted": 1.0,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-nano": {
+          "oracle": 1.0,
+          "restricted": 0.2,
+          "team": 0.4,
+          "necessity_gap": 0.8,
+          "tni": 0.25,
+          "team_uplift": 0.2,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "CRYPTO1_nonce_reuse",
+      "category": "Security",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 1.0,
+          "restricted": 1.0,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.5,
+          "restricted": 1.0,
+          "team": 1.0,
+          "necessity_gap": -0.5,
+          "tni": -0.0,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-mini": {
+          "oracle": 1.0,
+          "restricted": 0.7,
+          "team": 0.6,
+          "necessity_gap": 0.3,
+          "tni": -0.3333,
+          "team_uplift": -0.1,
+          "classification": "TEAM-HURTS"
+        },
+        "gpt-5-nano": {
+          "oracle": 1.0,
+          "restricted": 0.4,
+          "team": 0.7,
+          "necessity_gap": 0.6,
+          "tni": 0.5,
+          "team_uplift": 0.3,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "D1_schema_drift",
+      "category": "Data Engineering",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.88,
+          "restricted": 0.62,
+          "team": 0.69,
+          "necessity_gap": 0.26,
+          "tni": 0.2692,
+          "team_uplift": 0.07,
+          "classification": "HIGH-TNI"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.75,
+          "restricted": 0.75,
+          "team": 0.69,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": -0.06,
+          "classification": "TEAM-HURTS"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.62,
+          "restricted": 0.62,
+          "team": 0.62,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.5,
+          "restricted": 0.25,
+          "team": 0.62,
+          "necessity_gap": 0.25,
+          "tni": 1.48,
+          "team_uplift": 0.37,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "D8_csv_cleanup",
+      "category": "Data Engineering",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.89,
+          "restricted": 0.78,
+          "team": 1.0,
+          "necessity_gap": 0.11,
+          "tni": 2.0,
+          "team_uplift": 0.22,
+          "classification": "HIGH-TNI"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.89,
+          "restricted": 0.78,
+          "team": 1.0,
+          "necessity_gap": 0.11,
+          "tni": 2.0,
+          "team_uplift": 0.22,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.89,
+          "restricted": 0.78,
+          "team": 1.0,
+          "necessity_gap": 0.11,
+          "tni": 2.0,
+          "team_uplift": 0.22,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.89,
+          "restricted": 0.22,
+          "team": 0.78,
+          "necessity_gap": 0.67,
+          "tni": 0.8358,
+          "team_uplift": 0.56,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "DIST1_queue_race",
+      "category": "Distributed",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.5,
+          "restricted": 0.4167,
+          "team": 0.4167,
+          "necessity_gap": 0.0833,
+          "tni": 0.0,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.3333,
+          "restricted": 0.3333,
+          "team": 0.4167,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0834,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.4167,
+          "restricted": 0.0833,
+          "team": 0.5,
+          "necessity_gap": 0.3334,
+          "tni": 1.2499,
+          "team_uplift": 0.4167,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.3333,
+          "restricted": 0.0833,
+          "team": 0.5,
+          "necessity_gap": 0.25,
+          "tni": 1.6668,
+          "team_uplift": 0.4167,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "INC1_cascade_failure",
+      "category": "Incident Response",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.9,
+          "restricted": 0.8,
+          "team": 0.9,
+          "necessity_gap": 0.1,
+          "tni": 1.0,
+          "team_uplift": 0.1,
+          "classification": "TEAM-HELPS"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.8,
+          "restricted": 0.8,
+          "team": 0.9,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.1,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.8,
+          "restricted": 0.8,
+          "team": 0.8,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.8,
+          "restricted": 0.8,
+          "team": 0.9,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.1,
+          "classification": "TEAM-HELPS"
+        }
+      }
+    },
+    {
+      "task_id": "INC4_dns_miscfg",
+      "category": "Incident Response",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.92,
+          "restricted": 0.58,
+          "team": 1.0,
+          "necessity_gap": 0.34,
+          "tni": 1.2353,
+          "team_uplift": 0.42,
+          "classification": "HIGH-TNI"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.58,
+          "restricted": 0.58,
+          "team": 0.58,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.92,
+          "restricted": 0.58,
+          "team": 1.0,
+          "necessity_gap": 0.34,
+          "tni": 1.2353,
+          "team_uplift": 0.42,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.58,
+          "restricted": 0.58,
+          "team": 0.83,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.25,
+          "classification": "TEAM-HELPS"
+        }
+      }
+    },
+    {
+      "task_id": "IR1_evidence_qa",
+      "category": "Information Retrieval",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.33,
+          "restricted": 0.33,
+          "team": 0.33,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.33,
+          "restricted": 0.33,
+          "team": 0.33,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.33,
+          "restricted": 0.33,
+          "team": 0.33,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.83,
+          "restricted": 0.33,
+          "team": 0.33,
+          "necessity_gap": 0.5,
+          "tni": 0.0,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        }
+      }
+    },
+    {
+      "task_id": "MULTI1_fullstack_fix",
+      "category": "Multi-language",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.88,
+          "restricted": 0.88,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.12,
+          "classification": "TEAM-HELPS"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.88,
+          "restricted": 0.88,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.12,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.88,
+          "restricted": 0.88,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.12,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.75,
+          "restricted": 0.62,
+          "team": 0.88,
+          "necessity_gap": 0.13,
+          "tni": 2.0,
+          "team_uplift": 0.26,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "NEG1_tradeoff_config",
+      "category": "Negotiation",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.3,
+          "restricted": 0.6,
+          "team": 0.6,
+          "necessity_gap": -0.3,
+          "tni": -0.0,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.3,
+          "restricted": 0.4,
+          "team": 0.5,
+          "necessity_gap": -0.1,
+          "tni": -1.0,
+          "team_uplift": 0.1,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.7,
+          "restricted": 0.2,
+          "team": 0.7,
+          "necessity_gap": 0.5,
+          "tni": 1.0,
+          "team_uplift": 0.5,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.5,
+          "restricted": 0.3,
+          "team": 0.2,
+          "necessity_gap": 0.2,
+          "tni": -0.5,
+          "team_uplift": -0.1,
+          "classification": "TEAM-HURTS"
+        }
+      }
+    },
+    {
+      "task_id": "O1_service_health",
+      "category": "Operations",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.0,
+          "restricted": 0.0,
+          "team": 0.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.5,
+          "restricted": 0.0,
+          "team": 0.25,
+          "necessity_gap": 0.5,
+          "tni": 0.5,
+          "team_uplift": 0.25,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.25,
+          "restricted": 0.25,
+          "team": 0.25,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.25,
+          "restricted": 0.5,
+          "team": 0.25,
+          "necessity_gap": -0.25,
+          "tni": 1.0,
+          "team_uplift": -0.25,
+          "classification": "TEAM-HURTS"
+        }
+      }
+    },
+    {
+      "task_id": "O2_incident_rootcause",
+      "category": "Operations",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.6,
+          "restricted": 0.4,
+          "team": 0.8,
+          "necessity_gap": 0.2,
+          "tni": 2.0,
+          "team_uplift": 0.4,
+          "classification": "HIGH-TNI"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.6,
+          "restricted": 0.4,
+          "team": 0.8,
+          "necessity_gap": 0.2,
+          "tni": 2.0,
+          "team_uplift": 0.4,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.6,
+          "restricted": 0.4,
+          "team": 0.8,
+          "necessity_gap": 0.2,
+          "tni": 2.0,
+          "team_uplift": 0.4,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.6,
+          "restricted": 0.4,
+          "team": 0.8,
+          "necessity_gap": 0.2,
+          "tni": 2.0,
+          "team_uplift": 0.4,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "O3_log_analysis",
+      "category": "Operations",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.31,
+          "restricted": 0.38,
+          "team": 0.31,
+          "necessity_gap": -0.07,
+          "tni": 1.0,
+          "team_uplift": -0.07,
+          "classification": "TEAM-HURTS"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.31,
+          "restricted": 0.38,
+          "team": 0.31,
+          "necessity_gap": -0.07,
+          "tni": 1.0,
+          "team_uplift": -0.07,
+          "classification": "TEAM-HURTS"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.31,
+          "restricted": 0.38,
+          "team": 0.31,
+          "necessity_gap": -0.07,
+          "tni": 1.0,
+          "team_uplift": -0.07,
+          "classification": "TEAM-HURTS"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.38,
+          "restricted": 0.31,
+          "team": 0.31,
+          "necessity_gap": 0.07,
+          "tni": 0.0,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        }
+      }
+    },
+    {
+      "task_id": "P1_policy_config",
+      "category": "Policy",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.93,
+          "restricted": 0.93,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.07,
+          "classification": "TEAM-HELPS"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.93,
+          "restricted": 0.93,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.07,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.93,
+          "restricted": 0.5,
+          "team": 1.0,
+          "necessity_gap": 0.43,
+          "tni": 1.1628,
+          "team_uplift": 0.5,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.93,
+          "restricted": 0.29,
+          "team": 1.0,
+          "necessity_gap": 0.64,
+          "tni": 1.1094,
+          "team_uplift": 0.71,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "P3_access_control",
+      "category": "Policy",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.82,
+          "restricted": 0.82,
+          "team": 0.33,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": -0.49,
+          "classification": "TEAM-HURTS"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.64,
+          "restricted": 0.82,
+          "team": 0.82,
+          "necessity_gap": -0.18,
+          "tni": -0.0,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.45,
+          "restricted": 0.45,
+          "team": 0.91,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.46,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.82,
+          "restricted": 0.45,
+          "team": 1.0,
+          "necessity_gap": 0.37,
+          "tni": 1.4865,
+          "team_uplift": 0.55,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "PIPE1_etl_fix",
+      "category": "Pipeline",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.73,
+          "restricted": 0.73,
+          "team": 0.82,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.09,
+          "classification": "TEAM-HELPS"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.73,
+          "restricted": 0.64,
+          "team": 0.82,
+          "necessity_gap": 0.09,
+          "tni": 2.0,
+          "team_uplift": 0.18,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.73,
+          "restricted": 0.73,
+          "team": 0.82,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.09,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.55,
+          "restricted": 0.55,
+          "team": 0.73,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.18,
+          "classification": "TEAM-HELPS"
+        }
+      }
+    },
+    {
+      "task_id": "SEC1_vuln_patch",
+      "category": "Security",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.67,
+          "restricted": 0.75,
+          "team": 0.75,
+          "necessity_gap": -0.08,
+          "tni": -0.0,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.75,
+          "restricted": 0.5,
+          "team": 0.83,
+          "necessity_gap": 0.25,
+          "tni": 1.32,
+          "team_uplift": 0.33,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.75,
+          "restricted": 0.67,
+          "team": 0.83,
+          "necessity_gap": 0.08,
+          "tni": 2.0,
+          "team_uplift": 0.16,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.75,
+          "restricted": 0.58,
+          "team": 0.75,
+          "necessity_gap": 0.17,
+          "tni": 1.0,
+          "team_uplift": 0.17,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "SEC3_crypto_upgrade",
+      "category": "Security",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.69,
+          "restricted": 0.62,
+          "team": 0.69,
+          "necessity_gap": 0.07,
+          "tni": 1.0,
+          "team_uplift": 0.07,
+          "classification": "TEAM-HELPS"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.77,
+          "restricted": 0.77,
+          "team": 0.77,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.54,
+          "restricted": 0.54,
+          "team": 0.85,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.31,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.54,
+          "restricted": 0.54,
+          "team": 0.85,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.31,
+          "classification": "TEAM-HELPS"
+        }
+      }
+    },
+    {
+      "task_id": "SPEC1_feature_impl",
+      "category": "Specification",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.64,
+          "restricted": 0.64,
+          "team": 0.73,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.09,
+          "classification": "TEAM-HELPS"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.64,
+          "restricted": 0.64,
+          "team": 0.73,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.09,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.64,
+          "restricted": 0.64,
+          "team": 0.64,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.64,
+          "restricted": 0.09,
+          "team": 0.09,
+          "necessity_gap": 0.55,
+          "tni": 0.0,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        }
+      }
+    },
+    {
+      "task_id": "SPEC3_data_model",
+      "category": "Specification",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.786,
+          "restricted": 0.786,
+          "team": 0.857,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.071,
+          "classification": "TEAM-HELPS"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.786,
+          "restricted": 0.786,
+          "team": 0.786,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.857,
+          "restricted": 0.929,
+          "team": 0.071,
+          "necessity_gap": -0.072,
+          "tni": 2.0,
+          "team_uplift": -0.858,
+          "classification": "TEAM-HURTS"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.929,
+          "restricted": 0.071,
+          "team": 0.929,
+          "necessity_gap": 0.858,
+          "tni": 1.0,
+          "team_uplift": 0.858,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "TEST1_spec_to_tests",
+      "category": "Testing",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.4,
+          "restricted": 0.7,
+          "team": 1.0,
+          "necessity_gap": -0.3,
+          "tni": -1.0,
+          "team_uplift": 0.3,
+          "classification": "TEAM-HELPS"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.6,
+          "restricted": 0.3,
+          "team": 0.8,
+          "necessity_gap": 0.3,
+          "tni": 1.6667,
+          "team_uplift": 0.5,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.5,
+          "restricted": 0.6,
+          "team": 0.6,
+          "necessity_gap": -0.1,
+          "tni": -0.0,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.6,
+          "restricted": 0.4,
+          "team": 0.9,
+          "necessity_gap": 0.2,
+          "tni": 2.0,
+          "team_uplift": 0.5,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "TEST2_regression",
+      "category": "Testing",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.73,
+          "restricted": 0.91,
+          "team": 1.0,
+          "necessity_gap": -0.18,
+          "tni": -0.5,
+          "team_uplift": 0.09,
+          "classification": "TEAM-HELPS"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.91,
+          "restricted": 0.91,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.09,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.91,
+          "restricted": 0.55,
+          "team": 1.0,
+          "necessity_gap": 0.36,
+          "tni": 1.25,
+          "team_uplift": 0.45,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.91,
+          "restricted": 0.91,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.09,
+          "classification": "TEAM-HELPS"
+        }
+      }
+    },
+    {
+      "task_id": "TEST5_mutation_resistant",
+      "category": "Testing",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.83,
+          "restricted": 0.67,
+          "team": 0.83,
+          "necessity_gap": 0.16,
+          "tni": 1.0,
+          "team_uplift": 0.16,
+          "classification": "HIGH-TNI"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.83,
+          "restricted": 0.83,
+          "team": 0.92,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.09,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.75,
+          "restricted": 0.67,
+          "team": 0.75,
+          "necessity_gap": 0.08,
+          "tni": 1.0,
+          "team_uplift": 0.08,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.67,
+          "restricted": 0.83,
+          "team": 0.92,
+          "necessity_gap": -0.16,
+          "tni": -0.5625,
+          "team_uplift": 0.09,
+          "classification": "TEAM-HELPS"
+        }
+      }
+    },
+    {
+      "task_id": "TRAP1_spec_conflict",
+      "category": "Adversarial",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 1.0,
+          "restricted": 1.0,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 1.0,
+          "restricted": 1.0,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-mini": {
+          "oracle": 1.0,
+          "restricted": 1.0,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-nano": {
+          "oracle": 1.0,
+          "restricted": 0.4,
+          "team": 1.0,
+          "necessity_gap": 0.6,
+          "tni": 1.0,
+          "team_uplift": 0.6,
+          "classification": "HIGH-TNI"
+        }
+      }
+    },
+    {
+      "task_id": "TRAP3_metric_mirage",
+      "category": "Adversarial",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.6,
+          "restricted": 1.0,
+          "team": 1.0,
+          "necessity_gap": -0.4,
+          "tni": -0.0,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.4,
+          "restricted": 0.4,
+          "team": 0.6,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.2,
+          "classification": "TEAM-HELPS"
+        },
+        "gpt-5-mini": {
+          "oracle": 1.0,
+          "restricted": 1.0,
+          "team": 1.0,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.4,
+          "restricted": 0.4,
+          "team": 0.4,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        }
+      }
+    },
+    {
+      "task_id": "TRAP5_security_theater",
+      "category": "Adversarial",
+      "models": {
+        "gemini-3-flash-preview": {
+          "oracle": 0.86,
+          "restricted": 0.86,
+          "team": 0.79,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": -0.07,
+          "classification": "TEAM-HURTS"
+        },
+        "gemini-3.1-flash-lite-preview": {
+          "oracle": 0.71,
+          "restricted": 0.71,
+          "team": 0.71,
+          "necessity_gap": 0.0,
+          "tni": null,
+          "team_uplift": 0.0,
+          "classification": "NEUTRAL"
+        },
+        "gpt-5-mini": {
+          "oracle": 0.86,
+          "restricted": 0.57,
+          "team": 0.86,
+          "necessity_gap": 0.29,
+          "tni": 1.0,
+          "team_uplift": 0.29,
+          "classification": "HIGH-TNI"
+        },
+        "gpt-5-nano": {
+          "oracle": 0.86,
+          "restricted": 0.71,
+          "team": 0.86,
+          "necessity_gap": 0.15,
+          "tni": 1.0,
+          "team_uplift": 0.15,
+          "classification": "HIGH-TNI"
+        }
+      }
+    }
+  ]
+}

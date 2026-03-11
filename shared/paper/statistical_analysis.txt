@@ -2,33 +2,33 @@
 STATISTICAL ANALYSIS — TeamBench Ablation Study
 ======================================================================
 
-Sample: 148 tasks, 1392 total runs
+Sample: 155 tasks, 1427 total runs
 Model: Gemini 2.5 Flash
 
 --- Condition-Level Partial Scores ---
-  oracle              : avg=0.470  n=256  pass_rate=0.473 [0.414, 0.535]
-  restricted          : avg=0.433  n=256  pass_rate=0.449 [0.387, 0.512]
-  full                : avg=0.525  n=256  pass_rate=0.523 [0.465, 0.586]
-  team_no_plan        : avg=0.455  n=256  pass_rate=0.465 [0.402, 0.527]
-  team_no_verify      : avg=0.554  n=256  pass_rate=0.555 [0.492, 0.613]
+  oracle              : avg=0.476  n=263  pass_rate=0.475 [0.414, 0.536]
+  restricted          : avg=0.442  n=263  pass_rate=0.456 [0.395, 0.517]
+  full                : avg=0.533  n=263  pass_rate=0.532 [0.475, 0.593]
+  team_no_plan        : avg=0.462  n=263  pass_rate=0.471 [0.411, 0.532]
+  team_no_verify      : avg=0.558  n=263  pass_rate=0.555 [0.494, 0.616]
 
 --- Team Uplift Analysis ---
-  Avg uplift (Full - Restricted): +0.003
-  Positive uplift: 73/148 (49%)
-  Negative uplift: 28/148 (19%)
-  Neutral:         47/148 (32%)
+  Avg uplift (Full - Restricted): +0.005
+  Positive uplift: 75/155 (48%)
+  Negative uplift: 28/155 (18%)
+  Neutral:         52/155 (34%)
 
 --- Planning Value ---
-  Avg Planning Value: +0.020
-  Positive: 60/139 (43%)
+  Avg Planning Value: +0.024
+  Positive: 64/146 (44%)
   Max: +1.000 (INC2_data_corruption)
 
 --- Verification Value ---
-  Avg Verification Value: -0.066
-  Positive: 32/139 (23%)
+  Avg Verification Value: -0.058
+  Positive: 34/146 (23%)
 
 --- Team > Oracle (Key Finding) ---
-  Tasks where team outperforms oracle: 65/148
+  Tasks where team outperforms oracle: 68/155
     TEST7_integration_suite   +1.00
     SPEC4_migration           +0.85
     LH2_budgeted_workflow     +0.80
@@ -37,6 +37,7 @@ Model: Gemini 2.5 Flash
     D8_csv_cleanup            +0.70
     P7_data_retention         +0.70
     TEST2_regression          +0.67
+    CRYPTO1_nonce_reuse       +0.50
     SQL2_query_optimize       +0.40
     TEST6_property_based      +0.37
     INT1_pipeline_repair      +0.34
@@ -46,6 +47,7 @@ Model: Gemini 2.5 Flash
     CR5_test_coverage         +0.26
     CR6_review_checklist      +0.24
     NEG3_tech_debt            +0.20
+    TRAP3_metric_mirage       +0.20
     cross3_protocol_bridge    +0.13
     trap3_metric_mirage       +0.13
     O5_container_debug        +0.13
@@ -70,6 +72,7 @@ Model: Gemini 2.5 Flash
     D3_schema_migration       +0.09
     INC5_cert_expiry          +0.09
     JS2_xss_sanitize          +0.09
+    DIST1_queue_race          +0.08
     O1_service_health         +0.08
     GO2_race_condition        +0.08
     INC4_dns_miscfg           +0.08
@@ -95,14 +98,14 @@ Model: Gemini 2.5 Flash
     dist2_consensus_partition +0.03
     SEC3_crypto_upgrade       +0.02
 
-  Interpretation: On 65/148 tasks, the 3-role team with
+  Interpretation: On 68/155 tasks, the 3-role team with
   remediation loops outperforms a single oracle agent with full access.
   This demonstrates that role separation and verification-driven
   iteration provide complementary value beyond raw capability.
 
 --- Sample Size Guidance ---
   To detect 10pp difference at p<0.05 with 80% power: n=393 per condition
-  Current: 148 tasks x 1 seed = 148 instances per condition
-  Recommended: 148 tasks x 3 seeds = 444 instances per condition
+  Current: 155 tasks x 1 seed = 155 instances per condition
+  Recommended: 155 tasks x 3 seeds = 465 instances per condition
 
 ======================================================================

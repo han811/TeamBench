@@ -42,10 +42,10 @@ def _standard_to_gemini_declarations(tools: list[dict]) -> list[types.Tool]:
 
 
 def _load_all_gemini_keys() -> list[str]:
-    """Load all GEMINI_API_KEY* values from ~/CoDaS_v4/.env and local .env."""
+    """Load all GEMINI_API_KEY* values from local .env."""
     keys = []
     seen = set()
-    for env_path in [os.path.expanduser("~/CoDaS_v4/.env"), ".env"]:
+    for env_path in [".env"]:
         if not os.path.exists(env_path):
             continue
         with open(env_path) as f:

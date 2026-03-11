@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Optional
@@ -232,8 +233,12 @@ class TaskOrchestrator:
                 f"{{\"id\":\"req_1\",\"ok\":true,\"note\":\"requirement met\"}},"
                 f"{{\"id\":\"req_2\",\"ok\":true,\"note\":\"verified correct\"}}"
                 f"]}}')\n"
-                f"5. If verdict is 'fail', send feedback to executor via send_message.\n"
-                f"6. Output DONE when finished."
+                f"5. IMPORTANT: Set verdict='pass' if the CORE requirements are met, even if\n"
+                f"   minor stylistic issues remain. Only set verdict='fail' for clear, objective\n"
+                f"   violations of explicit spec requirements.\n"
+                f"6. If verdict is 'fail', send SPECIFIC, ACTIONABLE feedback to the executor\n"
+                f"   via send_message. Vague feedback like 'needs improvement' is not helpful.\n"
+                f"7. Output DONE when finished."
             )
 
             verifier_turns = verifier_loop.run(verifier_prompt)
@@ -254,6 +259,12 @@ class TaskOrchestrator:
                 print(f"\n  VERDICT: FAIL — starting remediation loop {loop_num + 1}")
                 result.remediation_loops = loop_num + 1
 
+                # Snapshot workspace before remediation to prevent destructive changes
+                snapshot_dir = os.path.join(self.run_dir, "workspace_snapshots", f"pre_remediation_{loop_num}")
+                os.makedirs(os.path.dirname(snapshot_dir), exist_ok=True)
+                shutil.copytree(self.workspace, snapshot_dir)
+                print(f"  [orchestrator] Saved workspace snapshot to {snapshot_dir}")
+
                 # Re-run executor with feedback
                 executor_loop2 = AgentLoop(
                     role_config=executor_config,
@@ -268,6 +279,8 @@ class TaskOrchestrator:
                     f"## Brief\n{brief_text}\n\n"
                     f"## Instructions\n"
                     f"The Verifier found issues with your work. Check messages for feedback.\n"
+                    f"IMPORTANT: Only make targeted fixes for the specific issues mentioned.\n"
+                    f"Do NOT rewrite files from scratch or make sweeping changes.\n"
                     f"Use relative paths for file reads/writes (e.g., 'app/main.py').\n"
                     f"Fix the issues and notify the Verifier when done.\n"
                     f"Output DONE when finished."
@@ -278,8 +291,55 @@ class TaskOrchestrator:
                 result.phases.append(phase_fix)
                 result.total_turns += len(executor_turns2)
 
+        # Final verdict is fail — but check if any snapshot was better
+        # Restore best workspace: compare current workspace against snapshots
+        # by running the grader on each to pick the best
+        best_snapshot = self._select_best_workspace(task_id)
+        if best_snapshot:
+            print(f"  [orchestrator] Restoring workspace from {best_snapshot} (remediation made things worse)")
+            shutil.rmtree(self.workspace)
+            shutil.copytree(best_snapshot, self.workspace)
+
         print(f"\n  FINAL VERDICT: FAIL (exhausted {self.max_remediation_loops} remediation attempts)")
         return result
+
+    def _select_best_workspace(self, task_id: str) -> str | None:
+        """Compare workspace snapshots against current workspace; return best snapshot path or None.
+
+        Uses a lightweight heuristic: count non-empty source files. If a snapshot has
+        more content than the current workspace, it's likely the remediation was destructive.
+        """
+        snapshots_dir = os.path.join(self.run_dir, "workspace_snapshots")
+        if not os.path.isdir(snapshots_dir):
+            return None
+
+        def _workspace_size(ws_dir: str) -> int:
+            """Sum of file sizes as a proxy for workspace health."""
+            total = 0
+            for root, _, files in os.walk(ws_dir):
+                for fn in files:
+                    fp = os.path.join(root, fn)
+                    try:
+                        total += os.path.getsize(fp)
+                    except OSError:
+                        pass
+            return total
+
+        current_size = _workspace_size(self.workspace)
+        best_path = None
+        best_size = current_size
+
+        for snap_name in os.listdir(snapshots_dir):
+            snap_path = os.path.join(snapshots_dir, snap_name)
+            if os.path.isdir(snap_path):
+                snap_size = _workspace_size(snap_path)
+                if snap_size > best_size:
+                    best_size = snap_size
+                    best_path = snap_path
+
+        if best_path and best_size > current_size * 1.1:  # >10% bigger = likely destructive
+            return best_path
+        return None
 
     def _read_file(self, path: str) -> str:
         """Read a text file, return empty string if missing."""
