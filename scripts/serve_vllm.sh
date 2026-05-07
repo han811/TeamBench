@@ -19,10 +19,10 @@ shift 3 || true
 EXTRA_ARGS=("$@")
 
 # Use vllm-qwen env Python directly (conda activate is broken due to frozendict conflict)
-VLLM_PYTHON="${VLLM_PYTHON:-<HOME>/<redacted-user>/miniconda3/envs/vllm-qwen/bin/python}"
+VLLM_PYTHON="${VLLM_PYTHON:-$HOME/miniconda3/envs/vllm-qwen/bin/python}"
 if [ ! -x "$VLLM_PYTHON" ]; then
     # Fallback: try conda activate
-    CONDA_BASE="${CONDA_BASE:-<HOME>/<redacted-user>/miniconda3}"
+    CONDA_BASE="${CONDA_BASE:-$HOME/miniconda3}"
     if [ -f "$CONDA_BASE/etc/profile.d/conda.sh" ]; then
         source "$CONDA_BASE/etc/profile.d/conda.sh"
         conda activate vllm-qwen 2>/dev/null || true

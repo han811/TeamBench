@@ -7,7 +7,7 @@
 set -o pipefail
 cd "$(dirname "$0")/.."
 
-CONDA_BASE="<HOME>/<redacted-user>/miniconda3"
+CONDA_BASE="${CONDA_BASE:-$HOME/miniconda3}"
 source "$CONDA_BASE/etc/profile.d/conda.sh"
 conda activate vllm-qwen
 export PYTHONNOUSERSITE=1
