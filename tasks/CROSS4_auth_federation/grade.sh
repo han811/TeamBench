@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # CROSS4 grader: verify 5 security bugs are fixed in the auth federation gateway
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

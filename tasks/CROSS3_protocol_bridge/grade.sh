@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # CROSS3 grader: verify all 4 translation bugs and 2 error mapping bugs are fixed
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

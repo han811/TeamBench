@@ -1,0 +1,17 @@
+{
+  "anomaly_dates": [
+    "2018-07-20",
+    "2018-07-21"
+  ],
+  "demand_spike_factors": [
+    "weather",
+    "major_event",
+    "transit_disruption"
+  ],
+  "n_rows": 2000,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

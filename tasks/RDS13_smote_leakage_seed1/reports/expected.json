@@ -1,0 +1,4 @@
+{
+  "resampler": "RandomOverSampler",
+  "seed": 1
+}

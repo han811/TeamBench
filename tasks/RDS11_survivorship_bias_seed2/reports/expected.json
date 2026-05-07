@@ -1,0 +1,11 @@
+{
+  "filter_col": "workclass",
+  "filter_op": "==",
+  "filter_val": "Private",
+  "filter_line": "df = df[df['workclass'] == 'Private']  # private-sector employees only for consistency",
+  "covariate": "workclass",
+  "original_n": 32561,
+  "min_n_after_fix": 29304,
+  "dataset": "adult_income",
+  "seed": 2
+}

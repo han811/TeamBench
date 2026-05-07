@@ -1,0 +1,35 @@
+{
+  "target": "fare_amount",
+  "research_question": "What drives NYC yellow taxi fare amount — trip distance, trip duration, or the pickup/dropoff borough combination?",
+  "key_features": [
+    "trip_distance",
+    "PULocationID",
+    "DOLocationID",
+    "RatecodeID"
+  ],
+  "hidden_feature_keywords": [
+    "trip_distance",
+    "RatecodeID"
+  ],
+  "n_rows": 1500,
+  "columns": [
+    "VendorID",
+    "tpep_pickup_datetime",
+    "tpep_dropoff_datetime",
+    "passenger_count",
+    "trip_distance",
+    "RatecodeID",
+    "PULocationID",
+    "DOLocationID",
+    "payment_type",
+    "fare_amount",
+    "tip_amount",
+    "tolls_amount",
+    "total_amount"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

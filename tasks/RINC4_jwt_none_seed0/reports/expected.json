@@ -1,0 +1,7 @@
+{
+  "seed": 0,
+  "attack": "none_algorithm",
+  "service": "AuthService",
+  "fix": "explicitly reject alg=none and enforce alg=HS256 or RS256",
+  "endpoint_protected": "/profile"
+}

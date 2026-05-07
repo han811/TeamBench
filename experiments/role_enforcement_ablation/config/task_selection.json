@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "selection_seed": 42,
+  "git_commit": "9e35a3e7233bd2171a717117d74c7e850873e6fa",
+  "source_report": "shared/paper/tni_report.json",
+  "stratification": {
+    "HIGH-TNI": 10,
+    "TEAM-HELPS": 8,
+    "TEAM-HURTS": 5,
+    "NEUTRAL": 2
+  },
+  "stratum_pool_sizes": {
+    "HIGH-TNI": 15,
+    "TEAM-HELPS": 36,
+    "TEAM-HURTS": 38,
+    "NEUTRAL": 49
+  },
+  "selected_by_stratum": {
+    "HIGH-TNI": [
+      "P6_license_check",
+      "TRAP1_spec_conflict",
+      "P1_policy_config",
+      "DIST1_queue_race",
+      "TRAP5_security_theater",
+      "TEST5_mutation_resistant",
+      "D8_csv_cleanup",
+      "CROSS3_protocol_bridge",
+      "SEC1_vuln_patch",
+      "CRYPTO1_nonce_reuse"
+    ],
+    "TEAM-HELPS": [
+      "SPEC7_config_schema",
+      "O7_capacity_planning",
+      "O9_logging_config",
+      "INC9_log_forensics",
+      "NEG5_sla_tradeoff",
+      "INC5_cert_expiry",
+      "SYNTH1_distributed_debug",
+      "TEST8_unit_basic"
+    ],
+    "TEAM-HURTS": [
+      "INC8_memory_leak",
+      "INT3_db_migration",
+      "SEC4_input_validation",
+      "NEG1_tradeoff_config",
+      "CR1_review_respond"
+    ],
+    "NEUTRAL": [
+      "O8_dockerfile_fix",
+      "TRAP7_test_pollution"
+    ]
+  },
+  "selected_flat": [
+    "P6_license_check",
+    "TRAP1_spec_conflict",
+    "P1_policy_config",
+    "DIST1_queue_race",
+    "TRAP5_security_theater",
+    "TEST5_mutation_resistant",
+    "D8_csv_cleanup",
+    "CROSS3_protocol_bridge",
+    "SEC1_vuln_patch",
+    "CRYPTO1_nonce_reuse",
+    "SPEC7_config_schema",
+    "O7_capacity_planning",
+    "O9_logging_config",
+    "INC9_log_forensics",
+    "NEG5_sla_tradeoff",
+    "INC5_cert_expiry",
+    "SYNTH1_distributed_debug",
+    "TEST8_unit_basic",
+    "INC8_memory_leak",
+    "INT3_db_migration",
+    "SEC4_input_validation",
+    "NEG1_tradeoff_config",
+    "CR1_review_respond",
+    "O8_dockerfile_fix",
+    "TRAP7_test_pollution"
+  ],
+  "skipped_missing_task_dir": [
+    "cross1_api_contract",
+    "cross2_schema_evolution",
+    "cross3_protocol_bridge",
+    "cross4_auth_federation",
+    "crypto1_nonce_reuse",
+    "crypto2_timing_safe",
+    "crypto3_cert_chain",
+    "crypto4_kdf_migration",
+    "dist1_queue_race",
+    "dist2_consensus_partition",
+    "dist3_idempotency",
+    "dist4_clock_skew",
+    "trap1_spec_conflict",
+    "trap2_false_fix",
+    "trap3_metric_mirage",
+    "trap4_version_paradox",
+    "trap5_security_theater"
+  ]
+}

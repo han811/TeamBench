@@ -1,0 +1,7 @@
+# Env keys required by this experiment (presence-only check, no values)
+# Captured: 2026-04-24T15:56:10+00:00
+OPENROUTER_API: present in .env
+OPENROUTER_API_KEY: MISSING
+OPENAI_API_KEY: present in .env
+ANTHROPIC_API_KEY: present in .env
+GEMINI_API_KEY: present in .env

@@ -1,0 +1,38 @@
+{
+  "focus": "assumptions",
+  "selected_columns": [
+    "SalePrice",
+    "GrLivArea",
+    "OverallQual",
+    "YearBuilt",
+    "TotalBsmtSF",
+    "GarageCars",
+    "YearRemodAdd",
+    "ExterQual",
+    "BedroomAbvGr",
+    "LotFrontage",
+    "KitchenQual",
+    "YrSold",
+    "MoSold",
+    "HalfBath"
+  ],
+  "n_rows": 2930,
+  "core_columns": [
+    "SalePrice",
+    "GrLivArea",
+    "OverallQual",
+    "YearBuilt",
+    "TotalBsmtSF",
+    "GarageCars"
+  ],
+  "extra_columns": [
+    "YearRemodAdd",
+    "ExterQual",
+    "BedroomAbvGr",
+    "LotFrontage",
+    "KitchenQual",
+    "YrSold",
+    "MoSold",
+    "HalfBath"
+  ]
+}

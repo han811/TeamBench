@@ -1,0 +1,9 @@
+{
+  "issues": "YearRemodAdd < YearBuilt, GrLivArea extreme outliers, OverallQual=0",
+  "n_rows": 1465,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

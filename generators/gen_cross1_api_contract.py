@@ -91,7 +91,7 @@ class Generator(TaskGenerator):
         rng = SeededRandom(seed)
         d = DOMAINS[seed % len(DOMAINS)]
 
-        workspace_files = self._make_workspace(d)
+        workspace_files = self._make_workspace(d, seed)
 
         tasks_dir = os.path.join(os.path.dirname(__file__), "..", "tasks", "CROSS1_api_contract")
         with open(os.path.join(tasks_dir, "spec.md")) as f:
@@ -116,13 +116,13 @@ class Generator(TaskGenerator):
             metadata={"difficulty": "hard", "category": "Multi-lang"},
         )
 
-    def _make_workspace(self, d: dict) -> dict:
+    def _make_workspace(self, d: dict, seed: int = 0) -> dict:
         files = {}
 
         # ---------------------------------------------------------------
         # Go service files (source of truth — correct camelCase + new keys)
         # ---------------------------------------------------------------
-        files["service/go.mod"] = f'module {d["module"]}\n\ngo 1.18\n'
+        files["service/go.mod"] = f'module {d["module"]}\n\ngo 1.18\n// instance-seed: {seed}\n'
 
         files["service/models.go"] = self._go_models(d)
         files["service/handlers.go"] = self._go_handlers(d)

@@ -1,0 +1,35 @@
+{
+  "target": "tip_amount",
+  "research_question": "What features best predict tip amount for NYC yellow taxi trips? Specifically, how much do time-of-day, trip distance, and payment type contribute to tip size?",
+  "key_features": [
+    "trip_distance",
+    "fare_amount",
+    "payment_type",
+    "passenger_count"
+  ],
+  "hidden_feature_keywords": [
+    "trip_distance",
+    "payment_type"
+  ],
+  "n_rows": 1500,
+  "columns": [
+    "VendorID",
+    "tpep_pickup_datetime",
+    "tpep_dropoff_datetime",
+    "passenger_count",
+    "trip_distance",
+    "RatecodeID",
+    "PULocationID",
+    "DOLocationID",
+    "payment_type",
+    "fare_amount",
+    "tip_amount",
+    "tolls_amount",
+    "total_amount"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

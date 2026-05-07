@@ -1,0 +1,5 @@
+campaign_name,start_date,end_date,channel,budget_gbp,target_segment,expected_uplift_pct
+Summer Clearance + Back-to-School Push,2011-07-15,2011-09-15,Email+Display,24652,All customers,28
+Spring Newsletter,2011-03-01,2011-03-31,Email,5000,Existing,12
+Summer Preview,2011-05-15,2011-06-30,Display,8000,New,18
+Flash Sale Jan,2011-01-10,2011-01-15,Email,3000,Lapsed,25

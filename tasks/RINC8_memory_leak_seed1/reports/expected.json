@@ -1,0 +1,8 @@
+{
+  "seed": 1,
+  "leak_type": "connection_pool_leak",
+  "service": "DatabasePoolService",
+  "fix": "use context manager (with conn_pool.get() as conn) to guarantee release on all exit paths",
+  "max_size": 100,
+  "n_requests": 491
+}

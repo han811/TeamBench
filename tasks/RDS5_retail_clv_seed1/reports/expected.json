@@ -1,0 +1,29 @@
+{
+  "analysis_type": "Cohort Retention Analysis",
+  "research_question": "Perform a cohort retention analysis: for each monthly cohort (customers who made their first purchase in a given month), compute the month-over-month retention rate for the following 6 months.",
+  "key_columns": [
+    "CustomerID",
+    "InvoiceDate",
+    "InvoiceNo"
+  ],
+  "hidden_col_keywords": [
+    "CustomerID",
+    "InvoiceDate"
+  ],
+  "n_rows": 1500,
+  "columns": [
+    "InvoiceNo",
+    "StockCode",
+    "Description",
+    "Quantity",
+    "InvoiceDate",
+    "UnitPrice",
+    "CustomerID",
+    "Country"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

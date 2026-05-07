@@ -1,0 +1,18 @@
+{
+  "drop_period": "Q4 2010 (Oct–Dec)",
+  "root_cause": "stockout_during_campaign",
+  "top_skus_stockout": [
+    "22423",
+    "84879",
+    "21232",
+    "22720",
+    "85123A"
+  ],
+  "campaign_name": "Black Friday Email Blast + Cyber Week",
+  "n_rows": 5000,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

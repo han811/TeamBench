@@ -1,0 +1,37 @@
+year,country_code,imposing_body,sanction_type,healthcare_import_impact,gdp_impact_pct
+2014,VEN,none,none,4,1.0
+2014,ZWE,none,none,3,0.8
+2014,SSD,none,none,2,0.7
+2015,VEN,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,59,6.7
+2015,ZWE,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,47,9.2
+2015,SSD,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,42,6.3
+2016,VEN,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,30,4.7
+2016,ZWE,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,55,7.4
+2016,SSD,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,44,7.4
+2017,VEN,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,35,9.3
+2017,ZWE,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,49,8.8
+2017,SSD,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,26,11.8
+2018,VEN,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,53,7.1
+2018,ZWE,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,51,5.4
+2018,SSD,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,34,5.2
+2019,VEN,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,27,3.5
+2019,ZWE,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,30,9.3
+2019,SSD,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,27,7.7
+2020,VEN,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,48,4.6
+2020,ZWE,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,59,5.6
+2020,SSD,United States and EU,financial sector sanctions limiting import financing for pharmaceuticals,48,11.1
+2021,VEN,none,none,5,0.2
+2021,ZWE,none,none,2,0.1
+2021,SSD,none,none,1,0.4
+2015,IRN,US Treasury,financial sector,38,1.8
+2016,IRN,US Treasury,financial sector,18,2.8
+2017,IRN,US Treasury,financial sector,18,4.9
+2018,IRN,US Treasury,financial sector,20,3.3
+2019,IRN,US Treasury,financial sector,29,1.2
+2020,IRN,US Treasury,financial sector,17,5.0
+2015,CUB,US Treasury,financial sector,40,1.6
+2016,CUB,US Treasury,financial sector,39,4.4
+2017,CUB,US Treasury,financial sector,33,1.8
+2018,CUB,US Treasury,financial sector,26,4.9
+2019,CUB,US Treasury,financial sector,24,3.7
+2020,CUB,US Treasury,financial sector,35,1.6

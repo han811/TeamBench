@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # O7 grader: verify service performance fixes meet SLA
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

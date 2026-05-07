@@ -1,0 +1,23 @@
+\begin{table}[h]
+\centering
+\caption{Verification Failure Mode Taxonomy across 149 tasks}
+\label{tab:verification_taxonomy}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Failure Mode} & \textbf{Tasks} & \textbf{\%} \\
+\midrule
+True Positive (verifier caught real issue) & 18 & 12.1\% \\
+True Negative (verifier correctly approved) & 35 & 23.5\% \\
+False Rejection (verifier rejected correct work) & 30 & 20.1\% \\
+Hallucinated Requirements (no-verify passes, full fails) & 8 & 5.4\% \\
+Verification Neutral (no meaningful change) & 58 & 38.9\% \\
+Insufficient Data (missing conditions) & 0 & 0.0\% \\
+\midrule
+\textbf{Total} & \textbf{149} & \textbf{100.0\%} \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\noindent\small
+Mean verification value (full $-$ no\textunderscore verify): -0.058. ``No-verify'' heuristic gain over full team: +0.026.
+\end{table}

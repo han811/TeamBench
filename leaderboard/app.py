@@ -42,10 +42,32 @@ def _load() -> dict:
 # ---------------------------------------------------------------------------
 
 MODEL_DISPLAY = {
+    # API models
     "gemini-3-flash-preview": "Gemini 3 Flash",
-    "gemini-3.1-flash-lite-preview": "Gemini 3.1 Flash Lite",
+    "gemini-3.1-flash-lite-preview": "Gemini 3.1 Lite",
     "gpt-5-mini": "GPT-5 Mini",
     "gpt-5-nano": "GPT-5 Nano",
+    "gpt-5.3-chat-latest": "GPT-5.3 Chat",
+    "gpt-5.4": "GPT-5.4",
+    "claude-sonnet-4-6": "Claude Sonnet 4.6",
+    "claude-haiku-4-5-20251001": "Claude Haiku 4.5",
+    # Open-source (vLLM-served)
+    "Qwen3-4B": "Qwen3-4B",
+    "Qwen3-8B": "Qwen3-8B",
+    "Qwen3-14B": "Qwen3-14B",
+    "Qwen3.5-0.8B": "Qwen3.5-0.8B",
+    "Qwen3.5-2B": "Qwen3.5-2B",
+    "Qwen3.5-4B": "Qwen3.5-4B",
+    "Qwen3.5-9B": "Qwen3.5-9B",
+    "Qwen3.5-27B": "Qwen3.5-27B",
+    "Qwen3.5-35B-A3B": "Qwen3.5-35B-A3B",
+    "Qwen2.5-Coder-32B": "Qwen2.5-Coder-32B",
+    "Qwen3-Coder-30B-A3B": "Qwen3-Coder-30B-A3B",
+    "DeepSeek-R1-Distill-32B": "DeepSeek-R1-Distill-32B",
+    "Gemma 3 27B": "Gemma 3 27B",
+    "GPT-OSS-20B": "GPT-OSS-20B",
+    "Devstral-24B": "Devstral-24B",
+    "CodeGemma 7B": "CodeGemma 7B",
 }
 
 # ---------------------------------------------------------------------------

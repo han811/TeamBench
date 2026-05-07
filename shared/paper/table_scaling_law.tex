@@ -1,0 +1,17 @@
+\begin{table}[h]
+  \centering
+  \caption{Scaling Law Model Comparison — Team Uplift vs.\ Oracle Score.}
+  \label{tab:scaling_law}
+  \begin{tabular}{lrrrr}
+    \toprule
+    Model & \#Params & $R^2$ & AIC & BIC \\
+    \midrule
+    \textbf{Linear} & 2 & 0.050 & -1812.1 & -1803.0 \\
+    Quadratic & 3 & 0.051 & -1810.7 & -1797.1 \\
+    Piecewise Linear & 5 & 0.055 & -1810.2 & -1787.5 \\
+    Logistic & 3 & 0.011 & -1781.6 & -1768.0 \\
+    \bottomrule
+  \end{tabular}
+  \smallskip\par\noindent\small Best-fit model: \textbf{Linear}.
+  ECT (team uplift $= 0$): $0.369$ 95\% CI $[0.270, 0.474]$ (1000-iteration bootstrap).
+\end{table}

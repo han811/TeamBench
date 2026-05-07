@@ -1,0 +1,8 @@
+{
+  "seed": 2,
+  "topology": "payments",
+  "failing_service": "fraud_check",
+  "fix": "circuit_breaker_with_fallback",
+  "failure_threshold": 3,
+  "timeout_sec": 1
+}

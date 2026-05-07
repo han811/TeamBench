@@ -1,0 +1,35 @@
+{
+  "group_var": "sex",
+  "group_label": "gender",
+  "research_question": "Is there a statistically significant gender pay disparity in P(income >$50K) after controlling for occupation?",
+  "confounders": [
+    "occupation",
+    "education",
+    "age",
+    "hours_per_week"
+  ],
+  "hidden_confounder_keywords": [
+    "occupation",
+    "education"
+  ],
+  "n_rows": 1302,
+  "columns": [
+    "age",
+    "workclass",
+    "education",
+    "education_num",
+    "marital_status",
+    "occupation",
+    "sex",
+    "race",
+    "capital_gain",
+    "capital_loss",
+    "hours_per_week",
+    "income"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

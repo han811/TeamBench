@@ -1,0 +1,9 @@
+task_id: RDS23_housing_quality
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: ames_housing
+  license: Public Domain
+  source: Ames Housing Dataset (De Cock, 2011)

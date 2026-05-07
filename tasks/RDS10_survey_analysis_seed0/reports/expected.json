@@ -1,0 +1,38 @@
+{
+  "analysis_type": "remote_satisfaction",
+  "research_question": "Does remote work predict higher job satisfaction among developers, after controlling for compensation (ConvertedCompYearly) and employment type?",
+  "key_cols": [
+    "JobSat",
+    "Employment",
+    "ConvertedCompYearly",
+    "EdLevel"
+  ],
+  "hidden_col_keywords": [
+    "JobSat",
+    "ConvertedCompYearly"
+  ],
+  "confounders": [
+    "ConvertedCompYearly",
+    "EdLevel",
+    "YearsCodePro"
+  ],
+  "n_rows": 1250,
+  "columns": [
+    "ResponseId",
+    "Employment",
+    "EdLevel",
+    "YearsCode",
+    "YearsCodePro",
+    "DevType",
+    "OrgSize",
+    "LanguageHaveWorkedWith",
+    "Age",
+    "JobSat",
+    "ConvertedCompYearly"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

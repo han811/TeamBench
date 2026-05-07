@@ -1,0 +1,36 @@
+{
+  "analysis_type": "cross_sectional",
+  "research_question": "How do life expectancy determinants differ across WHO regions? For the most recent year available, run a cross-sectional regression per region and compare which factors matter most in each region.",
+  "key_cols": [
+    "life_expectancy",
+    "region",
+    "income_group",
+    "physicians_per_1000",
+    "infant_mortality"
+  ],
+  "hidden_col_keywords": [
+    "region",
+    "infant_mortality"
+  ],
+  "n_rows": 264,
+  "columns": [
+    "country",
+    "country_code",
+    "year",
+    "life_expectancy",
+    "infant_mortality",
+    "under5_mortality",
+    "maternal_mortality",
+    "hiv_prevalence",
+    "physicians_per_1000",
+    "hospital_beds_per_1000",
+    "health_expenditure_pct_gdp",
+    "income_group",
+    "region"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

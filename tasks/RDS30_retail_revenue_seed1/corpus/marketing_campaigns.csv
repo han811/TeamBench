@@ -1,0 +1,5 @@
+campaign_name,start_date,end_date,channel,budget_gbp,target_segment,expected_uplift_pct
+Black Friday Email Blast + Cyber Week,2010-11-01,2010-12-15,Email+Display,18987,All customers,32
+Spring Newsletter,2009-03-01,2009-03-31,Email,5000,Existing,12
+Summer Preview,2009-05-15,2009-06-30,Display,8000,New,18
+Flash Sale Jan,2009-01-10,2009-01-15,Email,3000,Lapsed,25

@@ -1,0 +1,10 @@
+{
+  "enable_new_checkout": false,
+  "enable_recommendations": true,
+  "enable_dark_mode": false,
+  "ab_test_percentage": 5,
+  "max_items_per_page": 25,
+  "cache_ttl_seconds": 30,
+  "enable_analytics": true,
+  "debug_mode": true
+}

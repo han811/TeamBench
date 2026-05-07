@@ -142,7 +142,7 @@ with open('tests/test_integration.py') as f:
     src = f.read()
 # Tests should check response JSON keys, not just status codes
 import re
-json_key_checks = re.findall(r'\[[\'\"][a-z_]+[\'\"]\]|\.get\([\'\"][a-z_]+[\'\"]\)|assert.*in.*json|json.*\[', src)
+json_key_checks = re.findall(r'\[[\x27\x22][a-z_]+[\x27\x22]\]|\.get\([\x27\x22][a-z_]+[\x27\x22]\)|assert.*in.*json|json.*\[', src)
 assert len(json_key_checks) >= 2, f'Tests appear to only check status codes — verify response body fields too'
 print(f'SCHEMA_CHECKS: {len(json_key_checks)}')
 \"" "schema_not_verified"

@@ -1,0 +1,9 @@
+task_id: RDS22_survey_quality
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: stackoverflow
+  license: ODbL 1.0
+  source: Stack Overflow Developer Survey

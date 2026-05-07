@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # CROSS1 grader: verify Python client matches Go server contract
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

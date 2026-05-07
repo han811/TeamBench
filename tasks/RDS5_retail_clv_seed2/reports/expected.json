@@ -1,0 +1,31 @@
+{
+  "analysis_type": "Purchase Frequency Modeling",
+  "research_question": "Model purchase frequency per customer: fit a statistical model (e.g. negative binomial or Poisson regression) to explain the number of distinct invoices per customer over the observation period, and identify which customer characteristics (country, order size) drive frequency.",
+  "key_columns": [
+    "CustomerID",
+    "InvoiceNo",
+    "Country",
+    "Quantity",
+    "UnitPrice"
+  ],
+  "hidden_col_keywords": [
+    "CustomerID",
+    "InvoiceNo"
+  ],
+  "n_rows": 1500,
+  "columns": [
+    "InvoiceNo",
+    "StockCode",
+    "Description",
+    "Quantity",
+    "InvoiceDate",
+    "UnitPrice",
+    "CustomerID",
+    "Country"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

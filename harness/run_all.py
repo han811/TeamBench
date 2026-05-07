@@ -112,7 +112,10 @@ def grade_run(task_name: str, task_dir: str, run_dir: str) -> dict:
     venv_bin = os.path.dirname(os.path.abspath(_sys.executable))
     grade_env["PATH"] = venv_bin + os.pathsep + grade_env.get("PATH", "")
 
-    subprocess.run(grade_args, check=False, capture_output=True, text=True, env=grade_env)
+    try:
+        subprocess.run(grade_args, check=False, capture_output=True, text=True, env=grade_env, timeout=60)
+    except subprocess.TimeoutExpired:
+        pass  # grader hung; fall through to grader_no_score
 
     if os.path.isfile(score_path):
         try:

@@ -1,0 +1,32 @@
+{
+  "issues": [
+    "emp_length mixes '10+ years' strings and 'n/a' entries",
+    "annual_inc has sentinel outlier value 9999999",
+    "purpose column has both typo ('debt_consoldation') and case inconsistency"
+  ],
+  "n_rows": 2000,
+  "columns": [
+    "loan_amnt",
+    "term",
+    "int_rate",
+    "installment",
+    "grade",
+    "emp_length",
+    "home_ownership",
+    "annual_inc",
+    "verification_status",
+    "purpose",
+    "dti",
+    "delinq_2yrs",
+    "fico_range_low",
+    "fico_range_high",
+    "open_acc",
+    "revol_util",
+    "default_ind"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

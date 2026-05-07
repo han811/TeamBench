@@ -1,0 +1,75 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/"
+  },
+  "@type": "Dataset",
+  "name": "teambench",
+  "description": "TeamBench: a benchmark for evaluating agent coordination under operating system enforced role separation. 851 task templates expanded to 931 seeded evaluation instances spanning 19 base categories (security, data engineering, software engineering, distributed systems, cryptographic correctness, adversarial specification traps, and more). Each task ships with a deterministic shell-script grader and a parameterized generator that produces distinct workspaces from a seed.",
+  "url": "https://huggingface.co/datasets/ybkim95/teambench",
+  "license": "https://choosealicense.com/licenses/mit/",
+  "version": "1.0.0",
+  "conformsTo": "http://mlcommons.org/croissant/1.1",
+
+  "rai:dataCollection": "Tasks have four origin classes. (1) 161 originally authored templates were written by the authors and place critical constraints exclusively in the full specification, absent from the brief and the workspace, so a single agent cannot solve the task without the Planner. (2) 650 GitHub bug report templates are adapted from active open-source repositories (Flask, Click, httpx, Requests, Pydantic, Django, pytest, FastAPI, SQLAlchemy, Celery, Werkzeug, NumPy, SciPy, Keras, spaCy and others). For each, the issue text and the user-facing symptom were extracted into the brief; the upstream fix patch was used to construct the deterministic grader. (3) 30 data-science templates use canonical UCI public datasets cited in the paper. (4) 10 incident-response templates adapt public post-mortems. Each template includes a parameterized generator that emits byte-identical workspace files from a fixed integer seed; held-out seeds are reserved for the leaderboard refresh.",
+
+  "rai:dataCollectionType": "['Crawled / scraped from the web', 'Designed / authored by the authors', 'Adapted from existing public artifacts (UCI datasets, GitHub issues, post-mortems)']",
+  "rai:dataCollectionTimeframe": "2024-09 to 2026-04",
+  "rai:dataCollectionRawData": "Original task definitions, generator scripts, and grade.sh files are stored as plain text and shell scripts in the public repository.",
+
+  "rai:dataAnnotationProtocol": "Difficulty labels (Easy / Medium / Hard / Expert) and category labels are assigned per template by the authors at authoring time. The benchmark also reports an objective difficulty signal computed from the number of grader check invocations in each task's grade.sh (Easy <=5, Medium 6-8, Hard 9-13, Expert >=14). Pass / fail outcomes are produced exclusively by the deterministic shell-script grader, not by human or LLM raters.",
+  "rai:dataAnnotationPlatform": "None (graders are deterministic shell scripts authored alongside the task)",
+  "rai:dataAnnotationAnalysis": "A four-pillar audit on the leaderboard subset (canonical-solution check, mutation-killing grader, cross-model discrimination, LLM-judge plausibility) is reported in the accompanying paper. The TeamBench-Verified subset (57 of 90 leaderboard tasks) qualifies on all applicable pillars.",
+  "rai:annotationsPerItem": "10",
+  "rai:annotatorDemographics": "Tasks are author-designed; all annotators are co-authors of the paper.",
+  "rai:machineAnnotationTools": "None",
+
+  "rai:personalSensitiveInformation": "The benchmark contains no personal or sensitive information. Tasks are synthetic software-engineering / data-analysis cases. GitHub-derived tasks use only public issue text under each project's open-source license; no user identities, email addresses, or private repository content are included.",
+
+  "rai:dataBiases": "(1) English-language tasks only. (2) Python-heavy: most tasks involve Python source code, with a smaller number of multi-language tasks (Go, JavaScript, SQL, shell). Cross-language coordination is a separate task category but Python remains the dominant runtime. (3) Code-centric domains: 650 of 851 templates are GitHub bug fixes from popular OSS libraries, which biases the pool toward library maintenance scenarios over greenfield development or operations workflows. (4) Author-assigned difficulty: the per-template Easy / Medium / Hard / Expert label is set by the task author at authoring time and was not externally validated by independent raters in the initial release. (5) GitHub source bias: bug reports are drawn from libraries that maintain public issue trackers in English; the underlying coding patterns and failure modes inherit any bias of those libraries.",
+
+  "rai:dataPreprocessingProtocol": "(1) For GitHub-derived tasks, the upstream issue text was lightly redacted of usernames; the upstream fix patch was used to construct the grader's expected outputs without modification. (2) For UCI-derived data-science tasks, the raw CSV is loaded from the original UCI distribution and a parameterized split is applied at workspace generation time. (3) No preprocessing is applied that changes ground-truth pass / fail outcomes; all transformations are deterministic functions of the random seed.",
+
+  "rai:dataReleaseMaintenancePlan": "The release ships under a permissive open-source license (MIT) on Hugging Face and GitHub. Versioning follows semver. Issue tracking is on the public GitHub repository. Held-out leaderboard seeds (>= 5) are not present in the public release and are reserved for periodic leaderboard refresh. The maintenance plan and governance items are documented in the accompanying paper's appendix table.",
+
+  "rai:dataUseCases": "The benchmark is intended for academic evaluation of multi-agent LLM systems. Specifically: (1) per-role marginal contribution ablations (Solo / Restricted / Team-No-Plan / Team-No-Verify / Full Team); (2) cross-provider role-mixing studies; (3) prompt-only versus structurally-enforced role assignment comparisons; (4) human baseline studies under the same role separation; (5) calibration of LLM-judge based coordination metrics against deterministic grader verdicts.",
+
+  "rai:limitations": "The harness uses a single-pass file-based protocol with capped per-role turns and does not test multi-round dialogue, dynamic role assignment, or within-provider model size scaling. At the small open-weight tier (<=30B), tool-call reliability dominates over coordination ability. The 49 percent LLM-Verifier false-accept rate is a property of the role-mixing distribution as currently sampled rather than a fixed property of any specific Verifier model.",
+
+  "rai:dataSocialImpact": "The released traces support empirical study of multi-agent failure modes and are intended to guide the design of more reliable Verifier components. The benchmark surfaces a 49 percent Verifier false-accept rate, a direct safety signal for any production system that delegates correctness adjudication to a current LLM Verifier.",
+
+  "rai:safetyAndPrivacyMeasures": "Adversarial-trap (TRAP) and security-vulnerability (CRYPTO, SEC) tasks contain plausible-but-incorrect security patterns by design (intentional nonce reuse, low PBKDF2 iterations, truncated authentication tags, etc.). These are synthetic evaluation cases and are flagged with a per-task adversarial-content metadata field. They must not be deployed. Recommended use is in network-isolated containers, per the responsible-use note in the accompanying paper.",
+
+  "rai:dataAuthors": [
+    "Yubin Kim",
+    "<redacted-name>",
+    "Taehan Kim",
+    "Eugene Park",
+    "Samuel Schmidgall",
+    "Salman Rahman",
+    "Chunjong Park",
+    "Cynthia Breazeal",
+    "Xin Liu",
+    "Hamid Palangi",
+    "Hae Won Park",
+    "Daniel McDuff"
+  ],
+
+  "creator": {
+    "@type": "Person",
+    "name": "Yubin Kim",
+    "url": "https://huggingface.co/ybkim95"
+  },
+  "keywords": [
+    "multi-agent",
+    "benchmark",
+    "software-engineering",
+    "teamwork",
+    "evaluation",
+    "llm-evaluation",
+    "agent-coordination",
+    "role-separation",
+    "verifier-failure"
+  ]
+}

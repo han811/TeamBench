@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # CROSS6 grader: verify all 4 type conversion bugs are fixed in REST gateway
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

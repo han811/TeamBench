@@ -97,26 +97,44 @@ class AgentLoop:
         messages_dir: str,
         log_dir: str | None = None,
         max_turns: int = 30,
+        lenient_mode: bool = False,
     ):
         self.config = role_config
         self.adapter = adapter
         self.messages_dir = messages_dir
         self.log_dir = log_dir or os.path.join("logs", role_config.role)
         self.max_turns = max_turns
+        self.lenient_mode = lenient_mode
         self._seen_msg_count = 0
 
-    def run(self, initial_prompt: str) -> list[AgentTurn]:
-        """Execute the agent loop. Returns list of turns."""
+    def run(
+        self,
+        initial_prompt: str,
+        seed_context: Optional[list[dict]] = None,
+    ) -> list[AgentTurn]:
+        """Execute the agent loop. Returns list of turns.
+
+        Args:
+            initial_prompt: the first user message the agent receives.
+            seed_context: optional list of {role, content} dicts prepended before
+                `initial_prompt`. Used by the `enforced_shared_history` and
+                `prompt_only` ablation conditions to expose prior-phase transcripts
+                to the current role. Default None preserves baseline behavior for
+                every existing caller — no regression risk.
+        """
         std_tools = tools_to_standard_declarations(self.config.tools)
 
-        # Conversation history as plain dicts
-        messages: list[dict] = [
-            {"role": "user", "content": initial_prompt},
-        ]
+        # Conversation history as plain dicts. seed_context (if any) appears first
+        # so the agent sees prior turns as context before receiving its own prompt.
+        messages: list[dict] = []
+        if seed_context:
+            messages.extend(seed_context)
+        messages.append({"role": "user", "content": initial_prompt})
 
         turns: list[AgentTurn] = []
         consecutive_no_tool = 0
-        max_no_tool_turns = 3  # Break if stuck with no tool calls for N turns
+        # Lenient mode gives open-source models more chances before giving up
+        max_no_tool_turns = 5 if self.lenient_mode else 3
         recent_tool_signatures: list[str] = []  # Track repeated identical calls
         max_repeated_tool = 3  # Break if same tool+args repeated N times
 
@@ -184,6 +202,14 @@ class AgentLoop:
                     for p in tool_result_parts
                 )
                 messages.append({"role": "user", "content": result_text})
+            else:
+                # Strict Anthropic models (e.g. Opus 4.7) require the
+                # conversation to end with a user message. When the assistant
+                # turn had no tool calls, inject a minimal continuation nudge.
+                messages.append({
+                    "role": "user",
+                    "content": "Continue, or emit DONE / TASK_COMPLETE if finished.",
+                })
 
             # Log turn
             _log_turn(self.log_dir, self.config.role, turn)
@@ -192,6 +218,15 @@ class AgentLoop:
             # Track consecutive turns with no tool calls (stuck detection)
             if len(turn.tool_calls) == 0:
                 consecutive_no_tool += 1
+                # Lenient mode: nudge open-source models after 2 consecutive no-tool turns
+                if self.lenient_mode and consecutive_no_tool == 2:
+                    messages.append({
+                        "role": "user",
+                        "content": (
+                            "If you want to use a tool, format your response as a JSON "
+                            'tool call: {"name": "tool_name", "args": {...}}'
+                        ),
+                    })
             else:
                 consecutive_no_tool = 0
 

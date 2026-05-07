@@ -22,20 +22,38 @@ from pathlib import Path
 from harness.run_all import setup_run, grade_run, discover_tasks
 
 
+def _load_key_from_dotenv(key_name: str) -> str:
+    """Load a single API key from .env file."""
+    if os.path.exists(".env"):
+        with open(".env") as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith(key_name) and "=" in line:
+                    return line.split("=", 1)[1].strip().strip('"').strip("'")
+    return ""
+
+
 def create_adapter(model_name: str, **kwargs):
     """Factory function for model adapters."""
-    if "gemini" in model_name.lower():
-        from harness.gemini_adapter import GeminiAdapter
+    if "gemini" in model_name.lower() or "gemma" in model_name.lower():
+        from harness.gemini_adapter import GeminiAdapter, _load_all_gemini_keys
         api_key = os.environ.get("GEMINI_API_KEY", "")
         if not api_key:
-            raise ValueError("GEMINI_API_KEY not set")
+            # Fall back to loading from .env file
+            keys = _load_all_gemini_keys()
+            if keys:
+                api_key = keys[0]
+            else:
+                raise ValueError("GEMINI_API_KEY not set and no keys found in .env")
         return GeminiAdapter(api_key=api_key, model=model_name, **kwargs)
     elif "gpt" in model_name.lower() or "o1" in model_name.lower() or "o3" in model_name.lower():
         try:
             from harness.adapters.openai_adapter import OpenAIAdapter
             api_key = os.environ.get("OPENAI_API_KEY", "")
             if not api_key:
-                raise ValueError("OPENAI_API_KEY not set")
+                api_key = _load_key_from_dotenv("OPENAI_API_KEY")
+            if not api_key:
+                raise ValueError("OPENAI_API_KEY not set and not found in .env")
             return OpenAIAdapter(api_key=api_key, model=model_name, **kwargs)
         except ImportError:
             raise ImportError(f"OpenAI adapter not yet implemented. Install with: pip install openai")
@@ -44,12 +62,18 @@ def create_adapter(model_name: str, **kwargs):
             from harness.adapters.anthropic_adapter import AnthropicAdapter
             api_key = os.environ.get("ANTHROPIC_API_KEY", "")
             if not api_key:
-                raise ValueError("ANTHROPIC_API_KEY not set")
+                api_key = _load_key_from_dotenv("ANTHROPIC_API_KEY")
+            if not api_key:
+                raise ValueError("ANTHROPIC_API_KEY not set and not found in .env")
             return AnthropicAdapter(api_key=api_key, model=model_name, **kwargs)
         except ImportError:
             raise ImportError(f"Anthropic adapter not yet implemented. Install with: pip install anthropic")
     else:
-        raise ValueError(f"Unknown model family: {model_name}. Supported: gemini-*, gpt-*, claude-*")
+        # Fallback: treat as local vLLM-served model (OpenAI-compatible API)
+        from harness.adapters.openai_adapter import OpenAIAdapter
+        base_url = os.environ.get("VLLM_BASE_URL", "http://localhost:8000/v1")
+        api_key = os.environ.get("OPENAI_API_KEY", "not-needed")
+        return OpenAIAdapter(api_key=api_key, model=model_name, base_url=base_url, **kwargs)
 
 
 def load_checkpoint(campaign_dir: str) -> set[str]:

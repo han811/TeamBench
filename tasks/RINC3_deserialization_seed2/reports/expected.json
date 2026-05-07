@@ -1,0 +1,8 @@
+{
+  "seed": 2,
+  "vector": "eval",
+  "service": "ExpressionEvalService",
+  "unsafe_call": "eval(expression)",
+  "fix": "replace eval() with ast.literal_eval() for untrusted expressions",
+  "endpoint": "/evaluate"
+}

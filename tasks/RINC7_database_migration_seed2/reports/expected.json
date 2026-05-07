@@ -1,0 +1,8 @@
+{
+  "seed": 2,
+  "migration_type": "rename_column",
+  "table": "users",
+  "fix": "Use expand-contract pattern: add new column, dual-write, backfill, cut over, drop old column",
+  "batch_size": 100,
+  "n_rows": 6500
+}

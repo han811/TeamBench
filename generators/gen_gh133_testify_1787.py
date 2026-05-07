@@ -1,0 +1,68 @@
+"""
+Parameterized generator for GH133_testify_1787.
+
+Source PR:    https://github.com/stretchr/testify/pull/1787
+Source Issue: https://github.com/stretchr/testify/issues/1419
+
+Seed varies: renames 'bytes' identifier with suffix across seeds.
+
+Bug: pre-PR state of workspace files contains the bug the PR fixes.
+Fix: agent must replicate the PR's changes guided by spec.md.
+"""
+from __future__ import annotations
+
+import os
+from generators.base import TaskGenerator, GeneratedTask
+
+
+class Generator(TaskGenerator):
+    task_id = 'GH133_testify_1787'
+    domain = "Real-World GitHub"
+    difficulty = "medium"
+    languages = ["python"]
+
+    def generate(self, seed: int) -> GeneratedTask:
+        tasks_dir = os.path.join(
+            os.path.dirname(__file__), "..", "tasks", 'GH133_testify_1787'
+        )
+        with open(os.path.join(tasks_dir, "spec.md")) as f:
+            spec_md = f.read()
+        with open(os.path.join(tasks_dir, "brief.md")) as f:
+            brief_md = f.read()
+
+        files = self._base_workspace()
+        # Apply seed-based renaming to prevent direct memorization
+        suffixes = ["", "_alt", "_impl"]
+        suffix = suffixes[seed % len(suffixes)]
+        if suffix:
+            for fpath in list(files.keys()):
+                files[fpath] = files[fpath].replace('bytes', 'bytes' + suffix)
+        # Deep parameterization — consistent cross-seed variation
+        from generators.gh_deep_param import deep_rename_symbols, add_realistic_noise
+        files = deep_rename_symbols(files, seed, strategy="mixed")
+        files = add_realistic_noise(files, seed, noise_level=0.15)
+        return GeneratedTask(
+            task_id='GH133_testify_1787',
+            seed=seed,
+            spec_md=spec_md,
+            brief_md=brief_md,
+            expected={
+                "seed": seed,
+                "repo": 'stretchr/testify',
+                "pr_number": 1787,
+                "bug_fixed": True,
+            },
+            workspace_files=files,
+            metadata={
+                "difficulty": "medium",
+                "category": "Real-World GitHub",
+                "source_pr": "https://github.com/stretchr/testify/pull/1787",
+            },
+        )
+
+    def _base_workspace(self) -> dict[str, str]:
+        """Return the pre-PR (buggy) workspace files."""
+        return {
+            'assert/assertion_order.go': 'package assert\n\nimport (\n\t"fmt"\n\t"reflect"\n)\n\n// isOrdered checks that collection contains orderable elements.\nfunc isOrdered(t TestingT, object interface{}, allowedComparesResults []compareResult, failMessage string, msgAndArgs ...interface{}) bool {\n\tobjKind := reflect.TypeOf(object).Kind()\n\tif objKind != reflect.Slice && objKind != reflect.Array {\n\t\treturn false\n\t}\n\n\tobjValue := reflect.ValueOf(object)\n\tobjLen := objValue.Len()\n\n\tif objLen <= 1 {\n\t\treturn true\n\t}\n\n\tvalue := objValue.Index(0)\n\tvalueInterface := value.Interface()\n\tfirstValueKind := value.Kind()\n\n\tfor i := 1; i < objLen; i++ {\n\t\tprevValue := value\n\t\tprevValueInterface := valueInterface\n\n\t\tvalue = objValue.Index(i)\n\t\tvalueInterface = value.Interface()\n\n\t\tcompareResult, isComparable := compare(prevValueInterface, valueInterface, firstValueKind)\n\n\t\tif !isComparable {\n\t\t\treturn Fail(t, fmt.Sprintf(`Can not compare type "%T" and "%T"`, value, prevValue), msgAndArgs...)\n\t\t}\n\n\t\tif !containsValue(allowedComparesResults, compareResult) {\n\t\t\treturn Fail(t, fmt.Sprintf(failMessage, prevValue, value), msgAndArgs...)\n\t\t}\n\t}\n\n\treturn true\n}\n\n// IsIncreasing asserts that the collection is increasing\n//\n//\tassert.IsIncreasing(t, []int{1, 2, 3})\n//\tassert.IsIncreasing(t, []float{1, 2})\n//\tassert.IsIncreasing(t, []string{"a", "b"})\nfunc IsIncreasing(t TestingT, object interface{}, msgAndArgs ...interface{}) bool {\n\treturn isOrdered(t, object, []compareResult{compareLess}, "\\"%v\\" is not less than \\"%v\\"", msgAndArgs...)\n}\n\n// IsNonIncreasing asserts that the collection is not increasing\n//\n//\tassert.IsNonIncreasing(t, []int{2, 1, 1})\n//\tassert.IsNonIncreasing(t, []float{2, 1})\n//\tassert.IsNonIncreasing(t, []string{"b", "a"})\nfunc IsNonIncreasing(t TestingT, object interface{}, msgAndArgs ...interface{}) bool {\n\treturn isOrdered(t, object, []compareResult{compareEqual, compareGreater}, "\\"%v\\" is not greater than or equal to \\"%v\\"", msgAndArgs...)\n}\n\n// IsDecreasing asserts that the collection is decreasing\n//\n//\tassert.IsDecreasing(t, []int{2, 1, 0})\n//\tassert.IsDecreasing(t, []float{2, 1})\n//\tassert.IsDecreasing(t, []string{"b", "a"})\nfunc IsDecreasing(t TestingT, object interface{}, msgAndArgs ...interface{}) bool {\n\treturn isOrdered(t, object, []compareResult{compareGreater}, "\\"%v\\" is not greater than \\"%v\\"", msgAndArgs...)\n}\n\n// IsNonDecreasing asserts that the collection is not decreasing\n//\n//\tassert.IsNonDecreasing(t, []int{1, 1, 2})\n//\tassert.IsNonDecreasing(t, []float{1, 2})\n//\tassert.IsNonDecreasing(t, []string{"a", "b"})\nfunc IsNonDecreasing(t TestingT, object interface{}, msgAndArgs ...interface{}) bool {\n\treturn isOrdered(t, object, []compareResult{compareLess, compareEqual}, "\\"%v\\" is not less than or equal to \\"%v\\"", msgAndArgs...)\n}\n',
+            'assert/assertion_order_test.go': 'package assert\n\nimport (\n\t"bytes"\n\t"testing"\n)\n\nfunc TestIsIncreasing(t *testing.T) {\n\tt.Parallel()\n\n\tmockT := new(testing.T)\n\n\tif !IsIncreasing(mockT, []int{1, 2}) {\n\t\tt.Error("IsIncreasing should return true")\n\t}\n\n\tif !IsIncreasing(mockT, []int{1, 2, 3, 4, 5}) {\n\t\tt.Error("IsIncreasing should return true")\n\t}\n\n\tif IsIncreasing(mockT, []int{1, 1}) {\n\t\tt.Error("IsIncreasing should return false")\n\t}\n\n\tif IsIncreasing(mockT, []int{2, 1}) {\n\t\tt.Error("IsIncreasing should return false")\n\t}\n\n\t// Check error report\n\tfor _, currCase := range []struct {\n\t\tcollection interface{}\n\t\tmsg        string\n\t}{\n\t\t{collection: []string{"b", "a"}, msg: `"b" is not less than "a"`},\n\t\t{collection: []int{2, 1}, msg: `"2" is not less than "1"`},\n\t\t{collection: []int{2, 1, 3, 4, 5, 6, 7}, msg: `"2" is not less than "1"`},\n\t\t{collection: []int{-1, 0, 2, 1}, msg: `"2" is not less than "1"`},\n\t\t{collection: []int8{2, 1}, msg: `"2" is not less than "1"`},\n\t\t{collection: []int16{2, 1}, msg: `"2" is not less than "1"`},\n\t\t{collection: []int32{2, 1}, msg: `"2" is not less than "1"`},\n\t\t{collection: []int64{2, 1}, msg: `"2" is not less than "1"`},\n\t\t{collection: []uint8{2, 1}, msg: `"2" is not less than "1"`},\n\t\t{collection: []uint16{2, 1}, msg: `"2" is not less than "1"`},\n\t\t{collection: []uint32{2, 1}, msg: `"2" is not less than "1"`},\n\t\t{collection: []uint64{2, 1}, msg: `"2" is not less than "1"`},\n\t\t{collection: []float32{2.34, 1.23}, msg: `"2.34" is not less than "1.23"`},\n\t\t{collection: []float64{2.34, 1.23}, msg: `"2.34" is not less than "1.23"`},\n\t} {\n\t\tout := &outputT{buf: bytes.NewBuffer(nil)}\n\t\tFalse(t, IsIncreasing(out, currCase.collection))\n\t\tContains(t, out.buf.String(), currCase.msg)\n\t}\n}\n\nfunc TestIsNonIncreasing(t *testing.T) {\n\tt.Parallel()\n\n\tmockT := new(testing.T)\n\n\tif !IsNonIncreasing(mockT, []int{2, 1}) {\n\t\tt.Error("IsNonIncreasing should return true")\n\t}\n\n\tif !IsNonIncreasing(mockT, []int{5, 4, 4, 3, 2, 1}) {\n\t\tt.Error("IsNonIncreasing should return true")\n\t}\n\n\tif !IsNonIncreasing(mockT, []int{1, 1}) {\n\t\tt.Error("IsNonIncreasing should return true")\n\t}\n\n\tif IsNonIncreasing(mockT, []int{1, 2}) {\n\t\tt.Error("IsNonIncreasing should return false")\n\t}\n\n\t// Check error report\n\tfor _, currCase := range []struct {\n\t\tcollection interface{}\n\t\tmsg        string\n\t}{\n\t\t{collection: []string{"a", "b"}, msg: `"a" is not greater than or equal to "b"`},\n\t\t{collection: []int{1, 2}, msg: `"1" is not greater than or equal to "2"`},\n\t\t{collection: []int{1, 2, 7, 6, 5, 4, 3}, msg: `"1" is not greater than or equal to "2"`},\n\t\t{collection: []int{5, 4, 3, 1, 2}, msg: `"1" is not greater than or equal to "2"`},\n\t\t{collection: []int8{1, 2}, msg: `"1" is not greater than or equal to "2"`},\n\t\t{collection: []int16{1, 2}, msg: `"1" is not greater than or equal to "2"`},\n\t\t{collection: []int32{1, 2}, msg: `"1" is not greater than or equal to "2"`},\n\t\t{collection: []int64{1, 2}, msg: `"1" is not greater than or equal to "2"`},\n\t\t{collection: []uint8{1, 2}, msg: `"1" is not greater than or equal to "2"`},\n\t\t{collection: []uint16{1, 2}, msg: `"1" is not greater than or equal to "2"`},\n\t\t{collection: []uint32{1, 2}, msg: `"1" is not greater than or equal to "2"`},\n\t\t{collection: []uint64{1, 2}, msg: `"1" is not greater than or equal to "2"`},\n\t\t{collection: []float32{1.23, 2.34}, msg: `"1.23" is not greater than or equal to "2.34"`},\n\t\t{collection: []float64{1.23, 2.34}, msg: `"1.23" is not greater than or equal to "2.34"`},\n\t} {\n\t\tout := &outputT{buf: bytes.NewBuffer(nil)}\n\t\tFalse(t, IsNonIncreasing(out, currCase.collection))\n\t\tContains(t, out.buf.String(), currCase.msg)\n\t}\n}\n\nfunc TestIsDecreasing(t *testing.T) {\n\tt.Parallel()\n\n\tmockT := new(testing.T)\n\n\tif !IsDecreasing(mockT, []int{2, 1}) {\n\t\tt.Error("IsDecreasing should return true")\n\t}\n\n\tif !IsDecreasing(mockT, []int{5, 4, 3, 2, 1}) {\n\t\tt.Error("IsDecreasing should return true")\n\t}\n\n\tif IsDecreasing(mockT, []int{1, 1}) {\n\t\tt.Error("IsDecreasing should return false")\n\t}\n\n\tif IsDecreasing(mockT, []int{1, 2}) {\n\t\tt.Error("IsDecreasing should return false")\n\t}\n\n\t// Check error report\n\tfor _, currCase := range []struct {\n\t\tcollection interface{}\n\t\tmsg        string\n\t}{\n\t\t{collection: []string{"a", "b"}, msg: `"a" is not greater than "b"`},\n\t\t{collection: []int{1, 2}, msg: `"1" is not greater than "2"`},\n\t\t{collection: []int{1, 2, 7, 6, 5, 4, 3}, msg: `"1" is not greater than "2"`},\n\t\t{collection: []int{5, 4, 3, 1, 2}, msg: `"1" is not greater than "2"`},\n\t\t{collection: []int8{1, 2}, msg: `"1" is not greater than "2"`},\n\t\t{collection: []int16{1, 2}, msg: `"1" is not greater than "2"`},\n\t\t{collection: []int32{1, 2}, msg: `"1" is not greater than "2"`},\n\t\t{collection: []int64{1, 2}, msg: `"1" is not greater than "2"`},\n\t\t{collection: []uint8{1, 2}, msg: `"1" is not greater than "2"`},\n\t\t{collection: []uint16{1, 2}, msg: `"1" is not greater than "2"`},\n\t\t{collection: []uint32{1, 2}, msg: `"1" is not greater than "2"`},\n\t\t{collection: []uint64{1, 2}, msg: `"1" is not greater than "2"`},\n\t\t{collection: []float32{1.23, 2.34}, msg: `"1.23" is not greater than "2.34"`},\n\t\t{collection: []float64{1.23, 2.34}, msg: `"1.23" is not greater than "2.34"`},\n\t} {\n\t\tout := &outputT{buf: bytes.NewBuffer(nil)}\n\t\tFalse(t, IsDecreasing(out, currCase.collection))\n\t\tContains(t, out.buf.String(), currCase.msg)\n\t}\n}\n\nfunc TestIsNonDecreasing(t *testing.T) {\n\tt.Parallel()\n\n\tmockT := new(testing.T)\n\n\tif !IsNonDecreasing(mockT, []int{1, 2}) {\n\t\tt.Error("IsNonDecreasing should return true")\n\t}\n\n\tif !IsNonDecreasing(mockT, []int{1, 1, 2, 3, 4, 5}) {\n\t\tt.Error("IsNonDecreasing should return true")\n\t}\n\n\tif !IsNonDecreasing(mockT, []int{1, 1}) {\n\t\tt.Error("IsNonDecreasing should return false")\n\t}\n\n\tif IsNonDecreasing(mockT, []int{2, 1}) {\n\t\tt.Error("IsNonDecreasing should return false")\n\t}\n\n\t// Check error report\n\tfor _, currCase := range []struct {\n\t\tcollection interface{}\n\t\tmsg        string\n\t}{\n\t\t{collection: []string{"b", "a"}, msg: `"b" is not less than or equal to "a"`},\n\t\t{collection: []int{2, 1}, msg: `"2" is not less than or equal to "1"`},\n\t\t{collection: []int{2, 1, 3, 4, 5, 6, 7}, msg: `"2" is not less than or equal to "1"`},\n\t\t{collection: []int{-1, 0, 2, 1}, msg: `"2" is not less than or equal to "1"`},\n\t\t{collection: []int8{2, 1}, msg: `"2" is not less than or equal to "1"`},\n\t\t{collection: []int16{2, 1}, msg: `"2" is not less than or equal to "1"`},\n\t\t{collection: []int32{2, 1}, msg: `"2" is not less than or equal to "1"`},\n\t\t{collection: []int64{2, 1}, msg: `"2" is not less than or equal to "1"`},\n\t\t{collection: []uint8{2, 1}, msg: `"2" is not less than or equal to "1"`},\n\t\t{collection: []uint16{2, 1}, msg: `"2" is not less than or equal to "1"`},\n\t\t{collection: []uint32{2, 1}, msg: `"2" is not less than or equal to "1"`},\n\t\t{collection: []uint64{2, 1}, msg: `"2" is not less than or equal to "1"`},\n\t\t{collection: []float32{2.34, 1.23}, msg: `"2.34" is not less than or equal to "1.23"`},\n\t\t{collection: []float64{2.34, 1.23}, msg: `"2.34" is not less than or equal to "1.23"`},\n\t} {\n\t\tout := &outputT{buf: bytes.NewBuffer(nil)}\n\t\tFalse(t, IsNonDecreasing(out, currCase.collection))\n\t\tContains(t, out.buf.String(), currCase.msg)\n\t}\n}\n\nfunc TestOrderingMsgAndArgsForwarding(t *testing.T) {\n\tt.Parallel()\n\n\tmsgAndArgs := []interface{}{"format %s %x", "this", 0xc001}\n\texpectedOutput := "format this c001\\n"\n\tcollection := []int{1, 2, 1}\n\tfuncs := []func(t TestingT){\n\t\tfunc(t TestingT) { IsIncreasing(t, collection, msgAndArgs...) },\n\t\tfunc(t TestingT) { IsNonIncreasing(t, collection, msgAndArgs...) },\n\t\tfunc(t TestingT) { IsDecreasing(t, collection, msgAndArgs...) },\n\t\tfunc(t TestingT) { IsNonDecreasing(t, collection, msgAndArgs...) },\n\t}\n\tfor _, f := range funcs {\n\t\tout := &outputT{buf: bytes.NewBuffer(nil)}\n\t\tf(out)\n\t\tContains(t, out.buf.String(), expectedOutput)\n\t}\n}\n',
+        }

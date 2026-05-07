@@ -1,0 +1,14 @@
+{
+  "shock_period": "2010-Q3 to 2011-Q2",
+  "inflation_drivers": {
+    "supply_side": true,
+    "demand_side": false
+  },
+  "primary_driver": "oil_price_shock",
+  "n_rows": 780,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

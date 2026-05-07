@@ -1,0 +1,13 @@
+{
+  "requests_per_second": 10,
+  "burst_size": 20,
+  "retry_after_seconds": 600,
+  "enable_throttling": true,
+  "whitelist_ips": [
+    "10.0.0.1",
+    "10.0.0.2"
+  ],
+  "log_level": "info",
+  "timeout_ms": 500,
+  "temp_override": true
+}

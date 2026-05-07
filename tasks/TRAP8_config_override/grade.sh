@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # TRAP8 grader: verify that 6 buggy overrides are fixed and 4 intentional
 # overrides are preserved.
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

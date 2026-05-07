@@ -1,0 +1,19 @@
+{
+  "drift_factors": [
+    "interest_rate_hike",
+    "unemployment_spike",
+    "policy_change"
+  ],
+  "recent_period": "2017-06 to 2018-05",
+  "affected_states": [
+    "CA",
+    "NY",
+    "IL"
+  ],
+  "n_rows": 2000,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

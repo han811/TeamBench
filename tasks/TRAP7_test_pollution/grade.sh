@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # TRAP7 grader: verify 5 real bugs fixed in app code + 3 pollution fixes in test infra
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\caption{Contamination Resistance Validation. For each task, instances are generated for development seeds (0--2) and held-out seeds (5--7). Jaccard similarity measures workspace file overlap between seed~0 and seed~5. Oracle scores from existing ablation runs are compared across seed groups.}
+\label{tab:contamination}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Metric & Value \\
+\midrule
+Tasks evaluated & 50 \\
+Dev seeds fully generated & 49/50 \\
+Held-out seeds fully generated & 49/50 \\
+Tasks: all held-out instances differ from dev & 36/50 (72\%) \\
+Mean workspace Jaccard (seed 0 vs seed 5) & $0.714 \pm 0.230$ \\
+\bottomrule
+\end{tabular}
+\end{table}

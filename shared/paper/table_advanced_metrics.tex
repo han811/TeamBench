@@ -1,0 +1,21 @@
+\begin{table}[t]
+\centering
+\caption{Advanced TeamBench Metrics}
+\label{tab:advanced_metrics}
+\begin{tabular}{lll}
+\toprule
+\textbf{Metric} & \textbf{Value} & \textbf{Note} \\
+\midrule
+CEI (mean) & -0.00533 & $n=169$ tasks, 167 w/ dialogue tokens \\
+Verification Accuracy & 0.3051 & $n=3651$ judgments, FNR=0.0385 \\
+Recovery Rate & 0.9600 & 48/50 tasks \\
+ECT & 0.1913 & 95\% CI [0.0340, 1.1264], $R^2=0.0080$ \\
+\midrule
+\multicolumn{3}{l}{\textit{Archetype-Conditional TNI}} \\
+\quad adversarial & 0.9298 $\pm$ 0.6089 & $n=15$ tasks \\
+\quad discovery & 0.3721 $\pm$ 0.6738 & $n=17$ tasks \\
+\quad open\_ended & 0.3434 $\pm$ 1.0270 & $n=45$ tasks \\
+\quad synthesis & 0.4244 $\pm$ 1.1085 & $n=8$ tasks \\
+\bottomrule
+\end{tabular}
+\end{table}

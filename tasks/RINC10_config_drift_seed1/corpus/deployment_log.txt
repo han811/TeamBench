@@ -1,0 +1,28 @@
+DEPLOYMENT LOG — FeatureFlagService
+========================================
+
+2026-01-26 03:34:12 UTC  [AUTOMATED] Deploy v2.14.3 — production
+  Config hash: a3f7b9c1 (matches VCS)
+  Status: SUCCESS
+
+2026-01-01 14:22:07 UTC  [MANUAL] Hotfix config edit — ops-engineer
+  Reason: checkout feature disabled for hotfix
+  Changed: enable_new_checkout = False
+  NOTE: "temporary, will revert after incident"
+  Status: APPLIED_WITHOUT_COMMIT
+
+2026-02-03 09:15:44 UTC  [MANUAL] Additional config edit — ops-engineer
+  Reason:  AB test % reduced for incident
+  Changed: ab_test_percentage = 5
+  NOTE: "quick fix for load test"
+  Status: APPLIED_WITHOUT_COMMIT
+
+2026-02-15 16:48:22 UTC  [AUTOMATED] Deploy v2.15.0 — production
+  Config hash: MISMATCH — production differs from VCS
+  WARNING: Config drift detected but deploy continued
+  Status: SUCCESS (config NOT updated from VCS)
+
+2026-03-01 00:00:00 UTC  [MONITORING] Config drift alarm
+  Alert: Production config diverges from git HEAD
+  Drifted keys detected: 4
+  Symptom: checkout conversion 60% below normal — new checkout flow disabled in production

@@ -1,0 +1,9 @@
+task_id: RDS25_lending_regime
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: lending_club
+  license: CC0
+  source: Kaggle / Lending Club

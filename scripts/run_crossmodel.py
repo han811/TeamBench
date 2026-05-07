@@ -33,6 +33,21 @@ MODEL_TO_FILE = {
     "gemini-3-flash-preview": "crossmodel_g3flash_seed0.json",
     "claude-sonnet-4-6": "crossmodel_sonnet46_seed0.json",
     "claude-haiku-4-5-20251001": "crossmodel_haiku45_seed0.json",
+    # Qwen3.5 family (vLLM-served)
+    "vllm:Qwen/Qwen3.5-0.8B@http://localhost:8010/v1": "crossmodel_qwen3.5_0.8b_seed0.json",
+    "vllm:Qwen/Qwen3.5-2B@http://localhost:8011/v1": "crossmodel_qwen3.5_2b_seed0.json",
+    "vllm:Qwen/Qwen3.5-4B@http://localhost:8012/v1": "crossmodel_qwen3.5_4b_seed0.json",
+    "vllm:Qwen/Qwen3.5-9B@http://localhost:8013/v1": "crossmodel_qwen3.5_9b_seed0.json",
+    "vllm:Qwen/Qwen3.5-35B-A3B@http://localhost:8014/v1": "crossmodel_qwen3.5_35b_a3b_seed0.json",
+    # Batch 1: Phi-4, Mistral Small, GLM
+    "vllm:microsoft/Phi-4-mini-instruct@http://localhost:8010/v1": "crossmodel_phi4_mini_seed0.json",
+    "vllm:microsoft/phi-4@http://localhost:8011/v1": "crossmodel_phi4_14b_seed0.json",
+    "vllm:mistralai/Mistral-Small-3.2-24B-Instruct-2506@http://localhost:8012/v1": "crossmodel_mistral_small_3.2_seed0.json",
+    "vllm:THUDM/glm-4-9b-chat@http://localhost:8013/v1": "crossmodel_glm4_9b_seed0.json",
+    # Batch 2: Llama 4 Scout (TP=4)
+    "vllm:meta-llama/Llama-4-Scout-17B-16E-Instruct@http://localhost:8014/v1": "crossmodel_llama4_scout_seed0.json",
+    # Batch 3: Nemotron 3 Super (TP=4)
+    "vllm:nvidia/NVIDIA-Nemotron-3-Super-49B-v1@http://localhost:8014/v1": "crossmodel_nemotron3_super_seed0.json",
 }
 
 

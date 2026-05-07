@@ -1,0 +1,8 @@
+date,event_name,venue,expected_attendance,event_type,start_time
+2019-01-19,NHL Rangers vs. Pittsburgh Penguins + UFC 230 (MSG),Madison Square Garden,18006,Sports/Entertainment,19:30
+2019-01-20,NHL Rangers vs. Pittsburgh Penguins + UFC 230 (MSG),Madison Square Garden,18006,Sports/Entertainment,19:30
+2019-01-03,Broadway Show - Hamilton,Richard Rodgers Theatre,1319,Theater,20:00
+2019-01-06,NY Mets vs Yankees,Yankee Stadium,38000,Baseball,13:05
+2019-01-09,NYC Marathon,Central Park,55000,Running,09:00
+2019-01-12,Fashion Week Gala,Lincoln Center,2500,Fashion,18:00
+2019-01-15,Film Festival Premiere,AMC Lincoln Square,800,Film,21:00

@@ -1,0 +1,51 @@
+name: Update Leaderboard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'shared/submissions/*.json'
+      - 'shared/ablation_results/crossmodel_*.json'
+
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force regeneration even without new submissions'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]" 2>/dev/null || pip install -e .
+
+      - name: Regenerate leaderboard data
+        run: python scripts/regenerate_leaderboard_data.py
+
+      - name: Commit updated leaderboard
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add leaderboard/data/leaderboard_data.json leaderboard/data/cross_model_stats.json
+          if git diff --cached --quiet; then
+            echo "No changes to leaderboard data"
+          else
+            git commit -m "chore: regenerate leaderboard data from submissions
+
+            Triggered by: ${{ github.event_name }}
+            Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+            git push
+          fi

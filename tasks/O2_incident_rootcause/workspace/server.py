@@ -27,7 +27,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.path == "/api/data":
             try:
                 raw = load_data()
-                items = raw["items"]
+                items = raw["payload"]["records"]
                 self._send(200, json.dumps({"data": items, "count": len(items)}))
             except KeyError:
                 self._send(500, json.dumps({"error": "internal"}))

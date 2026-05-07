@@ -1,0 +1,9 @@
+{
+  "issues": "cancellation invoices (C-prefix), missing CustomerIDs, zero UnitPrice",
+  "n_rows": 30000,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

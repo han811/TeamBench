@@ -1,0 +1,37 @@
+{
+  "analysis_type": "kaplan_meier",
+  "research_question": "How does customer survival (non-churn) differ across contract types (month-to-month, one-year, two-year)? Use Kaplan-Meier curves to estimate and compare survival functions.",
+  "key_cols": [
+    "tenure",
+    "Churn",
+    "Contract"
+  ],
+  "hidden_col_keywords": [
+    "tenure",
+    "Contract"
+  ],
+  "n_rows": 1408,
+  "columns": [
+    "customerID",
+    "gender",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "tenure",
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "MonthlyCharges",
+    "TotalCharges",
+    "Churn"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

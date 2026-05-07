@@ -1,0 +1,2750 @@
+{
+  "summary": {
+    "n_tasks_with_oracle_runs": 188,
+    "n_tasks_with_author_labels": 151,
+    "spearman_rho_author_vs_empirical": 0.009541049241843331,
+    "spearman_pval_author_vs_empirical": 0.9074379642253212,
+    "label_agreement_pct": 25.165562913907284
+  },
+  "per_task": [
+    {
+      "task_id": "CR1_review_respond",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.44,
+      "std_oracle_score": 0.06,
+      "empirical_difficulty": 0.56,
+      "empirical_label": "hard",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "CR2_style_enforce",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.845,
+      "std_oracle_score": 0.07500000000000001,
+      "empirical_difficulty": 0.15500000000000003,
+      "empirical_label": "easy",
+      "author_label": "easy",
+      "author_numeric": 0.25
+    },
+    {
+      "task_id": "CR3_perf_review",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.8500000000000001,
+      "std_oracle_score": 0.04999999999999999,
+      "empirical_difficulty": 0.1499999999999999,
+      "empirical_label": "easy",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "CR4_api_review",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.69,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.31000000000000005,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "CR5_test_coverage",
+      "n_oracle_runs": 27,
+      "mean_oracle_score": 0.29518518518518516,
+      "std_oracle_score": 0.20409457448956553,
+      "empirical_difficulty": 0.7048148148148148,
+      "empirical_label": "hard",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "CR6_review_checklist",
+      "n_oracle_runs": 8,
+      "mean_oracle_score": 0.74,
+      "std_oracle_score": 0.21166010488516723,
+      "empirical_difficulty": 0.26,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "CROSS1_api_contract",
+      "n_oracle_runs": 20,
+      "mean_oracle_score": 0.505,
+      "std_oracle_score": 0.3879110722833263,
+      "empirical_difficulty": 0.495,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "CROSS2_schema_evolution",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.8333,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.16669999999999996,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "CROSS3_protocol_bridge",
+      "n_oracle_runs": 20,
+      "mean_oracle_score": 0.54,
+      "std_oracle_score": 0.45978255730290596,
+      "empirical_difficulty": 0.45999999999999996,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "CROSS4_auth_federation",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.5,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.5,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "CROSS5_event_schema",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.7999999999999999,
+      "std_oracle_score": 0.14142135623730953,
+      "empirical_difficulty": 0.20000000000000007,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "CROSS6_grpc_rest_bridge",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.09999999999999998,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "CROSS7_config_drift",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.6,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.4,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "CRYPTO1_nonce_reuse",
+      "n_oracle_runs": 20,
+      "mean_oracle_score": 0.555,
+      "std_oracle_score": 0.36670833096617805,
+      "empirical_difficulty": 0.44499999999999995,
+      "empirical_label": "medium",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "CRYPTO2_timing_safe",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.6,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.4,
+      "empirical_label": "medium",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "CRYPTO3_cert_chain",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.4,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.6,
+      "empirical_label": "hard",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "CRYPTO4_kdf_migration",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.9167,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.08330000000000004,
+      "empirical_label": "easy",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "CRYPTO5_tls_config",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.6857142857142857,
+      "std_oracle_score": 0.3090472521826277,
+      "empirical_difficulty": 0.3142857142857143,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "CRYPTO6_token_validation",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.75,
+      "std_oracle_score": 0.15000000000000002,
+      "empirical_difficulty": 0.25,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "D1_schema_drift",
+      "n_oracle_runs": 20,
+      "mean_oracle_score": 0.399,
+      "std_oracle_score": 0.34189033329417196,
+      "empirical_difficulty": 0.601,
+      "empirical_label": "hard",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "D2_data_quality",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.315,
+      "std_oracle_score": 0.044999999999999984,
+      "empirical_difficulty": 0.685,
+      "empirical_label": "hard",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "D3_schema_migration",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.7749999999999999,
+      "std_oracle_score": 0.04499999999999999,
+      "empirical_difficulty": 0.2250000000000001,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "D4_data_pipeline",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.735,
+      "std_oracle_score": 0.14500000000000002,
+      "empirical_difficulty": 0.265,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "D5_query_optimize",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.765,
+      "std_oracle_score": 0.03500000000000003,
+      "empirical_difficulty": 0.235,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "D6_data_reconcile",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.885,
+      "std_oracle_score": 0.05499999999999999,
+      "empirical_difficulty": 0.11499999999999999,
+      "empirical_label": "easy",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "D7_etl_reconciliation",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.95,
+      "std_oracle_score": 0.04999999999999999,
+      "empirical_difficulty": 0.050000000000000044,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "D8_csv_cleanup",
+      "n_oracle_runs": 26,
+      "mean_oracle_score": 0.5303846153846155,
+      "std_oracle_score": 0.423551656728149,
+      "empirical_difficulty": 0.46961538461538455,
+      "empirical_label": "medium",
+      "author_label": "easy",
+      "author_numeric": 0.25
+    },
+    {
+      "task_id": "D9_schema_validation",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.75,
+      "std_oracle_score": 0.050000000000000044,
+      "empirical_difficulty": 0.25,
+      "empirical_label": "medium",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "DIST1_queue_race",
+      "n_oracle_runs": 20,
+      "mean_oracle_score": 0.19165499999999996,
+      "std_oracle_score": 0.19021267432797426,
+      "empirical_difficulty": 0.8083450000000001,
+      "empirical_label": "expert",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "DIST2_consensus_partition",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.4167,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.5832999999999999,
+      "empirical_label": "hard",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "DIST3_idempotency",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.25,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.75,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "DIST4_clock_skew",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.4167,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.5832999999999999,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "DIST5_leader_election",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.2,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.8,
+      "empirical_label": "expert",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "DIST6_distributed_lock",
+      "n_oracle_runs": 8,
+      "mean_oracle_score": 0.9875,
+      "std_oracle_score": 0.03307189138830738,
+      "empirical_difficulty": 0.012499999999999956,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "DS1_feature_leakage",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.8500000000000001,
+      "std_oracle_score": 0.04999999999999999,
+      "empirical_difficulty": 0.1499999999999999,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "DS2_missing_data_bias",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.75,
+      "std_oracle_score": 0.25,
+      "empirical_difficulty": 0.25,
+      "empirical_label": "medium",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "DS3_class_imbalance",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "DS4_timeseries_split",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.8,
+      "std_oracle_score": 0.2,
+      "empirical_difficulty": 0.19999999999999996,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "DS5_outlier_vs_signal",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.75,
+      "std_oracle_score": 0.25,
+      "empirical_difficulty": 0.25,
+      "empirical_label": "medium",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "GH10_retry_backoff",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.75,
+      "std_oracle_score": 0.17000000000000004,
+      "empirical_difficulty": 0.25,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "GH11_middleware_order",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.8200000000000001,
+      "std_oracle_score": 0.09000000000000002,
+      "empirical_difficulty": 0.17999999999999994,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "GH1_flask_session_ctx",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.62,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.38,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "GH2_click_flag_value",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.8,
+      "std_oracle_score": 0.10000000000000003,
+      "empirical_difficulty": 0.19999999999999996,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "GH3_httpx_auth_leak",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.62,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.38,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "GH4_requests_encoding",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.64,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.36,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "GH5_pydantic_circular",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.5449999999999999,
+      "std_oracle_score": 0.27499999999999997,
+      "empirical_difficulty": 0.45500000000000007,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "GH6_queryset_union",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.25,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.75,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "GH7_fixture_scope_leak",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "GH8_async_cache_race",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.89,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.10999999999999999,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "GH9_pool_exhaustion",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.73,
+      "std_oracle_score": 0.08999999999999997,
+      "empirical_difficulty": 0.27,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "GO1_concurrency_fix",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.815,
+      "std_oracle_score": 0.065,
+      "empirical_difficulty": 0.18500000000000005,
+      "empirical_label": "easy",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "GO2_race_condition",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.92,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.07999999999999996,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "INC10_rollback_plan",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.4,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.6,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "INC1_cascade_failure",
+      "n_oracle_runs": 20,
+      "mean_oracle_score": 0.6950000000000002,
+      "std_oracle_score": 0.2940663190506523,
+      "empirical_difficulty": 0.3049999999999998,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "INC2_data_corruption",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "INC3_memory_leak",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.92,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.07999999999999996,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "INC4_dns_miscfg",
+      "n_oracle_runs": 20,
+      "mean_oracle_score": 0.6085,
+      "std_oracle_score": 0.3378649878279784,
+      "empirical_difficulty": 0.39149999999999996,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "INC5_cert_expiry",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.91,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.08999999999999997,
+      "empirical_label": "easy",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "INC6_deadlock",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.67,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.32999999999999996,
+      "empirical_label": "medium",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "INC7_rollback",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "INC8_cascading_timeout",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.6,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.4,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "INC8_memory_leak",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.8,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.19999999999999996,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "INC9_log_forensics",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.3,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.7,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "INT2_api_versioning",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 1.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.0,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "INT3_db_migration",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.5,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.5,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "IR1_evidence_qa",
+      "n_oracle_runs": 19,
+      "mean_oracle_score": 0.4189473684210526,
+      "std_oracle_score": 0.2665351707184567,
+      "empirical_difficulty": 0.5810526315789474,
+      "empirical_label": "hard",
+      "author_label": "easy",
+      "author_numeric": 0.25
+    },
+    {
+      "task_id": "IR2_misinformation_trap",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.29,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.71,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "IR3_multi_source",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.92,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.07999999999999996,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "IR4_temporal",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.93,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.06999999999999995,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "IR5_search_ranking",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.7800000000000001,
+      "std_oracle_score": 1.1102230246251565e-16,
+      "empirical_difficulty": 0.21999999999999986,
+      "empirical_label": "medium",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "IR6_search_index",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "IR7_doc_clustering",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.75,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.25,
+      "empirical_label": "medium",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "IR8_search_index",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.8,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.19999999999999996,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "JS1_api_migration",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.43,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.5700000000000001,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "JS2_xss_sanitize",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.78,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.21999999999999997,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "LH2_budgeted_workflow",
+      "n_oracle_runs": 6,
+      "mean_oracle_score": 0.85,
+      "std_oracle_score": 0.04999999999999999,
+      "empirical_difficulty": 0.15000000000000002,
+      "empirical_label": "easy",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "LH3_multi_service",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "LH4_staged_deploy",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.43,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.5700000000000001,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "LH5_data_migration",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "LH6_audit_trail",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.55,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.44999999999999996,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "LH7_zero_downtime",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.82,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.18000000000000005,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "ML10_evaluation_contamination",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML11_lr_warmup_decay",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML12_residual_init",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML13_amp_clip_order",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML15_kd_temperature",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML16_contrastive_false_neg",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML18_curriculum_invert",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML19_causal_mask_offbyone",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML1_gradient_bug",
+      "n_oracle_runs": 4,
+      "mean_oracle_score": 0.46875,
+      "std_oracle_score": 0.4708287241662301,
+      "empirical_difficulty": 0.53125,
+      "empirical_label": "hard",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML22_norm_placement",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML2_overfitting_diagnosis",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 1.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.0,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML3_tokenizer_mismatch",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.8125,
+      "std_oracle_score": 0.0625,
+      "empirical_difficulty": 0.1875,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML4_metric_selection",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.5,
+      "std_oracle_score": 0.5,
+      "empirical_difficulty": 0.5,
+      "empirical_label": "hard",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "ML5_data_augmentation_leak",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.5,
+      "std_oracle_score": 0.5,
+      "empirical_difficulty": 0.5,
+      "empirical_label": "hard",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "MULTI1_fullstack_fix",
+      "n_oracle_runs": 25,
+      "mean_oracle_score": 0.49199999999999994,
+      "std_oracle_score": 0.41928510586473255,
+      "empirical_difficulty": 0.508,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "MULTI2_api_frontend",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.5,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.5,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "MULTI2_microservice_debug",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "MULTI3_polyglot",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 1.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.0,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "MULTI4_monorepo_fix",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "MULTI5_deploy_pipeline",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.5333333333333333,
+      "std_oracle_score": 0.04714045207910316,
+      "empirical_difficulty": 0.4666666666666667,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "MULTI6_fullstack_bug",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "MULTI7_polyglot_test",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "MULTI8_sdk_mismatch",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.75,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.25,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "NEG1_tradeoff_config",
+      "n_oracle_runs": 19,
+      "mean_oracle_score": 0.3105263157894737,
+      "std_oracle_score": 0.2573032960332698,
+      "empirical_difficulty": 0.6894736842105262,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "NEG2_cost_perf",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 1.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.0,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "NEG3_tech_debt",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.8,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.19999999999999996,
+      "empirical_label": "easy",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "NEG4_resource_allocation",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "NEG5_sla_tradeoff",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "O1_service_health",
+      "n_oracle_runs": 26,
+      "mean_oracle_score": 0.21153846153846154,
+      "std_oracle_score": 0.22672742543368452,
+      "empirical_difficulty": 0.7884615384615384,
+      "empirical_label": "hard",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "O2_incident_rootcause",
+      "n_oracle_runs": 21,
+      "mean_oracle_score": 0.49523809523809514,
+      "std_oracle_score": 0.21038782889880495,
+      "empirical_difficulty": 0.5047619047619049,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "O3_log_analysis",
+      "n_oracle_runs": 26,
+      "mean_oracle_score": 0.24846153846153843,
+      "std_oracle_score": 0.15518456276546988,
+      "empirical_difficulty": 0.7515384615384616,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "O4_monitoring",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.38714285714285707,
+      "std_oracle_score": 0.2596544013939785,
+      "empirical_difficulty": 0.612857142857143,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "O5_container_debug",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.6,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.4,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "O6_perf_tuning",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.77,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.22999999999999998,
+      "empirical_label": "medium",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "O7_capacity_planning",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 1.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.0,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "O8_dockerfile_fix",
+      "n_oracle_runs": 4,
+      "mean_oracle_score": 0.71,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.29000000000000004,
+      "empirical_label": "medium",
+      "author_label": "easy",
+      "author_numeric": 0.25
+    },
+    {
+      "task_id": "O9_logging_config",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.5,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.5,
+      "empirical_label": "hard",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "P1_policy_config",
+      "n_oracle_runs": 19,
+      "mean_oracle_score": 0.5873684210526315,
+      "std_oracle_score": 0.44861004171672964,
+      "empirical_difficulty": 0.41263157894736846,
+      "empirical_label": "medium",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "P2_spec_arbitration",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.25,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.75,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "P3_access_control",
+      "n_oracle_runs": 23,
+      "mean_oracle_score": 0.5686956521739132,
+      "std_oracle_score": 0.277665803938383,
+      "empirical_difficulty": 0.43130434782608684,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "P4_data_retention",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.86,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.14,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "P5_audit_logging",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.93,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.06999999999999995,
+      "empirical_label": "easy",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "P6_license_check",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.8600000000000001,
+      "std_oracle_score": 1.1102230246251565e-16,
+      "empirical_difficulty": 0.1399999999999999,
+      "empirical_label": "easy",
+      "author_label": "easy",
+      "author_numeric": 0.25
+    },
+    {
+      "task_id": "P7_data_retention",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.6357142857142858,
+      "std_oracle_score": 0.4020610167928368,
+      "empirical_difficulty": 0.3642857142857142,
+      "empirical_label": "medium",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "P8_access_control",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 0.3,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.7,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "PIPE1_etl_fix",
+      "n_oracle_runs": 25,
+      "mean_oracle_score": 0.488,
+      "std_oracle_score": 0.234571950582332,
+      "empirical_difficulty": 0.512,
+      "empirical_label": "hard",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "PIPE2_api_gateway",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.92,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.07999999999999996,
+      "empirical_label": "easy",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "PIPE2_data_pipeline",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.8,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.19999999999999996,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "PIPE3_msg_queue",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.77,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.22999999999999998,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "PIPE3_stream_processing",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 1.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.0,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "PIPE4_ci_cd",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.93,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.06999999999999995,
+      "empirical_label": "easy",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "S3_refactor_extract",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.17,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.83,
+      "empirical_label": "expert",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "S4_backward_compat",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.21,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.79,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "S5_error_handling",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.37142857142857144,
+      "std_oracle_score": 0.1979486637221574,
+      "empirical_difficulty": 0.6285714285714286,
+      "empirical_label": "hard",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "S6_caching",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "S7_env_config",
+      "n_oracle_runs": 4,
+      "mean_oracle_score": 0.6049999999999999,
+      "std_oracle_score": 0.060621778264910706,
+      "empirical_difficulty": 0.39500000000000013,
+      "empirical_label": "medium",
+      "author_label": "easy",
+      "author_numeric": 0.25
+    },
+    {
+      "task_id": "SCALE1_codebase_migration",
+      "n_oracle_runs": 5,
+      "mean_oracle_score": 0.48599999999999993,
+      "std_oracle_score": 0.05238320341483517,
+      "empirical_difficulty": 0.514,
+      "empirical_label": "hard",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "SEC1_vuln_patch",
+      "n_oracle_runs": 25,
+      "mean_oracle_score": 0.5508,
+      "std_oracle_score": 0.29697030154545756,
+      "empirical_difficulty": 0.44920000000000004,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SEC2_auth_bypass",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SEC3_crypto_upgrade",
+      "n_oracle_runs": 26,
+      "mean_oracle_score": 0.5838461538461538,
+      "std_oracle_score": 0.24498158365754955,
+      "empirical_difficulty": 0.4161538461538462,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SEC4_input_validation",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.31,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.69,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SEC5_secrets_rotation",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.5914285714285714,
+      "std_oracle_score": 0.38598403266118114,
+      "empirical_difficulty": 0.4085714285714286,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SEC6_csrf_protection",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.85,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.15000000000000002,
+      "empirical_label": "easy",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "SEC7_rate_limiting",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.47,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.53,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SEC8_dependency_audit",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.83,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.17000000000000004,
+      "empirical_label": "easy",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "SEC9_vuln_triage",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.77,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.22999999999999998,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SPEC1_feature_impl",
+      "n_oracle_runs": 19,
+      "mean_oracle_score": 0.27421052631578946,
+      "std_oracle_score": 0.3041176328758969,
+      "empirical_difficulty": 0.7257894736842105,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SPEC2_api_design",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.75,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.25,
+      "empirical_label": "medium",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "SPEC3_data_model",
+      "n_oracle_runs": 26,
+      "mean_oracle_score": 0.46969230769230774,
+      "std_oracle_score": 0.40235363026445065,
+      "empirical_difficulty": 0.5303076923076923,
+      "empirical_label": "hard",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "SPEC4_migration",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 1.0,
+      "empirical_label": "expert",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SPEC5_config_system",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.7085714285714285,
+      "std_oracle_score": 0.2577611614004922,
+      "empirical_difficulty": 0.2914285714285715,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SPEC6_rfc_impl",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.95,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.050000000000000044,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SPEC7_config_schema",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 1.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.0,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SQL2_query_optimize",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.47,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.53,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "SYNTH1_distributed_debug",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.19285714285714287,
+      "std_oracle_score": 0.08907689867497084,
+      "empirical_difficulty": 0.8071428571428572,
+      "empirical_label": "expert",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "TEST1_spec_to_tests",
+      "n_oracle_runs": 25,
+      "mean_oracle_score": 0.43199999999999994,
+      "std_oracle_score": 0.33908111124036383,
+      "empirical_difficulty": 0.5680000000000001,
+      "empirical_label": "hard",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "TEST2_regression",
+      "n_oracle_runs": 26,
+      "mean_oracle_score": 0.5999999999999999,
+      "std_oracle_score": 0.2885507554340111,
+      "empirical_difficulty": 0.40000000000000013,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "TEST3_integration",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.6771428571428572,
+      "std_oracle_score": 0.2789118798737226,
+      "empirical_difficulty": 0.32285714285714284,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "TEST4_property",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.5285714285714286,
+      "std_oracle_score": 0.33812206466340655,
+      "empirical_difficulty": 0.4714285714285714,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "TEST5_mutation_resistant",
+      "n_oracle_runs": 24,
+      "mean_oracle_score": 0.57375,
+      "std_oracle_score": 0.3415261397999671,
+      "empirical_difficulty": 0.42625,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "TEST6_property_based",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.6428571428571429,
+      "std_oracle_score": 0.29692299558323615,
+      "empirical_difficulty": 0.3571428571428571,
+      "empirical_label": "medium",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "TEST7_integration_suite",
+      "n_oracle_runs": 4,
+      "mean_oracle_score": 0.47500000000000003,
+      "std_oracle_score": 0.3418698582794336,
+      "empirical_difficulty": 0.5249999999999999,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "TEST8_unit_basic",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.75,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.25,
+      "empirical_label": "medium",
+      "author_label": "easy",
+      "author_numeric": 0.25
+    },
+    {
+      "task_id": "TEST9_mock_service",
+      "n_oracle_runs": 7,
+      "mean_oracle_score": 0.7957142857142859,
+      "std_oracle_score": 0.03849198167230708,
+      "empirical_difficulty": 0.20428571428571407,
+      "empirical_label": "medium",
+      "author_label": "medium",
+      "author_numeric": 0.5
+    },
+    {
+      "task_id": "TRAP1_spec_conflict",
+      "n_oracle_runs": 19,
+      "mean_oracle_score": 0.48947368421052634,
+      "std_oracle_score": 0.48220408088616246,
+      "empirical_difficulty": 0.5105263157894737,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "TRAP3_metric_mirage",
+      "n_oracle_runs": 19,
+      "mean_oracle_score": 0.431578947368421,
+      "std_oracle_score": 0.33253829471434343,
+      "empirical_difficulty": 0.5684210526315789,
+      "empirical_label": "hard",
+      "author_label": "expert",
+      "author_numeric": 1.0
+    },
+    {
+      "task_id": "TRAP5_security_theater",
+      "n_oracle_runs": 19,
+      "mean_oracle_score": 0.43631578947368416,
+      "std_oracle_score": 0.35561970412396837,
+      "empirical_difficulty": 0.5636842105263158,
+      "empirical_label": "hard",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "TRAP6_deprecated_api",
+      "n_oracle_runs": 2,
+      "mean_oracle_score": 1.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.0,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "TRAP7_test_pollution",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.8,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.19999999999999996,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "TRAP8_config_override",
+      "n_oracle_runs": 1,
+      "mean_oracle_score": 0.9,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.09999999999999998,
+      "empirical_label": "easy",
+      "author_label": "hard",
+      "author_numeric": 0.75
+    },
+    {
+      "task_id": "cross1_api_contract",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.5,
+      "std_oracle_score": 0.21602468994692867,
+      "empirical_difficulty": 0.5,
+      "empirical_label": "hard",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "cross2_schema_evolution",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 1.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.0,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "cross3_protocol_bridge",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.8666666666666667,
+      "std_oracle_score": 0.18856180831641267,
+      "empirical_difficulty": 0.1333333333333333,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "cross4_auth_federation",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 1.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.0,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "crypto1_nonce_reuse",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.20000000000000004,
+      "std_oracle_score": 2.7755575615628914e-17,
+      "empirical_difficulty": 0.7999999999999999,
+      "empirical_label": "hard",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "crypto2_timing_safe",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 1.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.0,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "crypto3_cert_chain",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.06666666666666667,
+      "std_oracle_score": 0.09428090415820635,
+      "empirical_difficulty": 0.9333333333333333,
+      "empirical_label": "expert",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "crypto4_kdf_migration",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.20000000000000004,
+      "std_oracle_score": 2.7755575615628914e-17,
+      "empirical_difficulty": 0.7999999999999999,
+      "empirical_label": "hard",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "dist1_queue_race",
+      "n_oracle_runs": 5,
+      "mean_oracle_score": 0.45002000000000003,
+      "std_oracle_score": 0.04080849911476774,
+      "empirical_difficulty": 0.5499799999999999,
+      "empirical_label": "hard",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "dist2_consensus_partition",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.4167,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.5832999999999999,
+      "empirical_label": "hard",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "dist3_idempotency",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.5277666666666666,
+      "std_oracle_score": 0.07853599316378589,
+      "empirical_difficulty": 0.4722333333333334,
+      "empirical_label": "medium",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "dist4_clock_skew",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.9167,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.08330000000000004,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "trap1_spec_conflict",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.9333333333333332,
+      "std_oracle_score": 0.04714045207910316,
+      "empirical_difficulty": 0.06666666666666676,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "trap2_false_fix",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 1.0,
+      "std_oracle_score": 0.0,
+      "empirical_difficulty": 0.0,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "trap3_metric_mirage",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.8666666666666667,
+      "std_oracle_score": 0.18856180831641267,
+      "empirical_difficulty": 0.1333333333333333,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "trap4_version_paradox",
+      "n_oracle_runs": 3,
+      "mean_oracle_score": 0.5533333333333333,
+      "std_oracle_score": 0.3158410289299912,
+      "empirical_difficulty": 0.44666666666666666,
+      "empirical_label": "medium",
+      "author_label": "unknown",
+      "author_numeric": null
+    },
+    {
+      "task_id": "trap5_security_theater",
+      "n_oracle_runs": 5,
+      "mean_oracle_score": 0.8320000000000001,
+      "std_oracle_score": 0.03429285639896447,
+      "empirical_difficulty": 0.16799999999999993,
+      "empirical_label": "easy",
+      "author_label": "unknown",
+      "author_numeric": null
+    }
+  ],
+  "scatter_data": [
+    {
+      "x": 0.5,
+      "y": 0.56,
+      "task_id": "CR1_review_respond"
+    },
+    {
+      "x": 0.25,
+      "y": 0.15500000000000003,
+      "task_id": "CR2_style_enforce"
+    },
+    {
+      "x": 0.5,
+      "y": 0.1499999999999999,
+      "task_id": "CR3_perf_review"
+    },
+    {
+      "x": 0.75,
+      "y": 0.31000000000000005,
+      "task_id": "CR4_api_review"
+    },
+    {
+      "x": 0.5,
+      "y": 0.7048148148148148,
+      "task_id": "CR5_test_coverage"
+    },
+    {
+      "x": 0.75,
+      "y": 0.26,
+      "task_id": "CR6_review_checklist"
+    },
+    {
+      "x": 0.75,
+      "y": 0.495,
+      "task_id": "CROSS1_api_contract"
+    },
+    {
+      "x": 0.75,
+      "y": 0.16669999999999996,
+      "task_id": "CROSS2_schema_evolution"
+    },
+    {
+      "x": 0.75,
+      "y": 0.45999999999999996,
+      "task_id": "CROSS3_protocol_bridge"
+    },
+    {
+      "x": 0.75,
+      "y": 0.5,
+      "task_id": "CROSS4_auth_federation"
+    },
+    {
+      "x": 0.75,
+      "y": 0.20000000000000007,
+      "task_id": "CROSS5_event_schema"
+    },
+    {
+      "x": 0.75,
+      "y": 0.09999999999999998,
+      "task_id": "CROSS6_grpc_rest_bridge"
+    },
+    {
+      "x": 0.75,
+      "y": 0.4,
+      "task_id": "CROSS7_config_drift"
+    },
+    {
+      "x": 1.0,
+      "y": 0.44499999999999995,
+      "task_id": "CRYPTO1_nonce_reuse"
+    },
+    {
+      "x": 1.0,
+      "y": 0.6,
+      "task_id": "CRYPTO3_cert_chain"
+    },
+    {
+      "x": 1.0,
+      "y": 0.08330000000000004,
+      "task_id": "CRYPTO4_kdf_migration"
+    },
+    {
+      "x": 0.75,
+      "y": 0.3142857142857143,
+      "task_id": "CRYPTO5_tls_config"
+    },
+    {
+      "x": 0.75,
+      "y": 0.25,
+      "task_id": "CRYPTO6_token_validation"
+    },
+    {
+      "x": 0.5,
+      "y": 0.601,
+      "task_id": "D1_schema_drift"
+    },
+    {
+      "x": 0.5,
+      "y": 0.685,
+      "task_id": "D2_data_quality"
+    },
+    {
+      "x": 0.75,
+      "y": 0.2250000000000001,
+      "task_id": "D3_schema_migration"
+    },
+    {
+      "x": 0.75,
+      "y": 0.265,
+      "task_id": "D4_data_pipeline"
+    },
+    {
+      "x": 0.75,
+      "y": 0.235,
+      "task_id": "D5_query_optimize"
+    },
+    {
+      "x": 1.0,
+      "y": 0.11499999999999999,
+      "task_id": "D6_data_reconcile"
+    },
+    {
+      "x": 0.75,
+      "y": 0.050000000000000044,
+      "task_id": "D7_etl_reconciliation"
+    },
+    {
+      "x": 0.25,
+      "y": 0.46961538461538455,
+      "task_id": "D8_csv_cleanup"
+    },
+    {
+      "x": 0.5,
+      "y": 0.25,
+      "task_id": "D9_schema_validation"
+    },
+    {
+      "x": 1.0,
+      "y": 0.8083450000000001,
+      "task_id": "DIST1_queue_race"
+    },
+    {
+      "x": 1.0,
+      "y": 0.5832999999999999,
+      "task_id": "DIST2_consensus_partition"
+    },
+    {
+      "x": 0.75,
+      "y": 0.75,
+      "task_id": "DIST3_idempotency"
+    },
+    {
+      "x": 0.75,
+      "y": 0.5832999999999999,
+      "task_id": "DIST4_clock_skew"
+    },
+    {
+      "x": 0.75,
+      "y": 0.8,
+      "task_id": "DIST5_leader_election"
+    },
+    {
+      "x": 0.75,
+      "y": 0.012499999999999956,
+      "task_id": "DIST6_distributed_lock"
+    },
+    {
+      "x": 0.75,
+      "y": 0.25,
+      "task_id": "GH10_retry_backoff"
+    },
+    {
+      "x": 0.75,
+      "y": 0.17999999999999994,
+      "task_id": "GH11_middleware_order"
+    },
+    {
+      "x": 0.75,
+      "y": 0.38,
+      "task_id": "GH1_flask_session_ctx"
+    },
+    {
+      "x": 0.75,
+      "y": 0.19999999999999996,
+      "task_id": "GH2_click_flag_value"
+    },
+    {
+      "x": 0.75,
+      "y": 0.38,
+      "task_id": "GH3_httpx_auth_leak"
+    },
+    {
+      "x": 0.75,
+      "y": 0.36,
+      "task_id": "GH4_requests_encoding"
+    },
+    {
+      "x": 0.75,
+      "y": 0.45500000000000007,
+      "task_id": "GH5_pydantic_circular"
+    },
+    {
+      "x": 0.75,
+      "y": 0.75,
+      "task_id": "GH6_queryset_union"
+    },
+    {
+      "x": 0.75,
+      "y": 0.09999999999999998,
+      "task_id": "GH7_fixture_scope_leak"
+    },
+    {
+      "x": 0.75,
+      "y": 0.10999999999999999,
+      "task_id": "GH8_async_cache_race"
+    },
+    {
+      "x": 0.75,
+      "y": 0.27,
+      "task_id": "GH9_pool_exhaustion"
+    },
+    {
+      "x": 1.0,
+      "y": 0.18500000000000005,
+      "task_id": "GO1_concurrency_fix"
+    },
+    {
+      "x": 0.75,
+      "y": 0.07999999999999996,
+      "task_id": "GO2_race_condition"
+    },
+    {
+      "x": 0.75,
+      "y": 0.6,
+      "task_id": "INC10_rollback_plan"
+    },
+    {
+      "x": 0.75,
+      "y": 0.3049999999999998,
+      "task_id": "INC1_cascade_failure"
+    },
+    {
+      "x": 0.75,
+      "y": 0.09999999999999998,
+      "task_id": "INC2_data_corruption"
+    },
+    {
+      "x": 0.75,
+      "y": 0.07999999999999996,
+      "task_id": "INC3_memory_leak"
+    },
+    {
+      "x": 0.75,
+      "y": 0.39149999999999996,
+      "task_id": "INC4_dns_miscfg"
+    },
+    {
+      "x": 0.5,
+      "y": 0.08999999999999997,
+      "task_id": "INC5_cert_expiry"
+    },
+    {
+      "x": 1.0,
+      "y": 0.32999999999999996,
+      "task_id": "INC6_deadlock"
+    },
+    {
+      "x": 0.75,
+      "y": 1.0,
+      "task_id": "INC7_rollback"
+    },
+    {
+      "x": 0.75,
+      "y": 0.4,
+      "task_id": "INC8_cascading_timeout"
+    },
+    {
+      "x": 0.75,
+      "y": 0.19999999999999996,
+      "task_id": "INC8_memory_leak"
+    },
+    {
+      "x": 0.75,
+      "y": 0.7,
+      "task_id": "INC9_log_forensics"
+    },
+    {
+      "x": 0.75,
+      "y": 0.0,
+      "task_id": "INT2_api_versioning"
+    },
+    {
+      "x": 0.75,
+      "y": 0.5,
+      "task_id": "INT3_db_migration"
+    },
+    {
+      "x": 0.25,
+      "y": 0.5810526315789474,
+      "task_id": "IR1_evidence_qa"
+    },
+    {
+      "x": 0.75,
+      "y": 0.71,
+      "task_id": "IR2_misinformation_trap"
+    },
+    {
+      "x": 0.75,
+      "y": 0.07999999999999996,
+      "task_id": "IR3_multi_source"
+    },
+    {
+      "x": 0.75,
+      "y": 0.06999999999999995,
+      "task_id": "IR4_temporal"
+    },
+    {
+      "x": 0.5,
+      "y": 0.21999999999999986,
+      "task_id": "IR5_search_ranking"
+    },
+    {
+      "x": 0.5,
+      "y": 1.0,
+      "task_id": "IR6_search_index"
+    },
+    {
+      "x": 0.5,
+      "y": 0.25,
+      "task_id": "IR7_doc_clustering"
+    },
+    {
+      "x": 0.75,
+      "y": 0.19999999999999996,
+      "task_id": "IR8_search_index"
+    },
+    {
+      "x": 0.75,
+      "y": 0.5700000000000001,
+      "task_id": "JS1_api_migration"
+    },
+    {
+      "x": 0.75,
+      "y": 0.21999999999999997,
+      "task_id": "JS2_xss_sanitize"
+    },
+    {
+      "x": 1.0,
+      "y": 0.15000000000000002,
+      "task_id": "LH2_budgeted_workflow"
+    },
+    {
+      "x": 1.0,
+      "y": 0.09999999999999998,
+      "task_id": "LH3_multi_service"
+    },
+    {
+      "x": 0.75,
+      "y": 0.5700000000000001,
+      "task_id": "LH4_staged_deploy"
+    },
+    {
+      "x": 1.0,
+      "y": 1.0,
+      "task_id": "LH5_data_migration"
+    },
+    {
+      "x": 0.75,
+      "y": 0.44999999999999996,
+      "task_id": "LH6_audit_trail"
+    },
+    {
+      "x": 0.75,
+      "y": 0.18000000000000005,
+      "task_id": "LH7_zero_downtime"
+    },
+    {
+      "x": 0.75,
+      "y": 0.508,
+      "task_id": "MULTI1_fullstack_fix"
+    },
+    {
+      "x": 0.75,
+      "y": 0.5,
+      "task_id": "MULTI2_api_frontend"
+    },
+    {
+      "x": 0.75,
+      "y": 0.09999999999999998,
+      "task_id": "MULTI2_microservice_debug"
+    },
+    {
+      "x": 0.75,
+      "y": 0.0,
+      "task_id": "MULTI3_polyglot"
+    },
+    {
+      "x": 0.75,
+      "y": 0.09999999999999998,
+      "task_id": "MULTI4_monorepo_fix"
+    },
+    {
+      "x": 0.75,
+      "y": 0.4666666666666667,
+      "task_id": "MULTI5_deploy_pipeline"
+    },
+    {
+      "x": 0.75,
+      "y": 0.09999999999999998,
+      "task_id": "MULTI6_fullstack_bug"
+    },
+    {
+      "x": 0.75,
+      "y": 0.09999999999999998,
+      "task_id": "MULTI7_polyglot_test"
+    },
+    {
+      "x": 0.75,
+      "y": 0.25,
+      "task_id": "MULTI8_sdk_mismatch"
+    },
+    {
+      "x": 0.75,
+      "y": 0.6894736842105262,
+      "task_id": "NEG1_tradeoff_config"
+    },
+    {
+      "x": 0.75,
+      "y": 0.0,
+      "task_id": "NEG2_cost_perf"
+    },
+    {
+      "x": 0.5,
+      "y": 0.19999999999999996,
+      "task_id": "NEG3_tech_debt"
+    },
+    {
+      "x": 0.75,
+      "y": 0.09999999999999998,
+      "task_id": "NEG4_resource_allocation"
+    },
+    {
+      "x": 0.75,
+      "y": 0.09999999999999998,
+      "task_id": "NEG5_sla_tradeoff"
+    },
+    {
+      "x": 0.5,
+      "y": 0.7884615384615384,
+      "task_id": "O1_service_health"
+    },
+    {
+      "x": 0.75,
+      "y": 0.5047619047619049,
+      "task_id": "O2_incident_rootcause"
+    },
+    {
+      "x": 0.75,
+      "y": 0.7515384615384616,
+      "task_id": "O3_log_analysis"
+    },
+    {
+      "x": 0.75,
+      "y": 0.612857142857143,
+      "task_id": "O4_monitoring"
+    },
+    {
+      "x": 0.75,
+      "y": 0.4,
+      "task_id": "O5_container_debug"
+    },
+    {
+      "x": 1.0,
+      "y": 0.22999999999999998,
+      "task_id": "O6_perf_tuning"
+    },
+    {
+      "x": 0.75,
+      "y": 0.0,
+      "task_id": "O7_capacity_planning"
+    },
+    {
+      "x": 0.25,
+      "y": 0.29000000000000004,
+      "task_id": "O8_dockerfile_fix"
+    },
+    {
+      "x": 0.5,
+      "y": 0.5,
+      "task_id": "O9_logging_config"
+    },
+    {
+      "x": 0.5,
+      "y": 0.41263157894736846,
+      "task_id": "P1_policy_config"
+    },
+    {
+      "x": 0.75,
+      "y": 0.75,
+      "task_id": "P2_spec_arbitration"
+    },
+    {
+      "x": 0.75,
+      "y": 0.43130434782608684,
+      "task_id": "P3_access_control"
+    },
+    {
+      "x": 0.75,
+      "y": 0.14,
+      "task_id": "P4_data_retention"
+    },
+    {
+      "x": 0.5,
+      "y": 0.06999999999999995,
+      "task_id": "P5_audit_logging"
+    },
+    {
+      "x": 0.25,
+      "y": 0.1399999999999999,
+      "task_id": "P6_license_check"
+    },
+    {
+      "x": 0.5,
+      "y": 0.3642857142857142,
+      "task_id": "P7_data_retention"
+    },
+    {
+      "x": 0.75,
+      "y": 0.7,
+      "task_id": "P8_access_control"
+    },
+    {
+      "x": 0.5,
+      "y": 0.512,
+      "task_id": "PIPE1_etl_fix"
+    },
+    {
+      "x": 0.5,
+      "y": 0.07999999999999996,
+      "task_id": "PIPE2_api_gateway"
+    },
+    {
+      "x": 0.75,
+      "y": 0.19999999999999996,
+      "task_id": "PIPE2_data_pipeline"
+    },
+    {
+      "x": 0.75,
+      "y": 0.22999999999999998,
+      "task_id": "PIPE3_msg_queue"
+    },
+    {
+      "x": 0.75,
+      "y": 0.0,
+      "task_id": "PIPE3_stream_processing"
+    },
+    {
+      "x": 0.5,
+      "y": 0.06999999999999995,
+      "task_id": "PIPE4_ci_cd"
+    },
+    {
+      "x": 0.75,
+      "y": 0.83,
+      "task_id": "S3_refactor_extract"
+    },
+    {
+      "x": 0.75,
+      "y": 0.79,
+      "task_id": "S4_backward_compat"
+    },
+    {
+      "x": 0.5,
+      "y": 0.6285714285714286,
+      "task_id": "S5_error_handling"
+    },
+    {
+      "x": 0.75,
+      "y": 1.0,
+      "task_id": "S6_caching"
+    },
+    {
+      "x": 0.25,
+      "y": 0.39500000000000013,
+      "task_id": "S7_env_config"
+    },
+    {
+      "x": 1.0,
+      "y": 0.514,
+      "task_id": "SCALE1_codebase_migration"
+    },
+    {
+      "x": 0.75,
+      "y": 0.44920000000000004,
+      "task_id": "SEC1_vuln_patch"
+    },
+    {
+      "x": 0.75,
+      "y": 0.09999999999999998,
+      "task_id": "SEC2_auth_bypass"
+    },
+    {
+      "x": 0.75,
+      "y": 0.4161538461538462,
+      "task_id": "SEC3_crypto_upgrade"
+    },
+    {
+      "x": 0.75,
+      "y": 0.69,
+      "task_id": "SEC4_input_validation"
+    },
+    {
+      "x": 0.75,
+      "y": 0.4085714285714286,
+      "task_id": "SEC5_secrets_rotation"
+    },
+    {
+      "x": 0.5,
+      "y": 0.15000000000000002,
+      "task_id": "SEC6_csrf_protection"
+    },
+    {
+      "x": 0.75,
+      "y": 0.53,
+      "task_id": "SEC7_rate_limiting"
+    },
+    {
+      "x": 1.0,
+      "y": 0.17000000000000004,
+      "task_id": "SEC8_dependency_audit"
+    },
+    {
+      "x": 0.75,
+      "y": 0.22999999999999998,
+      "task_id": "SEC9_vuln_triage"
+    },
+    {
+      "x": 0.75,
+      "y": 0.7257894736842105,
+      "task_id": "SPEC1_feature_impl"
+    },
+    {
+      "x": 0.5,
+      "y": 0.25,
+      "task_id": "SPEC2_api_design"
+    },
+    {
+      "x": 0.5,
+      "y": 0.5303076923076923,
+      "task_id": "SPEC3_data_model"
+    },
+    {
+      "x": 0.75,
+      "y": 1.0,
+      "task_id": "SPEC4_migration"
+    },
+    {
+      "x": 0.75,
+      "y": 0.2914285714285715,
+      "task_id": "SPEC5_config_system"
+    },
+    {
+      "x": 0.75,
+      "y": 0.050000000000000044,
+      "task_id": "SPEC6_rfc_impl"
+    },
+    {
+      "x": 0.75,
+      "y": 0.0,
+      "task_id": "SPEC7_config_schema"
+    },
+    {
+      "x": 0.75,
+      "y": 0.53,
+      "task_id": "SQL2_query_optimize"
+    },
+    {
+      "x": 1.0,
+      "y": 0.8071428571428572,
+      "task_id": "SYNTH1_distributed_debug"
+    },
+    {
+      "x": 0.5,
+      "y": 0.5680000000000001,
+      "task_id": "TEST1_spec_to_tests"
+    },
+    {
+      "x": 0.75,
+      "y": 0.40000000000000013,
+      "task_id": "TEST2_regression"
+    },
+    {
+      "x": 0.75,
+      "y": 0.32285714285714284,
+      "task_id": "TEST3_integration"
+    },
+    {
+      "x": 0.75,
+      "y": 0.4714285714285714,
+      "task_id": "TEST4_property"
+    },
+    {
+      "x": 0.75,
+      "y": 0.42625,
+      "task_id": "TEST5_mutation_resistant"
+    },
+    {
+      "x": 0.75,
+      "y": 0.3571428571428571,
+      "task_id": "TEST6_property_based"
+    },
+    {
+      "x": 0.75,
+      "y": 0.5249999999999999,
+      "task_id": "TEST7_integration_suite"
+    },
+    {
+      "x": 0.25,
+      "y": 0.25,
+      "task_id": "TEST8_unit_basic"
+    },
+    {
+      "x": 0.5,
+      "y": 0.20428571428571407,
+      "task_id": "TEST9_mock_service"
+    },
+    {
+      "x": 0.75,
+      "y": 0.5105263157894737,
+      "task_id": "TRAP1_spec_conflict"
+    },
+    {
+      "x": 1.0,
+      "y": 0.5684210526315789,
+      "task_id": "TRAP3_metric_mirage"
+    },
+    {
+      "x": 0.75,
+      "y": 0.5636842105263158,
+      "task_id": "TRAP5_security_theater"
+    },
+    {
+      "x": 0.75,
+      "y": 0.0,
+      "task_id": "TRAP6_deprecated_api"
+    },
+    {
+      "x": 0.75,
+      "y": 0.19999999999999996,
+      "task_id": "TRAP7_test_pollution"
+    },
+    {
+      "x": 0.75,
+      "y": 0.09999999999999998,
+      "task_id": "TRAP8_config_override"
+    }
+  ],
+  "cross_tabulation": {
+    "rows_author_label": [
+      "easy",
+      "medium",
+      "hard",
+      "expert"
+    ],
+    "cols_empirical_label": [
+      "easy",
+      "medium",
+      "hard",
+      "expert"
+    ],
+    "matrix": [
+      [
+        2,
+        4,
+        1,
+        0
+      ],
+      [
+        7,
+        7,
+        10,
+        1
+      ],
+      [
+        35,
+        37,
+        26,
+        5
+      ],
+      [
+        6,
+        3,
+        4,
+        3
+      ]
+    ]
+  },
+  "equalizer_effect": {
+    "quintiles": [
+      {
+        "quintile": 1,
+        "diff_range": [
+          0.0,
+          0.09999999999999998
+        ],
+        "n_tasks": 39,
+        "mean_empirical_difficulty": 0.05809658119658119,
+        "mean_team_uplift": -0.05131348096348097,
+        "std_team_uplift": 0.20140245675889512
+      },
+      {
+        "quintile": 2,
+        "diff_range": [
+          0.09999999999999998,
+          0.25
+        ],
+        "n_tasks": 56,
+        "mean_empirical_difficulty": 0.17335986394557823,
+        "mean_team_uplift": -0.08045702045969906,
+        "std_team_uplift": 0.20636130163297525
+      },
+      {
+        "quintile": 3,
+        "diff_range": [
+          0.25,
+          0.451
+        ],
+        "n_tasks": 40,
+        "mean_empirical_difficulty": 0.3430569467041349,
+        "mean_team_uplift": 0.012555048025328341,
+        "std_team_uplift": 0.12270908237764097
+      },
+      {
+        "quintile": 4,
+        "diff_range": [
+          0.451,
+          0.6006
+        ],
+        "n_tasks": 37,
+        "mean_empirical_difficulty": 0.5261304800983748,
+        "mean_team_uplift": 0.06537178156322322,
+        "std_team_uplift": 0.20538980897808934
+      },
+      {
+        "quintile": 5,
+        "diff_range": [
+          0.6006,
+          1.0
+        ],
+        "n_tasks": 38,
+        "mean_empirical_difficulty": 0.8370086245951135,
+        "mean_team_uplift": 0.16572700251081426,
+        "std_team_uplift": 0.30537829771635416
+      }
+    ],
+    "spearman_rho": 0.24339657323865524,
+    "spearman_pval": 0.0007632493398416893,
+    "n_tasks": 188
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "seed": 0,
+  "vector": "pickle",
+  "service": "TaskQueueService",
+  "unsafe_call": "pickle.loads(data)",
+  "fix": "replace pickle.loads() with json.loads() for untrusted input",
+  "endpoint": "/submit"
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # TRAP1 grader: verify that strict validation applies to 4 endpoints
 # and that 3 intentionally relaxed endpoints still accept relaxed input.
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

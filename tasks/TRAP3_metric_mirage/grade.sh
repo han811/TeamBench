@@ -10,7 +10,7 @@
 #
 # A full pass requires ALL 5 checks to pass (pass=true).
 # partial_score = checks_passed / 5.
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

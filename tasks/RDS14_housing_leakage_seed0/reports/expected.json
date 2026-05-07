@@ -1,0 +1,8 @@
+{
+  "leaky_features": [
+    "SaleCondition",
+    "MoSold",
+    "YrSold"
+  ],
+  "seed": 0
+}

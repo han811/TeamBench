@@ -1,0 +1,8 @@
+{
+  "seed": 1,
+  "topology": "analytics",
+  "failing_service": "collector",
+  "fix": "circuit_breaker_with_fallback",
+  "failure_threshold": 3,
+  "timeout_sec": 3
+}

@@ -1,0 +1,33 @@
+# RINC9: Race Condition — Idempotency Missing
+
+## Incident Background
+Race condition bugs have caused catastrophic failures ranging from the Therac-25
+radiation overdose incidents (1985-1987) to modern payment double-charge bugs.
+The common pattern: read state, make decision, act — without atomic guarantees.
+
+## Service: PaymentService
+File: `service.py`
+
+## Problem
+duplicate payment submission without idempotency key — same payment processed twice
+
+**Timing window:** Under concurrent load with 5 threads,
+the race window (read-check-write gap) is exploited reliably.
+
+## Required Fix
+add idempotency_key to payment table; use INSERT OR IGNORE or upsert to deduplicate
+
+The fix must ensure atomicity — the check and the action must happen
+as a single atomic unit that no other thread can interleave.
+
+## Acceptance Criteria
+1. Concurrent submit_payment calls do not produce inconsistent state
+2. Single submit_payment still works correctly
+3. Invalid operations are still rejected
+4. No deadlocks under concurrent load
+5. Final state is consistent with the number of successful operations
+6. All tests pass: `pytest test_race.py -v`
+
+## Files
+- `service.py` — fix the race condition
+- `test_race.py` — do NOT modify

@@ -1,0 +1,38 @@
+{
+  "analysis_type": "language_satisfaction",
+  "research_question": "Do developers who use Python or JavaScript report higher job satisfaction than those using other languages, after controlling for experience and salary?",
+  "key_cols": [
+    "JobSat",
+    "LanguageHaveWorkedWith",
+    "YearsCodePro",
+    "ConvertedCompYearly"
+  ],
+  "hidden_col_keywords": [
+    "LanguageHaveWorkedWith",
+    "JobSat"
+  ],
+  "confounders": [
+    "YearsCodePro",
+    "ConvertedCompYearly",
+    "Employment"
+  ],
+  "n_rows": 1250,
+  "columns": [
+    "ResponseId",
+    "Employment",
+    "EdLevel",
+    "YearsCode",
+    "YearsCodePro",
+    "DevType",
+    "OrgSize",
+    "LanguageHaveWorkedWith",
+    "Age",
+    "JobSat",
+    "ConvertedCompYearly"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

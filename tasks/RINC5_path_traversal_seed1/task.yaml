@@ -1,0 +1,7 @@
+task_id: RINC5_path_traversal
+category: security
+difficulty: medium
+domain: security
+languages: ['python']
+parameterized: true
+seeds: [0, 1, 2]

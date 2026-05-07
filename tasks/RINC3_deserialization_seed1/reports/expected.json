@@ -1,0 +1,8 @@
+{
+  "seed": 1,
+  "vector": "yaml_load",
+  "service": "ConfigLoaderService",
+  "unsafe_call": "yaml.load(data, Loader=yaml.Loader)",
+  "fix": "replace yaml.load(..., Loader=yaml.Loader) with yaml.safe_load()",
+  "endpoint": "/load-config"
+}

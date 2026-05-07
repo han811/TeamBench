@@ -1,0 +1,9 @@
+task_id: RDS1_income_causal
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: adult_income
+  license: CC BY 4.0
+  source: UCI ML Repository

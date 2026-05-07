@@ -1,0 +1,8 @@
+{
+  "seed": 1,
+  "migration_type": "add_index",
+  "table": "events",
+  "fix": "Use CREATE INDEX CONCURRENTLY (PostgreSQL) or run index creation during low-traffic window with lock timeout",
+  "batch_size": 100,
+  "n_rows": 14325
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # EA1 grader: verify security fixes and false positive preservation
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

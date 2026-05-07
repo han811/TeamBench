@@ -1,0 +1,1079 @@
+{
+  "config": {
+    "n_tasks": 50,
+    "dev_seeds": [
+      0,
+      1,
+      2
+    ],
+    "held_out_seeds": [
+      5,
+      6,
+      7
+    ]
+  },
+  "summary": {
+    "tasks_evaluated": 50,
+    "dev_gen_success": 49,
+    "held_out_gen_success": 49,
+    "all_held_out_differ": 36,
+    "all_held_out_differ_pct": 72.0,
+    "mean_jaccard": 0.7136937780609527,
+    "std_jaccard": 0.22971280528115082
+  },
+  "per_task_validation": [
+    {
+      "task_id": "api1_version_compat",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.8538029630301837,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cr1_review_respond",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.8683367928314863,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cr2_style_enforce",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.39370078740157477,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cr3_perf_review",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.47161594226735915,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cr4_api_review",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.9175550880096335,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cr5_test_coverage",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.0,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cr6_review_checklist",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.9301760365269803,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cross1_api_contract",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.8852249337543538,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cross2_schema_evolution",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 2,
+      "mean_jaccard_dev_vs_held": 0.856166017839617,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cross3_protocol_bridge",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.8872140230113921,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cross4_auth_federation",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 2,
+      "mean_jaccard_dev_vs_held": 0.9236773134231605,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cross5_event_schema",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 2,
+      "mean_jaccard_dev_vs_held": 0.9493604378334219,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cross6_grpc_rest_bridge",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 2,
+      "mean_jaccard_dev_vs_held": 0.7442152444882497,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "cross7_config_drift",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 2,
+      "mean_jaccard_dev_vs_held": 0.5500214714881836,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "crypto1_nonce_reuse",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 2,
+      "mean_jaccard_dev_vs_held": 0.9876269714897603,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "crypto2_timing_safe",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 0,
+      "held_out_gen_success": 0,
+      "expected_differs_count": 0,
+      "workspace_differs_count": 0,
+      "mean_jaccard_dev_vs_held": null,
+      "all_held_out_differ": false,
+      "error": "All dev seeds failed to generate"
+    },
+    {
+      "task_id": "crypto3_cert_chain",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 2,
+      "mean_jaccard_dev_vs_held": 0.9947203826331688,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "crypto4_kdf_migration",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 2,
+      "mean_jaccard_dev_vs_held": 0.9543521825593794,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "crypto5_tls_config",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 2,
+      "mean_jaccard_dev_vs_held": 0.9406957761321558,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "crypto6_token_validation",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.9417581481384012,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "d1_schema_drift",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.1913421511192235,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "d2_data_quality",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.4724137931034483,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "d3_schema_migration",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.6188209089098037,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "d4_data_pipeline",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.3432617242379064,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "d5_query_optimize",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.7119473169966059,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "d6_data_reconcile",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.3193085032984663,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "d7_etl_reconciliation",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.5741714740978265,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "d8_csv_cleanup",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.4966530247093494,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "d9_schema_validation",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.7671519001170314,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "db1_migration_conflict",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.30501977912710704,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "db2_query_regression",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 2,
+      "mean_jaccard_dev_vs_held": 0.8318914732435042,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "devops1_dockerfile_fix",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.6798130065819431,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "devops2_cicd_pipeline",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.8327075057835055,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "dist1_queue_race",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.9113642736674175,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "dist2_consensus_partition",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.9675422175808083,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "dist3_idempotency",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.9367893985997329,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "dist4_clock_skew",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 2,
+      "mean_jaccard_dev_vs_held": 0.9520151543750849,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "dist5_leader_election",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 2,
+      "mean_jaccard_dev_vs_held": 0.9578533232990978,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "dist6_distributed_lock",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.9150525708423761,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "ds10_fairness_audit",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 2,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.6476834101226343,
+      "all_held_out_differ": false,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "ds11_survival_censoring",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.6533709184871976,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "ds12_bayesian_prior",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.64402297393175,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "ds13_clustered_power",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.6499195719067553,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "ds14_multicollinearity_suppressor",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.6442182786468402,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "ds15_heteroscedastic_inference",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.6449552857643596,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "ds16_iv_validity",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.6291259338198708,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "ds17_panel_autocorrelation",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.6400941318541186,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "ds18_simpsons_causal",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.627626065451509,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "ds19_dependent_multiple_testing",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.6401940980084944,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    },
+    {
+      "task_id": "ds1_feature_leakage",
+      "dev_seeds": [
+        0,
+        1,
+        2
+      ],
+      "held_out_seeds": [
+        5,
+        6,
+        7
+      ],
+      "dev_gen_success": 3,
+      "held_out_gen_success": 3,
+      "expected_differs_count": 3,
+      "workspace_differs_count": 3,
+      "mean_jaccard_dev_vs_held": 0.7144444444444445,
+      "all_held_out_differ": true,
+      "error": null,
+      "dev_cross_seed_ok": true
+    }
+  ],
+  "score_comparison": {
+    "skipped": true,
+    "per_task": []
+  }
+}

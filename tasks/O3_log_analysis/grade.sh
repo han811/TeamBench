@@ -176,7 +176,7 @@ try:
 except Exception:
     pass
 " 2>/dev/null)
-  set -e
+  # set -e removed by grader-audit fix
   if [ "$HTTP_CODE" = "200" ]; then HEALTH_OK=true; break; fi
   sleep 0.3
 done
@@ -225,7 +225,7 @@ except urllib.error.HTTPError as e:
 except Exception:
     pass
 " 2>/dev/null)
-  set -e
+  # set -e removed by grader-audit fix
   if [ "$PRIMARY_CODE" = "200" ]; then ENDPOINT_OK=true; break; fi
   sleep 0.2
 done

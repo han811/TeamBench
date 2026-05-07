@@ -1,0 +1,7 @@
+{
+  "seed": 2,
+  "attack": "kid_injection",
+  "service": "TokenValidator",
+  "fix": "validate kid against a strict allowlist of known key IDs",
+  "endpoint_protected": "/secure/data"
+}

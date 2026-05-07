@@ -261,8 +261,8 @@ for fname in ('crypto_utils.py', 'storage.py', 'api.py', 'migrate.py'):
     assert 'exec(' not in code, f'exec() found in {fname}'
     # Must not introduce new hardcoded keys (anything that looks like a raw secret)
     # Allow the env fallback pattern 'default-dev-key' but not new naked hex strings
-    naked_key = re.search(r'key\s*=\s*[\"\\']([0-9a-f]{32,64})[\"\\']', code)
-    assert not naked_key, f'Hardcoded key material found in {fname}: {naked_key.group(0) if naked_key else \"\"}'
+    naked_key = re.search(r'key\s*=\s*[\x22\x27]([0-9a-f]{32,64})[\x22\x27]', code)
+    assert not naked_key, f'Hardcoded key material found in {fname}'
 print('NO_NEW_VULNS')
 \"" "new_vulnerability_introduced"
 

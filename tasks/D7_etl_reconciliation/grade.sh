@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # D7 grader: verify ETL transform fixes and data quality handling
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

@@ -1,5 +1,12 @@
 [
   {
+    "task_id": "API1_version_compat",
+    "title": "Version Compat",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
     "task_id": "CR1_review_respond",
     "title": "Review Respond",
     "category": "Code Review",
@@ -214,21 +221,6 @@
     "classification": "NEUTRAL"
   },
   {
-    "task_id": "CRYPTO2_timing_safe",
-    "title": "Fix 4 timing-unsafe secret comparisons with hmac",
-    "category": "Security",
-    "difficulty": "hard",
-    "has_generator": true,
-    "ablation_scores": {
-      "oracle": 1.0,
-      "restricted": 1.0,
-      "team": 1.0,
-      "team_no_plan": 1.0,
-      "team_no_verify": 1.0
-    },
-    "classification": "NEUTRAL"
-  },
-  {
     "task_id": "CRYPTO3_cert_chain",
     "title": "X",
     "category": "Security",
@@ -430,6 +422,34 @@
     "classification": "TEAM-HELPS"
   },
   {
+    "task_id": "DB1_migration_conflict",
+    "title": "Migration Conflict",
+    "category": "Data Engineering",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "DB2_query_regression",
+    "title": "Query Regression",
+    "category": "Data Engineering",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "DEVOPS1_dockerfile_fix",
+    "title": "Dockerfile Fix",
+    "category": "Operations",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "DEVOPS2_cicd_pipeline",
+    "title": "Cicd Pipeline",
+    "category": "Data Engineering",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
     "task_id": "DIST1_queue_race",
     "title": "Queue Race",
     "category": "Distributed Systems",
@@ -536,13 +556,6 @@
     "has_generator": true
   },
   {
-    "task_id": "EA3_type_safety",
-    "title": "Type Safety",
-    "category": "Software Eng.",
-    "difficulty": "hard",
-    "has_generator": true
-  },
-  {
     "task_id": "EA4_code_quality",
     "title": "Code Quality",
     "category": "Code Review",
@@ -555,6 +568,4556 @@
     "category": "Security",
     "difficulty": "hard",
     "has_generator": true
+  },
+  {
+    "task_id": "GH1000_numpy_19869",
+    "title": "BUG: ensure np",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1001_numpy_30855",
+    "title": "BUG: fix infinite recursion in np",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1002_scipy_24753",
+    "title": "BUG: Rotation",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1003_scipy_24496",
+    "title": "BUG:sparse: make `sum` apply `dtype` before accumulation",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1004_dask_11665",
+    "title": "Fix filtering on parquet file containing a struct column",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1005_ray_60236",
+    "title": "[Data] - Only return selected data columns in hive partitioned parquet files",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1006_spaCy_13068",
+    "title": "Fix displacy span stacking",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1007_spaCy_13040",
+    "title": "Revert 'Load the cli module lazily for spacy",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1008_spaCy_12749",
+    "title": "Add spancat_singlelabel to debug data CLI",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1009_spaCy_12486",
+    "title": "Fix pickle for ngram suggester",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1010_great_expectati_10406",
+    "title": "[BUGFIX] Fix Databricks SQL Regex and Like based Expectations",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1011_great_expectati_8062",
+    "title": "Great Expectati 8062",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1012_autogluon_3480",
+    "title": "Tabular: Fix train_test split edge-case",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1013_autogluon_4290",
+    "title": "[tabular] Fix Stacker max_models logic",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1014_pymc_7809",
+    "title": "Only add `dim_length` shared variable when adding a new coordinate",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1015_scikit_learn_28095",
+    "title": "FIX divide by zero in line search of GradientBoostingClassifier",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1016_scikit_learn_17575",
+    "title": "FIX escape double quotes when exporting tree with Graphviz",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1017_scikit_learn_21654",
+    "title": "[MRG] FIX segmentation fault on memory mapped contiguous memoryview",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1018_scikit_learn_25432",
+    "title": "FIX Support readonly sparse datasets for `manhattan_distances`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1019_transformers_36455",
+    "title": "Fix loading zero3 weights",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1020_transformers_20318",
+    "title": "Fix flakey no_trainer test with seed",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1021_transformers_17331",
+    "title": "Transformers 17331",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1022_keras_20768",
+    "title": "fix(ops): Fix issue with map_coordinates for uint8 dtype",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1023_pytorch_lightni_21187",
+    "title": "Fix edgecase in batch size scaling tuner alg",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1024_pytorch_lightni_6942",
+    "title": "[fix] Add a cluster environment teardown to clean up environment state",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1025_numpy_30818",
+    "title": "BUG: Add test to reproduce problem described in #30816",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1026_numpy_30521",
+    "title": "BUG: validate contraction axes in tensordot",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1027_scipy_24761",
+    "title": "BUG: `from_rotvec` read-only support",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1028_statsmodels_8633",
+    "title": "ENH/BUG: archimedean k_dim > 2, deriv inverse in generator transform",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1029_dask_12081",
+    "title": "Fix mixed HLG/Expr handling in ``_ExprSequence",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1030_mlflow_21824",
+    "title": "Fix tar path traversal vulnerability in `extract_archive_to_dir`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1031_mlflow_21922",
+    "title": "Fix Anthropic structured outputs compatibility in gateway adapter",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1032_ray_29438",
+    "title": "[Tune] Catch SyncerCallback failure with dead node",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1033_ray_23187",
+    "title": "`map` and `map_unordered` cancel previous tasks before submitting new ones",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1034_airflow_64145",
+    "title": "Fix FAB DB manager discovery in migration-only contexts",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1035_autogluon_5475",
+    "title": "[timeseries] fixes to Toto and add to smoke tests",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1036_FLAML_1405",
+    "title": "fix: Fixed bug where group folds and sample weights couldn't be used together",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1037_gpytorch_1685",
+    "title": "Kernel batch size recurses through module lists",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1038_gpytorch_1416",
+    "title": "Make NGD is compatible with batch-mode variational GPs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1039_darts_2776",
+    "title": "Fix/categorical validation features",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH103_redis-py_3998",
+    "title": "Redis-Py 3998",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH1040_darts_2957",
+    "title": "Fix/tft explainer index error",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1041_matplotlib_31061",
+    "title": "BUG: Fix text appearing far outside valid axis scale range",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1042_matplotlib_31091",
+    "title": "BUG: Fix IndexLocator",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1043_plotly.py_5415",
+    "title": "Fix bug where numpy datetime contained in Python list gets converted to integer",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1044_plotly.py_5193",
+    "title": "Fix issue breaking `fig",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1045_pytorch_170555",
+    "title": "[cherry-pick] Fix vllm issue for flex (#170499)",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1046_transformers_43675",
+    "title": "make sure hub errors are surfaced",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1047_transformers_16669",
+    "title": "Fix example logs repeating themselves",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1048_keras_22294",
+    "title": "fix(progbar): handle target=0 to prevent crash with empty dataset",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1049_numpy_31053",
+    "title": "BUG: avoid warning on ufunc with where=True and no output",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1050_numpy_31045",
+    "title": "BUG: avoid warning on ufunc with where=True and no output",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1051_scipy_24742",
+    "title": "BUG: stats",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1052_statsmodels_9524",
+    "title": "BUG: Fix bug in Runs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1053_dask_10590",
+    "title": "Use the inferred filesystem/region by default when ``filesystem='arrow'``",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1054_dask_9852",
+    "title": "Satisfy `broadcast` argument in `DataFrame",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1055_mlflow_1227",
+    "title": "Fix download from URI",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1056_ray_46321",
+    "title": "Ray 46321",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1057_ray_28511",
+    "title": "Ray 28511",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1058_ray_15056",
+    "title": "fix setproctitle break /proc/PID/environ",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1059_spaCy_13400",
+    "title": "Fix use_gold_ents behaviour for EntityLinker",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1060_ultralytics_23903",
+    "title": "Greyscale test fix",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1061_featuretools_2627",
+    "title": "Fix bug in PercentTrue primitive",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1062_autogluon_5436",
+    "title": "[timeseries] fix predict_time computation in ensembles",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1063_FLAML_1419",
+    "title": "Fix issue with 'list index out of range' when max_iter=1",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1064_pymc_7607",
+    "title": "Bump numpy version due to use of `Generator",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1065_gpytorch_2132",
+    "title": "fix custom dtype_value_context setting",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1066_matplotlib_31315",
+    "title": "Matplotlib 31315",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1067_matplotlib_30054",
+    "title": "Matplotlib 30054",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1068_pytorch_166924",
+    "title": "[dynamo] fix keyerror in resume_execution,  fix store attr",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1069_transformers_29370",
+    "title": "\ud83d\udea8 Fully revert atomic checkpointing \ud83d\udea8",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1070_numpy_31033",
+    "title": "BUG: Fix `np",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1071_dask_11656",
+    "title": "Fix projection when columns are numpy scalars",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1072_spaCy_13321",
+    "title": "Make `Language",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1073_spaCy_13249",
+    "title": "`TextCatParametricAttention",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1074_spaCy_13284",
+    "title": "Extension serialization attr tests: add teardown",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1075_spaCy_13058",
+    "title": "Support Any comparisons for Token and Span",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1076_spaCy_13053",
+    "title": "Restore spacy",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1077_spaCy_12623",
+    "title": "Support overriding registered functions in configs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1078_ultralytics_23546",
+    "title": "Fix AutoBatch with multispectral images",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1079_ultralytics_23545",
+    "title": "Fix disk caching with multispectral images",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1080_FLAML_1334",
+    "title": "fix missing req",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1081_FLAML_1406",
+    "title": "Fix test hang issue",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1082_gpytorch_1528",
+    "title": "Speed up SGPR covariances",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1083_sktime_3207",
+    "title": "[BUG] skip check for no",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1084_matplotlib_31307",
+    "title": "FIX: avoid applying dashed patterns to zero-width lines and patches",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1085_matplotlib_31313",
+    "title": "Fixed lingering bugs with image rendering related to exact half display pixels",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1086_matplotlib_31133",
+    "title": "fix: resolve FigureCanvasTkAgg clipping on Windows HiDPI",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1087_scikit_learn_30373",
+    "title": "API drop Tags",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1088_keras_20782",
+    "title": "fix(metrics): Fix BinaryAccuracy metric to handle boolean inputs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1089_pytorch_lightni_8421",
+    "title": "Hash values in LightningEnum instead of name",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1090_statsmodels_9457",
+    "title": "BUG: Correct DatetimeIndex use",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1091_dask_11421",
+    "title": "Add cupy support for indexed assignment",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1092_dask_10885",
+    "title": "Pickle da",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1093_spaCy_8012",
+    "title": "Ensemble textcat with listener",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1094_spaCy_12575",
+    "title": "Add spans in spacy benchmark",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1095_airflow_63475",
+    "title": "Airflow 63475",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1096_autogluon_5131",
+    "title": "Autogluon 5131",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1097_sktime_7998",
+    "title": "[MNT] temporary skip of `pytorch-forecasting` tests until resolution of #7997",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1098_darts_2989",
+    "title": "Fix: StaticCovariatesTransformer cols_cat order differing from column order",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1099_darts_2987",
+    "title": "Fix/max_samples_per_ts",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH10_retry_backoff",
+    "title": "Retry Backoff",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH1100_darts_2984",
+    "title": "Fix/smape",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1101_darts_2811",
+    "title": "Fix SKLearn Multioutput string representation",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1102_darts_2895",
+    "title": "fix: properly save naive model",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1103_darts_2869",
+    "title": "Fix/hfc retrain with tfm and ocs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1104_matplotlib_31128",
+    "title": "Fix relim() ignoring scatter PathCollection offsets",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1105_matplotlib_31203",
+    "title": "Fix Axes",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1106_plotly.py_466",
+    "title": "Ensure plotlyjs loaded",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1107_plotly.py_5535",
+    "title": "fix: handle empty px",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1108_pytorch_163861",
+    "title": "fix pickling for BitwiseFn",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1109_keras_22477",
+    "title": "Keras 22477",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1110_keras_22439",
+    "title": "Keras 22439",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1111_keras_20774",
+    "title": "fix(ops): Fix inconsistent padding calculation in PyTorch backend ops",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1112_scipy_24610",
+    "title": "MAINT: stats",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1113_statsmodels_9747",
+    "title": "BUG: raise error for invalid endog input in emplike",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1114_statsmodels_9739",
+    "title": "BUG: Fix patsy eval_env handling in FormulaManager and add parametrized re\u2026",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1115_dask_12099",
+    "title": "Address collection-based ``meta`` arguments in ``GroupByApply``",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1116_dask_10320",
+    "title": "Add missing 'not in' predicate support to `read_parquet`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1117_dask_10043",
+    "title": "Avoid using `dd",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1118_mlflow_22053",
+    "title": "Fix clone traces respecting experiment ID",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1119_mlflow_21965",
+    "title": "Mlflow 21965",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1120_wandb_11248",
+    "title": "fix: rewrite Api",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1121_wandb_11207",
+    "title": "fix: report and ignore invalid settings files",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1122_ultralytics_24022",
+    "title": "Use jsdelivr CDN assets URL for zidane",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1123_airflow_63848",
+    "title": "Fix partitioned asset events incorrectly triggering non-partition-aware Dags",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1124_featuretools_2434",
+    "title": "Featuretools 2434",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1125_featuretools_2254",
+    "title": "Fix holidays library failure with lookups",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1126_autogluon_4899",
+    "title": "[timeseries] Allow using custom distr_output with the TFT model",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1127_FLAML_1522",
+    "title": "Fix test_no_optuna reinstalling optuna at wrong version",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1128_FLAML_1475",
+    "title": "Fix: Preserve FLAML_sample_size in best_config_per_estimator",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1129_gpytorch_2559",
+    "title": "Gpytorch 2559",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH112_redis-py_3996",
+    "title": "Expose basic Otel classes and funtions to be importable through redis",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH1130_sktime_6713",
+    "title": "[MNT] skip failing test `test_wrapper_series_mtype` on `gluonts` datatype",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1131_sktime_4442",
+    "title": "[MNT] except `VECM` from `test_predict_quantiles` due to sporadic failures",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1132_sktime_4432",
+    "title": "[MNT] except `Prophet` from `test_predict_quantiles` due to sporadic failures",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1133_darts_3015",
+    "title": "Fix timezone type hint",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1134_darts_2887",
+    "title": "Fix/Quantile_Label_Name",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1135_matplotlib_31278",
+    "title": "Fix `clabel` manual argument not accepting unit-typed coordinates",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1136_pytorch_176783",
+    "title": "[inductor] Fix Identity comparability and evalf recursion",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1137_pytorch_171247",
+    "title": "[xpu][fix][inductor] fallback bfloat16 atomics to eager",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1138_pytorch_166922",
+    "title": "[Inductor] No longer throw error in bmm out_dtype lowering due to tem\u2026",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1139_pytorch_166925",
+    "title": "Pytorch 166925",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1140_keras_21729",
+    "title": "Fix histogram op for symbolic inputs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1141_scipy_24108",
+    "title": "Fix endpoints normalization for assoc_legendre_p",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1142_statsmodels_9541",
+    "title": "BUG: Correct spelling of pytest fixture",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1143_dask_9570",
+    "title": "Avoid `pandas` constructors in `dask",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1144_wandb_11495",
+    "title": "chore: clean up dev requirements and fix bokeh 3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1145_wandb_11237",
+    "title": "fix: ignore ipython magic registration errors",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1146_evaluate_336",
+    "title": "fix caching",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1148_featuretools_2432",
+    "title": "Fix serialization of `word_set` in `NumberOfCommonWords`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1149_featuretools_2380",
+    "title": "Fix `base_of_exclude` handling",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1150_FLAML_1494",
+    "title": "Fix nested dictionary merge in SearchThread losing sampled hyperparameters",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1151_pymc_7856",
+    "title": "Do not fail with zero-sized arrays in `dataset_to_point_list`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1152_pymc_7575",
+    "title": "Do not mutate Scan inner graph when deriving logprob",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1153_sktime_3139",
+    "title": "[MNT] temporarily exclude `RandomShapeletTransform` from tests",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1154_matplotlib_30795",
+    "title": "Fix array alpha to multiply (not replace) existing RGBA alpha",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1155_matplotlib_30746",
+    "title": "Fix PDF bloat for off-axis scatter with per-point colors",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1156_matplotlib_31031",
+    "title": "RadioButtons: fix self",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1157_matplotlib_30752",
+    "title": "Improving error message for width and position type mismatch in violinplot",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1158_matplotlib_31014",
+    "title": "TST: Fix warnings from Pillow for unavailable features",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1159_pytorch_166984",
+    "title": "[Graph Partition] fix partition x memory plan issue",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1160_keras_22458",
+    "title": "Fix intermitent unit test crash with TensorFlow on GPU",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1161_statsmodels_9728",
+    "title": "BUG: Pass alpha to plot_predict",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1162_statsmodels_9413",
+    "title": "BUG: Ensure VAR can forecast with 0 lags",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1163_mlflow_21808",
+    "title": "Fix race condition in `test_job_cancel` causing flaky `test_job_endpoint_search`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1164_airflow_64085",
+    "title": "Fix AwsBaseWaiterTrigger losing error details on deferred task failure",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1165_featuretools_2694",
+    "title": "Restrict Dask and Fix Serialization Tests",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1166_featuretools_2644",
+    "title": "Fix for latest deps for woodwork 0",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1167_featuretools_2459",
+    "title": "Fix bug with `NumWords`; add test suite",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1168_featuretools_2413",
+    "title": "Fix backtracking in NumberOfWordsInQuotes primitive",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1169_featuretools_1825",
+    "title": "Fix s3 credentials test issue",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1170_FLAML_1520",
+    "title": "Fix CatBoost",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1171_FLAML_1469",
+    "title": "Fix log_training_metric causing IndexError for time series models",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1172_plotly.py_5000",
+    "title": "fix: custom category order was hard-coded",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1173_pytorch_164368",
+    "title": "[Flex attention] Fix flex attention head broadcast",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1174_keras_22478",
+    "title": "Keras 22478",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1175_keras_22438",
+    "title": "Fix Inconsistent tensor conversion",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1176_keras_21706",
+    "title": "Bug fixes with variable handling in `LossScaleOptimizer`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1177_numpy_31079",
+    "title": "TST: fix POWER VSX feature mapping (#30801)",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1178_numpy_30801",
+    "title": "TST: fix POWER VSX feature mapping",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1179_statsmodels_9673",
+    "title": "BUG: Fix conversion of 1-d arrays to scalars",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1180_mlflow_22000",
+    "title": "Fix `GatewayStartEvent` to fire at startup instead of shutdown",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1181_mlflow_21864",
+    "title": "Fix LLM invocation with gateway model endpoints by passing configuration",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1182_mlflow_21810",
+    "title": "Fix llama-index 0",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1183_mlflow_21797",
+    "title": "Fix re-enqueued jobs to respect workspace disabled flag",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1184_wandb_11315",
+    "title": "fix(launch): fallback to sh when bash is unavailable in local container runner",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1185_airflow_62174",
+    "title": "Order of task arguments in task definition causing error when parsing DAG",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1186_featuretools_2052",
+    "title": "Temporarily skip Dask test for test_normalize_with_invalid_time_index in test_es",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1187_FLAML_1512",
+    "title": "Fix sklearn 1",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1188_FLAML_1500",
+    "title": "Add validation and clear error messages for custom_metric parameter",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1189_darts_2958",
+    "title": "fix PLForecastingModel",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1190_pytorch_175094",
+    "title": "Revert '[fix] DISABLED test_index (__main__",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1191_pytorch_172105",
+    "title": "A few weights_only unpickler fixes",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1192_pytorch_171129",
+    "title": "[Inductor] Fix constants handling for Triton constexpr (triton#8248)",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1193_pytorch_170884",
+    "title": "[inductor] Fix cudagraph skip for index_put_ with boolean indices, gr\u2026",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1194_keras_22544",
+    "title": "[Fix] keras",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1195_keras_22483",
+    "title": "[OpenVINO] Fix excluded and failing dtype tests",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1196_keras_21864",
+    "title": "Fix assigning a value to a variable within an autocast scope",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1197_keras_21945",
+    "title": "Fix handling of symbolic Tensor in RNN",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1198_numpy_30983",
+    "title": "BUG: f2py: restore",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1199_scipy_24638",
+    "title": "TST: fix tests for array-api-strict 2",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH11_middleware_order",
+    "title": "Middleware Order",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH1200_statsmodels_9595",
+    "title": "TST: Fix warning catching",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1201_mlflow_21832",
+    "title": "Mlflow 21832",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1202_wandb_11491",
+    "title": "fix(artifacts): reseed random state for client IDs on fork",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1203_wandb_11226",
+    "title": "fix(sweeps): stop the sweep when the sweep cannot be found",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1204_evaluate_230",
+    "title": "Fix enforce string",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1205_FLAML_1470",
+    "title": "Fix eval_set preprocessing for XGBoost estimators with categorical features",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1206_FLAML_1477",
+    "title": "Flaml 1477",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1207_darts_2907",
+    "title": "fix unit tests for non-torch flavors",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1208_pytorch_178062",
+    "title": "Revert 'fix binary validation tag and mino verification'",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1209_pytorch_176603",
+    "title": "Fix the torch",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH120_redis-py_3863",
+    "title": "Adding retries for the overall connect - socket connect + handshake",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH1210_wandb_11242",
+    "title": "fix(artifacts): fetch new presigned download url when expires",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1211_wandb_11240",
+    "title": "chore: fix test_public_api_uses_api_key",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1212_wandb_11231",
+    "title": "fix: authenticate in wandb beta sync",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1213_airflow_64216",
+    "title": "Fix assume_role_with_web_identity not using botocore config for STS c\u2026",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1214_airflow_64120",
+    "title": "Fix Task SDK Connection extras from URI constructor",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1215_airflow_63246",
+    "title": "fix(providers/alibaba): pass relative path to oss_write in OSSRemoteLogIO",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1216_evaluate_52",
+    "title": "fix measurement tests",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1217_featuretools_2182",
+    "title": "Fix Woodwork 0",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1218_featuretools_2030",
+    "title": "Woodwork version 0",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1219_featuretools_2025",
+    "title": "More ordinal comparison fixes",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH121_quart_302",
+    "title": "avoid ResourceWarning in `DataBody",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1220_darts_3044",
+    "title": "Fix failing RNN dtype test",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1221_plotly.py_5361",
+    "title": "Fix matplotlib import (pt",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH128_mitmproxy_8046",
+    "title": "Fix modify_body crash when replacement contains backslash sequences",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH12_click_envvar_flag",
+    "title": "Boolean flag with envvar always evaluates True due to string non-empty check",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH136_mitmproxy_8054",
+    "title": "Add ZIP content view for issue #8051",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH139_marshmallow_2894",
+    "title": "Fix Constant field rejecting None values during load",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH13_starlette_bg_block",
+    "title": "Starlette Bg Block",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH140_marshmallow_2874",
+    "title": "Fix: Case sensitivity in validator",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH141_urllib3_3736",
+    "title": "Fix `HTTPResponse",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH143_mitmproxy_8095",
+    "title": "Option to hide quickhelp UI (#5746)",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH144_psycopg_1247",
+    "title": "fix: retain pgconn on OperationalError",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH147_pyyaml_820",
+    "title": "fix `setup",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH148_psycopg_1231",
+    "title": "fix: adapters: avoid race condition when replacing class name with itself",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH14_celery_chain_fail",
+    "title": "Celery Chain Fail",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH153_urllib3_3711",
+    "title": "Improve speed of `BytesQueueBuffer",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH156_pyyaml_305",
+    "title": "Change default loader for add_implicit_resolver, add_path_resolver",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH158_attrs_1529",
+    "title": "Add instance support to attrs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH15_gin_context_key",
+    "title": "Context",
+    "category": "Other",
+    "difficulty": "easy",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH16_fiber_cors_logic",
+    "title": "CORS middleware OR vs AND logic breaks non-preflight requests",
+    "category": "Other",
+    "difficulty": "easy",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH17_aiohttp_10151",
+    "title": "Fix infinite callback loop when time is not moving forward",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH187_core_165488",
+    "title": "Fix optional static values in bsblan",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH192_TensorRT-LLM_10364",
+    "title": "[TRTLLM-10362][feat] Added Mamba and MLA layers to the sharding tests",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH195_core_134903",
+    "title": "Fix playing TTS and local media source over DLNA",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH199_core_158204",
+    "title": "Fix rain count sensors' state class of Ecowitt",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH1_flask_session_ctx",
+    "title": "Flask Session Ctx",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH202_core_126242",
+    "title": "Fix ColorMode",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH203_core_160819",
+    "title": "Core 160819",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH204_core_161149",
+    "title": "Fix Reolink camera updates persisting in UI",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH206_core_138209",
+    "title": "Core 138209",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH208_core_129066",
+    "title": "Fix race condition in statistics that created spikes",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH209_core_119328",
+    "title": "Remove obsolete device links in Utility Meter helper",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH20_pydantic_12748",
+    "title": "Support `exclude_if` in computed fields",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH210_core_147527",
+    "title": "Recalculate derivative unit correctly when source or options change",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH211_core_162731",
+    "title": "Add handling of 2 IP addresses to homee",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH212_core_164015",
+    "title": "Pass encoding to AtomicWriter in write_utf8_file_atomic",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH215_core_128958",
+    "title": "Fix nfandroidtv service notify disappears when restarting home assistant",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH216_mitmproxy_8041",
+    "title": "Fix mitmweb blank page on Windows due to incorrect JavaScript MIME type",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH217_core_153674",
+    "title": "Portainer fix multiple environments & containers",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH218_core_160825",
+    "title": "Add back support for coolmaster speeds that don't have a direct HA equivalent",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH21_pydantic_12758",
+    "title": "Try other branches in smart union in case of omit errors",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH221_astropy_19294",
+    "title": "Support for fsspec filesystem configuration via fits",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH222_core_151652",
+    "title": "Fix Aladdin Connect state not updating",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH223_core_134719",
+    "title": "Fix CCM15 temperature set always changes the ac_mode to cool",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH224_core_150355",
+    "title": "Fix for deCONZ issue - Detected that integration 'deconz' calls device_registry",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH225_core_152774",
+    "title": "Add dc:title support for Sonos sharelinks",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH226_core_150439",
+    "title": "Fix brightness command not sent when in white color mode",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH227_core_162439",
+    "title": "fix(snapcast): do not crash when stream is not found",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH230_core_163096",
+    "title": "dwd_weather_warnings: Filter expired warnings",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH231_core_132404",
+    "title": "Improve is docker env checks",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH232_core_123085",
+    "title": "Fix RecursionError in Husqvarna Automower coordinator",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH233_core_146639",
+    "title": "Add backward compatibility with older versions of Traccar server",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH235_core_136026",
+    "title": "Set  clean_start=True on connect to MQTT broker",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH23_poetry_10721",
+    "title": "Validate package names in poetry update command",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH241_core_141667",
+    "title": "Better throttling handling for the Renault API",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH244_core_128267",
+    "title": "Set friendly name of utility meter select entity when configured through YAML",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH245_core_139431",
+    "title": "Fix ability to remove orphan device in Music Assistant integration",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH246_core_120764",
+    "title": "Yamaha device setup enhancement with unique id based on serial",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH247_core_142977",
+    "title": "Fix Automation/Script: sequence within a parallel ignoring enabled flag",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH248_core_129230",
+    "title": "Fix timeout issue on Roomba integration when adding a new device",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH24_celery_10178",
+    "title": "Fix mock connection interfaces to prevent `TypeError` during exception handling",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH251_attrs_1463",
+    "title": "Improve performance of asdict in the common case",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH253_core_158012",
+    "title": "Fix Ring integration log flooding for accounts without subscription",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH255_core_157960",
+    "title": "Add support for health_overview API endpoint to Tractive integration",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH258_fastapi_15088",
+    "title": "\ud83d\udd28 Exclude spam comments from statistics in `scripts/people",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH25_aiohttp_12245",
+    "title": "[PR #12217 backport][3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH260_attrs_1496",
+    "title": "Fix `optional` validator to accept tuples of len > 1",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH263_astropy_16550",
+    "title": "Fix bug for integer compressed images with blanks",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH26_werkzeug_3078",
+    "title": "initialize `_pin` in debugger",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH271_core_165288",
+    "title": "Fix KeyError 'api_domain' in Freebox zeroconf discovery",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH274_attrs_1469",
+    "title": "Improve performance of attr",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH278_arrow_1182",
+    "title": "#1178: changes to address datetime",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH27_pydantic_12907",
+    "title": "Add `ascii_only` option to `StringConstraints`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH282_django_20502",
+    "title": "Django 20502",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH283_attrs_1530",
+    "title": "Update test_validators",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH286_mitmproxy_8055",
+    "title": "Use fastest compression settings for content-encoding",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH288_osparc-simcore_6935",
+    "title": "\ud83d\udc1b Fix deletion of files in folders",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH28_jinja_1852",
+    "title": "fix f-string syntax error in code generation",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH290_attrs_1471",
+    "title": "Improve type hinting of or_",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH291_bookwyrm_3710",
+    "title": "book: fix validation for 979 prefixed isbn-13 and isbn_13_to_10 function",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH294_sktime_7844",
+    "title": "[BUG] Fix failing tests for pytorch forecasting models",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH298_celery_10171",
+    "title": "Fix O(K\u00b2) message bloat in a chain of chords",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH29_aiohttp_12217",
+    "title": "Raise on redirect with consumed non-rewindable request bodies",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH2_click_flag_value",
+    "title": "Click Flag Value",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH307_appsmith_35927",
+    "title": "fix: API multipart spec flakiness",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH308_django_20911",
+    "title": "Fixed #36960 -- Enabled the use of psycopg 3's optimized timestamp loader",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH30_werkzeug_3109",
+    "title": "consider methods for duplicate rule check",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH31_poetry_10716",
+    "title": "fix(env): support posix-compliant shells in `env activate` on Windows",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH321_werkzeug_3092",
+    "title": "`redirect` defaults to 303",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH324_django_20718",
+    "title": "Django 20718",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH325_core_157208",
+    "title": "Fix elkm1 connection cleanup on setup failure",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH32_jinja_1664",
+    "title": "Add support for namespaces in tuple parsing",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH331_psycopg_1260",
+    "title": "Fix ValueError when server sends ErrorResponse during Sync after Parse",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH332_django_20792",
+    "title": "Django 20792",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH333_pyhf_2652",
+    "title": "build: Require NumPy v1",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH337_napari_7018",
+    "title": "[bugfix] Adjust scale bar position based on font_size when at top",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH339_NeMo-Agent-Toolkit_787",
+    "title": "fix(cli): nat workflow create should validate workflow name",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH33_jinja_1663",
+    "title": "`FileSystemLoader` include paths in error",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH340_pymovements_1106",
+    "title": "fix: Use GAZE_COORDS message to determine screen resolution",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH342_pytest_14275",
+    "title": "fixtures: a couple of bug fixes for `pytest_fixture_post_finalizer`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH344_bun_28426",
+    "title": "Fix assertion crash when hostname/unix coerces to empty string",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH347_pymovements_1359",
+    "title": "fix: preserve all columns in `data` on `Events` init",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH349_urllib3_3743",
+    "title": "Handle massive values in Retry-After when calculating time to sleep for",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH351_prisma_29307",
+    "title": "Prisma 29307",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH352_core_143286",
+    "title": "Fix: surepetcare sensor error",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH35_jinja_1665",
+    "title": "Jinja 1665",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH360_rain.orderbook_1936",
+    "title": "Fix partial select token deserialization issue",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH363_celery_10040",
+    "title": "Add redis-py DriverInfo support to Redis backend",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH366_boto3_4613",
+    "title": "Fix ExtraArgs documentation in S3 copy methods to reference ALLOWED_COPY_ARGS",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH367_aiohttp_12241",
+    "title": "[PR #12240/345d2537 backport][3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH368_aiohttp_12242",
+    "title": "[PR #12240/345d2537 backport][3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH371_arrow_1194",
+    "title": "Update shift() for issue #1145",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH379_aiohttp_12240",
+    "title": "Reject duplicate singleton headers in C extension parser",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH37_pydantic_12816",
+    "title": "Pydantic 12816",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH381_celery_10013",
+    "title": "Fix Redis Sentinel ACL authentication support",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH382_redis-py_3988",
+    "title": "New abstract method added to ConnectionInterface",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH386_django_20527",
+    "title": "Fixed #36859: Added support for calling assertContains multiple times\u2026",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH38_pydantic_12905",
+    "title": "Pydantic 12905",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH394_arrow_1218",
+    "title": "Add week, weeks to timeframes in class ThaiLocale",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH397_napari_7053",
+    "title": "Bump the settings schema version",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH39_jinja_1762",
+    "title": "Pass context to test when using select",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH3_httpx_auth_leak",
+    "title": "Httpx Auth Leak",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH405_narwhals_1515",
+    "title": "fix: allow np",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH407_bench_709",
+    "title": "\ud83d\udc1b Fix native gates handling for mirror circuits",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH40_poetry_10720",
+    "title": "Fix non-deterministic dependency constraint ordering in lock file",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH414_aiohttp_12249",
+    "title": "Tokenize Connection header values in Python HTTP parser",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH415_arrow_852",
+    "title": "Add case normalization to day of week parsing",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH416_pytest_14290",
+    "title": "fixtures: remove dirty optimization for `request",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH418_celery_10165",
+    "title": "Fix NameError with TYPE_CHECKING annotations on Python 3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH424_fastapi_15139",
+    "title": "\u2b06\ufe0f Increase lower bound to `pydantic >=2",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH42_pydantic_12879",
+    "title": "Pydantic 12879",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH430_celery_10015",
+    "title": "Fix: Avoid unnecessary Django database connection creation during cleanup",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH434_napari_8098",
+    "title": "Fix effect of scaling when converting shapes to labels",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH436_sqlalchemy_13063",
+    "title": "docs: fixups in PostgreSQL dialect rST docstrings",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH437_flask_5844",
+    "title": "pre-commit: Add codespell",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH439_mitmproxy_8136",
+    "title": "cleanup: removed unused functions/classes and scripts",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH43_celery_10155",
+    "title": "Improve on_after_finalize signal documentation",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH440_arrow_1228",
+    "title": "Bump version to 1",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH441_arrow_1224",
+    "title": "fix humanize month limits",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH442_arrow_1172",
+    "title": "Arrow 1172",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH444_arrow_1184",
+    "title": "Improve 'ago' translation to Greek",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH447_quart_283",
+    "title": "Fix program not closing on Ctrl+C in Windows",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH44_pydantic_12705",
+    "title": "Handle all schema generation errors in `InstanceOf`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH451_TileOPs_296",
+    "title": "[BugFix][NSA] Fix missing loop_start in gqa_window_sliding KV loop",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH455_werkzeug_3089",
+    "title": "fix parsing last newline in multipart data",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH461_splinepy_482",
+    "title": "Retain interfaces when adding fields",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH462_pyhf_2639",
+    "title": "fix: Use Click v8",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH463_napari_8772",
+    "title": "Fix: Fire world unit updates after removing layer",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH467_pandas_61920",
+    "title": "BUG: IntervalIndex",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH46_pydantic_12951",
+    "title": "Do not include annotations that are not part of named tuple fields",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH474_server_2565",
+    "title": "Fix Squeezelite sample rate for multi client streams",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH478_hass-opnsense_379",
+    "title": "Fix system boot time calculation",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH479_redis-py_3972",
+    "title": "Fix race condition in RESP3 parser buffer purge",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH47_jinja_1706",
+    "title": "Improve the PackageLoader error message",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH482_openrag_167",
+    "title": "Fix/filename",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH483_prisma_29243",
+    "title": "fix: render tuple functions",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH484_jinja_1880",
+    "title": "improve annotations for methods returning copies",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH485_bootrun-backend_111",
+    "title": "[FIX] completion_rate 100% \ucd08\uacfc \ubc29\uc9c0 \ubc0f \uc9c4\ud589\ub960 \uacc4\uc0b0 \uac1c\uc120",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH486_starlette_3145",
+    "title": "Version 1",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH48_pydantic_11089",
+    "title": "Simplify test parametrization in `test_types_self",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH492_boto3_4734",
+    "title": "Add TypeError for bare @requires_crt usage and regression tests",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH493_boto3_4654",
+    "title": "Add Python 3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH494_poetry_10715",
+    "title": "fix: suggest `poetry self lock` for `self` commands",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH495_sktime_7762",
+    "title": "[BUG] conversion `Series`-`pd",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH499_TileOPs_570",
+    "title": "[Fix][Elementwise] Handle MaskedFill overflow fill_value for fp16 output dtype",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH4_requests_encoding",
+    "title": "Requests Encoding",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH506_pytest_14222",
+    "title": "raises: add missing | metacharacter to is_fully_escaped and unescape",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH509_django_20028",
+    "title": "Refs #28877 -- Added special ordinal context when humanizing value 1",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH516_attrs_1513",
+    "title": "Fix validators",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH518_narwhals_2280",
+    "title": "fix: Expr",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH51_werkzeug_3091",
+    "title": "Check event type before pattern matching in watchdog reloader",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH525_arrow_1186",
+    "title": "Improve 'second' and 'day(s)' translation to Greek",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH526_napari_8149",
+    "title": "Napari 8149",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH528_poetry_10719",
+    "title": "Fix AssertionError when cloning at annotated tag",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH52_jinja_1702",
+    "title": "Use correct concat function for blocks evaluation",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH537_redis-py_3976",
+    "title": "Removed attributes from recorders",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH538_redis-py_3970",
+    "title": "Added streaming lag metric export",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH539_redis-py_3969",
+    "title": "Added pubsub metrics export",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH540_redis-py_3968",
+    "title": "Added connection advanced metrics export",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH548_ruff_14098",
+    "title": "Ruff 14098",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH54_pydantic_12817",
+    "title": "Track extra fields set after init in `model_fields_set`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH550_werkzeug_3128",
+    "title": "improve list quote handling",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH556_narwhals_2176",
+    "title": "Narwhals 2176",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH558_marshmallow_2861",
+    "title": "(fix) missing constant with len validation",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH561_flagsmith_6929",
+    "title": "fix(Segments): Fix project reference in segment creation",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH563_starlette_3143",
+    "title": "Use CRLF line endings in multipart byterange boundaries",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH566_jinja_1537",
+    "title": "native: keep same behavior on Python 3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH567_poetry_10766",
+    "title": "Add tests for `switch_working_directory` helper",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH569_celery_10023",
+    "title": "reliable prefork detection",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH56_werkzeug_3066",
+    "title": "handle chunked input that splits `\r\n`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH570_urllib3_3755",
+    "title": "Fix Scorecard issues related to vulnerable dev dependencies",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH574_werkzeug_3114",
+    "title": "update CSP directives",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH577_jinja_2098",
+    "title": "deprecate `__version__`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH57_sqlalchemy_13155",
+    "title": "docs: fix RelationshipProperty comparator cross-references",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH582_boto3_4685",
+    "title": "Fix flaky integration tests from resource name collisions",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH589_prisma_29278",
+    "title": "chore: migrate get-platform to vitest",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH590_aiohttp_11757",
+    "title": "[pre-commit",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH591_click_3223",
+    "title": "Add cross-reference to tests from `test_defaults",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH5_pydantic_circular",
+    "title": "Pydantic Circular",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH600_psycopg_1269",
+    "title": "perf: speed up Python UUID converters",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH605_psycopg_1280",
+    "title": "fix: premature ConnectionTimeout",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH606_boto3_4698",
+    "title": "Updated SourceClient documentation",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH609_urllib3_3752",
+    "title": "Patch VerifiedHTTPSConnection for emscripten",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH60_starlette_3148",
+    "title": "Enable `autoescape` by default in `Jinja2Templates`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH610_sktime_7872",
+    "title": "[BUG] MAPA forecaster - missing clone, using exogenous data",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH613_celery_10038",
+    "title": "Add `__class_getitem__` to generic classes",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH618_server_2728",
+    "title": "fix(jellyfin): Add defensive checks for missing audio metadata",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH61_werkzeug_3097",
+    "title": "rewrite build docstring",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH626_werkzeug_3081",
+    "title": "Correct parsing up to a potential partial boundary",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH629_psycopg_1215",
+    "title": "Add ConnectionPool",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH630_boto3_4674",
+    "title": "Fix logging calls to defer formatting messages until needed",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH642_marshmallow_2854",
+    "title": "feat: improve consistency of many arg with nested schema",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH646_napari_6965",
+    "title": "Add cachable context mapping",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH64_werkzeug_3008",
+    "title": "validate `request",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH659_boto3_4675",
+    "title": "Use f-strings instead of string concatenation",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH65_werkzeug_3110",
+    "title": "always set `Accept-Ranges` header",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH661_django_20661",
+    "title": "Refs #36883 -- Split monolithic aggregation/lookup/queries tests",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH665_narwhals_2363",
+    "title": "fix: Preserve pandas column name attribute",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH667_pytest_14294",
+    "title": "fixtures: find SubRequest",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH674_psycopg_1158",
+    "title": "respect set_types in c-version in text format",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH676_starlette_3142",
+    "title": "Set `Content-Type` instead of `Content-Range` on multi-range responses",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH678_starlette_3179",
+    "title": "Use `bytearray` for field accumulation in `FormParser`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH684_starlette_3144",
+    "title": "Avoid mutating `FileResponse` headers on range requests",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH689_pytest_14175",
+    "title": "[pre-commit",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH692_flask_5903",
+    "title": "Abort if the instance folder cannot be created",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH696_boto3_4585",
+    "title": "Only pass aws_account_id to botocore when explicitly set",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH697_jinja_2099",
+    "title": "update identifier pattern for Python 3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH699_quart_369",
+    "title": "Fix a deprecation warning in Python 3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH6_queryset_union",
+    "title": "Queryset Union",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH702_urllib3_3799",
+    "title": "Add Iterable[str] to input body type",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH705_httpx_3690",
+    "title": "Add `",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH706_httpx_3672",
+    "title": "Server connection handling",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH707_psycopg_1150",
+    "title": "fix buffer in binary copy",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH711_celery_10187",
+    "title": "pep 649",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH712_celery_10033",
+    "title": "Only use exceptiongroup backport for Python < 3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH715_napari_7914",
+    "title": "Prevent Shapes corruption when drawing tiny polygons with lasso",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH71_starlette_3189",
+    "title": "Handle websocket denial responses in streaming and file responses",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH720_pydantic_12953",
+    "title": "Fix typos",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH729_werkzeug_3038",
+    "title": "Add a DuplicateRuleError",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH72_pytest_14299",
+    "title": "Remove `PytestRemovedIn9Warning`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH730_httpx_3670",
+    "title": "Update FileStream API",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH732_arrow_1190",
+    "title": "added week and quarter to persian/farsi",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH736_AQUA_2170",
+    "title": "Show a logging error instead a raise for empty data reader retrival",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH739_bsb-core_884",
+    "title": "fix: update morphology introduce_point function",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH740_psycopg_1207",
+    "title": "Fix/improve dns error message",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH741_pytest_14307",
+    "title": "config: slightly simplify `_set_initial_conftests`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH747_werkzeug_3115",
+    "title": "undeprecated CSP report-uri for now",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH74_flask_5898",
+    "title": "redirect defaults to 303",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH75_flask_5899",
+    "title": "deprecate `should_ignore_error`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH765_starlette_2813",
+    "title": "Starlette 2813",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH771_httpx_3673",
+    "title": "Connection resets",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH774_orcabus_350",
+    "title": "Use hyphens over underscores when generating icav2 paths",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH775_werkzeug_3134",
+    "title": "parse transfer-encoding as set",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH780_boto3_4586",
+    "title": "Update set_credentials to no longer pass aws_account_id",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH785_jinja_2061",
+    "title": "fix default for `Environment",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH795_SimpleChestShop-Pyspigot_21",
+    "title": "Update main",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH796_starlette_3147",
+    "title": "Drop deprecated `method` parameter from `FileResponse`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH7_fixture_scope_leak",
+    "title": "Fixture Scope Leak",
+    "category": "Testing",
+    "difficulty": "hard",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH800_starlette_3178",
+    "title": "Version 1",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH801_aiohttp_11861",
+    "title": "fix(connector): propagate proxy headers on connection reuse (#11777)",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH802_aiohttp_11860",
+    "title": "fix(connector): propagate proxy headers on connection reuse (#11777)",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH804_quart_432",
+    "title": "secret key rotation: fix key list ordering",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH808_jinja_2062",
+    "title": "don't apply `urlize` to `@a@b`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH813_quart_436",
+    "title": "svg logo",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH829_attrs_1489",
+    "title": "Add benchmarks for cached properties on slotted classes",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH837_aiohttp_12257",
+    "title": "[Backport 3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH838_aiohttp_12256",
+    "title": "[Backport 3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH839_psycopg_1217",
+    "title": "Check build version too to determine PQconnectionUsedGSSAPI availability",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH844_psycopg_1177",
+    "title": "feat: add support for setting cursor result set position for multi-re\u2026",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH845_clinica_1563",
+    "title": "Clinica 1563",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH847_clinica_1519",
+    "title": "[FIX] UKB-to-BIDS : Scans files creation for UKB-to-BIDS converter",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH848_urllib3_3732",
+    "title": "Restore `getheaders()` and `getheader()`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH849_marshmallow_293",
+    "title": "Add support for partial loading",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH84_redis-py_3989",
+    "title": "Redis-Py 3989",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH854_psycopg_1277",
+    "title": "Fix async pool cancellation handoff race",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH855_psycopg_1227",
+    "title": "Fix server cursor iteration",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH857_marshmallow_2892",
+    "title": "fix: handle uppercase `file` URLs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH858_ansys-sphinx-theme_541",
+    "title": "fix: add more components to the search indexing",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH859_transformers_17936",
+    "title": "Fix all is_torch_tpu_available issues",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH860_pytorch_lightni_21396",
+    "title": "Fix `StochasticWeightAveraging`  with infinite epochs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH861_pytorch_lightni_21224",
+    "title": "Bugfix for `BackboneFinetuning` + `LearningRateFinder`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH862_pytorch_lightni_21192",
+    "title": "Fix lightning cli crashing when trainer defaults contain callback",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH863_pytorch_lightni_21147",
+    "title": "Pytorch Lightni 21147",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH864_pytorch_lightni_21108",
+    "title": "Fix rich progress bar crashing on empty val dataloader sanity checking",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH865_pytorch_lightni_6877",
+    "title": "[Fix] Ensure we set the eval/train flag correctly on accelerator model",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH866_pandas_64569",
+    "title": "BUG: Fix HDFStore",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH867_pandas_64386",
+    "title": "BUG: fix sort_index AssertionError with RangeIndex and level parameter",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH868_pandas_64809",
+    "title": "BUG: fix dt64[non_nano] + offsets with sub-unit offset parameter",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH869_pandas_64806",
+    "title": "BUG: fix DatetimeIndex + DateOffset near DST transitions",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH870_pandas_64791",
+    "title": "BUG: Fix float16 overflow in nanmean/nansum by upcasting to float64",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH871_pandas_64755",
+    "title": "BUG: raise on uint64 overflow in to_datetime and to_timedelta",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH872_scipy_24778",
+    "title": "BUG: spatial",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH873_scipy_24749",
+    "title": "BUG: signal",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH874_great_expectati_4042",
+    "title": "[BUGFIX] Fix s3 path suffix bug on windows",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH875_great_expectati_1616",
+    "title": "Great Expectati 1616",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH876_great_expectati_1569",
+    "title": "[BUGFIX] fixed broken glossary link in scaffold notebook",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH877_FLAML_1385",
+    "title": "fix: KeyError no longer occurs when using groupfolds for regression tasks",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH878_FLAML_848",
+    "title": "fix bug related to _choice_",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH879_pymc_8220",
+    "title": "Fix crash in vectorize_over_posterior when using ZeroSumNormal distributions",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH880_pymc_7877",
+    "title": "Fix bug in mixture logprob inference with `None` indices",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH881_pymc_7858",
+    "title": "Fix bug with pickling PointFunc",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH882_gpytorch_2121",
+    "title": "Fix multitask/added_loss_term bugs in SGPR regression",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH883_gpytorch_1517",
+    "title": "Fix SGPR variance bug",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH884_sktime_9243",
+    "title": "[BUG] Fix WindowSummarizer bfill across multiindex groups",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH885_sktime_2548",
+    "title": "[BUG] Fixed bug with kmedoids",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH886_plotly.py_5258",
+    "title": "Fix issue with default renderer when `ipython` is installed",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH887_plotly.py_5040",
+    "title": "Fix TypeError: When using orjson and serializing pandas",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH888_pytorch_lightni_20872",
+    "title": "bugfix: add support for `global_ordinal`, `local_ordinal`, `world_size` in xla",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH889_pandas_64788",
+    "title": "BUG: fix date_range inclusive filtering with periods",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH890_pandas_64817",
+    "title": "BUG: fix KeyError when looking up tuple in object Index with duplicates",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH891_statsmodels_9487",
+    "title": "BUG/ENH: Tukeyhsd, fix unused variance, add Games-Howell",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH892_dask_9871",
+    "title": "Fix serialization bug in `BroadcastJoinLayer`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH893_ray_23190",
+    "title": "Suggestions of correct inputs to `create_storage` in error message",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH894_great_expectati_4044",
+    "title": "[FEATURE][BUGFIX] Support nullable int column types",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH895_gpytorch_1919",
+    "title": "Fix bug with PeriodicKernel",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH896_gpytorch_1299",
+    "title": "Fix bug in fixed-noise preconditioner",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH897_sktime_8372",
+    "title": "[BUG] Fix boundary equality in `EmpiricalCoverage`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH898_plotly.py_5322",
+    "title": "Fix broken import in `mplexporter` tests",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH899_scikit_learn_25341",
+    "title": "FIX Support read-only sparse datasets for `Tree`-based estimators",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH8_async_cache_race",
+    "title": "Async Cache Race",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": false
+  },
+  {
+    "task_id": "GH900_scikit_learn_14286",
+    "title": "[MRG+1] FIX Negative or null sample_weights in SVM",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH901_scikit_learn_19085",
+    "title": "FIX Fix recall in multilabel classification when true labels are all negative",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH902_scikit_learn_21336",
+    "title": "FIX Prevents segfault in SVC when internals are altered",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH903_transformers_33200",
+    "title": "\ud83d\udea8\ud83d\udea8\ud83d\udea8 [SuperPoint] Fix keypoint coordinate output and add post processing",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH904_pandas_64767",
+    "title": "BUG: MultiIndex",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH905_scipy_18357",
+    "title": "MAINT: clearer error in `LinearOperator * spmatrix`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH906_ray_29102",
+    "title": "[PB2] Fix broken `PB2",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH907_autogluon_4272",
+    "title": "[tabular] Fix LightGBM quantile predict_proba dtype",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH908_pymc_8174",
+    "title": "Fix broadcast check on log_jac_det",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH909_pymc_7501",
+    "title": "Fix latex rendering of variables with underscore in name",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH910_gpytorch_2123",
+    "title": "Fix bug with Multitask DeepGP predictive variances",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH911_gpytorch_1592",
+    "title": "Fix SGPR errors when testing on training data",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH912_sktime_4425",
+    "title": "Sktime 4425",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH913_sktime_3549",
+    "title": "[BUG] Fix pipeline tag for NaN values",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH914_darts_1652",
+    "title": "fix/historical_forecasting_tft_futcov",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH915_plotly.py_4926",
+    "title": "patch: deepcopy figure fix",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH916_scikit_learn_22191",
+    "title": "FIX poisson proxy_impurity_improvement",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH917_transformers_37544",
+    "title": "Fix `pad` image transform for batched inputs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH918_pytorch_lightni_21399",
+    "title": "Fix `_generate_seed_sequence` sampling",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH919_pytorch_lightni_21244",
+    "title": "Fix `last",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH920_pytorch_lightni_21223",
+    "title": "Fix logged sparsity calculation in `ModelPruning`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH921_pytorch_lightni_21191",
+    "title": "Fix missing reset when pruning with lottery ticket hypothesis",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH922_pandas_64882",
+    "title": "Backport PR #64386 on branch 3",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH923_pandas_64643",
+    "title": "BUG: fix float-to-int64 OOB handling on ARM in to_datetime/to_timedelta",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH924_numpy_30615",
+    "title": "BUG: np",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH925_numpy_31049",
+    "title": "BUG: Add test to reproduce problem described in #30816 (#30818)",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH926_scipy_24615",
+    "title": "BUG: ndimage: fix aliasing in _init_causal_reflect for small arrays",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH927_scipy_24706",
+    "title": "BUG: sparse",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH928_dask_9646",
+    "title": "Fix groupby-aggregation when grouping on an index by name",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH929_mlflow_9690",
+    "title": "Enable LangChain SQLDatabaseChain test and fix bug",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH930_mlflow_1758",
+    "title": "Fix [SETUP-BUG] #1748",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH931_mlflow_21721",
+    "title": "Fix trace export DB contention by disabling incremental span export for gateway",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH932_mlflow_22067",
+    "title": "Fix assistant stream killed by unhandled `rate_limit_event` from Claude Code CLI",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH933_ray_46105",
+    "title": "[Serve] fix logging error on passing traceback object into exc_info",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH934_ray_43928",
+    "title": "[serve] fix num replicas auto bug",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH935_spaCy_7026",
+    "title": "Fix issue #7019: Handle None scores in evaluate printer",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH936_ultralytics_23780",
+    "title": "Fix FP16 inference crash from TinyViT cached bias dtype mismatch",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH937_airflow_63617",
+    "title": "Fix zip DAG import errors being cleared during bundle refresh",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH938_airflow_64087",
+    "title": "Fix DagRun",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH939_great_expectati_8567",
+    "title": "[BUGFIX] Skip Snowflake FDS tests for User Forks",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH940_great_expectati_8559",
+    "title": "Great Expectati 8559",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH941_great_expectati_8116",
+    "title": "[BUGFIX] Fix GXCloudStoreBackend updates by name",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH942_great_expectati_8087",
+    "title": "[BUGFIX] Mock correct method in test",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH943_great_expectati_7881",
+    "title": "[BUGFIX] Delete ExpectationSuite by name in GX Cloud",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH944_autogluon_2986",
+    "title": "Fix AsTypeFeatureGenerator Edge-case Crash",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH945_autogluon_3294",
+    "title": "Fix `predict_multi` crashing when `inverse_transform=False`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH946_autogluon_3288",
+    "title": "Tabular: Fix crash when save path is absolute",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH947_pymc_7695",
+    "title": "Fix bug when reusing jax logp for initial point generation",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH948_gpytorch_2172",
+    "title": "MMVN",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH949_gpytorch_1446",
+    "title": "Bug fixes to LowRank lazy tensors",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH950_sktime_2375",
+    "title": "[BUG] Fixing broken conversions from nested data frame",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH951_darts_1465",
+    "title": "fix historical forecasts retraining of TFMs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH952_plotly.py_2445",
+    "title": "Plotly.Py 2445",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH953_scikit_learn_20853",
+    "title": "Fix OvOClassifier",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH954_pandas_64754",
+    "title": "BUG: Cast np",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH955_pandas_64683",
+    "title": "Pandas 64683",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH956_numpy_28426",
+    "title": "BUG: Limit the maximal number of bins for automatic histogram binning",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH957_scipy_20272",
+    "title": "BUG: optimize: fix incorrect variable assignment in `_trustregion_exact",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH958_scipy_24816",
+    "title": "BUG: sparse",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH959_scipy_24760",
+    "title": "BUG: integrate: fix ComplexWarning in _sparse_num_jac with complex ODE",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH95_arrow_1242",
+    "title": "Fix humanize reporting 'a month' for 16-day differences",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH960_statsmodels_9581",
+    "title": "BUG: make Binomial family more robust to corner case mu=0 , endog=0",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH961_ray_45118",
+    "title": "[serve] Fix controller recovery bug",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH962_ray_22048",
+    "title": "PoolActor now uses num_cpus=0 to avoid any deadlock",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH963_great_expectati_1818",
+    "title": "[BUGFIX] SuiteEditNotebookRenderer no longer break GCS and S3 data paths",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH964_autogluon_2865",
+    "title": "Tabular: Fix error when loading with a different OS",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH965_pymc_8201",
+    "title": "Fix off-by-one progress bar bugs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH966_pymc_7890",
+    "title": "Fix `independent_rvs` determination in `vectorize_over_posterior`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH967_pymc_7844",
+    "title": "Fix issues with model graph",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH968_pymc_7637",
+    "title": "Fix MCMC non-deterministic seeding with Generators",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH969_gpytorch_2677",
+    "title": "Fix for #2674 - Corrected sizes for alpha in RQKernel when using Deep GPs",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH96_arrow_1179",
+    "title": "Use zoneinfo for timezone handling instead of pytz",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH970_gpytorch_1312",
+    "title": "Fix shape issue for MMVN with broadcasted means",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH971_sktime_8548",
+    "title": "[BUG] fix `run_test_for_module` usage in `tests:libs` tag",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH972_sktime_7922",
+    "title": "[BUG] skip `RocketClassifier` expected output test until resolved",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH973_sktime_4758",
+    "title": "Sktime 4758",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH974_plotly.py_4922",
+    "title": "fix: Skip base64 conversion for empty arrays (fixes #4919)",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH975_scikit_learn_29612",
+    "title": "Fix seed sensitivity of test_fastica_eigh_low_rank_warning",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH976_scikit_learn_16849",
+    "title": "BUG Fix instability issue of ARDRegression (with speedup)",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH977_transformers_34889",
+    "title": "Fix test_eager_matches_sdpa_inference for XPU backend",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH978_pandas_64846",
+    "title": "Revert 'BUG: distinguish bool from int in object-dtype hash table'",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH979_numpy_30965",
+    "title": "BUG: Show allocatable arrays in `dir()` for f2py modules",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH97_arrow_1201",
+    "title": "Add FORMAT_RFC3339_STRICT",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH980_statsmodels_9471",
+    "title": "Fix formula eval depth in select models",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH981_statsmodels_9468",
+    "title": "BUG: svar, A,B dtype, one parameter score shape, closes #9302",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH982_statsmodels_9398",
+    "title": "BUG: Ensure hessian is skipped",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH983_dask_11144",
+    "title": "Update ``test_groupby_grouper_dispatch``",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH984_dask_10042",
+    "title": "Fix handling of missing min/max parquet statistics during filtering",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH985_ray_22113",
+    "title": "Fixed MRO for `DerivedActorClass`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH986_ray_15506",
+    "title": "Fix reported dashboard ip when using 0",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH987_ray_12102",
+    "title": "Fix load code from local",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH988_spaCy_12817",
+    "title": "\ud83d\udc1b Escape annotated HTML tags in span renderer",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH989_great_expectati_8084",
+    "title": "[BUGFIX] Fix Update Checkpoint for Cloud",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH98_urllib3_3769",
+    "title": "Fix readinto type hint to accept memoryview for BufferedReader compatibility",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH990_great_expectati_1612",
+    "title": "[BUGFIX] database_store_backend does not support storing Expectations in DB",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH991_pymc_7690",
+    "title": "Fix bug with chained CustomSymbolicDists",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH992_plotly.py_5102",
+    "title": "Fix widget initialization issue in v6",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH993_plotly.py_4914",
+    "title": "fix: px",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH994_scikit_learn_24365",
+    "title": "FIX log_loss at boundaries and integer y_pred",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH995_scikit_learn_19490",
+    "title": "EHN Support unit-variance whitening for `FastICA`",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH996_transformers_34531",
+    "title": "Fix  #34494 assistant tokens when truncated",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH997_pytorch_lightni_21395",
+    "title": "Sanitize profile filename",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH998_pandas_64623",
+    "title": "TST: add regression test for #26558",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH999_numpy_13813",
+    "title": "BUG: further fixup to histogram2d dispatcher",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH99_psycopg_1256",
+    "title": "Fix typo in tstrings error message and incorrect escape_identifier docs example",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "GH9_pool_exhaustion",
+    "title": "Pool Exhaustion",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": false
   },
   {
     "task_id": "GO1_concurrency_fix",
@@ -585,6 +5148,13 @@
       "team_no_verify": 1.0
     },
     "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "GO3_channel_deadlock",
+    "title": "Channel Deadlock",
+    "category": "Software Eng.",
+    "difficulty": "hard",
+    "has_generator": true
   },
   {
     "task_id": "INC10_rollback_plan",
@@ -754,6 +5324,13 @@
     },
     "tni": 1.0,
     "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "INFRA2_cicd_repair",
+    "title": "Cicd Repair",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
   },
   {
     "task_id": "INT1_pipeline_repair",
@@ -1539,6 +6116,13 @@
     "classification": "TEAM-HELPS"
   },
   {
+    "task_id": "PERF1_optimize_constrained",
+    "title": "Optimize Constrained",
+    "category": "Policy",
+    "difficulty": "expert",
+    "has_generator": true
+  },
+  {
     "task_id": "PIPE1_etl_fix",
     "title": "Etl Fix",
     "category": "Pipeline",
@@ -1628,6 +6212,846 @@
       "team_no_verify": 1.0
     },
     "classification": "TEAM-HELPS"
+  },
+  {
+    "task_id": "RDS10_survey_analysis",
+    "title": "Survey Analysis",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS10_survey_analysis",
+    "title": "Survey Analysis",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS10_survey_analysis",
+    "title": "Survey Analysis",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS11_survivorship_bias",
+    "title": "Survivorship Bias",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS11_survivorship_bias",
+    "title": "Survivorship Bias",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS11_survivorship_bias",
+    "title": "Survivorship Bias",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS12_simpsons_income",
+    "title": "Simpsons Income",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS12_simpsons_income",
+    "title": "Simpsons Income",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS12_simpsons_income",
+    "title": "Simpsons Income",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS13_smote_leakage",
+    "title": "Smote Leakage",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS13_smote_leakage",
+    "title": "Smote Leakage",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS13_smote_leakage",
+    "title": "Smote Leakage",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS14_housing_leakage",
+    "title": "Housing Leakage",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS14_housing_leakage",
+    "title": "Housing Leakage",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS14_housing_leakage",
+    "title": "Housing Leakage",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS15_taxi_circular",
+    "title": "Taxi Circular",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS15_taxi_circular",
+    "title": "Taxi Circular",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS15_taxi_circular",
+    "title": "Taxi Circular",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS16_retail_phacking",
+    "title": "Retail Phacking",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS16_retail_phacking",
+    "title": "Retail Phacking",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS16_retail_phacking",
+    "title": "Retail Phacking",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS17_macro_spurious",
+    "title": "Macro Spurious",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS17_macro_spurious",
+    "title": "Macro Spurious",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS17_macro_spurious",
+    "title": "Macro Spurious",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS18_churn_immortal",
+    "title": "Churn Immortal",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS18_churn_immortal",
+    "title": "Churn Immortal",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS18_churn_immortal",
+    "title": "Churn Immortal",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS19_lending_quality",
+    "title": "Lending Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS19_lending_quality",
+    "title": "Lending Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS19_lending_quality",
+    "title": "Lending Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS1_income_causal",
+    "title": "Income Causal",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS1_income_causal",
+    "title": "Income Causal",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS1_income_causal",
+    "title": "Income Causal",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS20_taxi_quality",
+    "title": "Taxi Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS20_taxi_quality",
+    "title": "Taxi Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS20_taxi_quality",
+    "title": "Taxi Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS21_health_missing",
+    "title": "Health Missing",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS21_health_missing",
+    "title": "Health Missing",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS21_health_missing",
+    "title": "Health Missing",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS22_survey_quality",
+    "title": "Survey Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS22_survey_quality",
+    "title": "Survey Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS22_survey_quality",
+    "title": "Survey Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS23_housing_quality",
+    "title": "Housing Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS23_housing_quality",
+    "title": "Housing Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS23_housing_quality",
+    "title": "Housing Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS24_retail_quality",
+    "title": "Retail Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS24_retail_quality",
+    "title": "Retail Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS24_retail_quality",
+    "title": "Retail Quality",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS25_lending_regime",
+    "title": "Lending Regime",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS25_lending_regime",
+    "title": "Lending Regime",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS25_lending_regime",
+    "title": "Lending Regime",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS26_fraud_ring",
+    "title": "Fraud Ring",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS26_fraud_ring",
+    "title": "Fraud Ring",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS26_fraud_ring",
+    "title": "Fraud Ring",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS27_taxi_anomaly",
+    "title": "Taxi Anomaly",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS27_taxi_anomaly",
+    "title": "Taxi Anomaly",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS27_taxi_anomaly",
+    "title": "Taxi Anomaly",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS28_health_crisis",
+    "title": "Health Crisis",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS28_health_crisis",
+    "title": "Health Crisis",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS28_health_crisis",
+    "title": "Health Crisis",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS29_macro_shock",
+    "title": "Macro Shock",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS29_macro_shock",
+    "title": "Macro Shock",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS29_macro_shock",
+    "title": "Macro Shock",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS2_adult_disparity",
+    "title": "Adult Disparity",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS2_adult_disparity",
+    "title": "Adult Disparity",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS2_adult_disparity",
+    "title": "Adult Disparity",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS30_retail_revenue",
+    "title": "Retail Revenue",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS30_retail_revenue",
+    "title": "Retail Revenue",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS30_retail_revenue",
+    "title": "Retail Revenue",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS3_housing_regression",
+    "title": "Housing Regression",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS3_housing_regression",
+    "title": "Housing Regression",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS3_housing_regression",
+    "title": "Housing Regression",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS4_taxi_prediction",
+    "title": "Taxi Prediction",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS4_taxi_prediction",
+    "title": "Taxi Prediction",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS4_taxi_prediction",
+    "title": "Taxi Prediction",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS5_retail_clv",
+    "title": "Retail Clv",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS5_retail_clv",
+    "title": "Retail Clv",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS5_retail_clv",
+    "title": "Retail Clv",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS6_macro_granger",
+    "title": "Macro Granger",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS6_macro_granger",
+    "title": "Macro Granger",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS6_macro_granger",
+    "title": "Macro Granger",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS7_health_panel",
+    "title": "Health Panel",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS7_health_panel",
+    "title": "Health Panel",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS7_health_panel",
+    "title": "Health Panel",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS8_churn_survival",
+    "title": "Churn Survival",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS8_churn_survival",
+    "title": "Churn Survival",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS8_churn_survival",
+    "title": "Churn Survival",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS9_fraud_detection",
+    "title": "Fraud Detection",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS9_fraud_detection",
+    "title": "Fraud Detection",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RDS9_fraud_detection",
+    "title": "Fraud Detection",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC10_config_drift",
+    "title": "Config Drift",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC10_config_drift",
+    "title": "Config Drift",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC10_config_drift",
+    "title": "Config Drift",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC1_sql_injection",
+    "title": "Sql Injection",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC1_sql_injection",
+    "title": "Sql Injection",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC1_sql_injection",
+    "title": "Sql Injection",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC2_ssrf_cloud",
+    "title": "Ssrf Cloud",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC2_ssrf_cloud",
+    "title": "Ssrf Cloud",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC2_ssrf_cloud",
+    "title": "Ssrf Cloud",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC3_deserialization",
+    "title": "Deserialization",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC3_deserialization",
+    "title": "Deserialization",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC3_deserialization",
+    "title": "Deserialization",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC4_jwt_none",
+    "title": "Jwt None",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC4_jwt_none",
+    "title": "Jwt None",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC4_jwt_none",
+    "title": "Jwt None",
+    "category": "Security",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC5_path_traversal",
+    "title": "Path Traversal",
+    "category": "Security",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC5_path_traversal",
+    "title": "Path Traversal",
+    "category": "Security",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC5_path_traversal",
+    "title": "Path Traversal",
+    "category": "Security",
+    "difficulty": "medium",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC6_cascade_failure",
+    "title": "Cascade Failure",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC6_cascade_failure",
+    "title": "Cascade Failure",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC6_cascade_failure",
+    "title": "Cascade Failure",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC7_database_migration",
+    "title": "Database Migration",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC7_database_migration",
+    "title": "Database Migration",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC7_database_migration",
+    "title": "Database Migration",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC8_memory_leak",
+    "title": "Memory Leak",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC8_memory_leak",
+    "title": "Memory Leak",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC8_memory_leak",
+    "title": "Memory Leak",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC9_race_condition",
+    "title": "Race Condition",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC9_race_condition",
+    "title": "Race Condition",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "RINC9_race_condition",
+    "title": "Race Condition",
+    "category": "Incident Response",
+    "difficulty": "hard",
+    "has_generator": true
   },
   {
     "task_id": "S1_hidden_spec",
@@ -2309,5 +7733,19 @@
       "team_no_verify": 0.9
     },
     "classification": "NEUTRAL"
+  },
+  {
+    "task_id": "TS1_type_mismatch",
+    "title": "Type Mismatch",
+    "category": "Other",
+    "difficulty": "hard",
+    "has_generator": true
+  },
+  {
+    "task_id": "TS2_react_state_bug",
+    "title": "React State Bug",
+    "category": "Other",
+    "difficulty": "medium",
+    "has_generator": true
   }
 ]

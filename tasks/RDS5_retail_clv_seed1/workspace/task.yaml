@@ -1,0 +1,9 @@
+task_id: RDS5_retail_clv
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: online_retail
+  license: CC BY 4.0
+  source: UCI ML Repository

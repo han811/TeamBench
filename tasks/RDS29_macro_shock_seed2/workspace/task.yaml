@@ -1,0 +1,9 @@
+task_id: RDS29_macro_shock
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: fred_macro
+  license: Public Domain
+  source: FRED / St. Louis Fed

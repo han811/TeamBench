@@ -1,0 +1,52 @@
+year,country_code,conflict_type,fatalities_est,displaced_persons_thousands,infrastructure_damage_pct
+2008,HTI,low-level unrest,138,19,4
+2008,MLI,low-level unrest,180,14,8
+2008,CAF,low-level unrest,39,3,3
+2009,HTI,low-level unrest,107,17,6
+2009,MLI,low-level unrest,94,13,5
+2009,CAF,low-level unrest,36,16,2
+2010,HTI,natural disaster compounded by armed insurgency,6521,376,35
+2010,MLI,natural disaster compounded by armed insurgency,3610,171,39
+2010,CAF,natural disaster compounded by armed insurgency,7584,416,57
+2011,HTI,natural disaster compounded by armed insurgency,4114,423,34
+2011,MLI,natural disaster compounded by armed insurgency,2435,392,32
+2011,CAF,natural disaster compounded by armed insurgency,5071,197,29
+2012,HTI,natural disaster compounded by armed insurgency,5772,164,30
+2012,MLI,natural disaster compounded by armed insurgency,7000,431,55
+2012,CAF,natural disaster compounded by armed insurgency,4008,194,58
+2013,HTI,natural disaster compounded by armed insurgency,1011,431,45
+2013,MLI,natural disaster compounded by armed insurgency,6230,415,59
+2013,CAF,natural disaster compounded by armed insurgency,3724,111,49
+2014,HTI,natural disaster compounded by armed insurgency,3828,478,35
+2014,MLI,natural disaster compounded by armed insurgency,6688,415,41
+2014,CAF,natural disaster compounded by armed insurgency,3463,422,21
+2015,HTI,natural disaster compounded by armed insurgency,2274,75,41
+2015,MLI,natural disaster compounded by armed insurgency,2621,226,24
+2015,CAF,natural disaster compounded by armed insurgency,3894,388,43
+2016,HTI,natural disaster compounded by armed insurgency,944,333,34
+2016,MLI,natural disaster compounded by armed insurgency,5925,406,47
+2016,CAF,natural disaster compounded by armed insurgency,1210,452,25
+2017,HTI,low-level unrest,86,10,8
+2017,MLI,low-level unrest,45,17,7
+2017,CAF,low-level unrest,70,16,5
+2010,KEN,stable,13,2,3
+2010,GHA,stable,42,5,0
+2010,TUN,stable,29,1,0
+2011,KEN,stable,15,3,2
+2011,GHA,stable,3,4,1
+2011,TUN,stable,33,4,1
+2012,KEN,stable,15,0,1
+2012,GHA,stable,38,2,2
+2012,TUN,stable,3,1,2
+2013,KEN,stable,36,4,0
+2013,GHA,stable,18,5,2
+2013,TUN,stable,30,2,3
+2014,KEN,stable,5,4,1
+2014,GHA,stable,17,4,2
+2014,TUN,stable,48,5,0
+2015,KEN,stable,18,0,3
+2015,GHA,stable,42,2,2
+2015,TUN,stable,36,4,1
+2016,KEN,stable,8,3,1
+2016,GHA,stable,43,4,2
+2016,TUN,stable,48,2,2

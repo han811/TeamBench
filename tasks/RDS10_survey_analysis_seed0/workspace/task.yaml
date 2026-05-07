@@ -1,0 +1,9 @@
+task_id: RDS10_survey_analysis
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: stackoverflow
+  license: ODbL
+  source: Stack Overflow Developer Survey

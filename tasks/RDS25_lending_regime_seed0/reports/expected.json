@@ -1,0 +1,19 @@
+{
+  "drift_factors": [
+    "interest_rate_hike",
+    "unemployment_spike",
+    "policy_change"
+  ],
+  "recent_period": "2018-01 to 2018-12",
+  "affected_states": [
+    "OH",
+    "MI",
+    "PA"
+  ],
+  "n_rows": 2000,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

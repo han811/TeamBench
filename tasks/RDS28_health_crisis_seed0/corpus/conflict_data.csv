@@ -1,0 +1,46 @@
+year,country_code,conflict_type,fatalities_est,displaced_persons_thousands,infrastructure_damage_pct
+2010,SYR,low-level unrest,69,14,7
+2010,YEM,low-level unrest,129,7,5
+2010,AFG,low-level unrest,115,16,4
+2011,SYR,low-level unrest,134,19,6
+2011,YEM,low-level unrest,155,10,6
+2011,AFG,low-level unrest,174,18,6
+2012,SYR,civil war and armed conflict,4237,207,32
+2012,YEM,civil war and armed conflict,2943,293,21
+2012,AFG,civil war and armed conflict,5117,93,60
+2013,SYR,civil war and armed conflict,5825,113,39
+2013,YEM,civil war and armed conflict,6777,480,53
+2013,AFG,civil war and armed conflict,2695,300,49
+2014,SYR,civil war and armed conflict,4380,92,37
+2014,YEM,civil war and armed conflict,4931,453,63
+2014,AFG,civil war and armed conflict,6842,306,23
+2015,SYR,civil war and armed conflict,7485,59,43
+2015,YEM,civil war and armed conflict,7172,107,61
+2015,AFG,civil war and armed conflict,1455,199,41
+2016,SYR,civil war and armed conflict,6787,150,61
+2016,YEM,civil war and armed conflict,4172,235,42
+2016,AFG,civil war and armed conflict,7228,165,22
+2017,SYR,civil war and armed conflict,1499,358,56
+2017,YEM,civil war and armed conflict,7303,189,64
+2017,AFG,civil war and armed conflict,1054,207,55
+2018,SYR,low-level unrest,196,4,7
+2018,YEM,low-level unrest,151,18,7
+2018,AFG,low-level unrest,162,10,5
+2012,KEN,stable,50,0,0
+2012,GHA,stable,39,2,2
+2012,TUN,stable,24,4,2
+2013,KEN,stable,3,2,1
+2013,GHA,stable,41,3,0
+2013,TUN,stable,5,2,2
+2014,KEN,stable,46,4,2
+2014,GHA,stable,29,4,1
+2014,TUN,stable,24,0,1
+2015,KEN,stable,9,3,1
+2015,GHA,stable,43,2,2
+2015,TUN,stable,31,3,1
+2016,KEN,stable,17,5,1
+2016,GHA,stable,38,1,1
+2016,TUN,stable,22,0,2
+2017,KEN,stable,1,3,1
+2017,GHA,stable,50,1,0
+2017,TUN,stable,18,2,1

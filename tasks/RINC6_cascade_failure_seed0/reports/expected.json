@@ -1,0 +1,8 @@
+{
+  "seed": 0,
+  "topology": "e-commerce",
+  "failing_service": "pricing",
+  "fix": "circuit_breaker_with_fallback",
+  "failure_threshold": 4,
+  "timeout_sec": 2
+}

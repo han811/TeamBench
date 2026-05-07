@@ -1,0 +1,39 @@
+{
+  "analysis_type": "cost_sensitive",
+  "research_question": "Frame fraud detection as a cost minimization problem. Assume: missing a fraud costs $500 (false negative), and a false alarm costs $10 (false positive). Find the classification threshold that minimizes total expected cost.",
+  "key_cols": [
+    "Class",
+    "Amount",
+    "V1",
+    "V14"
+  ],
+  "hidden_col_keywords": [
+    "Class",
+    "Amount"
+  ],
+  "n_rows": 1500,
+  "columns": [
+    "Time",
+    "V1",
+    "V2",
+    "V3",
+    "V4",
+    "V5",
+    "V10",
+    "V11",
+    "V12",
+    "V14",
+    "V17",
+    "V19",
+    "V21",
+    "V27",
+    "V28",
+    "Amount",
+    "Class"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

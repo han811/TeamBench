@@ -1,0 +1,8 @@
+task_id: RDS11_survivorship_bias
+category: Data Science
+difficulty: hard
+domain: data_science
+languages: ['python']
+parameterized: true
+seeds: [0, 1, 2]
+real_dataset: adult_income

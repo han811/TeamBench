@@ -1,0 +1,1717 @@
+{
+  "communication_efficiency_index": {
+    "mean_cei": -0.005334053122023725,
+    "median_cei": 0.0,
+    "std_cei": 0.07332050433217172,
+    "n_tasks": 169,
+    "n_with_dialogue_tokens": 167,
+    "n_proxy_tokens": 2,
+    "note": "Token counts from dialogue.jsonl planner messages (chars/4). 2 tasks used 500-token proxy (no dialogue files found).",
+    "per_task": [
+      {
+        "task_id": "SQL2_query_optimize",
+        "planning_value": 0.4,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.4
+      },
+      {
+        "task_id": "SEC7_rate_limiting",
+        "planning_value": 0.27,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.27
+      },
+      {
+        "task_id": "P4_data_retention",
+        "planning_value": 0.21,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.21
+      },
+      {
+        "task_id": "dist4_clock_skew",
+        "planning_value": 0.1389,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.138867
+      },
+      {
+        "task_id": "O5_container_debug",
+        "planning_value": 0.13,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.13
+      },
+      {
+        "task_id": "PIPE4_ci_cd",
+        "planning_value": 0.07,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.07
+      },
+      {
+        "task_id": "crypto3_cert_chain",
+        "planning_value": 0.0667,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.066667
+      },
+      {
+        "task_id": "LH3_multi_service",
+        "planning_value": 0.05,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.05
+      },
+      {
+        "task_id": "dist1_queue_race",
+        "planning_value": 0.0278,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.0278
+      },
+      {
+        "task_id": "dist2_consensus_partition",
+        "planning_value": 0.0278,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.027767
+      },
+      {
+        "task_id": "INC5_cert_expiry",
+        "planning_value": 1.0,
+        "planner_tokens": 637.0,
+        "token_source": "dialogue",
+        "cei": 0.00157
+      },
+      {
+        "task_id": "TEST7_integration_suite",
+        "planning_value": 0.3,
+        "planner_tokens": 710.0,
+        "token_source": "dialogue",
+        "cei": 0.000423
+      },
+      {
+        "task_id": "TRAP6_deprecated_api",
+        "planning_value": 1.0,
+        "planner_tokens": 3218.0,
+        "token_source": "dialogue",
+        "cei": 0.000311
+      },
+      {
+        "task_id": "SYNTH1_distributed_debug",
+        "planning_value": 0.146,
+        "planner_tokens": 493.0,
+        "token_source": "dialogue",
+        "cei": 0.000296
+      },
+      {
+        "task_id": "SEC8_dependency_audit",
+        "planning_value": 0.09,
+        "planner_tokens": 429.0,
+        "token_source": "dialogue",
+        "cei": 0.00021
+      },
+      {
+        "task_id": "NEG4_resource_allocation",
+        "planning_value": 0.1,
+        "planner_tokens": 480.0,
+        "token_source": "dialogue",
+        "cei": 0.000208
+      },
+      {
+        "task_id": "PIPE3_stream_processing",
+        "planning_value": 1.0,
+        "planner_tokens": 5245.0,
+        "token_source": "dialogue",
+        "cei": 0.000191
+      },
+      {
+        "task_id": "O9_logging_config",
+        "planning_value": 0.6,
+        "planner_tokens": 4755.0,
+        "token_source": "dialogue",
+        "cei": 0.000126
+      },
+      {
+        "task_id": "GH10_retry_backoff",
+        "planning_value": 0.33,
+        "planner_tokens": 2615.5,
+        "token_source": "dialogue",
+        "cei": 0.000126
+      },
+      {
+        "task_id": "TEST6_property_based",
+        "planning_value": 0.2143,
+        "planner_tokens": 1879.7,
+        "token_source": "dialogue",
+        "cei": 0.000114
+      },
+      {
+        "task_id": "P6_license_check",
+        "planning_value": 0.344,
+        "planner_tokens": 4157.0,
+        "token_source": "dialogue",
+        "cei": 8.3e-05
+      },
+      {
+        "task_id": "GH9_pool_exhaustion",
+        "planning_value": 0.315,
+        "planner_tokens": 3878.5,
+        "token_source": "dialogue",
+        "cei": 8.1e-05
+      },
+      {
+        "task_id": "P7_data_retention",
+        "planning_value": 0.176,
+        "planner_tokens": 2385.0,
+        "token_source": "dialogue",
+        "cei": 7.4e-05
+      },
+      {
+        "task_id": "IR7_doc_clustering",
+        "planning_value": 0.75,
+        "planner_tokens": 10716.0,
+        "token_source": "dialogue",
+        "cei": 7e-05
+      },
+      {
+        "task_id": "SPEC5_config_system",
+        "planning_value": 0.486,
+        "planner_tokens": 7748.5,
+        "token_source": "dialogue",
+        "cei": 6.3e-05
+      },
+      {
+        "task_id": "O8_dockerfile_fix",
+        "planning_value": 0.1867,
+        "planner_tokens": 3656.0,
+        "token_source": "dialogue",
+        "cei": 5.1e-05
+      },
+      {
+        "task_id": "GH11_middleware_order",
+        "planning_value": 0.09,
+        "planner_tokens": 2115.5,
+        "token_source": "dialogue",
+        "cei": 4.3e-05
+      },
+      {
+        "task_id": "P2_spec_arbitration",
+        "planning_value": 0.125,
+        "planner_tokens": 3128.5,
+        "token_source": "dialogue",
+        "cei": 4e-05
+      },
+      {
+        "task_id": "DIST6_distributed_lock",
+        "planning_value": 0.1429,
+        "planner_tokens": 4549.0,
+        "token_source": "dialogue",
+        "cei": 3.1e-05
+      },
+      {
+        "task_id": "GH6_queryset_union",
+        "planning_value": 0.21,
+        "planner_tokens": 6771.5,
+        "token_source": "dialogue",
+        "cei": 3.1e-05
+      },
+      {
+        "task_id": "P1_policy_config",
+        "planning_value": 0.1353,
+        "planner_tokens": 4609.2,
+        "token_source": "dialogue",
+        "cei": 2.9e-05
+      },
+      {
+        "task_id": "MULTI5_deploy_pipeline",
+        "planning_value": 0.125,
+        "planner_tokens": 4495.0,
+        "token_source": "dialogue",
+        "cei": 2.8e-05
+      },
+      {
+        "task_id": "O2_incident_rootcause",
+        "planning_value": 0.1238,
+        "planner_tokens": 4355.4,
+        "token_source": "dialogue",
+        "cei": 2.8e-05
+      },
+      {
+        "task_id": "CR5_test_coverage",
+        "planning_value": 0.1888,
+        "planner_tokens": 9159.9,
+        "token_source": "dialogue",
+        "cei": 2.1e-05
+      },
+      {
+        "task_id": "CR6_review_checklist",
+        "planning_value": 0.1213,
+        "planner_tokens": 6038.8,
+        "token_source": "dialogue",
+        "cei": 2e-05
+      },
+      {
+        "task_id": "IR5_search_ranking",
+        "planning_value": 0.089,
+        "planner_tokens": 4975.3,
+        "token_source": "dialogue",
+        "cei": 1.8e-05
+      },
+      {
+        "task_id": "NEG5_sla_tradeoff",
+        "planning_value": 0.1,
+        "planner_tokens": 5891.0,
+        "token_source": "dialogue",
+        "cei": 1.7e-05
+      },
+      {
+        "task_id": "CROSS7_config_drift",
+        "planning_value": 0.0667,
+        "planner_tokens": 4113.0,
+        "token_source": "dialogue",
+        "cei": 1.6e-05
+      },
+      {
+        "task_id": "TEST9_mock_service",
+        "planning_value": 0.0563,
+        "planner_tokens": 3868.0,
+        "token_source": "dialogue",
+        "cei": 1.5e-05
+      },
+      {
+        "task_id": "DIST3_idempotency",
+        "planning_value": 0.75,
+        "planner_tokens": 50747.0,
+        "token_source": "dialogue",
+        "cei": 1.5e-05
+      },
+      {
+        "task_id": "SPEC6_rfc_impl",
+        "planning_value": 0.05,
+        "planner_tokens": 3513.0,
+        "token_source": "dialogue",
+        "cei": 1.4e-05
+      },
+      {
+        "task_id": "MULTI4_monorepo_fix",
+        "planning_value": 0.1,
+        "planner_tokens": 6987.0,
+        "token_source": "dialogue",
+        "cei": 1.4e-05
+      },
+      {
+        "task_id": "CRYPTO1_nonce_reuse",
+        "planning_value": 0.12,
+        "planner_tokens": 8718.7,
+        "token_source": "dialogue",
+        "cei": 1.4e-05
+      },
+      {
+        "task_id": "INC2_data_corruption",
+        "planning_value": 0.5,
+        "planner_tokens": 38310.0,
+        "token_source": "dialogue",
+        "cei": 1.3e-05
+      },
+      {
+        "task_id": "GH5_pydantic_circular",
+        "planning_value": 0.09,
+        "planner_tokens": 6705.5,
+        "token_source": "dialogue",
+        "cei": 1.3e-05
+      },
+      {
+        "task_id": "DIST4_clock_skew",
+        "planning_value": 0.5,
+        "planner_tokens": 43313.0,
+        "token_source": "dialogue",
+        "cei": 1.2e-05
+      },
+      {
+        "task_id": "SCALE1_codebase_migration",
+        "planning_value": 0.1167,
+        "planner_tokens": 11054.0,
+        "token_source": "dialogue",
+        "cei": 1.1e-05
+      },
+      {
+        "task_id": "IR4_temporal",
+        "planning_value": 0.07,
+        "planner_tokens": 6280.0,
+        "token_source": "dialogue",
+        "cei": 1.1e-05
+      },
+      {
+        "task_id": "INC9_log_forensics",
+        "planning_value": 0.1,
+        "planner_tokens": 13306.0,
+        "token_source": "dialogue",
+        "cei": 8e-06
+      },
+      {
+        "task_id": "GH2_click_flag_value",
+        "planning_value": 0.15,
+        "planner_tokens": 18708.5,
+        "token_source": "dialogue",
+        "cei": 8e-06
+      },
+      {
+        "task_id": "DIST1_queue_race",
+        "planning_value": 0.0833,
+        "planner_tokens": 12806.3,
+        "token_source": "dialogue",
+        "cei": 7e-06
+      },
+      {
+        "task_id": "CR4_api_review",
+        "planning_value": 0.5,
+        "planner_tokens": 71283.0,
+        "token_source": "dialogue",
+        "cei": 7e-06
+      },
+      {
+        "task_id": "CROSS2_schema_evolution",
+        "planning_value": 0.3333,
+        "planner_tokens": 47961.0,
+        "token_source": "dialogue",
+        "cei": 7e-06
+      },
+      {
+        "task_id": "S7_env_config",
+        "planning_value": 0.05,
+        "planner_tokens": 8083.0,
+        "token_source": "dialogue",
+        "cei": 6e-06
+      },
+      {
+        "task_id": "GH3_httpx_auth_leak",
+        "planning_value": 0.185,
+        "planner_tokens": 28613.0,
+        "token_source": "dialogue",
+        "cei": 6e-06
+      },
+      {
+        "task_id": "D3_schema_migration",
+        "planning_value": 0.135,
+        "planner_tokens": 36183.5,
+        "token_source": "dialogue",
+        "cei": 4e-06
+      },
+      {
+        "task_id": "SEC3_crypto_upgrade",
+        "planning_value": 0.0183,
+        "planner_tokens": 4872.6,
+        "token_source": "dialogue",
+        "cei": 4e-06
+      },
+      {
+        "task_id": "DIST5_leader_election",
+        "planning_value": 0.1333,
+        "planner_tokens": 34316.0,
+        "token_source": "dialogue",
+        "cei": 4e-06
+      },
+      {
+        "task_id": "DIST2_consensus_partition",
+        "planning_value": 0.25,
+        "planner_tokens": 57452.0,
+        "token_source": "dialogue",
+        "cei": 4e-06
+      },
+      {
+        "task_id": "D7_etl_reconciliation",
+        "planning_value": 0.1,
+        "planner_tokens": 36149.5,
+        "token_source": "dialogue",
+        "cei": 3e-06
+      },
+      {
+        "task_id": "D9_schema_validation",
+        "planning_value": 0.1,
+        "planner_tokens": 28785.5,
+        "token_source": "dialogue",
+        "cei": 3e-06
+      },
+      {
+        "task_id": "CR3_perf_review",
+        "planning_value": 0.1,
+        "planner_tokens": 29525.5,
+        "token_source": "dialogue",
+        "cei": 3e-06
+      },
+      {
+        "task_id": "O1_service_health",
+        "planning_value": 0.0104,
+        "planner_tokens": 4592.9,
+        "token_source": "dialogue",
+        "cei": 2e-06
+      },
+      {
+        "task_id": "SEC1_vuln_patch",
+        "planning_value": 0.017,
+        "planner_tokens": 11171.7,
+        "token_source": "dialogue",
+        "cei": 2e-06
+      },
+      {
+        "task_id": "D5_query_optimize",
+        "planning_value": 0.035,
+        "planner_tokens": 35165.5,
+        "token_source": "dialogue",
+        "cei": 1e-06
+      },
+      {
+        "task_id": "O3_log_analysis",
+        "planning_value": 0.0078,
+        "planner_tokens": 5764.3,
+        "token_source": "dialogue",
+        "cei": 1e-06
+      },
+      {
+        "task_id": "CROSS3_protocol_bridge",
+        "planning_value": 0.005,
+        "planner_tokens": 5413.6,
+        "token_source": "dialogue",
+        "cei": 1e-06
+      },
+      {
+        "task_id": "S3_refactor_extract",
+        "planning_value": 0.0,
+        "planner_tokens": 50.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "S4_backward_compat",
+        "planning_value": 0.0,
+        "planner_tokens": 1232.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "NEG3_tech_debt",
+        "planning_value": 0.0,
+        "planner_tokens": 8591.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "INC3_memory_leak",
+        "planning_value": 0.0,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "INC6_deadlock",
+        "planning_value": 0.0,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "INC8_memory_leak",
+        "planning_value": 0.0,
+        "planner_tokens": 7188.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "O7_capacity_planning",
+        "planning_value": 0.0,
+        "planner_tokens": 5983.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "TEST8_unit_basic",
+        "planning_value": 0.0,
+        "planner_tokens": 492.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "SPEC2_api_design",
+        "planning_value": 0.0,
+        "planner_tokens": 37.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "SPEC4_migration",
+        "planning_value": 0.0,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "SPEC7_config_schema",
+        "planning_value": 0.0,
+        "planner_tokens": 500.0,
+        "token_source": "proxy",
+        "cei": 0.0
+      },
+      {
+        "task_id": "MULTI2_api_frontend",
+        "planning_value": 0.0,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "MULTI2_microservice_debug",
+        "planning_value": 0.0,
+        "planner_tokens": 6753.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "MULTI3_polyglot",
+        "planning_value": 0.0,
+        "planner_tokens": 4508.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "MULTI6_fullstack_bug",
+        "planning_value": 0.0,
+        "planner_tokens": 3027.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "MULTI7_polyglot_test",
+        "planning_value": 0.0,
+        "planner_tokens": 7862.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "MULTI8_sdk_mismatch",
+        "planning_value": 0.0,
+        "planner_tokens": 7352.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "INT2_api_versioning",
+        "planning_value": 0.0,
+        "planner_tokens": 4324.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "LH4_staged_deploy",
+        "planning_value": 0.0,
+        "planner_tokens": 347.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "LH5_data_migration",
+        "planning_value": 0.0,
+        "planner_tokens": 500.0,
+        "token_source": "proxy",
+        "cei": 0.0
+      },
+      {
+        "task_id": "PIPE2_data_pipeline",
+        "planning_value": 0.0,
+        "planner_tokens": 1316.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "IR2_misinformation_trap",
+        "planning_value": 0.0,
+        "planner_tokens": 8813.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "IR3_multi_source",
+        "planning_value": 0.0,
+        "planner_tokens": 12914.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "IR6_search_index",
+        "planning_value": 0.0,
+        "planner_tokens": 11964.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "TRAP7_test_pollution",
+        "planning_value": 0.0,
+        "planner_tokens": 2143.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "TRAP8_config_override",
+        "planning_value": 0.0,
+        "planner_tokens": 7229.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "CRYPTO6_token_validation",
+        "planning_value": 0.0,
+        "planner_tokens": 31250.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "GO2_race_condition",
+        "planning_value": 0.0,
+        "planner_tokens": 25788.5,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "TEST1_spec_to_tests",
+        "planning_value": -0.0043,
+        "planner_tokens": 9171.6,
+        "token_source": "dialogue",
+        "cei": -0.0
+      },
+      {
+        "task_id": "TRAP1_spec_conflict",
+        "planning_value": 0.0,
+        "planner_tokens": 3725.5,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "crypto1_nonce_reuse",
+        "planning_value": 0.0,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "crypto2_timing_safe",
+        "planning_value": 0.0,
+        "planner_tokens": 243.3,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "crypto4_kdf_migration",
+        "planning_value": 0.0,
+        "planner_tokens": 148.7,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "CROSS4_auth_federation",
+        "planning_value": 0.0,
+        "planner_tokens": 64000.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "CRYPTO2_timing_safe",
+        "planning_value": 0.0,
+        "planner_tokens": 45125.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "CRYPTO3_cert_chain",
+        "planning_value": 0.0,
+        "planner_tokens": 3182.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "CRYPTO4_kdf_migration",
+        "planning_value": 0.0,
+        "planner_tokens": 57691.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "GH1_flask_session_ctx",
+        "planning_value": 0.0,
+        "planner_tokens": 10667.5,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "GH4_requests_encoding",
+        "planning_value": 0.0,
+        "planner_tokens": 3577.5,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "GH7_fixture_scope_leak",
+        "planning_value": 0.0,
+        "planner_tokens": 16002.5,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "LH2_budgeted_workflow",
+        "planning_value": 0.0,
+        "planner_tokens": 1039.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "trap1_spec_conflict",
+        "planning_value": 0.0,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "trap2_false_fix",
+        "planning_value": 0.0,
+        "planner_tokens": 112.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "trap3_metric_mirage",
+        "planning_value": 0.0,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "cross1_api_contract",
+        "planning_value": 0.0,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "cross2_schema_evolution",
+        "planning_value": 0.0,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "cross3_protocol_bridge",
+        "planning_value": 0.0,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "cross4_auth_federation",
+        "planning_value": 0.0,
+        "planner_tokens": 239.3,
+        "token_source": "dialogue",
+        "cei": 0.0
+      },
+      {
+        "task_id": "SPEC3_data_model",
+        "planning_value": -0.0058,
+        "planner_tokens": 5501.0,
+        "token_source": "dialogue",
+        "cei": -1e-06
+      },
+      {
+        "task_id": "CROSS5_event_schema",
+        "planning_value": -0.025,
+        "planner_tokens": 22014.0,
+        "token_source": "dialogue",
+        "cei": -1e-06
+      },
+      {
+        "task_id": "TRAP3_metric_mirage",
+        "planning_value": -0.0105,
+        "planner_tokens": 9754.2,
+        "token_source": "dialogue",
+        "cei": -1e-06
+      },
+      {
+        "task_id": "TEST5_mutation_resistant",
+        "planning_value": -0.0172,
+        "planner_tokens": 9746.0,
+        "token_source": "dialogue",
+        "cei": -2e-06
+      },
+      {
+        "task_id": "MULTI1_fullstack_fix",
+        "planning_value": -0.0217,
+        "planner_tokens": 9059.6,
+        "token_source": "dialogue",
+        "cei": -2e-06
+      },
+      {
+        "task_id": "GH8_async_cache_race",
+        "planning_value": -0.06,
+        "planner_tokens": 28584.5,
+        "token_source": "dialogue",
+        "cei": -2e-06
+      },
+      {
+        "task_id": "D1_schema_drift",
+        "planning_value": -0.029,
+        "planner_tokens": 9667.0,
+        "token_source": "dialogue",
+        "cei": -3e-06
+      },
+      {
+        "task_id": "INC4_dns_miscfg",
+        "planning_value": -0.029,
+        "planner_tokens": 7233.3,
+        "token_source": "dialogue",
+        "cei": -4e-06
+      },
+      {
+        "task_id": "IR1_evidence_qa",
+        "planning_value": -0.0253,
+        "planner_tokens": 6742.7,
+        "token_source": "dialogue",
+        "cei": -4e-06
+      },
+      {
+        "task_id": "D6_data_reconcile",
+        "planning_value": -0.22,
+        "planner_tokens": 35755.5,
+        "token_source": "dialogue",
+        "cei": -6e-06
+      },
+      {
+        "task_id": "CROSS1_api_contract",
+        "planning_value": -0.06,
+        "planner_tokens": 10268.8,
+        "token_source": "dialogue",
+        "cei": -6e-06
+      },
+      {
+        "task_id": "D4_data_pipeline",
+        "planning_value": -0.1767,
+        "planner_tokens": 25215.3,
+        "token_source": "dialogue",
+        "cei": -7e-06
+      },
+      {
+        "task_id": "TEST2_regression",
+        "planning_value": -0.0504,
+        "planner_tokens": 6800.9,
+        "token_source": "dialogue",
+        "cei": -7e-06
+      },
+      {
+        "task_id": "TRAP5_security_theater",
+        "planning_value": -0.0553,
+        "planner_tokens": 6792.3,
+        "token_source": "dialogue",
+        "cei": -8e-06
+      },
+      {
+        "task_id": "CRYPTO5_tls_config",
+        "planning_value": -0.2571,
+        "planner_tokens": 27648.0,
+        "token_source": "dialogue",
+        "cei": -9e-06
+      },
+      {
+        "task_id": "D8_csv_cleanup",
+        "planning_value": -0.0743,
+        "planner_tokens": 7091.6,
+        "token_source": "dialogue",
+        "cei": -1e-05
+      },
+      {
+        "task_id": "INC8_cascading_timeout",
+        "planning_value": -0.1,
+        "planner_tokens": 10419.0,
+        "token_source": "dialogue",
+        "cei": -1e-05
+      },
+      {
+        "task_id": "LH6_audit_trail",
+        "planning_value": -0.04,
+        "planner_tokens": 4070.0,
+        "token_source": "dialogue",
+        "cei": -1e-05
+      },
+      {
+        "task_id": "NEG1_tradeoff_config",
+        "planning_value": -0.1,
+        "planner_tokens": 8680.6,
+        "token_source": "dialogue",
+        "cei": -1.2e-05
+      },
+      {
+        "task_id": "PIPE1_etl_fix",
+        "planning_value": -0.0709,
+        "planner_tokens": 5466.7,
+        "token_source": "dialogue",
+        "cei": -1.3e-05
+      },
+      {
+        "task_id": "P3_access_control",
+        "planning_value": -0.0377,
+        "planner_tokens": 2530.6,
+        "token_source": "dialogue",
+        "cei": -1.5e-05
+      },
+      {
+        "task_id": "SPEC1_feature_impl",
+        "planning_value": -0.0868,
+        "planner_tokens": 5831.2,
+        "token_source": "dialogue",
+        "cei": -1.5e-05
+      },
+      {
+        "task_id": "INC1_cascade_failure",
+        "planning_value": -0.14,
+        "planner_tokens": 7608.1,
+        "token_source": "dialogue",
+        "cei": -1.8e-05
+      },
+      {
+        "task_id": "P8_access_control",
+        "planning_value": -0.2,
+        "planner_tokens": 7840.0,
+        "token_source": "dialogue",
+        "cei": -2.6e-05
+      },
+      {
+        "task_id": "GO1_concurrency_fix",
+        "planning_value": -0.21,
+        "planner_tokens": 7439.8,
+        "token_source": "dialogue",
+        "cei": -2.8e-05
+      },
+      {
+        "task_id": "INC10_rollback_plan",
+        "planning_value": -0.1333,
+        "planner_tokens": 4633.3,
+        "token_source": "dialogue",
+        "cei": -2.9e-05
+      },
+      {
+        "task_id": "CROSS6_grpc_rest_bridge",
+        "planning_value": -0.4667,
+        "planner_tokens": 12448.0,
+        "token_source": "dialogue",
+        "cei": -3.7e-05
+      },
+      {
+        "task_id": "SEC9_vuln_triage",
+        "planning_value": -0.195,
+        "planner_tokens": 5073.0,
+        "token_source": "dialogue",
+        "cei": -3.8e-05
+      },
+      {
+        "task_id": "O4_monitoring",
+        "planning_value": -0.1969,
+        "planner_tokens": 2945.5,
+        "token_source": "dialogue",
+        "cei": -6.7e-05
+      },
+      {
+        "task_id": "D2_data_quality",
+        "planning_value": -0.46,
+        "planner_tokens": 4826.5,
+        "token_source": "dialogue",
+        "cei": -9.5e-05
+      },
+      {
+        "task_id": "TEST3_integration",
+        "planning_value": -0.018,
+        "planner_tokens": 175.0,
+        "token_source": "dialogue",
+        "cei": -0.000103
+      },
+      {
+        "task_id": "trap4_version_paradox",
+        "planning_value": -0.0267,
+        "planner_tokens": 220.5,
+        "token_source": "dialogue",
+        "cei": -0.000121
+      },
+      {
+        "task_id": "CR1_review_respond",
+        "planning_value": -0.1033,
+        "planner_tokens": 845.7,
+        "token_source": "dialogue",
+        "cei": -0.000122
+      },
+      {
+        "task_id": "CR2_style_enforce",
+        "planning_value": -0.27,
+        "planner_tokens": 1934.0,
+        "token_source": "dialogue",
+        "cei": -0.00014
+      },
+      {
+        "task_id": "LH7_zero_downtime",
+        "planning_value": -0.5467,
+        "planner_tokens": 3278.0,
+        "token_source": "dialogue",
+        "cei": -0.000167
+      },
+      {
+        "task_id": "PIPE3_msg_queue",
+        "planning_value": -0.195,
+        "planner_tokens": 680.0,
+        "token_source": "dialogue",
+        "cei": -0.000287
+      },
+      {
+        "task_id": "JS1_api_migration",
+        "planning_value": -0.57,
+        "planner_tokens": 1974.0,
+        "token_source": "dialogue",
+        "cei": -0.000289
+      },
+      {
+        "task_id": "IR8_search_index",
+        "planning_value": -0.5,
+        "planner_tokens": 1643.0,
+        "token_source": "dialogue",
+        "cei": -0.000304
+      },
+      {
+        "task_id": "NEG2_cost_perf",
+        "planning_value": -0.159,
+        "planner_tokens": 47.0,
+        "token_source": "dialogue",
+        "cei": -0.003383
+      },
+      {
+        "task_id": "SEC6_csrf_protection",
+        "planning_value": -0.31,
+        "planner_tokens": 47.0,
+        "token_source": "dialogue",
+        "cei": -0.006596
+      },
+      {
+        "task_id": "SEC2_auth_bypass",
+        "planning_value": -0.2,
+        "planner_tokens": 20.0,
+        "token_source": "dialogue",
+        "cei": -0.01
+      },
+      {
+        "task_id": "JS2_xss_sanitize",
+        "planning_value": -0.29,
+        "planner_tokens": 16.0,
+        "token_source": "dialogue",
+        "cei": -0.018125
+      },
+      {
+        "task_id": "O6_perf_tuning",
+        "planning_value": -1.0,
+        "planner_tokens": 50.0,
+        "token_source": "dialogue",
+        "cei": -0.02
+      },
+      {
+        "task_id": "trap5_security_theater",
+        "planning_value": -0.0467,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": -0.046667
+      },
+      {
+        "task_id": "P5_audit_logging",
+        "planning_value": -0.07,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": -0.07
+      },
+      {
+        "task_id": "S5_error_handling",
+        "planning_value": -0.146,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": -0.146
+      },
+      {
+        "task_id": "TEST4_property",
+        "planning_value": -0.1474,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": -0.147429
+      },
+      {
+        "task_id": "SEC4_input_validation",
+        "planning_value": -0.155,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": -0.155
+      },
+      {
+        "task_id": "INT3_db_migration",
+        "planning_value": -0.1667,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": -0.166667
+      },
+      {
+        "task_id": "SEC5_secrets_rotation",
+        "planning_value": -0.168,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": -0.168
+      },
+      {
+        "task_id": "dist3_idempotency",
+        "planning_value": -0.3055,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": -0.305533
+      },
+      {
+        "task_id": "PIPE2_api_gateway",
+        "planning_value": -0.3067,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": -0.306667
+      },
+      {
+        "task_id": "S6_caching",
+        "planning_value": -0.31,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": -0.31
+      },
+      {
+        "task_id": "INC7_rollback",
+        "planning_value": -0.415,
+        "planner_tokens": 1.0,
+        "token_source": "dialogue",
+        "cei": -0.415
+      }
+    ]
+  },
+  "verification_accuracy": {
+    "va": 0.3051,
+    "true_positive": 674,
+    "false_positive": 2510,
+    "false_negative": 27,
+    "true_negative": 440,
+    "total_judgments": 3651,
+    "precision": 0.2117,
+    "recall": 0.9615,
+    "false_negative_rate": 0.0385,
+    "note": "TP=verifier pass & grader pass; FP=verifier pass & grader fail; FN=verifier fail & grader pass (harmful); TN=verifier fail & grader fail."
+  },
+  "recovery_rate": {
+    "rr": 0.96,
+    "n_planner_hurt": 50,
+    "n_recovered": 48,
+    "threshold": 0.02,
+    "note": "Planner hurt = S_full < S_no_plan by > 0.02. Recovery = S_full > 0 despite planner hurting.",
+    "per_task": [
+      {
+        "task_id": "O6_perf_tuning",
+        "s_full": 0.0,
+        "s_no_plan": 1.0,
+        "planning_delta": -1.0,
+        "recovered": false
+      },
+      {
+        "task_id": "JS1_api_migration",
+        "s_full": 0.0,
+        "s_no_plan": 0.57,
+        "planning_delta": -0.57,
+        "recovered": false
+      },
+      {
+        "task_id": "LH7_zero_downtime",
+        "s_full": 0.2733,
+        "s_no_plan": 0.82,
+        "planning_delta": -0.5467,
+        "recovered": true
+      },
+      {
+        "task_id": "IR8_search_index",
+        "s_full": 0.5,
+        "s_no_plan": 1.0,
+        "planning_delta": -0.5,
+        "recovered": true
+      },
+      {
+        "task_id": "CROSS6_grpc_rest_bridge",
+        "s_full": 0.4667,
+        "s_no_plan": 0.9333,
+        "planning_delta": -0.4667,
+        "recovered": true
+      },
+      {
+        "task_id": "D2_data_quality",
+        "s_full": 0.36,
+        "s_no_plan": 0.82,
+        "planning_delta": -0.46,
+        "recovered": true
+      },
+      {
+        "task_id": "INC7_rollback",
+        "s_full": 0.415,
+        "s_no_plan": 0.83,
+        "planning_delta": -0.415,
+        "recovered": true
+      },
+      {
+        "task_id": "S6_caching",
+        "s_full": 0.31,
+        "s_no_plan": 0.62,
+        "planning_delta": -0.31,
+        "recovered": true
+      },
+      {
+        "task_id": "SEC6_csrf_protection",
+        "s_full": 0.46,
+        "s_no_plan": 0.77,
+        "planning_delta": -0.31,
+        "recovered": true
+      },
+      {
+        "task_id": "PIPE2_api_gateway",
+        "s_full": 0.6133,
+        "s_no_plan": 0.92,
+        "planning_delta": -0.3067,
+        "recovered": true
+      },
+      {
+        "task_id": "dist3_idempotency",
+        "s_full": 0.4167,
+        "s_no_plan": 0.7222,
+        "planning_delta": -0.3055,
+        "recovered": true
+      },
+      {
+        "task_id": "JS2_xss_sanitize",
+        "s_full": 0.58,
+        "s_no_plan": 0.87,
+        "planning_delta": -0.29,
+        "recovered": true
+      },
+      {
+        "task_id": "CR2_style_enforce",
+        "s_full": 0.5,
+        "s_no_plan": 0.77,
+        "planning_delta": -0.27,
+        "recovered": true
+      },
+      {
+        "task_id": "CRYPTO5_tls_config",
+        "s_full": 0.6,
+        "s_no_plan": 0.8571,
+        "planning_delta": -0.2571,
+        "recovered": true
+      },
+      {
+        "task_id": "D6_data_reconcile",
+        "s_full": 0.64,
+        "s_no_plan": 0.86,
+        "planning_delta": -0.22,
+        "recovered": true
+      },
+      {
+        "task_id": "GO1_concurrency_fix",
+        "s_full": 0.4167,
+        "s_no_plan": 0.6267,
+        "planning_delta": -0.21,
+        "recovered": true
+      },
+      {
+        "task_id": "SEC2_auth_bypass",
+        "s_full": 0.7,
+        "s_no_plan": 0.9,
+        "planning_delta": -0.2,
+        "recovered": true
+      },
+      {
+        "task_id": "P8_access_control",
+        "s_full": 0.2,
+        "s_no_plan": 0.4,
+        "planning_delta": -0.2,
+        "recovered": true
+      },
+      {
+        "task_id": "O4_monitoring",
+        "s_full": 0.3171,
+        "s_no_plan": 0.514,
+        "planning_delta": -0.1969,
+        "recovered": true
+      },
+      {
+        "task_id": "SEC9_vuln_triage",
+        "s_full": 0.425,
+        "s_no_plan": 0.62,
+        "planning_delta": -0.195,
+        "recovered": true
+      },
+      {
+        "task_id": "PIPE3_msg_queue",
+        "s_full": 0.425,
+        "s_no_plan": 0.62,
+        "planning_delta": -0.195,
+        "recovered": true
+      },
+      {
+        "task_id": "D4_data_pipeline",
+        "s_full": 0.4133,
+        "s_no_plan": 0.59,
+        "planning_delta": -0.1767,
+        "recovered": true
+      },
+      {
+        "task_id": "SEC5_secrets_rotation",
+        "s_full": 0.568,
+        "s_no_plan": 0.736,
+        "planning_delta": -0.168,
+        "recovered": true
+      },
+      {
+        "task_id": "INT3_db_migration",
+        "s_full": 0.2333,
+        "s_no_plan": 0.4,
+        "planning_delta": -0.1667,
+        "recovered": true
+      },
+      {
+        "task_id": "NEG2_cost_perf",
+        "s_full": 0.375,
+        "s_no_plan": 0.534,
+        "planning_delta": -0.159,
+        "recovered": true
+      },
+      {
+        "task_id": "SEC4_input_validation",
+        "s_full": 0.155,
+        "s_no_plan": 0.31,
+        "planning_delta": -0.155,
+        "recovered": true
+      },
+      {
+        "task_id": "TEST4_property",
+        "s_full": 0.3686,
+        "s_no_plan": 0.516,
+        "planning_delta": -0.1474,
+        "recovered": true
+      },
+      {
+        "task_id": "S5_error_handling",
+        "s_full": 0.292,
+        "s_no_plan": 0.438,
+        "planning_delta": -0.146,
+        "recovered": true
+      },
+      {
+        "task_id": "INC1_cascade_failure",
+        "s_full": 0.555,
+        "s_no_plan": 0.695,
+        "planning_delta": -0.14,
+        "recovered": true
+      },
+      {
+        "task_id": "INC10_rollback_plan",
+        "s_full": 0.2667,
+        "s_no_plan": 0.4,
+        "planning_delta": -0.1333,
+        "recovered": true
+      },
+      {
+        "task_id": "CR1_review_respond",
+        "s_full": 0.4567,
+        "s_no_plan": 0.56,
+        "planning_delta": -0.1033,
+        "recovered": true
+      },
+      {
+        "task_id": "INC8_cascading_timeout",
+        "s_full": 0.7,
+        "s_no_plan": 0.8,
+        "planning_delta": -0.1,
+        "recovered": true
+      },
+      {
+        "task_id": "NEG1_tradeoff_config",
+        "s_full": 0.2316,
+        "s_no_plan": 0.3316,
+        "planning_delta": -0.1,
+        "recovered": true
+      },
+      {
+        "task_id": "SPEC1_feature_impl",
+        "s_full": 0.24,
+        "s_no_plan": 0.3268,
+        "planning_delta": -0.0868,
+        "recovered": true
+      },
+      {
+        "task_id": "D8_csv_cleanup",
+        "s_full": 0.5085,
+        "s_no_plan": 0.5828,
+        "planning_delta": -0.0743,
+        "recovered": true
+      },
+      {
+        "task_id": "PIPE1_etl_fix",
+        "s_full": 0.4391,
+        "s_no_plan": 0.51,
+        "planning_delta": -0.0709,
+        "recovered": true
+      },
+      {
+        "task_id": "P5_audit_logging",
+        "s_full": 0.93,
+        "s_no_plan": 1.0,
+        "planning_delta": -0.07,
+        "recovered": true
+      },
+      {
+        "task_id": "CROSS1_api_contract",
+        "s_full": 0.5,
+        "s_no_plan": 0.56,
+        "planning_delta": -0.06,
+        "recovered": true
+      },
+      {
+        "task_id": "GH8_async_cache_race",
+        "s_full": 0.665,
+        "s_no_plan": 0.725,
+        "planning_delta": -0.06,
+        "recovered": true
+      },
+      {
+        "task_id": "TRAP5_security_theater",
+        "s_full": 0.4742,
+        "s_no_plan": 0.5295,
+        "planning_delta": -0.0553,
+        "recovered": true
+      },
+      {
+        "task_id": "TEST2_regression",
+        "s_full": 0.5683,
+        "s_no_plan": 0.6188,
+        "planning_delta": -0.0504,
+        "recovered": true
+      },
+      {
+        "task_id": "trap5_security_theater",
+        "s_full": 0.8133,
+        "s_no_plan": 0.86,
+        "planning_delta": -0.0467,
+        "recovered": true
+      },
+      {
+        "task_id": "LH6_audit_trail",
+        "s_full": 0.32,
+        "s_no_plan": 0.36,
+        "planning_delta": -0.04,
+        "recovered": true
+      },
+      {
+        "task_id": "P3_access_control",
+        "s_full": 0.5195,
+        "s_no_plan": 0.5573,
+        "planning_delta": -0.0377,
+        "recovered": true
+      },
+      {
+        "task_id": "INC4_dns_miscfg",
+        "s_full": 0.574,
+        "s_no_plan": 0.603,
+        "planning_delta": -0.029,
+        "recovered": true
+      },
+      {
+        "task_id": "D1_schema_drift",
+        "s_full": 0.262,
+        "s_no_plan": 0.291,
+        "planning_delta": -0.029,
+        "recovered": true
+      },
+      {
+        "task_id": "trap4_version_paradox",
+        "s_full": 0.5267,
+        "s_no_plan": 0.5533,
+        "planning_delta": -0.0267,
+        "recovered": true
+      },
+      {
+        "task_id": "IR1_evidence_qa",
+        "s_full": 0.3232,
+        "s_no_plan": 0.3484,
+        "planning_delta": -0.0253,
+        "recovered": true
+      },
+      {
+        "task_id": "CROSS5_event_schema",
+        "s_full": 0.775,
+        "s_no_plan": 0.8,
+        "planning_delta": -0.025,
+        "recovered": true
+      },
+      {
+        "task_id": "MULTI1_fullstack_fix",
+        "s_full": 0.42,
+        "s_no_plan": 0.4417,
+        "planning_delta": -0.0217,
+        "recovered": true
+      }
+    ]
+  },
+  "empirical_capability_threshold": {
+    "ect": 0.1913,
+    "ect_ci_95": [
+      0.034,
+      1.1264
+    ],
+    "r_squared": 0.008,
+    "coefficients": {
+      "alpha": -0.251909,
+      "beta": 0.285197,
+      "gamma": -0.045345
+    },
+    "n_tasks": 169,
+    "n_bootstrap": 1876,
+    "note": "ECT = oracle score where quadratic team_uplift fit crosses zero. Below ECT, team helps; above ECT, team may hurt."
+  },
+  "archetype_conditional_tni": {
+    "overall_mean_tni": 0.4602,
+    "n_tasks_included": 85,
+    "n_tasks_skipped_narrow_gap": 84,
+    "eps_threshold": 0.05,
+    "per_archetype": [
+      {
+        "archetype": "adversarial",
+        "mean_tni": 0.9298,
+        "median_tni": 1.0,
+        "std_tni": 0.6089,
+        "n_tasks": 15,
+        "tasks": [
+          "CRYPTO1_nonce_reuse",
+          "CRYPTO4_kdf_migration",
+          "CRYPTO5_tls_config",
+          "CRYPTO6_token_validation",
+          "DIST1_queue_race",
+          "DIST3_idempotency",
+          "DIST6_distributed_lock",
+          "TRAP1_spec_conflict",
+          "crypto4_kdf_migration",
+          "dist1_queue_race",
+          "dist3_idempotency",
+          "trap2_false_fix",
+          "trap3_metric_mirage",
+          "trap4_version_paradox",
+          "trap5_security_theater"
+        ]
+      },
+      {
+        "archetype": "discovery",
+        "mean_tni": 0.3721,
+        "median_tni": 0.4922,
+        "std_tni": 0.6738,
+        "n_tasks": 17,
+        "tasks": [
+          "CR1_review_respond",
+          "CR2_style_enforce",
+          "CR3_perf_review",
+          "CR4_api_review",
+          "CR5_test_coverage",
+          "CR6_review_checklist",
+          "SPEC1_feature_impl",
+          "SPEC2_api_design",
+          "SPEC3_data_model",
+          "SPEC4_migration",
+          "SPEC5_config_system",
+          "SPEC7_config_schema",
+          "TEST1_spec_to_tests",
+          "TEST3_integration",
+          "TEST6_property_based",
+          "TEST7_integration_suite",
+          "TEST9_mock_service"
+        ]
+      },
+      {
+        "archetype": "open_ended",
+        "mean_tni": 0.3434,
+        "median_tni": 0.3333,
+        "std_tni": 1.027,
+        "n_tasks": 45,
+        "tasks": [
+          "D1_schema_drift",
+          "D2_data_quality",
+          "D4_data_pipeline",
+          "D6_data_reconcile",
+          "GH10_retry_backoff",
+          "GH11_middleware_order",
+          "GH2_click_flag_value",
+          "GH5_pydantic_circular",
+          "GH7_fixture_scope_leak",
+          "GH8_async_cache_race",
+          "GH9_pool_exhaustion",
+          "GO1_concurrency_fix",
+          "INC10_rollback_plan",
+          "INC3_memory_leak",
+          "INC4_dns_miscfg",
+          "INC7_rollback",
+          "INC8_cascading_timeout",
+          "INC9_log_forensics",
+          "IR1_evidence_qa",
+          "IR5_search_ranking",
+          "IR8_search_index",
+          "JS1_api_migration",
+          "LH2_budgeted_workflow",
+          "LH3_multi_service",
+          "LH7_zero_downtime",
+          "NEG2_cost_perf",
+          "O1_service_health",
+          "O2_incident_rootcause",
+          "O4_monitoring",
+          "O6_perf_tuning",
+          "O7_capacity_planning",
+          "P1_policy_config",
+          "P2_spec_arbitration",
+          "P4_data_retention",
+          "P6_license_check",
+          "P7_data_retention",
+          "S6_caching",
+          "SEC1_vuln_patch",
+          "SEC2_auth_bypass",
+          "SEC5_secrets_rotation",
+          "SEC6_csrf_protection",
+          "SEC7_rate_limiting",
+          "SEC8_dependency_audit",
+          "SEC9_vuln_triage",
+          "SQL2_query_optimize"
+        ]
+      },
+      {
+        "archetype": "synthesis",
+        "mean_tni": 0.4244,
+        "median_tni": 0.635,
+        "std_tni": 1.1085,
+        "n_tasks": 8,
+        "tasks": [
+          "CROSS1_api_contract",
+          "CROSS2_schema_evolution",
+          "CROSS3_protocol_bridge",
+          "CROSS5_event_schema",
+          "INT3_db_migration",
+          "MULTI5_deploy_pipeline",
+          "cross1_api_contract",
+          "cross3_protocol_bridge"
+        ]
+      }
+    ],
+    "note": "RDS* tasks mapped to RDS archetypes; others by category prefix. Narrow-gap tasks (oracle-restricted < eps) excluded from TNI."
+  },
+  "meta": {
+    "n_runs_loaded": 4841,
+    "n_tasks_aggregated": 188
+  }
+}

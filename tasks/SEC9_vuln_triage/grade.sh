@@ -106,7 +106,7 @@ with open('app/config.py') as f:
 has_env = 'os.environ' in content or 'os.getenv' in content or 'environ' in content
 # The old hardcoded pattern should be gone
 import re
-hardcoded = re.search(r'SECRET_KEY\s*=\s*[\"\\'][a-zA-Z0-9_-]+[\"\\']', content)
+hardcoded = re.search(r'SECRET_KEY\s*=\s*[\x22\x27][a-zA-Z0-9_-]+[\x22\x27]', content)
 if hardcoded:
     # Acceptable if it's a fallback in os.getenv('...', 'fallback')
     line = hardcoded.group()

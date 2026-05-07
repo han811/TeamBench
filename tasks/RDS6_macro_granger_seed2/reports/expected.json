@@ -1,0 +1,26 @@
+{
+  "cause_var": "GDP",
+  "effect_var": "CPIAUCSL",
+  "research_question": "Does GDP growth Granger-cause CPI inflation? Test whether past GDP values improve forecasts of CPIAUCSL beyond what CPIAUCSL's own lags provide.",
+  "key_cols": [
+    "GDP",
+    "CPIAUCSL"
+  ],
+  "hidden_col_keywords": [
+    "GDP",
+    "CPIAUCSL"
+  ],
+  "n_rows": 780,
+  "columns": [
+    "date",
+    "UNRATE",
+    "CPIAUCSL",
+    "FEDFUNDS",
+    "GDP"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

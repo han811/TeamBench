@@ -1,0 +1,11 @@
+{
+  "filter_col": "hours_per_week",
+  "filter_op": "<=",
+  "filter_val": 20,
+  "filter_line": "df = df[df['hours_per_week'] > 20]  # focus on full-time and near-full-time workers",
+  "covariate": "hours_per_week",
+  "original_n": 32561,
+  "min_n_after_fix": 29304,
+  "dataset": "adult_income",
+  "seed": 1
+}

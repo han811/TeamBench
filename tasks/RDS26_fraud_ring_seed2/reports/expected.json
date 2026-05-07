@@ -1,0 +1,11 @@
+{
+  "fraud_ring": "Ring-19",
+  "target_mcc_group": "electronics and department stores",
+  "holiday_pattern": "Labor Day weekend",
+  "n_rows": 2500,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

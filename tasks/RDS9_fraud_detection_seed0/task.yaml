@@ -1,0 +1,8 @@
+task_id: RDS9_fraud_detection
+category: Data Science
+difficulty: hard
+domain: data_science
+languages: ['python']
+parameterized: true
+seeds: [0, 1, 2]
+real_dataset: credit_card_fraud

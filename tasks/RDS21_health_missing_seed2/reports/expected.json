@@ -1,0 +1,10 @@
+{
+  "missing_mechanism": "MNAR",
+  "scale_change_col": "under5_mortality",
+  "n_rows": 92,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

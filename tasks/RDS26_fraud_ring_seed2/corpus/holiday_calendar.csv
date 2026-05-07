@@ -1,0 +1,16 @@
+date,holiday_name,is_long_weekend,year
+2018-01-01,New Year's Day,N,2018
+2018-05-28,Memorial Day,Y,2018
+2018-07-04,Independence Day,N,2018
+2018-09-03,Labor Day,Y,2018
+2018-11-22,Thanksgiving,Y,2018
+2018-11-23,Black Friday,Y,2018
+2018-11-26,Cyber Monday,Y,2018
+2018-12-25,Christmas Day,N,2018
+2019-01-01,New Year's Day,N,2019
+2019-05-27,Memorial Day,Y,2019
+2019-07-04,Independence Day,Y,2019
+2019-09-02,Labor Day,Y,2019
+2019-11-28,Thanksgiving,Y,2019
+2019-11-29,Black Friday,Y,2019
+2019-12-25,Christmas Day,N,2019

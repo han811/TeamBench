@@ -15,12 +15,21 @@ from generators.base import TaskGenerator, GeneratedTask
 from generators.primitives import SeededRandom
 
 
-# Per-seed configuration
-CLUSTER_SIZES = [5, 5, 7]
-SM_NAMES = ["KVStore", "Counter", "MemberSet"]
-SM_DOMAINS = ["key-value store", "counter", "set membership"]
-SM_OP_TYPES = ["Put/Get operations", "Increment/Decrement operations", "Add/Remove operations"]
-QUORUM_SIZES = [3, 3, 4]  # majority of cluster
+# Per-seed configuration — 8 entries so seeds 0-7 all produce distinct workspaces
+CLUSTER_SIZES = [5, 5, 7, 3, 7, 5, 3, 7]
+SM_NAMES = ["KVStore", "Counter", "MemberSet", "LockTable", "LeaderLog", "ConfigStore", "FlagStore", "SeqCounter"]
+SM_DOMAINS = ["key-value store", "counter", "set membership", "distributed lock table", "leader audit log", "configuration store", "feature flag store", "sequence counter"]
+SM_OP_TYPES = [
+    "Put/Get operations",
+    "Increment/Decrement operations",
+    "Add/Remove operations",
+    "Acquire/Release operations",
+    "Append/Trim operations",
+    "Set/Get/Delete operations",
+    "Enable/Disable operations",
+    "Next/Reset operations",
+]
+QUORUM_SIZES = [3, 3, 4, 2, 4, 3, 2, 4]  # majority of cluster
 
 
 class Generator(TaskGenerator):

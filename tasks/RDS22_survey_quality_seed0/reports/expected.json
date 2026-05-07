@@ -1,0 +1,9 @@
+{
+  "issues": "satisfaction scale shift (5-pt vs 7-pt), salary outliers, YearsCodePro > YearsCode",
+  "n_rows": 4000,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

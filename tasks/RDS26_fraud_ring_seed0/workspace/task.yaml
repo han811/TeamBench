@@ -1,0 +1,9 @@
+task_id: RDS26_fraud_ring
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: credit_card_fraud
+  license: CC0
+  source: Kaggle / ULB

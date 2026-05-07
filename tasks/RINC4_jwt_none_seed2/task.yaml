@@ -1,0 +1,7 @@
+task_id: RINC4_jwt_none
+category: security
+difficulty: hard
+domain: security
+languages: ['python']
+parameterized: true
+seeds: [0, 1, 2]

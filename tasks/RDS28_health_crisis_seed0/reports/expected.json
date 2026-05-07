@@ -1,0 +1,19 @@
+{
+  "affected_countries": [
+    "SYR",
+    "YEM",
+    "AFG"
+  ],
+  "contributing_factors": [
+    "healthcare_policy",
+    "armed_conflict",
+    "economic_sanctions"
+  ],
+  "drop_period": "2012–2017",
+  "n_rows": 264,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

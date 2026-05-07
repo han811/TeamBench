@@ -1,0 +1,45 @@
+{
+  "condition": "enforced_shared_history",
+  "model": "openrouter:anthropic/claude-haiku-4.5",
+  "task": "P1_policy_config",
+  "seed": 0,
+  "started_at": "2026-04-24T17:41:30",
+  "error": null,
+  "elapsed_sec": 146.55,
+  "run_id": "20260424_174131_83a2baee",
+  "run_dir": "<HOME>/TeamBench/experiments/role_enforcement_ablation/runs/smoke_test/enforced_shared_history/P1_policy_config/20260424_174131_83a2baee",
+  "orchestrator_result": {
+    "task_id": "P1_policy_config",
+    "verdict": "pass",
+    "remediation_loops": 0,
+    "total_turns": 33,
+    "phases": [
+      {
+        "phase": "planning",
+        "turns_count": 12
+      },
+      {
+        "phase": "execution",
+        "turns_count": 9
+      },
+      {
+        "phase": "verification_0",
+        "turns_count": 12
+      }
+    ]
+  },
+  "score": {
+    "pass": true,
+    "primary": {
+      "success": 1
+    },
+    "secondary": {
+      "checks_passed": 14,
+      "checks_total": 14,
+      "partial_score": 1.0
+    },
+    "failure_modes": []
+  },
+  "pass": true,
+  "seed_leaked": false
+}

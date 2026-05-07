@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "comment": "Exact model identifiers as passed to harness/adapters/__init__.py::build_adapter(). Changing these invalidates reproducibility.",
+  "models": {
+    "gemini_3_flash": {
+      "teambench_id": "openrouter:google/gemini-3-flash-preview",
+      "route": "openrouter",
+      "slug": "google/gemini-3-flash-preview",
+      "provider_pin": "google-ai-studio",
+      "allow_fallbacks": false,
+      "verified_on": "2026-04-24T20:24:21Z",
+      "verified_notes": "Populated by scripts/00_pre_flight.sh on smoke-test success"
+    },
+    "gpt_5_4_mini": {
+      "teambench_id": "gpt-5.4-mini",
+      "route": "openai_direct",
+      "endpoint": "https://api.openai.com/v1",
+      "provider_pin": null,
+      "verified_on": "2026-04-24T20:24:21Z"
+    },
+    "claude_haiku_4_5": {
+      "teambench_id": "openrouter:anthropic/claude-haiku-4.5",
+      "route": "openrouter",
+      "slug": "anthropic/claude-haiku-4.5",
+      "provider_pin": "anthropic",
+      "allow_fallbacks": false,
+      "verified_on": "2026-04-24T20:24:21Z",
+      "verified_notes": "Anthropic-via-OR already pinned by openai_adapter.py:371-374; no patch needed"
+    }
+  },
+  "patches_required": [
+    {
+      "target": "harness/adapters/openai_adapter.py",
+      "script": "scripts/01_apply_adapter_patch.py",
+      "description": "Extend _is_or_anthropic pattern to also pin google/* slugs to google-ai-studio provider"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  "buggy_formula": "df['tip_pct'] = df['tip_amount'] / df['total_amount']",
+  "seed": 2
+}

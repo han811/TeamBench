@@ -1,0 +1,13 @@
+{
+  "seed": 0,
+  "technique": "dot_dot_slash",
+  "service": "FileDownloadService",
+  "base_dir": "files",
+  "fix": "use os.path.realpath() and verify the resolved path starts with the allowed base directory",
+  "attack_payload": "../../../../etc/passwd",
+  "sample_files": [
+    "report_876.txt",
+    "data_530.csv",
+    "export_141.json"
+  ]
+}

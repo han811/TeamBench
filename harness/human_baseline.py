@@ -334,12 +334,258 @@ def run_grader(task: str, run_dir: str, seed: int) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Self-report survey
+# Interaction logging
+# ---------------------------------------------------------------------------
+
+class InteractionLogger:
+    """Captures timestamped phase events and activity metrics for later analysis.
+
+    Mirrors the objective communication measures from O'Bryan et al. (2022)
+    adapted to a role-separated coding task:
+      - phase durations (analog of speaking time)
+      - activity counts per role (analog of turn count)
+      - idle gaps between phases (analog of silence gap duration)
+    """
+
+    def __init__(self) -> None:
+        self.events: list[dict] = []
+        self._phase_start: float | None = None
+
+    def phase_start(self, phase: str, role: str) -> None:
+        self._phase_start = ts()
+        self.events.append({
+            "type": "phase_start",
+            "phase": phase,
+            "role": role,
+            "wall_time": datetime.now(timezone.utc).isoformat(),
+            "monotonic": self._phase_start,
+        })
+
+    def phase_end(self, phase: str, role: str, artifacts: list[str] | None = None) -> None:
+        now = ts()
+        duration = now - self._phase_start if self._phase_start else 0.0
+        self.events.append({
+            "type": "phase_end",
+            "phase": phase,
+            "role": role,
+            "wall_time": datetime.now(timezone.utc).isoformat(),
+            "monotonic": now,
+            "duration_sec": round(duration, 1),
+            "artifacts_produced": artifacts or [],
+        })
+        self._phase_start = None
+
+    def compute_metrics(self) -> dict:
+        """Derive objective interaction metrics from the event log."""
+        phases = {}
+        for ev in self.events:
+            if ev["type"] == "phase_end":
+                phases[ev["phase"]] = {
+                    "role": ev["role"],
+                    "duration_sec": ev["duration_sec"],
+                    "artifacts": ev["artifacts_produced"],
+                }
+
+        durations = [p["duration_sec"] for p in phases.values()]
+        total = sum(durations) if durations else 1.0
+
+        # Participation balance: 1 - Gini coefficient of phase durations
+        # Perfect balance = 1.0, one phase dominates = close to 0
+        n = len(durations)
+        if n > 1 and total > 0:
+            sorted_d = sorted(durations)
+            gini_num = sum((2 * (i + 1) - n - 1) * sorted_d[i] for i in range(n))
+            gini = gini_num / (n * sum(sorted_d)) if sum(sorted_d) > 0 else 0
+            participation_balance = round(1.0 - gini, 3)
+        else:
+            participation_balance = 1.0
+
+        # Phase time ratios (analog of speaking time ratio)
+        time_ratios = {}
+        for phase_name, pdata in phases.items():
+            time_ratios[phase_name] = round(pdata["duration_sec"] / total, 3) if total > 0 else 0
+
+        # Idle gaps between consecutive phases
+        phase_ends = [ev for ev in self.events if ev["type"] == "phase_end"]
+        phase_starts = [ev for ev in self.events if ev["type"] == "phase_start"]
+        idle_gaps = []
+        for i in range(1, len(phase_starts)):
+            if i - 1 < len(phase_ends):
+                gap = phase_starts[i]["monotonic"] - phase_ends[i - 1]["monotonic"]
+                idle_gaps.append(round(gap, 1))
+
+        return {
+            "phase_count": len(phases),
+            "total_duration_sec": round(total, 1),
+            "phase_durations": {k: v["duration_sec"] for k, v in phases.items()},
+            "phase_time_ratios": time_ratios,
+            "participation_balance": participation_balance,
+            "idle_gaps_sec": idle_gaps,
+            "mean_idle_gap_sec": round(sum(idle_gaps) / len(idle_gaps), 1) if idle_gaps else 0.0,
+        }
+
+    def to_dict(self) -> dict:
+        return {
+            "events": self.events,
+            "metrics": self.compute_metrics(),
+        }
+
+
+# ---------------------------------------------------------------------------
+# CATME-lite teamwork survey (distilled from CATME BARS v5)
+# ---------------------------------------------------------------------------
+# Reference: Ohland et al. (2012). "The comprehensive assessment of team
+# member effectiveness." Academy of Management Learning & Education, 11(4).
+#
+# Five dimensions, each rated 1-5 Likert:
+#   1. Contributing to the Team's Work
+#   2. Interacting with Teammates
+#   3. Keeping the Team on Track
+#   4. Expecting Quality
+#   5. Having Relevant Knowledge, Skills, and Abilities
+
+CATME_DIMENSIONS = [
+    {
+        "id": "contributing",
+        "label": "Contributing to the Team's Work",
+        "prompt": "This role contributed meaningfully to the task",
+        "anchors": {
+            1: "Did not do a fair share; delivered sloppy or incomplete work",
+            3: "Completed assignments on time with acceptable quality",
+            5: "Made important contributions; helped teammates having difficulty",
+        },
+    },
+    {
+        "id": "interacting",
+        "label": "Interacting with Teammates",
+        "prompt": "This role communicated effectively with the team",
+        "anchors": {
+            1: "Took actions without input; did not share information",
+            3: "Listened and shared information; participated in activities",
+            5: "Encouraged communication; asked for and used feedback",
+        },
+    },
+    {
+        "id": "keeping_on_track",
+        "label": "Keeping the Team on Track",
+        "prompt": "This role helped keep the team focused and on track",
+        "anchors": {
+            1: "Unaware of progress; avoided discussing problems",
+            3: "Noticed changes; alerted team when success was threatened",
+            5: "Monitored progress; gave specific, timely, constructive feedback",
+        },
+    },
+    {
+        "id": "expecting_quality",
+        "label": "Expecting Quality",
+        "prompt": "This role maintained high quality standards",
+        "anchors": {
+            1: "Satisfied even if the work did not meet standards",
+            3: "Encouraged good work; wanted the team to meet requirements",
+            5: "Motivated the team to do excellent work; believed in high standards",
+        },
+    },
+    {
+        "id": "knowledge_skills",
+        "label": "Having Relevant Knowledge, Skills, and Abilities",
+        "prompt": "This role demonstrated relevant technical skills",
+        "anchors": {
+            1: "Missing basic qualifications; unable to contribute",
+            3: "Acquired knowledge needed; could perform some tasks of other members",
+            5: "Demonstrated strong skills; could perform the role of any team member",
+        },
+    },
+]
+
+ROLES_TEAM = ["Planner", "Executor", "Verifier"]
+
+
+def _collect_likert(dimension: dict, target_label: str) -> int:
+    """Prompt for a single 1-5 Likert rating."""
+    print(f"\n  {dimension['prompt']}")
+    print(f"    1 = {dimension['anchors'][1]}")
+    print(f"    3 = {dimension['anchors'][3]}")
+    print(f"    5 = {dimension['anchors'][5]}")
+    while True:
+        raw = prompt(f"  Rate {target_label} (1-5): ")
+        if raw.isdigit() and 1 <= int(raw) <= 5:
+            return int(raw)
+        print("    Please enter a number from 1 to 5.")
+
+
+def collect_catme_survey(mode: str, own_role: str | None = None) -> dict:
+    """Collect CATME-lite peer and self ratings.
+
+    For team mode: rate each other role + self on all 5 dimensions.
+    For solo mode: self-rate only.
+
+    Returns dict with 'peer_ratings', 'self_rating', and 'open_ended'.
+    """
+    separator()
+    print("TEAMWORK EFFECTIVENESS SURVEY  (CATME-lite)")
+    separator()
+    print()
+    print("Based on the CATME Behaviorally Anchored Rating Scale (Ohland et al., 2012).")
+    print("Please rate each role on five dimensions of team effectiveness.")
+    print("This takes approximately 3 minutes.")
+    print()
+
+    ratings: dict[str, dict[str, int]] = {}
+
+    if mode == "team" and own_role:
+        # Determine which roles to rate as peers
+        other_roles = [r for r in ROLES_TEAM if r != own_role]
+
+        # Peer ratings
+        for role in other_roles:
+            print(f"\n{'─' * 50}")
+            print(f"  Rating: {role}")
+            print(f"{'─' * 50}")
+            role_ratings = {}
+            for dim in CATME_DIMENSIONS:
+                role_ratings[dim["id"]] = _collect_likert(dim, role)
+            ratings[role.lower()] = role_ratings
+
+        # Self rating
+        print(f"\n{'─' * 50}")
+        print(f"  Self-Rating: {own_role} (yourself)")
+        print(f"{'─' * 50}")
+        self_ratings = {}
+        for dim in CATME_DIMENSIONS:
+            self_ratings[dim["id"]] = _collect_likert(dim, "yourself")
+        ratings["self"] = self_ratings
+    else:
+        # Solo mode: self-rate only
+        print("\n  Solo mode — self-assessment only.")
+        self_ratings = {}
+        for dim in CATME_DIMENSIONS:
+            self_ratings[dim["id"]] = _collect_likert(dim, "yourself")
+        ratings["self"] = self_ratings
+
+    # Open-ended question
+    print(f"\n{'─' * 50}")
+    print("What was the most challenging part of collaborating on this task?")
+    print("(max 500 chars, press Enter to skip)")
+    collaboration_challenge = prompt("> ")[:500]
+
+    return {
+        "mode": mode,
+        "own_role": own_role,
+        "peer_ratings": {k: v for k, v in ratings.items() if k != "self"},
+        "self_rating": ratings.get("self", {}),
+        "open_ended": {
+            "collaboration_challenge": collaboration_challenge,
+        },
+    }
+
+
+# ---------------------------------------------------------------------------
+# Self-report survey (task-level, kept alongside CATME)
 # ---------------------------------------------------------------------------
 
 def collect_self_report() -> dict:
     separator()
-    print("SELF-REPORT SURVEY")
+    print("TASK SELF-REPORT")
     separator()
     print()
     print("Please answer a few short questions about your experience.")
@@ -437,15 +683,22 @@ def main() -> None:
 
     global_start = ts()
     session_start_utc = datetime.now(timezone.utc).isoformat()
+    ilog = InteractionLogger()
 
     # Phase 1: Planner
+    ilog.phase_start("phase1_planner", "planner")
     phase1_sec = run_phase1(task_dir, workspace_dir, global_start)
+    ilog.phase_end("phase1_planner", "planner", artifacts=["plan.md"])
 
     # Phase 2: Executor
+    ilog.phase_start("phase2_executor", "executor")
     phase2_sec = run_phase2(task_dir, workspace_dir, global_start)
+    ilog.phase_end("phase2_executor", "executor", artifacts=["workspace_edits"])
 
     # Phase 3: Verifier
+    ilog.phase_start("phase3_verifier", "verifier")
     phase3_sec, attestation = run_phase3(task_dir, workspace_dir, submission_dir, global_start)
+    ilog.phase_end("phase3_verifier", "verifier", artifacts=["attestation.json"])
     attestation["run_id"] = run_id
     # Re-write with run_id filled in
     write_json(os.path.join(submission_dir, "attestation.json"), attestation)
@@ -456,8 +709,25 @@ def main() -> None:
     # Grade
     score = run_grader(task_id, run_dir, seed)
 
-    # Self-report
+    # Determine mode (solo vs team) — currently CLI is single-person sequential
+    # but we collect the survey to characterize perceived role effectiveness
+    mode = "solo"  # TODO: set to "team" when multi-player web UI is used
+    own_role = None
+
+    # CATME-lite teamwork survey (collected immediately per Daniel's guidance)
+    catme = collect_catme_survey(mode=mode, own_role=own_role)
+
+    # Task-level self-report (kept for backward compatibility)
     self_report = collect_self_report()
+
+    # Write interaction log
+    interaction_data = ilog.to_dict()
+    ilog_path = os.path.join(run_dir, "interaction_log.json")
+    write_json(ilog_path, interaction_data)
+
+    # Write CATME survey
+    catme_path = os.path.join(run_dir, "catme_survey.json")
+    write_json(catme_path, catme)
 
     # Assemble result record
     result = {
@@ -476,6 +746,8 @@ def main() -> None:
         "difficulty": self_report["difficulty"],
         "confidence": self_report["confidence"],
         "notes": self_report["notes"],
+        "catme_survey": catme,
+        "interaction_metrics": interaction_data["metrics"],
     }
 
     # Write final result JSON alongside run dir (flat, easy to collect)
@@ -491,9 +763,13 @@ def main() -> None:
     print(f"  Result      : {'PASS' if result['passed'] else 'FAIL'}")
     print(f"  Difficulty  : {self_report['difficulty']}/5")
     print(f"  Confidence  : {self_report['confidence']}/5")
+    metrics = interaction_data["metrics"]
+    print(f"  Part. balance : {metrics['participation_balance']}")
     print()
-    print(f"  Results saved to: {result_path}")
-    print(f"  Full run dir    : {run_dir}")
+    print(f"  Results saved to     : {result_path}")
+    print(f"  Interaction log      : {ilog_path}")
+    print(f"  CATME survey         : {catme_path}")
+    print(f"  Full run dir         : {run_dir}")
     separator()
     print()
     print("Thank you for participating in the TeamBench human baseline study.")

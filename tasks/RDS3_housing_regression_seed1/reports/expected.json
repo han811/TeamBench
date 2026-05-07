@@ -1,0 +1,42 @@
+{
+  "focus": "feature_importance",
+  "selected_columns": [
+    "SalePrice",
+    "GrLivArea",
+    "OverallQual",
+    "YearBuilt",
+    "TotalBsmtSF",
+    "GarageCars",
+    "YearRemodAdd",
+    "TotRmsAbvGrd",
+    "OverallCond",
+    "Fireplaces",
+    "MSSubClass",
+    "LotFrontage",
+    "YrSold",
+    "GarageArea",
+    "FullBath",
+    "HeatingQC"
+  ],
+  "n_rows": 2930,
+  "core_columns": [
+    "SalePrice",
+    "GrLivArea",
+    "OverallQual",
+    "YearBuilt",
+    "TotalBsmtSF",
+    "GarageCars"
+  ],
+  "extra_columns": [
+    "YearRemodAdd",
+    "TotRmsAbvGrd",
+    "OverallCond",
+    "Fireplaces",
+    "MSSubClass",
+    "LotFrontage",
+    "YrSold",
+    "GarageArea",
+    "FullBath",
+    "HeatingQC"
+  ]
+}

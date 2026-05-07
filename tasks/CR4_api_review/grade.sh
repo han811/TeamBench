@@ -35,8 +35,8 @@ V2_BAD=$(python3 -c "import json; print(json.load(open('$EXPECTED'))['v2_bad_nam
 V2_GOOD=$(python3 -c "import json; print(json.load(open('$EXPECTED'))['v2_good_name'])" 2>/dev/null)
 V3P1=$(python3 -c "import json; print(json.load(open('$EXPECTED'))['v3_param1'])" 2>/dev/null)
 V3P2=$(python3 -c "import json; print(json.load(open('$EXPECTED'))['v3_param2'])" 2>/dev/null)
-V4_BAD=$(python3 -c "import json; print(json.load(open('$EXPECTED'))['v4_bad_code'])" 2>/dev/null)
-V4_GOOD=$(python3 -c "import json; print(json.load(open('$EXPECTED'))['v4_good_code'])" 2>/dev/null)
+V4_BAD=$(python3 -c "import json; d=json.load(open('$EXPECTED')); print(d.get('v4_bad_code', d.get('v4_create_bad', '')))" 2>/dev/null)
+V4_GOOD=$(python3 -c "import json; d=json.load(open('$EXPECTED')); print(d.get('v4_good_code', d.get('v4_create_good', '201')))" 2>/dev/null)
 
 # ── Check 1: app.py is syntactically valid Python ────────────────────────────
 check "python3 -c \"
@@ -217,8 +217,10 @@ fn_src = ast.unparse(list_fn) if hasattr(ast, 'unparse') else ''
 # Must reference both pagination param names via request.args.get(...)
 import re
 # Check for request.args.get calls with our param names
-calls_p1 = re.search(rf\"request\\.args\\.get\\(['\\\"]{{re.escape(p1)}}['\\\"]\\)\", fn_src)
-calls_p2 = re.search(rf\"request\\.args\\.get\\(['\\\"]{{re.escape(p2)}}['\\\"]\\)\", fn_src)
+pat1 = r'request\\.args\\.get\\([\\x27\\x22]' + re.escape(p1) + r'[\\x27\\x22]'
+pat2 = r'request\\.args\\.get\\([\\x27\\x22]' + re.escape(p2) + r'[\\x27\\x22]'
+calls_p1 = re.search(pat1, fn_src)
+calls_p2 = re.search(pat2, fn_src)
 assert calls_p1, f'list_{resources} does not use request.args.get(\"{p1}\")'
 assert calls_p2, f'list_{resources} does not use request.args.get(\"{p2}\")'
 print('PAGINATION_OK')
@@ -399,10 +401,14 @@ for code, body_src in error_returns:
     # body_src should be a jsonify({...}) call containing 'error' and 'code' keys
     assert 'jsonify' in body_src, \
         f'Error return for {code} is not wrapped in jsonify(): {body_src}'
-    assert \"'error'\" in body_src or '\"error\"' in body_src, \
-        f'Error JSON for {code} missing \"error\" key: {body_src}'
-    assert \"'code'\" in body_src or '\"code\"' in body_src, \
-        f'Error JSON for {code} missing \"code\" key: {body_src}'
+    sq = chr(39)
+    dq = chr(34)
+    has_error = (sq + 'error' + sq) in body_src or (dq + 'error' + dq) in body_src
+    assert has_error, \
+        f'Error JSON for {code} missing error key: {body_src}'
+    has_code = (sq + 'code' + sq) in body_src or (dq + 'code' + dq) in body_src
+    assert has_code, \
+        f'Error JSON for {code} missing code key: {body_src}'
 
 print(f'ERROR_SCHEMA_FIELDS_OK (checked {len(error_returns)} error returns)')
 \"" "error_schema_missing_fields"

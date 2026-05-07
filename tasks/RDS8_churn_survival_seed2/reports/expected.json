@@ -1,0 +1,40 @@
+{
+  "analysis_type": "churn_prediction",
+  "research_question": "Build a churn prediction model that achieves the best AUC while identifying the top 5 most predictive features. Compare logistic regression vs. a tree-based model.",
+  "key_cols": [
+    "tenure",
+    "Churn",
+    "MonthlyCharges",
+    "TotalCharges",
+    "Contract",
+    "InternetService"
+  ],
+  "hidden_col_keywords": [
+    "tenure",
+    "MonthlyCharges"
+  ],
+  "n_rows": 1408,
+  "columns": [
+    "customerID",
+    "gender",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "tenure",
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "MonthlyCharges",
+    "TotalCharges",
+    "Churn"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

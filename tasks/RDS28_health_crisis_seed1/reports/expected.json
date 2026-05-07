@@ -1,0 +1,19 @@
+{
+  "affected_countries": [
+    "VEN",
+    "ZWE",
+    "SSD"
+  ],
+  "contributing_factors": [
+    "healthcare_policy",
+    "armed_conflict",
+    "economic_sanctions"
+  ],
+  "drop_period": "2015–2020",
+  "n_rows": 264,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

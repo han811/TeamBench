@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # INT2 grader: verify v1->v2 API migration with 5 breaking changes + 2 shims
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

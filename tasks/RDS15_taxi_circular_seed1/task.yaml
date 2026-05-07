@@ -1,0 +1,8 @@
+task_id: RDS15_taxi_circular
+category: Data Science
+difficulty: medium
+domain: data_science
+languages: ['python']
+parameterized: true
+seeds: [0, 1, 2]
+real_dataset: nyc_taxi

@@ -1,0 +1,9 @@
+{
+  "seed": 1,
+  "race_type": "file_toctou",
+  "service": "FileProcessorService",
+  "fix": "use atomic open-with-exclusive-lock (fcntl.flock) or rely on exception handling instead of existence check",
+  "initial_balance": 168,
+  "debit_amount": 46,
+  "n_concurrent": 5
+}

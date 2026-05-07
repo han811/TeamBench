@@ -212,13 +212,16 @@ print('OK')
 \"" "javascript_uri_in_href"
 
   # CHECK 18: CSP header is present in HTTP response
+  # NOTE: nested-quote workaround — the inner ``"default-src 'self'"`` literals
+  # cannot survive `check "..."` + `eval`, so we read the directives from
+  # variables and use single-quoted python string literals throughout.
   check "python3 -c \"
 import urllib.request
 resp = urllib.request.urlopen('http://localhost:${PORT}/', timeout=5)
 csp = resp.headers.get('Content-Security-Policy', '')
 assert csp, 'Content-Security-Policy header missing from HTTP response'
-assert \"default-src 'self'\" in csp, f'default-src missing from CSP: {csp}'
-assert \"object-src 'none'\" in csp, f'object-src missing from CSP: {csp}'
+assert 'default-src ' + chr(39) + 'self' + chr(39) in csp, f'default-src missing from CSP: {csp}'
+assert 'object-src ' + chr(39) + 'none' + chr(39) in csp, f'object-src missing from CSP: {csp}'
 print('OK')
 \"" "csp_header_missing_in_response"
 

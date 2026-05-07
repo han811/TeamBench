@@ -55,6 +55,8 @@ class AblationCondition(str, Enum):
     TEAM_NO_VERIFY = "team_no_verify"
     TEAM_NO_PLAN = "team_no_plan"
     FULL = "full"
+    # Heterogeneous team: different models per role
+    HETERO = "hetero"
     # New expertise-asymmetry conditions
     EXPERTISE_FULL = "expertise_full"
     EXPERTISE_NO_ANALYSIS = "expertise_no_analysis"
@@ -63,6 +65,19 @@ class AblationCondition(str, Enum):
     # Strong baselines — single agent with enhanced prompting
     ORACLE_COT = "oracle_cot"
     ORACLE_2PASS = "oracle_2pass"
+    # Budget-matched Solo: same total turn budget as the Full team (15+25+10=50)
+    ORACLE_BUDGET_MATCHED = "oracle_budget_matched"
+    # Topology ablation — different coordination patterns
+    TOPO_ITERATIVE = "topo_iterative"        # Planner <-> Executor multi-round
+    TOPO_DUAL_EXEC = "topo_dual_exec"        # Planner -> 2x Executor -> Verifier selects
+    TOPO_VERIFY_FIRST = "topo_verify_first"  # Verifier(gap analysis) -> Executor -> Verifier(check)
+    TOPO_SELF_CHECK = "topo_self_check"      # Single agent with structured implement->verify->fix
+    # role_enforcement_ablation experiment (experiments/role_enforcement_ablation/)
+    # ENFORCED is a semantic alias for FULL; kept as a separate enum value so the
+    # experiment records read cleanly ("condition: enforced") in analysis output.
+    PROMPT_ONLY = "prompt_only"                          # shared workspace + shared history
+    ENFORCED_SHARED_HISTORY = "enforced_shared_history"  # OS isolation on workspace, shared history
+    ENFORCED = "enforced"                                # alias for FULL (OS isolation both axes)
 
 
 @dataclass
@@ -157,13 +172,17 @@ def _make_restricted_config(
             "Your goal: complete the task as described in the brief and write attestation.json.\n"
             "Use run(cmd=...) to execute commands in the workspace.\n"
             "Use read(path=...) and write(path=...) for files.\n"
-            "Write attestation.json in the submission directory when done.\n"
-            "Output DONE when complete."
+            "When done, write attestation.json to the submission directory using:\n"
+            '  write(path="../submission/attestation.json", content=\'...\')\n'
+            "Then output DONE."
         ),
         tools=[
             RunCommandTool(cwd=workspace_dir, allowed=True),
             ReadFileTool(
-                allowed_roots=[os.path.dirname(brief_path), workspace_dir, reports_dir, messages_dir],
+                allowed_roots=[
+                    os.path.dirname(brief_path), workspace_dir,
+                    reports_dir, messages_dir, submission_dir,
+                ],
                 path_map=pm,
                 base_dir=workspace_dir,
             ),
@@ -193,6 +212,7 @@ def run_ablation_condition(
     adapter: ToolCallAdapter,
     max_turns: int = 20,
     max_remediation: int = 2,
+    model_config: Optional[dict] = None,
 ) -> OrchestratorResult:
     """
     Configure and run the orchestrator differently per ablation condition.
@@ -220,8 +240,11 @@ def run_ablation_condition(
     brief_text = read_file(brief_path)
     result = OrchestratorResult(task_id=task_id)
 
-    if condition == AblationCondition.ORACLE:
-        # Single agent with full access to spec + workspace + exec
+    if condition == AblationCondition.ORACLE or condition == AblationCondition.ORACLE_BUDGET_MATCHED:
+        # Single agent with full access to spec + workspace + exec.
+        # ORACLE_BUDGET_MATCHED gives the Solo agent the team's full turn budget
+        # (Planner 15 + Executor 25 + Verifier 10 = 50) so a reviewer cannot
+        # attribute the team gain to compute alone.
         oracle_config = _make_oracle_config(
             spec_path=spec_path,
             workspace_dir=workspace,
@@ -230,18 +253,26 @@ def run_ablation_condition(
             submission_dir=submission,
             task_dir=task_dir,
         )
+        budget_matched_turns = 50  # 15 + 25 + 10 (Planner + Executor + Verifier)
+        run_max_turns = (
+            budget_matched_turns
+            if condition == AblationCondition.ORACLE_BUDGET_MATCHED
+            else max_turns
+        )
         loop = AgentLoop(
             role_config=oracle_config,
             adapter=adapter,
             messages_dir=messages,
-            log_dir=os.path.join(logs, "oracle"),
-            max_turns=max_turns,
+            log_dir=os.path.join(logs, condition.value),
+            max_turns=run_max_turns,
         )
         prompt = (
             f"You are the Oracle for task: {task_id}\n\n"
             f"## Full Specification\n{spec_text}\n\n"
             f"## Instructions\n"
-            f"Complete the task requirements. Then write attestation.json with:\n"
+            f"Before outputting code or commands, write a `<thinking>` block analyzing the codebase against the spec.\n"
+            f"Explicitly list any intentional design choices vs. real bugs, and determine your plan of action.\n"
+            f"After thinking, complete the task requirements. Then write attestation.json with:\n"
             f'  write(path="attestation.json", content=\'{{"task_id":"{task_id}","verdict":"pass","checklist":[]}}\')\n'
             f"Output DONE when complete."
         )
@@ -251,7 +282,9 @@ def run_ablation_condition(
         result.total_turns += len(turns)
 
     elif condition == AblationCondition.RESTRICTED:
-        # Single agent with executor-only access (brief only)
+        # Single agent with executor-only access (brief only).
+        # Restricted runs lack oracle context, so verbose models (Anthropic) need
+        # extra turns to converge — bump from default 20 to 30.
         restricted_config = _make_restricted_config(
             brief_path=brief_path,
             workspace_dir=workspace,
@@ -265,14 +298,14 @@ def run_ablation_condition(
             adapter=adapter,
             messages_dir=messages,
             log_dir=os.path.join(logs, "restricted"),
-            max_turns=max_turns,
+            max_turns=max(max_turns, 30),
         )
         prompt = (
             f"You are a Restricted agent for task: {task_id}\n\n"
             f"## Brief\n{brief_text}\n\n"
             f"## Instructions\n"
-            f"Complete the task. Then write attestation.json with:\n"
-            f'  write(path="attestation.json", content=\'{{"task_id":"{task_id}","verdict":"pass","checklist":[]}}\')\n'
+            f"Complete the task in the workspace. Then write attestation.json to the submission directory:\n"
+            f'  write(path="../submission/attestation.json", content=\'{{"task_id":"{task_id}","verdict":"pass","checklist":[]}}\')\n'
             f"Output DONE when complete."
         )
         turns = loop.run(prompt)
@@ -386,6 +419,32 @@ def run_ablation_condition(
             max_remediation_loops=max_remediation,
         )
         return orchestrator.run()
+
+    elif condition in (
+        AblationCondition.PROMPT_ONLY,
+        AblationCondition.ENFORCED_SHARED_HISTORY,
+        AblationCondition.ENFORCED,
+    ):
+        # role_enforcement_ablation experiment. See
+        # experiments/role_enforcement_ablation/HYPOTHESIS.md for the design.
+        # ENFORCED uses the variable orchestrator for audit parity with the other
+        # two conditions (same code path, share_tools=share_history=False).
+        from harness.orchestrator import VariableEnforcementOrchestrator
+        share_tools = condition == AblationCondition.PROMPT_ONLY
+        share_history = condition in (
+            AblationCondition.PROMPT_ONLY,
+            AblationCondition.ENFORCED_SHARED_HISTORY,
+        )
+        orch = VariableEnforcementOrchestrator(
+            task_dir=task_dir,
+            run_dir=run_dir,
+            adapter=adapter,
+            share_tools=share_tools,
+            share_history=share_history,
+            max_turns_per_phase=max_turns,
+            max_remediation_loops=max_remediation,
+        )
+        return orch.run()
 
     elif condition == AblationCondition.EXPERTISE_FULL:
         # Full expertise team: analysis planner + executor + test verifier
@@ -652,6 +711,455 @@ def run_ablation_condition(
         result.phases.append(phase2)
         result.total_turns += len(turns2)
 
+    # ================================================================
+    # TOPOLOGY ABLATION — Different coordination patterns
+    # ================================================================
+
+    elif condition == AblationCondition.TOPO_ITERATIVE:
+        # Iterative Planning: Planner <-> Executor alternate in rounds.
+        # Planner proposes sub-plan, Executor implements & reports, Planner refines.
+        # Mimics Cursor/Devin iterative planning loops.
+        max_rounds = 3
+        turns_per_round = max_turns // max_rounds  # ~6-7 turns per round
+
+        for round_num in range(max_rounds):
+            # --- Planner round ---
+            planner_config = make_planner_config(
+                spec_path=spec_path, messages_dir=messages, task_dir=task_dir,
+            )
+            planner_loop = AgentLoop(
+                role_config=planner_config, adapter=adapter,
+                messages_dir=messages,
+                log_dir=os.path.join(logs, "planner", f"round_{round_num}"),
+                max_turns=turns_per_round,
+            )
+            if round_num == 0:
+                planner_prompt = (
+                    f"You are the Planner for task: {task_id} (Round {round_num + 1}/{max_rounds})\n\n"
+                    f"## Full Specification\n{spec_text}\n\n"
+                    f"## Instructions\n"
+                    f"Create a sub-plan for the FIRST set of changes needed.\n"
+                    f"Focus on the highest-priority issues first.\n"
+                    f"Send your sub-plan to the Executor via send_message(to='executor', content=...).\n"
+                    f"Output DONE when done."
+                )
+            else:
+                planner_prompt = (
+                    f"You are the Planner for task: {task_id} (Round {round_num + 1}/{max_rounds})\n\n"
+                    f"## Full Specification\n{spec_text}\n\n"
+                    f"## Instructions\n"
+                    f"Check messages from the Executor for their status report on previous work.\n"
+                    f"Based on what they accomplished, create the NEXT sub-plan.\n"
+                    f"Focus on remaining requirements not yet addressed.\n"
+                    f"Send your sub-plan via send_message(to='executor', content=...).\n"
+                    f"Output DONE when done."
+                )
+            planner_turns = planner_loop.run(planner_prompt)
+            phase_p = PhaseResult(phase=f"planning_round_{round_num}", turns=planner_turns)
+            result.phases.append(phase_p)
+            result.total_turns += len(planner_turns)
+            _relay_planner_text(planner_turns, messages)
+
+            # --- Executor round ---
+            executor_config = make_executor_config(
+                brief_path=brief_path, workspace_dir=workspace, reports_dir=reports,
+                messages_dir=messages, submission_dir=submission, task_dir=task_dir,
+            )
+            executor_loop = AgentLoop(
+                role_config=executor_config, adapter=adapter,
+                messages_dir=messages,
+                log_dir=os.path.join(logs, "executor", f"round_{round_num}"),
+                max_turns=turns_per_round,
+            )
+            is_final = round_num == max_rounds - 1
+            executor_prompt = (
+                f"You are the Executor for task: {task_id} (Round {round_num + 1}/{max_rounds})\n\n"
+                f"## Brief\n{brief_text}\n\n"
+                f"## Instructions\n"
+                f"Check messages from the Planner for your current sub-plan.\n"
+                f"Implement the changes described in the sub-plan.\n"
+                + (
+                    f"When done, send a status report to the Planner: "
+                    f"send_message(to='planner', content='Status: <what you did, what remains>').\n"
+                    if not is_final else
+                    f"This is the FINAL round. Complete all remaining work.\n"
+                )
+                + f"Output DONE when done."
+            )
+            executor_turns = executor_loop.run(executor_prompt)
+            phase_e = PhaseResult(phase=f"execution_round_{round_num}", turns=executor_turns)
+            result.phases.append(phase_e)
+            result.total_turns += len(executor_turns)
+
+        # Final attestation — auto-write (no verifier in this topology)
+        _write_passing_attestation(submission, task_id)
+
+    elif condition == AblationCondition.TOPO_DUAL_EXEC:
+        # Dual Executor: Planner -> 2 independent Executors -> Verifier selects best.
+        # Mimics Codex/AlphaCode sample-and-filter approach.
+        import shutil
+
+        # Phase 1: Planning
+        planner_config = make_planner_config(
+            spec_path=spec_path, messages_dir=messages, task_dir=task_dir,
+        )
+        planner_loop = AgentLoop(
+            role_config=planner_config, adapter=adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "planner"),
+            max_turns=max_turns,
+        )
+        planner_prompt = (
+            f"You are the Planner for task: {task_id}\n\n"
+            f"## Full Specification\n{spec_text}\n\n"
+            f"## Instructions\n"
+            f"Create a detailed plan and send it to the Executor via send_message(to='executor', content=...).\n"
+            f"Output DONE when done."
+        )
+        planner_turns = planner_loop.run(planner_prompt)
+        phase1 = PhaseResult(phase="planning", turns=planner_turns)
+        result.phases.append(phase1)
+        result.total_turns += len(planner_turns)
+        _relay_planner_text(planner_turns, messages)
+
+        # Phase 2a: Executor A (original workspace)
+        workspace_a = workspace  # original
+        workspace_b = workspace + "_b"
+        messages_b = messages + "_b"
+        submission_b = submission + "_b"
+        shutil.copytree(workspace, workspace_b)
+        os.makedirs(messages_b, exist_ok=True)
+        os.makedirs(submission_b, exist_ok=True)
+        # Copy dialogue so Executor B also gets the plan
+        dialogue_src = os.path.join(messages, "dialogue.jsonl")
+        if os.path.exists(dialogue_src):
+            shutil.copy2(dialogue_src, os.path.join(messages_b, "dialogue.jsonl"))
+
+        half_turns = max_turns // 2  # each executor gets half the budget
+
+        executor_config_a = make_executor_config(
+            brief_path=brief_path, workspace_dir=workspace_a, reports_dir=reports,
+            messages_dir=messages, submission_dir=submission, task_dir=task_dir,
+        )
+        exec_loop_a = AgentLoop(
+            role_config=executor_config_a, adapter=adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "executor_a"),
+            max_turns=half_turns,
+        )
+        exec_prompt = (
+            f"You are Executor A for task: {task_id}\n\n"
+            f"## Brief\n{brief_text}\n\n"
+            f"## Instructions\n"
+            f"Check messages from the Planner, then implement the required changes.\n"
+            f"Output DONE when done."
+        )
+        exec_a_turns = exec_loop_a.run(exec_prompt)
+        phase2a = PhaseResult(phase="execution_a", turns=exec_a_turns)
+        result.phases.append(phase2a)
+        result.total_turns += len(exec_a_turns)
+
+        # Phase 2b: Executor B (copied workspace)
+        executor_config_b = make_executor_config(
+            brief_path=brief_path, workspace_dir=workspace_b, reports_dir=reports,
+            messages_dir=messages_b, submission_dir=submission_b, task_dir=task_dir,
+        )
+        exec_loop_b = AgentLoop(
+            role_config=executor_config_b, adapter=adapter,
+            messages_dir=messages_b,
+            log_dir=os.path.join(logs, "executor_b"),
+            max_turns=half_turns,
+        )
+        exec_b_turns = exec_loop_b.run(exec_prompt.replace("Executor A", "Executor B"))
+        phase2b = PhaseResult(phase="execution_b", turns=exec_b_turns)
+        result.phases.append(phase2b)
+        result.total_turns += len(exec_b_turns)
+
+        # Phase 3: Verifier compares both workspaces and selects best
+        verifier_config = make_verifier_config(
+            spec_path=spec_path, workspace_dir=workspace_a, reports_dir=reports,
+            messages_dir=messages, submission_dir=submission, task_dir=task_dir,
+        )
+        verifier_loop = AgentLoop(
+            role_config=verifier_config, adapter=adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "verifier"),
+            max_turns=max_turns,
+        )
+        verifier_prompt = (
+            f"You are the Verifier for task: {task_id}\n\n"
+            f"## Full Specification\n{spec_text}\n\n"
+            f"## Instructions\n"
+            f"Two executors independently implemented fixes.\n"
+            f"Workspace A is at the default workspace path.\n"
+            f"Verify the workspace against the specification requirements.\n"
+            f"Write attestation.json with verdict='pass' if requirements are met.\n"
+            f"Output DONE when done."
+        )
+        verifier_turns = verifier_loop.run(verifier_prompt)
+        phase3 = PhaseResult(phase="verification_a", turns=verifier_turns)
+        result.phases.append(phase3)
+        result.total_turns += len(verifier_turns)
+
+        # If workspace A failed, try workspace B
+        att_a = os.path.join(submission, "attestation.json")
+        verdict_a = "fail"
+        try:
+            with open(att_a) as f:
+                verdict_a = json.load(f).get("verdict", "fail")
+        except (FileNotFoundError, json.JSONDecodeError):
+            pass
+
+        if verdict_a != "pass":
+            # Swap workspace B into place and verify
+            shutil.rmtree(workspace_a)
+            shutil.move(workspace_b, workspace_a)
+            # Clear old attestation
+            if os.path.exists(att_a):
+                os.remove(att_a)
+
+            verifier_loop_b = AgentLoop(
+                role_config=verifier_config, adapter=adapter,
+                messages_dir=messages,
+                log_dir=os.path.join(logs, "verifier_b"),
+                max_turns=max_turns,
+            )
+            verifier_b_turns = verifier_loop_b.run(verifier_prompt)
+            phase3b = PhaseResult(phase="verification_b", turns=verifier_b_turns)
+            result.phases.append(phase3b)
+            result.total_turns += len(verifier_b_turns)
+
+    elif condition == AblationCondition.TOPO_VERIFY_FIRST:
+        # Verify-First: Verifier pre-analyzes workspace gaps, then Executor fixes.
+        # Grounded gap analysis replaces abstract planning.
+
+        # Phase 1: Verifier reads spec + workspace, produces gap analysis
+        verifier_config = make_verifier_config(
+            spec_path=spec_path, workspace_dir=workspace, reports_dir=reports,
+            messages_dir=messages, submission_dir=submission, task_dir=task_dir,
+        )
+        gap_loop = AgentLoop(
+            role_config=verifier_config, adapter=adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "verifier_gap_analysis"),
+            max_turns=max_turns,
+        )
+        gap_prompt = (
+            f"You are the Gap Analyst for task: {task_id}\n\n"
+            f"## Full Specification\n{spec_text}\n\n"
+            f"## Instructions\n"
+            f"Your job is to ANALYZE, not to fix. Do NOT write attestation.json yet.\n"
+            f"1. Read the specification carefully.\n"
+            f"2. Examine the workspace files to understand the current codebase state.\n"
+            f"3. For EACH spec requirement, check whether it is currently satisfied.\n"
+            f"4. Create a GAP REPORT listing:\n"
+            f"   - Which requirements are NOT met\n"
+            f"   - The specific file(s) and line(s) where issues exist\n"
+            f"   - What exact change is needed to fix each gap\n"
+            f"5. Send this gap report to the Executor:\n"
+            f"   send_message(to='executor', content='<your gap report>')\n"
+            f"6. Output DONE when done.\n\n"
+            f"IMPORTANT: Be specific and actionable. The Executor cannot see the spec."
+        )
+        gap_turns = gap_loop.run(gap_prompt)
+        phase1 = PhaseResult(phase="gap_analysis", turns=gap_turns)
+        result.phases.append(phase1)
+        result.total_turns += len(gap_turns)
+        _relay_planner_text(gap_turns, messages)  # relay if forgot send_message
+
+        # Phase 2: Executor fixes the identified gaps
+        executor_config = make_executor_config(
+            brief_path=brief_path, workspace_dir=workspace, reports_dir=reports,
+            messages_dir=messages, submission_dir=submission, task_dir=task_dir,
+        )
+        executor_loop = AgentLoop(
+            role_config=executor_config, adapter=adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "executor"),
+            max_turns=max_turns,
+        )
+        executor_prompt = (
+            f"You are the Executor for task: {task_id}\n\n"
+            f"## Brief\n{brief_text}\n\n"
+            f"## Instructions\n"
+            f"A Gap Analyst has examined the workspace and identified specific issues.\n"
+            f"Check messages for their detailed gap report.\n"
+            f"Fix each identified gap in the workspace.\n"
+            f"Output DONE when done."
+        )
+        executor_turns = executor_loop.run(executor_prompt)
+        phase2 = PhaseResult(phase="execution", turns=executor_turns)
+        result.phases.append(phase2)
+        result.total_turns += len(executor_turns)
+
+        # Phase 3: Verifier does final check and writes attestation
+        verifier_loop2 = AgentLoop(
+            role_config=verifier_config, adapter=adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "verifier_final"),
+            max_turns=max_turns,
+        )
+        verifier_prompt = (
+            f"You are the Verifier for task: {task_id}\n\n"
+            f"## Full Specification\n{spec_text}\n\n"
+            f"## Instructions\n"
+            f"The Executor has fixed the previously identified gaps.\n"
+            f"Verify the workspace against ALL spec requirements.\n"
+            f"Write attestation.json with your verdict.\n"
+            f"Output DONE when done."
+        )
+        verifier_turns = verifier_loop2.run(verifier_prompt)
+        phase3 = PhaseResult(phase="verification", turns=verifier_turns)
+        result.phases.append(phase3)
+        result.total_turns += len(verifier_turns)
+
+    elif condition == AblationCondition.TOPO_SELF_CHECK:
+        # Self-Check: Single agent with structured implement -> self-verify -> fix protocol.
+        # Control condition testing whether structured prompting captures multi-agent value.
+        # Uses oracle config (full spec + workspace access) with explicit phase discipline.
+        oracle_config = _make_oracle_config(
+            spec_path=spec_path, workspace_dir=workspace, reports_dir=reports,
+            messages_dir=messages, submission_dir=submission, task_dir=task_dir,
+        )
+        loop = AgentLoop(
+            role_config=oracle_config, adapter=adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "self_check"),
+            max_turns=max_turns * 2,  # 2x turns to match team compute budget
+        )
+        prompt = (
+            f"You are a Self-Checking agent for task: {task_id}\n\n"
+            f"## Full Specification\n{spec_text}\n\n"
+            f"## MANDATORY 3-PHASE PROTOCOL\n"
+            f"You MUST follow these phases in strict order.\n\n"
+            f"### PHASE 1: IMPLEMENT (use ~40% of your turns)\n"
+            f"1. Read the spec and identify ALL requirements.\n"
+            f"2. Read workspace files to understand current state.\n"
+            f"3. Implement all necessary changes to satisfy the spec.\n"
+            f"4. Run tests if available.\n\n"
+            f"### PHASE 2: SELF-VERIFY (use ~30% of your turns)\n"
+            f"STOP implementing. Switch to verification mode.\n"
+            f"5. Re-read the FULL specification above.\n"
+            f"6. For EACH requirement in the spec:\n"
+            f"   a. Read the relevant workspace file(s)\n"
+            f"   b. Check if the requirement is satisfied\n"
+            f"   c. Note any gaps or issues found\n"
+            f"7. Create a checklist of remaining issues.\n\n"
+            f"### PHASE 3: FIX & FINALIZE (use ~30% of your turns)\n"
+            f"8. Fix each issue found in Phase 2.\n"
+            f"9. Re-verify the fixes.\n"
+            f"10. Write attestation.json:\n"
+            f'    write(path="attestation.json", content=\'{{"task_id":"{task_id}","verdict":"pass","checklist":[]}}\')\n\n'
+            f"CRITICAL: Do NOT write attestation.json until you have completed Phase 2.\n"
+            f"Output DONE when complete."
+        )
+        turns = loop.run(prompt)
+        phase = PhaseResult(phase="self_check", turns=turns)
+        result.phases.append(phase)
+        result.total_turns += len(turns)
+
+    elif condition == AblationCondition.HETERO:
+        # Heterogeneous team: Planner + Executor + Verifier each use a different model.
+        # Falls back to the single adapter for any role not specified in model_config.
+        import time as _time
+        from harness.adapters import create_adapter
+
+        mc = model_config or {}
+
+        def _role_adapter(role: str) -> ToolCallAdapter:
+            if role in mc:
+                return create_adapter(model=mc[role], temperature=0.2)
+            return adapter
+
+        planner_adapter = _role_adapter("planner")
+        executor_adapter = _role_adapter("executor")
+        verifier_adapter = _role_adapter("verifier")
+
+        def _capture_role_usage(role: str, adpt: Any, wall_sec: float) -> None:
+            try:
+                usage = adpt.get_usage() if hasattr(adpt, "get_usage") else {}
+            except Exception:
+                usage = {}
+            result.role_usage[role] = {
+                "input_tokens": int(usage.get("input_tokens") or 0),
+                "output_tokens": int(usage.get("output_tokens") or 0),
+                "model": mc.get(role) or usage.get("model") or "unknown",
+                "wall_sec": round(wall_sec, 2),
+            }
+
+        planner_config = make_planner_config(
+            spec_path=spec_path, messages_dir=messages, task_dir=task_dir,
+        )
+        planner_loop = AgentLoop(
+            role_config=planner_config, adapter=planner_adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "planner"),
+            max_turns=max_turns,
+        )
+        planner_prompt = (
+            f"You are the Planner for task: {task_id}\n\n"
+            f"## Full Specification\n{spec_text}\n\n"
+            f"## Instructions\n"
+            f"Create a plan and send it to the Executor via send_message(to='executor', content=...).\n"
+            f"Output DONE when done."
+        )
+        _t0 = _time.time()
+        planner_turns = planner_loop.run(planner_prompt)
+        _capture_role_usage("planner", planner_adapter, _time.time() - _t0)
+        phase1 = PhaseResult(phase="planning", turns=planner_turns)
+        result.phases.append(phase1)
+        result.total_turns += len(planner_turns)
+        _relay_planner_text(planner_turns, messages)
+
+        executor_config = make_executor_config(
+            brief_path=brief_path, workspace_dir=workspace, reports_dir=reports,
+            messages_dir=messages, submission_dir=submission, task_dir=task_dir,
+        )
+        executor_loop = AgentLoop(
+            role_config=executor_config, adapter=executor_adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "executor"),
+            max_turns=max_turns,
+        )
+        executor_prompt = (
+            f"You are the Executor for task: {task_id}\n\n"
+            f"## Brief\n{brief_text}\n\n"
+            f"## Instructions\n"
+            f"Check messages from the Planner, then complete the task.\n"
+            f"Send a completion message to the Verifier when done.\n"
+            f"Output DONE when done."
+        )
+        _t0 = _time.time()
+        executor_turns = executor_loop.run(executor_prompt)
+        _capture_role_usage("executor", executor_adapter, _time.time() - _t0)
+        phase2 = PhaseResult(phase="execution", turns=executor_turns)
+        result.phases.append(phase2)
+        result.total_turns += len(executor_turns)
+
+        verifier_config = make_verifier_config(
+            spec_path=spec_path, workspace_dir=workspace, reports_dir=reports,
+            messages_dir=messages, submission_dir=submission, task_dir=task_dir,
+        )
+        verifier_loop = AgentLoop(
+            role_config=verifier_config, adapter=verifier_adapter,
+            messages_dir=messages,
+            log_dir=os.path.join(logs, "verifier", "attempt_0"),
+            max_turns=max_turns,
+        )
+        verifier_prompt = (
+            f"You are the Verifier for task: {task_id}\n\n"
+            f"## Full Specification\n{spec_text}\n\n"
+            f"## Instructions\n"
+            f"Verify the workspace against the spec. Write attestation.json.\n"
+            f"Output DONE when done."
+        )
+        _t0 = _time.time()
+        verifier_turns = verifier_loop.run(verifier_prompt)
+        _capture_role_usage("verifier", verifier_adapter, _time.time() - _t0)
+        phase3 = PhaseResult(phase="verification_0", turns=verifier_turns)
+        result.phases.append(phase3)
+        result.total_turns += len(verifier_turns)
+
     # Check attestation verdict for non-FULL conditions
     att_path = os.path.join(submission, "attestation.json")
     try:
@@ -799,6 +1307,7 @@ def run_full_ablation(
     max_turns: int = 20,
     max_remediation: int = 2,
     conditions: Optional[list[AblationCondition]] = None,
+    model_config: Optional[dict] = None,
 ) -> dict:
     """
     Run ablation conditions for given tasks and seeds.
@@ -823,7 +1332,20 @@ def run_full_ablation(
 
     adapter = create_adapter(model=model, temperature=0.2)
 
-    conditions = conditions if conditions is not None else list(AblationCondition)
+    # Experiment-scoped conditions are excluded from the "all conditions" default
+    # so that pre-existing ablation pipelines (which may omit the `conditions`
+    # argument) do not accidentally run or double-count them. Callers who want
+    # these conditions must request them explicitly.
+    _EXPERIMENT_SCOPED = {
+        AblationCondition.PROMPT_ONLY,
+        AblationCondition.ENFORCED_SHARED_HISTORY,
+        AblationCondition.ENFORCED,   # alias for FULL; would double-count otherwise
+    }
+    conditions = (
+        conditions
+        if conditions is not None
+        else [c for c in AblationCondition if c not in _EXPERIMENT_SCOPED]
+    )
 
     print(f"TeamBench Ablation Study")
     print(f"Model: {model}")
@@ -840,6 +1362,32 @@ def run_full_ablation(
 
     runs_base = os.path.join(os.path.dirname(output), "ablation_runs")
 
+    # --- Resume: scan existing run dirs for completed (condition, task, seed) ---
+    # Checkpoint is append-only and may contain multiple entries per key (e.g.
+    # original + regrade patches). Keep only the LAST entry per key for metrics.
+    checkpoint_path = output + ".checkpoint.jsonl"
+    completed_keys: set[str] = set()
+    if os.path.isfile(checkpoint_path):
+        latest_by_key: dict[str, dict] = {}
+        with open(checkpoint_path, "r") as cpf:
+            for line in cpf:
+                try:
+                    entry = json.loads(line.strip())
+                    key = f"{entry['condition']}:{entry['task_id']}:{entry['seed']}"
+                    latest_by_key[key] = entry  # later writes override earlier
+                except (json.JSONDecodeError, KeyError, ValueError):
+                    pass
+        for key, entry in latest_by_key.items():
+            try:
+                completed_keys.add(key)
+                all_runs.append(entry)
+                cond_enum = AblationCondition(entry["condition"])
+                condition_scores[cond_enum].append(bool(entry.get("pass", False)))
+                condition_partial[cond_enum].append(float(entry.get("partial_score", 0.0)))
+            except (KeyError, ValueError):
+                pass
+        print(f"  Resumed {len(completed_keys)} completed runs from checkpoint")
+
     total = len(conditions) * len(task_names) * len(seeds)
     i = 0
 
@@ -847,6 +1395,11 @@ def run_full_ablation(
         for task_name in task_names:
             for seed in seeds:
                 i += 1
+                run_key = f"{condition.value}:{task_name}:{seed}"
+                if run_key in completed_keys:
+                    print(f"\n[{i}/{total}] {condition.value} x {task_name} (seed={seed}) SKIPPED (checkpoint)")
+                    continue
+
                 print(f"\n[{i}/{total}] {condition.value} x {task_name} (seed={seed})")
                 start_time = time.time()
 
@@ -879,6 +1432,7 @@ def run_full_ablation(
                         adapter=adapter,
                         max_turns=max_turns,
                         max_remediation=max_remediation,
+                        model_config=model_config if condition == AblationCondition.HETERO else None,
                     )
 
                     elapsed = time.time() - start_time
@@ -902,7 +1456,7 @@ def run_full_ablation(
                 partial_score = run_record.score.get("secondary", {}).get(
                     "partial_score", 1.0 if run_record.passed else 0.0
                 )
-                all_runs.append({
+                run_entry = {
                     "condition": condition.value,
                     "task_id": task_name,
                     "seed": seed,
@@ -913,7 +1467,12 @@ def run_full_ablation(
                     "elapsed_sec": run_record.elapsed_sec,
                     "failure_modes": run_record.score.get("failure_modes", []),
                     "error": run_record.error,
-                })
+                }
+                all_runs.append(run_entry)
+
+                # --- Checkpoint: append completed run ---
+                with open(checkpoint_path, "a") as cpf:
+                    cpf.write(json.dumps(run_entry) + "\n")
 
     metrics = compute_ablation_metrics(condition_scores, condition_partial=condition_partial)
 

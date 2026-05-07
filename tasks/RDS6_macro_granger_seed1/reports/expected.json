@@ -1,0 +1,26 @@
+{
+  "cause_var": "FEDFUNDS",
+  "effect_var": "UNRATE",
+  "research_question": "Does the federal funds rate Granger-cause the unemployment rate? Test whether past values of FEDFUNDS improve forecasts of UNRATE beyond what UNRATE's own lags provide.",
+  "key_cols": [
+    "FEDFUNDS",
+    "UNRATE"
+  ],
+  "hidden_col_keywords": [
+    "FEDFUNDS",
+    "UNRATE"
+  ],
+  "n_rows": 780,
+  "columns": [
+    "date",
+    "UNRATE",
+    "CPIAUCSL",
+    "FEDFUNDS",
+    "GDP"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

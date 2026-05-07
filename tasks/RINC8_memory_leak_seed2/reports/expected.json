@@ -1,0 +1,8 @@
+{
+  "seed": 2,
+  "leak_type": "event_listener_leak",
+  "service": "EventBusService",
+  "fix": "return unsubscribe token from subscribe(); call unsubscribe in cleanup/teardown",
+  "max_size": 100,
+  "n_requests": 246
+}

@@ -1,0 +1,46 @@
+year,country_code,conflict_type,fatalities_est,displaced_persons_thousands,infrastructure_damage_pct
+2013,VEN,low-level unrest,14,7,4
+2013,ZWE,low-level unrest,191,17,6
+2013,SSD,low-level unrest,17,12,3
+2014,VEN,low-level unrest,40,3,1
+2014,ZWE,low-level unrest,150,4,7
+2014,SSD,low-level unrest,87,3,4
+2015,VEN,political instability and armed conflict,3877,290,60
+2015,ZWE,political instability and armed conflict,5423,139,51
+2015,SSD,political instability and armed conflict,4541,411,22
+2016,VEN,political instability and armed conflict,4350,445,52
+2016,ZWE,political instability and armed conflict,2944,161,62
+2016,SSD,political instability and armed conflict,6877,475,26
+2017,VEN,political instability and armed conflict,5426,249,40
+2017,ZWE,political instability and armed conflict,6709,462,52
+2017,SSD,political instability and armed conflict,7678,374,50
+2018,VEN,political instability and armed conflict,3178,310,25
+2018,ZWE,political instability and armed conflict,3535,459,65
+2018,SSD,political instability and armed conflict,5833,176,51
+2019,VEN,political instability and armed conflict,3504,61,50
+2019,ZWE,political instability and armed conflict,5999,483,42
+2019,SSD,political instability and armed conflict,3147,287,29
+2020,VEN,political instability and armed conflict,986,313,29
+2020,ZWE,political instability and armed conflict,1936,385,50
+2020,SSD,political instability and armed conflict,5945,316,40
+2021,VEN,low-level unrest,134,10,4
+2021,ZWE,low-level unrest,195,12,7
+2021,SSD,low-level unrest,18,8,6
+2015,KEN,stable,12,2,2
+2015,GHA,stable,38,5,3
+2015,TUN,stable,44,1,2
+2016,KEN,stable,12,1,0
+2016,GHA,stable,38,5,2
+2016,TUN,stable,21,4,3
+2017,KEN,stable,43,4,1
+2017,GHA,stable,35,1,2
+2017,TUN,stable,33,1,1
+2018,KEN,stable,25,4,1
+2018,GHA,stable,5,3,2
+2018,TUN,stable,6,0,1
+2019,KEN,stable,11,0,1
+2019,GHA,stable,49,2,0
+2019,TUN,stable,40,4,2
+2020,KEN,stable,47,1,3
+2020,GHA,stable,9,5,1
+2020,TUN,stable,8,3,2

@@ -1,0 +1,30 @@
+{
+  "analysis_type": "RFM-based CLV",
+  "research_question": "Estimate Customer Lifetime Value using RFM (Recency, Frequency, Monetary) analysis. Segment customers into value tiers and identify the top 20% of customers by estimated CLV.",
+  "key_columns": [
+    "CustomerID",
+    "InvoiceDate",
+    "Quantity",
+    "UnitPrice"
+  ],
+  "hidden_col_keywords": [
+    "CustomerID",
+    "InvoiceDate"
+  ],
+  "n_rows": 1500,
+  "columns": [
+    "InvoiceNo",
+    "StockCode",
+    "Description",
+    "Quantity",
+    "InvoiceDate",
+    "UnitPrice",
+    "CustomerID",
+    "Country"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

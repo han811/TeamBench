@@ -52,3 +52,9 @@ tasks/*/workspace/test_write.txt
 
 # Smoke test results
 shared/ablation_results/smoke_fix_test*.json
+
+# Hidden test set — NEVER commit (anti-gaming)
+tasks_hidden/
+shared/hidden_runs/
+shared/hidden_results/
+.worktrees/

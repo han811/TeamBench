@@ -1,0 +1,24 @@
+{
+  "seed": 0,
+  "service": "RateLimiterService",
+  "drifted_keys": [
+    "requests_per_second",
+    "burst_size",
+    "retry_after_seconds",
+    "temp_override"
+  ],
+  "correct_config": {
+    "requests_per_second": 100,
+    "burst_size": 200,
+    "retry_after_seconds": 60,
+    "enable_throttling": true,
+    "whitelist_ips": [
+      "10.0.0.1",
+      "10.0.0.2"
+    ],
+    "log_level": "info",
+    "timeout_ms": 500
+  },
+  "drift_explanation": "rate limit set 10x too low after manual tuning for load test, never reverted",
+  "extra_key": "temp_override"
+}

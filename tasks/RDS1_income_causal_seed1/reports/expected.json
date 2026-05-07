@@ -1,0 +1,35 @@
+{
+  "treatment": "long_hours",
+  "treatment_label": "working 45 or more hours per week",
+  "research_question": "Does working 45 or more hours per week causally increase the probability of earning more than $50,000 per year?",
+  "confounders": [
+    "education",
+    "age",
+    "occupation",
+    "workclass"
+  ],
+  "hidden_confounder_keywords": [
+    "occupation",
+    "workclass"
+  ],
+  "n_rows": 814,
+  "columns": [
+    "age",
+    "workclass",
+    "education",
+    "education_num",
+    "marital_status",
+    "occupation",
+    "sex",
+    "capital_gain",
+    "capital_loss",
+    "hours_per_week",
+    "native_country",
+    "income"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

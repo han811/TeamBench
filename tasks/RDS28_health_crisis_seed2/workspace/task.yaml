@@ -1,0 +1,9 @@
+task_id: RDS28_health_crisis
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: who_gho
+  license: CC-BY 4.0
+  source: WHO Global Health Observatory

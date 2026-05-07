@@ -1,0 +1,21 @@
+{
+  "seed": 1,
+  "service": "FeatureFlagService",
+  "drifted_keys": [
+    "enable_new_checkout",
+    "ab_test_percentage",
+    "cache_ttl_seconds",
+    "debug_mode"
+  ],
+  "correct_config": {
+    "enable_new_checkout": true,
+    "enable_recommendations": true,
+    "enable_dark_mode": false,
+    "ab_test_percentage": 50,
+    "max_items_per_page": 25,
+    "cache_ttl_seconds": 300,
+    "enable_analytics": true
+  },
+  "drift_explanation": "checkout feature disabled for hotfix, AB test % reduced for incident, never re-enabled",
+  "extra_key": "debug_mode"
+}

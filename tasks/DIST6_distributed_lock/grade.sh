@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # DIST6 grader: verify distributed lock bugs are fixed.
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

@@ -1,0 +1,9 @@
+{
+  "issues": "combined: scale shift, salary outliers, mixed YearsCode issues",
+  "n_rows": 4000,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

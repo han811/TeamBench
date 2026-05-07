@@ -1,0 +1,7 @@
+{
+  "seed": 1,
+  "attack": "weak_secret",
+  "service": "APIGateway",
+  "fix": "replace weak secret with a 256-bit random secret loaded from environment",
+  "endpoint_protected": "/api/data"
+}

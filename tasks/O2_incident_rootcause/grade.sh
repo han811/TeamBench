@@ -67,7 +67,7 @@ try:
 except Exception:
     pass
 " 2>/dev/null)"
-    set -e
+    # set -e removed by grader-audit fix
     if [ -n "$BODY" ]; then OK=true; break; fi
     sleep 0.3
 done

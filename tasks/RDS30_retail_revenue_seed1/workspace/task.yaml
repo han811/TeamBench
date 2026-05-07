@@ -1,0 +1,9 @@
+task_id: RDS30_retail_revenue
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: online_retail
+  license: CC-BY 4.0
+  source: UCI ML Repository

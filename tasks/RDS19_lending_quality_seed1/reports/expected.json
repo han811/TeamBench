@@ -1,0 +1,32 @@
+{
+  "issues": [
+    "emp_length contains 'n/a' entries that must be handled",
+    "dti has 4 extreme outlier rows (> 200)",
+    "purpose column has capitalisation inconsistency ('Other' vs 'other')"
+  ],
+  "n_rows": 2000,
+  "columns": [
+    "loan_amnt",
+    "term",
+    "int_rate",
+    "installment",
+    "grade",
+    "emp_length",
+    "home_ownership",
+    "annual_inc",
+    "verification_status",
+    "purpose",
+    "dti",
+    "delinq_2yrs",
+    "fico_range_low",
+    "fico_range_high",
+    "open_acc",
+    "revol_util",
+    "default_ind"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

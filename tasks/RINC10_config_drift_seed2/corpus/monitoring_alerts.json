@@ -1,0 +1,27 @@
+[
+  {
+    "timestamp": "2026-03-01T00:00:00Z",
+    "severity": "critical",
+    "service": "DatabasePoolService",
+    "alert": "CONFIG_DRIFT_DETECTED",
+    "message": "connection pool exhaustion p99 latency 8s \u2014 max_connections too low, SSL disabled",
+    "details": {
+      "config_file": "config/db_pool.json",
+      "production_hash": "d8a3f1b2",
+      "vcs_hash": "a3f7b9c1",
+      "drifted_key_count": 4
+    }
+  },
+  {
+    "timestamp": "2026-03-01T00:05:00Z",
+    "severity": "warning",
+    "service": "DatabasePoolService",
+    "alert": "PERFORMANCE_DEGRADATION",
+    "message": "P99 latency increased 3x since config change",
+    "details": {
+      "p99_before": "120ms",
+      "p99_after": "890ms",
+      "correlated_config_key": "max_connections"
+    }
+  }
+]

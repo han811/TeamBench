@@ -93,8 +93,7 @@ print('STRIP_OK')
 set +e
 OUT2="$(python3 -m app.main $INPUT_ARG "$WORKSPACE/data/empty.txt" 2>/dev/null)"
 EC=$?
-set -e
-
+# set -e removed by grader-audit fix
 check "python3 -c \"
 import sys
 ec = int(sys.argv[1])

@@ -1,0 +1,9 @@
+task_id: RDS9_fraud_detection
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: credit_card_fraud
+  license: Open Database License
+  source: ULB Machine Learning Group / Kaggle

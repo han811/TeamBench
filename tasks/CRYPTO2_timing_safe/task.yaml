@@ -1,7 +1,0 @@
-task_id: CRYPTO2_timing_safe
-category: Security
-difficulty: hard
-languages: [python]
-description: "Fix 4 timing-unsafe secret comparisons with hmac.compare_digest while NOT changing the 1 non-secret username lookup"
-tni_pattern: A  # Hidden Constraints (distinguishing secret vs non-secret comparisons)
-expertise_tools: []

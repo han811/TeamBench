@@ -1,0 +1,10 @@
+{
+  "missing_mechanism": "MCAR",
+  "scale_change_col": "infant_mortality",
+  "n_rows": 92,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

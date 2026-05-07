@@ -90,23 +90,8 @@ class GeminiAdapter(ModelAdapter, ToolCallAdapter):
             self._keys = _load_all_gemini_keys()
         if not self._keys:
             raise ValueError("No GEMINI_API_KEY found. Provide api_key or set the environment variable.")
-        # Validate keys: remove any that return 400 INVALID_ARGUMENT
-        valid_keys = []
-        for k in self._keys:
-            try:
-                test_client = genai.Client(api_key=k)
-                test_client.models.generate_content(
-                    model=self.model,
-                    contents=[types.Content(role="user", parts=[types.Part.from_text(text="hi")])],
-                    config=types.GenerateContentConfig(max_output_tokens=5),
-                )
-                valid_keys.append(k)
-            except Exception as e:
-                if "invalid_argument" in str(e).lower() or "api key not valid" in str(e).lower():
-                    print(f"  [gemini] Skipping invalid key ({k[:8]}...)")
-                else:
-                    valid_keys.append(k)  # Keep keys that fail for other reasons (503/429)
-        self._keys = valid_keys or self._keys[:1]  # Fallback to first key if all fail
+        # Skip key validation at init (too slow with many keys + rate limits).
+        # Invalid keys will be rotated away at runtime via _call_with_retry.
         self._key_index = 0
         self.client = genai.Client(api_key=self._keys[0])
         if len(self._keys) > 1:
@@ -156,13 +141,62 @@ class GeminiAdapter(ModelAdapter, ToolCallAdapter):
         gemini_tools = _standard_to_gemini_declarations(tools) if tools else None
         contents = self._messages_to_gemini(messages)
 
-        raw = self._call_with_retry(
-            contents=contents,
-            system_instruction=system_prompt or None,
-            tools=gemini_tools,
+        try:
+            raw = self._call_with_retry(
+                contents=contents,
+                system_instruction=system_prompt or None,
+                tools=gemini_tools,
+            )
+            self._track_usage(raw)
+            return self._parse_response(raw)
+        except Exception as e:
+            err = str(e).lower()
+            retryable = (
+                "429" in err or "resource_exhausted" in err
+                or "rate" in err or "503" in err or "unavailable" in err
+                or "gemini api failed after" in err
+            )
+            if not retryable:
+                raise
+            print(
+                f"  [gemini→openrouter-fallback] direct exhausted: {str(e)[:120]}"
+            )
+            return self._openrouter_fallback(messages, system_prompt, tools)
+
+    def _openrouter_fallback(
+        self,
+        messages: list[dict],
+        system_prompt: str,
+        tools: list[dict],
+    ) -> AdapterResponse:
+        """Route to OpenRouter when all direct Gemini keys are rate-limited.
+
+        OR's Google provider hits the same underlying model weights; the only
+        methodological shift is the intermediate proxy. Token usage is merged
+        into self._total_{input,output}_tokens so role_usage remains accurate.
+        """
+        if not hasattr(self, "_or_fallback"):
+            from harness.adapters import create_adapter
+            or_model = f"openrouter:google/{self.model}"
+            self._or_fallback = create_adapter(
+                or_model, temperature=self.temperature,
+            )
+            self._or_prev_in = 0
+            self._or_prev_out = 0
+        resp = self._or_fallback.generate_with_tools(
+            messages, system_prompt, tools,
         )
-        self._track_usage(raw)
-        return self._parse_response(raw)
+        try:
+            usage = self._or_fallback.get_usage() or {}
+            cur_in = int(usage.get("input_tokens", 0) or 0)
+            cur_out = int(usage.get("output_tokens", 0) or 0)
+            self._total_input_tokens += max(0, cur_in - self._or_prev_in)
+            self._total_output_tokens += max(0, cur_out - self._or_prev_out)
+            self._or_prev_in = cur_in
+            self._or_prev_out = cur_out
+        except Exception:  # noqa: BLE001
+            pass
+        return resp
 
     def get_usage(self) -> dict:
         """Return cumulative token usage."""
@@ -206,7 +240,14 @@ class GeminiAdapter(ModelAdapter, ToolCallAdapter):
         return contents
 
     def _parse_response(self, response: types.GenerateContentResponse) -> AdapterResponse:
-        """Parse a Gemini response into an AdapterResponse."""
+        """Parse a Gemini response into an AdapterResponse.
+
+        Skip thought parts (part.thought=True) so private reasoning never leaks
+        into surfaced text or triggers DONE detection. Native-thinking models
+        (gemini-2.5-pro etc.) emit thoughts as separate parts; without this
+        filter, thinking text containing "DONE" would prematurely terminate
+        the agent loop.
+        """
         text = ""
         tool_calls: list[dict] = []
 
@@ -214,6 +255,8 @@ class GeminiAdapter(ModelAdapter, ToolCallAdapter):
             if not candidate.content or not candidate.content.parts:
                 continue
             for part in candidate.content.parts:
+                if getattr(part, "thought", False):
+                    continue
                 if part.text:
                     text += part.text
                 if part.function_call:
@@ -231,7 +274,7 @@ class GeminiAdapter(ModelAdapter, ToolCallAdapter):
         contents: list[types.Content],
         system_instruction: str | None = None,
         tools: list[types.Tool] | None = None,
-        max_retries: int = 8,
+        max_retries: int = 15,
     ) -> types.GenerateContentResponse:
         """Call Gemini API with exponential backoff and key rotation for 503/429 errors."""
         config = types.GenerateContentConfig(
@@ -239,6 +282,12 @@ class GeminiAdapter(ModelAdapter, ToolCallAdapter):
             max_output_tokens=self.max_output_tokens,
             tools=tools,
         )
+        # gemini-2.5-pro enters thinking-only states under tool-loop pressure
+        # (empty text + empty function_call parts), causing stuck-detection to
+        # kill the agent. Disable native thinking for that family. Gemini 3.x
+        # tolerates the loop with thinking on, so leave it untouched.
+        if "2.5-pro" in self.model:
+            config.thinking_config = types.ThinkingConfig(thinking_budget=0)
         if system_instruction:
             config.system_instruction = system_instruction
 
@@ -257,7 +306,7 @@ class GeminiAdapter(ModelAdapter, ToolCallAdapter):
                              or "api key not valid" in error_str)
                 if retryable:
                     self._rotate_key()
-                    wait = min(2 ** attempt * 2, 120)
+                    wait = min(2 ** attempt * 2, 300)
                     key_info = f" (key {self._key_index + 1}/{len(self._keys)})" if len(self._keys) > 1 else ""
                     print(f"  [retry] {attempt + 1}/{max_retries} in {wait}s{key_info}...")
                     time.sleep(wait)

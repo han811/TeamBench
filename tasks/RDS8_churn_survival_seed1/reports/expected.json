@@ -1,0 +1,40 @@
+{
+  "analysis_type": "cox_ph",
+  "research_question": "Which customer features are significant predictors of churn risk? Fit a Cox proportional hazards model with covariates: contract type, monthly charges, internet service, and senior citizen status.",
+  "key_cols": [
+    "tenure",
+    "Churn",
+    "Contract",
+    "MonthlyCharges",
+    "InternetService",
+    "SeniorCitizen"
+  ],
+  "hidden_col_keywords": [
+    "MonthlyCharges",
+    "InternetService"
+  ],
+  "n_rows": 1408,
+  "columns": [
+    "customerID",
+    "gender",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "tenure",
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "MonthlyCharges",
+    "TotalCharges",
+    "Churn"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

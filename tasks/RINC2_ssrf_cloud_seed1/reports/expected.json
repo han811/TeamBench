@@ -1,0 +1,13 @@
+{
+  "seed": 1,
+  "provider": "GCP",
+  "metadata_host": "metadata.google.internal",
+  "url_param": "endpoint",
+  "fix": "block_private_ip_ranges_and_metadata_endpoints",
+  "blocked_ranges": [
+    "169.254.0.0/16",
+    "10.0.0.0/8",
+    "172.16.0.0/12",
+    "192.168.0.0/16"
+  ]
+}

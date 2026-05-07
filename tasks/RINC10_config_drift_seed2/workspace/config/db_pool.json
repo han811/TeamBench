@@ -1,0 +1,10 @@
+{
+  "max_connections": 5,
+  "min_connections": 5,
+  "connection_timeout_ms": 500,
+  "idle_timeout_seconds": 600,
+  "max_lifetime_seconds": 3600,
+  "enable_ssl": false,
+  "ssl_mode": "verify-full",
+  "debug_mode": true
+}

@@ -1,0 +1,9 @@
+{
+  "issues": "cancellations, missing CustomerIDs, negative quantities, non-product rows",
+  "n_rows": 30000,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

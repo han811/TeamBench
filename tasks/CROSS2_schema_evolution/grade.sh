@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # CROSS2 grader: verify schema evolution — Service B updated + backfill implemented
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

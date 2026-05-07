@@ -60,7 +60,7 @@ try:
 except Exception:
     pass
 " 2>/dev/null)"
-  set -e
+  # set -e removed by grader-audit fix
   if [ "$BODY" = "$EXPECTED_BODY" ]; then
     OK=true
     break

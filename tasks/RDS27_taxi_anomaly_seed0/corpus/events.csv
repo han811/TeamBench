@@ -1,0 +1,8 @@
+date,event_name,venue,expected_attendance,event_type,start_time
+2018-03-14,NBA Knicks vs. Boston Celtics (MSG),Madison Square Garden,19763,Sports/Entertainment,19:30
+2018-03-15,NBA Knicks vs. Boston Celtics (MSG),Madison Square Garden,19763,Sports/Entertainment,19:30
+2018-03-03,Broadway Show - Hamilton,Richard Rodgers Theatre,1319,Theater,20:00
+2018-03-06,NY Mets vs Yankees,Yankee Stadium,38000,Baseball,13:05
+2018-03-09,NYC Marathon,Central Park,55000,Running,09:00
+2018-03-12,Fashion Week Gala,Lincoln Center,2500,Fashion,18:00
+2018-03-15,Film Festival Premiere,AMC Lincoln Square,800,Film,21:00

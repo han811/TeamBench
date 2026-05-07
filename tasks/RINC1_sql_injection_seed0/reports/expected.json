@@ -1,0 +1,14 @@
+{
+  "seed": 0,
+  "domain": "bookstore",
+  "vulnerable_patterns": [
+    "f\"SELECT * FROM books WHERE title LIKE '%{query}%'\"",
+    "f\"SELECT * FROM books WHERE book_id = {item_id}\"",
+    "f\"DELETE FROM books WHERE book_id = {item_id}\""
+  ],
+  "fix": "parameterized_queries",
+  "endpoint_search": "/search",
+  "endpoint_get": "/book",
+  "endpoint_delete": "/admin/delete",
+  "table": "books"
+}

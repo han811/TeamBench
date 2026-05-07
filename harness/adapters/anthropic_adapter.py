@@ -14,6 +14,17 @@ import os
 import time
 from typing import Any
 
+
+def _load_key_from_dotenv(key_name: str) -> str:
+    for p in [".env", os.path.join(os.path.dirname(__file__), "..", "..", ".env")]:
+        if os.path.exists(p):
+            with open(p) as f:
+                for line in f:
+                    line = line.strip()
+                    if line.startswith(key_name) and "=" in line:
+                        return line.split("=", 1)[1].strip().strip('"').strip("'")
+    return ""
+
 from harness.agent_interface import AdapterResponse, ToolCallAdapter
 
 logger = logging.getLogger(__name__)
@@ -59,6 +70,8 @@ class AnthropicAdapter(ToolCallAdapter):
         self._total_output_tokens = 0
 
         key = api_key or os.environ.get("ANTHROPIC_API_KEY", "")
+        if not key:
+            key = _load_key_from_dotenv("ANTHROPIC_API_KEY")
         if not key:
             raise ValueError(
                 "ANTHROPIC_API_KEY not set. Provide api_key or set the environment variable."

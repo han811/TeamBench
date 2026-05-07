@@ -1,0 +1,42 @@
+year,country_code,imposing_body,sanction_type,healthcare_import_impact,gdp_impact_pct
+2009,HTI,none,none,4,0.2
+2009,MLI,none,none,4,0.2
+2009,CAF,none,none,5,0.9
+2010,HTI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,53,4.6
+2010,MLI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,59,7.4
+2010,CAF,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,37,10.9
+2011,HTI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,40,11.2
+2011,MLI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,33,9.7
+2011,CAF,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,33,11.7
+2012,HTI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,53,5.5
+2012,MLI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,43,7.7
+2012,CAF,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,56,4.1
+2013,HTI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,48,4.3
+2013,MLI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,44,7.4
+2013,CAF,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,50,8.5
+2014,HTI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,46,5.7
+2014,MLI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,28,9.2
+2014,CAF,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,29,3.4
+2015,HTI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,55,8.5
+2015,MLI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,38,3.9
+2015,CAF,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,36,7.3
+2016,HTI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,39,10.5
+2016,MLI,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,39,5.8
+2016,CAF,Regional economic bodies (ECOWAS),trade restrictions limiting medical supply chain access,29,9.8
+2017,HTI,none,none,2,0.3
+2017,MLI,none,none,5,0.9
+2017,CAF,none,none,1,0.6
+2010,IRN,US Treasury,financial sector,39,4.8
+2011,IRN,US Treasury,financial sector,19,4.4
+2012,IRN,US Treasury,financial sector,22,4.8
+2013,IRN,US Treasury,financial sector,21,3.0
+2014,IRN,US Treasury,financial sector,28,4.1
+2015,IRN,US Treasury,financial sector,18,3.5
+2016,IRN,US Treasury,financial sector,20,3.0
+2010,CUB,US Treasury,financial sector,36,2.9
+2011,CUB,US Treasury,financial sector,26,3.0
+2012,CUB,US Treasury,financial sector,34,3.0
+2013,CUB,US Treasury,financial sector,34,1.1
+2014,CUB,US Treasury,financial sector,17,3.2
+2015,CUB,US Treasury,financial sector,20,3.8
+2016,CUB,US Treasury,financial sector,28,4.6

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # TRAP6 grader: verify 5 callsites migrated + 3 vendored callsites preserved
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

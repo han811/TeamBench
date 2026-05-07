@@ -1,0 +1,9 @@
+{
+  "issues": "YearBuilt typo (2207→2007), LotArea outliers, Utilities constant",
+  "n_rows": 1465,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

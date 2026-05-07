@@ -1,0 +1,7 @@
+task_id: RINC1_sql_injection
+category: security
+difficulty: hard
+domain: security
+languages: ['python']
+parameterized: true
+seeds: [0, 1, 2]

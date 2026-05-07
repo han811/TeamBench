@@ -11,21 +11,26 @@ from generators.base import TaskGenerator, GeneratedTask
 from generators.primitives import SeededRandom
 
 
-# Domain variants per seed
-DOMAINS = ["task", "event", "job"]
-QUEUE_CLASSES = ["TaskQueue", "EventQueue", "JobQueue"]
-MESSAGE_CLASSES = ["Task", "Event", "Job"]
-PRIORITY_CLASSES = ["PriorityTask", "PriorityEvent", "PriorityJob"]
-PRODUCER_NAMES = ["worker_producer", "event_emitter", "job_submitter"]
-CONSUMER_NAMES = ["worker_consumer", "event_handler", "job_executor"]
-PRIORITY_LABELS = ["urgency", "severity", "sla_tier"]
+# Domain variants per seed — 8 entries so seeds 0-7 all produce distinct workspaces
+DOMAINS = ["task", "event", "job", "message", "command", "alert", "request", "packet"]
+QUEUE_CLASSES = ["TaskQueue", "EventQueue", "JobQueue", "MessageQueue", "CommandQueue", "AlertQueue", "RequestQueue", "PacketQueue"]
+MESSAGE_CLASSES = ["Task", "Event", "Job", "Message", "Command", "Alert", "Request", "Packet"]
+PRIORITY_CLASSES = ["PriorityTask", "PriorityEvent", "PriorityJob", "PriorityMessage", "PriorityCommand", "PriorityAlert", "PriorityRequest", "PriorityPacket"]
+PRODUCER_NAMES = ["worker_producer", "event_emitter", "job_submitter", "message_publisher", "command_dispatcher", "alert_generator", "request_sender", "packet_injector"]
+CONSUMER_NAMES = ["worker_consumer", "event_handler", "job_executor", "message_subscriber", "command_processor", "alert_responder", "request_handler", "packet_receiver"]
+PRIORITY_LABELS = ["urgency", "severity", "sla_tier", "weight", "rank", "criticality", "precedence", "qos_level"]
 PRIORITY_DESCS = [
     "Lower urgency number = higher priority (0=critical, 9=low)",
     "Lower severity number = higher priority (0=critical, 9=info)",
     "Lower SLA tier number = higher priority (0=platinum, 9=best-effort)",
+    "Lower weight number = higher priority (0=highest, 9=lowest)",
+    "Lower rank number = higher priority (0=top, 9=bottom)",
+    "Lower criticality number = higher priority (0=p0, 9=p4)",
+    "Lower precedence number = higher priority (0=urgent, 9=deferred)",
+    "Lower QoS level number = higher priority (0=guaranteed, 9=best-effort)",
 ]
-CAPACITY_VALS = [500, 1000, 750]
-MODULE_NAMES = ["tqueue", "equeue", "jqueue"]
+CAPACITY_VALS = [500, 1000, 750, 800, 1200, 600, 900, 1500]
+MODULE_NAMES = ["tqueue", "equeue", "jqueue", "mqueue2", "cqueue", "aqueue", "rqueue", "pqueue"]
 
 
 class Generator(TaskGenerator):

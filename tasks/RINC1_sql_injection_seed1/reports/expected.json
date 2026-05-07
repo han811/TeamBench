@@ -1,0 +1,14 @@
+{
+  "seed": 1,
+  "domain": "inventory",
+  "vulnerable_patterns": [
+    "f\"SELECT * FROM products WHERE name LIKE '%{query}%'\"",
+    "f\"SELECT * FROM products WHERE product_id = {item_id}\"",
+    "f\"DELETE FROM products WHERE product_id = {item_id}\""
+  ],
+  "fix": "parameterized_queries",
+  "endpoint_search": "/search",
+  "endpoint_get": "/product",
+  "endpoint_delete": "/admin/delete",
+  "table": "products"
+}

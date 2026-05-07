@@ -1,0 +1,8 @@
+{
+  "seed": 0,
+  "migration_type": "add_column",
+  "table": "orders",
+  "fix": "Use a multi-step migration: ADD COLUMN without DEFAULT, then UPDATE in batches, then set default via app",
+  "batch_size": 500,
+  "n_rows": 11890
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # DIST3 grader: verify idempotency implemented for 4 operations, balance untouched
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

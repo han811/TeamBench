@@ -1,0 +1,13 @@
+{
+  "seed": 1,
+  "technique": "double_encoding",
+  "service": "StaticFileServer",
+  "base_dir": "static",
+  "fix": "normalize path with os.path.realpath() after URL decoding — do not rely on string-replace filters",
+  "attack_payload": "%252e%252e%252fetc%252fpasswd",
+  "sample_files": [
+    "report_682.txt",
+    "data_967.csv",
+    "export_921.json"
+  ]
+}

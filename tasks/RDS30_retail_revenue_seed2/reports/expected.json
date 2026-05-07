@@ -1,0 +1,18 @@
+{
+  "drop_period": "Q3 2011 (Jul–Sep)",
+  "root_cause": "stockout_during_campaign",
+  "top_skus_stockout": [
+    "POST",
+    "22423",
+    "85099B",
+    "20727",
+    "22386"
+  ],
+  "campaign_name": "Summer Clearance + Back-to-School Push",
+  "n_rows": 5000,
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

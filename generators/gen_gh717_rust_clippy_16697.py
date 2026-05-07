@@ -1,0 +1,70 @@
+"""
+Parameterized generator for GH717_rust-clippy_16697.
+
+Source PR:    https://github.com/rust-lang/rust-clippy/pull/16697
+Source Issue: N/A
+
+Seed varies: renames 'attrs' identifier with suffix across seeds.
+
+Bug: pre-PR state of workspace files contains the bug the PR fixes.
+Fix: agent must replicate the PR's changes guided by spec.md.
+"""
+from __future__ import annotations
+
+import os
+from generators.base import TaskGenerator, GeneratedTask
+
+
+class Generator(TaskGenerator):
+    task_id = 'GH717_rust-clippy_16697'
+    domain = "Real-World GitHub"
+    difficulty = "medium"
+    languages = ["python"]
+
+    def generate(self, seed: int) -> GeneratedTask:
+        tasks_dir = os.path.join(
+            os.path.dirname(__file__), "..", "tasks", 'GH717_rust-clippy_16697'
+        )
+        with open(os.path.join(tasks_dir, "spec.md")) as f:
+            spec_md = f.read()
+        with open(os.path.join(tasks_dir, "brief.md")) as f:
+            brief_md = f.read()
+
+        files = self._base_workspace()
+        # Apply seed-based renaming to prevent direct memorization
+        suffixes = ["", "_alt", "_impl"]
+        suffix = suffixes[seed % len(suffixes)]
+        if suffix:
+            for fpath in list(files.keys()):
+                files[fpath] = files[fpath].replace('attrs', 'attrs' + suffix)
+        # Deep parameterization — consistent cross-seed variation
+        from generators.gh_deep_param import deep_rename_symbols, add_realistic_noise
+        files = deep_rename_symbols(files, seed, strategy="mixed")
+        files = add_realistic_noise(files, seed, noise_level=0.15)
+        return GeneratedTask(
+            task_id='GH717_rust-clippy_16697',
+            seed=seed,
+            spec_md=spec_md,
+            brief_md=brief_md,
+            expected={
+                "seed": seed,
+                "repo": 'rust-lang/rust-clippy',
+                "pr_number": 16697,
+                "bug_fixed": True,
+            },
+            workspace_files=files,
+            metadata={
+                "difficulty": "medium",
+                "category": "Real-World GitHub",
+                "source_pr": "https://github.com/rust-lang/rust-clippy/pull/16697",
+            },
+        )
+
+    def _base_workspace(self) -> dict[str, str]:
+        """Return the pre-PR (buggy) workspace files."""
+        return {
+            'clippy_lints/src/semicolon_block.rs': 'use clippy_config::Conf;\nuse clippy_utils::diagnostics::span_lint_and_then;\nuse clippy_utils::source::SpanRangeExt;\nuse rustc_errors::Applicability;\nuse rustc_hir::{Block, Expr, ExprKind, Stmt, StmtKind};\nuse rustc_lint::{LateContext, LateLintPass, LintContext};\nuse rustc_session::impl_lint_pass;\nuse rustc_span::Span;\n\ndeclare_clippy_lint! {\n    /// ### What it does\n    ///\n    /// Suggests moving the semicolon after a block to the inside of the block, after its last\n    /// expression.\n    ///\n    /// ### Why restrict this?\n    /// For consistency it\'s best to have the semicolon inside/outside the block. Either way is fine\n    /// and this lint suggests inside the block.\n    /// Take a look at `semicolon_outside_block` for the other alternative.\n    ///\n    /// ### Example\n    ///\n    /// ```no_run\n    /// # fn f(_: u32) {}\n    /// # let x = 0;\n    /// unsafe { f(x) };\n    /// ```\n    /// Use instead:\n    /// ```no_run\n    /// # fn f(_: u32) {}\n    /// # let x = 0;\n    /// unsafe { f(x); }\n    /// ```\n    #[clippy::version = "1.68.0"]\n    pub SEMICOLON_INSIDE_BLOCK,\n    restriction,\n    "add a semicolon inside the block"\n}\n\ndeclare_clippy_lint! {\n    /// ### What it does\n    ///\n    /// Suggests moving the semicolon from a block\'s final expression outside of the block.\n    ///\n    /// ### Why restrict this?\n    /// For consistency it\'s best to have the semicolon inside/outside the block. Either way is fine\n    /// and this lint suggests outside the block.\n    /// Take a look at `semicolon_inside_block` for the other alternative.\n    ///\n    /// ### Example\n    ///\n    /// ```no_run\n    /// # fn f(_: u32) {}\n    /// # let x = 0;\n    /// unsafe { f(x); }\n    /// ```\n    /// Use instead:\n    /// ```no_run\n    /// # fn f(_: u32) {}\n    /// # let x = 0;\n    /// unsafe { f(x) };\n    /// ```\n    #[clippy::version = "1.68.0"]\n    pub SEMICOLON_OUTSIDE_BLOCK,\n    restriction,\n    "add a semicolon outside the block"\n}\n\nimpl_lint_pass!(SemicolonBlock => [SEMICOLON_INSIDE_BLOCK, SEMICOLON_OUTSIDE_BLOCK]);\n\npub struct SemicolonBlock {\n    semicolon_inside_block_ignore_singleline: bool,\n    semicolon_outside_block_ignore_multiline: bool,\n}\n\nimpl SemicolonBlock {\n    pub fn new(conf: &\'static Conf) -> Self {\n        Self {\n            semicolon_inside_block_ignore_singleline: conf.semicolon_inside_block_ignore_singleline,\n            semicolon_outside_block_ignore_multiline: conf.semicolon_outside_block_ignore_multiline,\n        }\n    }\n\n    fn semicolon_inside_block(&self, cx: &LateContext<\'_>, block: &Block<\'_>, tail: &Expr<\'_>, semi_span: Span) {\n        let insert_span = tail.span.source_callsite().shrink_to_hi();\n        let remove_span = semi_span.with_lo(block.span.hi());\n\n        // If the block is surrounded by parens (`({ 0 });`), the author probably knows what\n        // they\'re doing and why, so don\'t get in their way.\n        //\n        // This has the additional benefit of stopping the block being parsed as a function call:\n        // ```\n        // fn foo() {\n        //     ({ 0 }); // if we remove this `;`, this will parse as a `({ 0 })(5);` function call\n        //     (5);\n        // }\n        if remove_span.check_source_text(cx, |src| src.contains(\')\')) {\n            return;\n        }\n\n        if self.semicolon_inside_block_ignore_singleline && get_line(cx, remove_span) == get_line(cx, insert_span) {\n            return;\n        }\n\n        span_lint_and_then(\n            cx,\n            SEMICOLON_INSIDE_BLOCK,\n            semi_span,\n            "consider moving the `;` inside the block for consistent formatting",\n            |diag| {\n                diag.multipart_suggestion(\n                    "put the `;` here",\n                    vec![(remove_span, String::new()), (insert_span, ";".to_owned())],\n                    Applicability::MachineApplicable,\n                );\n            },\n        );\n    }\n\n    fn semicolon_outside_block(&self, cx: &LateContext<\'_>, block: &Block<\'_>, tail_stmt_expr: &Expr<\'_>) {\n        let insert_span = block.span.shrink_to_hi();\n\n        // For macro call semicolon statements (`mac!();`), the statement\'s span does not actually\n        // include the semicolon itself, so use `mac_call_stmt_semi_span`, which finds the semicolon\n        // based on a source snippet.\n        // (Does not use `stmt_span` as that requires `.from_expansion()` to return true,\n        // which is not the case for e.g. `line!();` and `asm!();`)\n        let Some(remove_span) = cx\n            .sess()\n            .source_map()\n            .mac_call_stmt_semi_span(tail_stmt_expr.span.source_callsite())\n        else {\n            return;\n        };\n\n        if self.semicolon_outside_block_ignore_multiline && get_line(cx, remove_span) != get_line(cx, insert_span) {\n            return;\n        }\n\n        span_lint_and_then(\n            cx,\n            SEMICOLON_OUTSIDE_BLOCK,\n            block.span,\n            "consider moving the `;` outside the block for consistent formatting",\n            |diag| {\n                diag.multipart_suggestion(\n                    "put the `;` here",\n                    vec![(remove_span, String::new()), (insert_span, ";".to_owned())],\n                    Applicability::MachineApplicable,\n                );\n            },\n        );\n    }\n}\n\nimpl LateLintPass<\'_> for SemicolonBlock {\n    fn check_stmt(&mut self, cx: &LateContext<\'_>, stmt: &Stmt<\'_>) {\n        match stmt.kind {\n            StmtKind::Expr(Expr {\n                kind: ExprKind::Block(block, _),\n                ..\n            }) if !block.span.from_expansion() && stmt.span.contains(block.span) => {\n                if block.expr.is_none()\n                    && let [.., stmt] = block.stmts\n                    && let StmtKind::Semi(expr) = stmt.kind\n                {\n                    self.semicolon_outside_block(cx, block, expr);\n                }\n            },\n            StmtKind::Semi(Expr {\n                kind: ExprKind::Block(block, _),\n                ..\n            }) if !block.span.from_expansion() => {\n                let attrs = cx.tcx.hir_attrs(stmt.hir_id);\n                if !attrs.is_empty() && !cx.tcx.features().stmt_expr_attributes() {\n                    return;\n                }\n\n                if let Some(tail) = block.expr {\n                    self.semicolon_inside_block(cx, block, tail, stmt.span);\n                }\n            },\n            _ => (),\n        }\n    }\n}\n\nfn get_line(cx: &LateContext<\'_>, span: Span) -> Option<usize> {\n    cx.sess().source_map().lookup_line(span.lo()).ok().map(|line| line.line)\n}\n',
+            'tests/ui/semicolon_inside_block.fixed': '#![allow(\n    unused,\n    clippy::unused_unit,\n    clippy::unnecessary_operation,\n    clippy::no_effect,\n    clippy::single_element_loop,\n    clippy::double_parens\n)]\n#![warn(clippy::semicolon_inside_block)]\n\nmacro_rules! m {\n    (()) => {\n        ()\n    };\n    (0) => {{\n        0\n    };};\n    (1) => {{\n        1;\n    }};\n    (2) => {{\n        2;\n    }};\n}\n\nfn unit_fn_block() {\n    ()\n}\n\n#[rustfmt::skip]\nfn main() {\n    { unit_fn_block() }\n    unsafe { unit_fn_block() }\n\n    {\n        unit_fn_block()\n    }\n\n    { unit_fn_block(); }\n    //~^ semicolon_inside_block\n    unsafe { unit_fn_block(); }\n    //~^ semicolon_inside_block\n\n    { unit_fn_block(); }\n    unsafe { unit_fn_block(); }\n\n    { unit_fn_block(); };\n    unsafe { unit_fn_block(); };\n\n    {\n    //~^ semicolon_inside_block\n        unit_fn_block();\n        unit_fn_block();\n    }\n    {\n        unit_fn_block();\n        unit_fn_block();\n    }\n    {\n        unit_fn_block();\n        unit_fn_block();\n    };\n\n    { m!(()); }\n    //~^ semicolon_inside_block\n    { m!(()); }\n    { m!(()); };\n    m!(0);\n    m!(1);\n    m!(2);\n\n    for _ in [()] {\n        unit_fn_block();\n    }\n    for _ in [()] {\n        unit_fn_block()\n    }\n\n    let _d = || {\n        unit_fn_block();\n    };\n    let _d = || {\n        unit_fn_block()\n    };\n\n    { unit_fn_block(); };\n\n    unit_fn_block()\n}\n\n#[rustfmt::skip]\nfn issue15380() {\n    ( {0;0});\n\n    ({\n        0;\n        0\n    });\n\n    (({ 0 }))      ;\n\n    ( ( { 0 } ) ) ;\n}\n\npub fn issue15388() {\n    #[rustfmt::skip]\n    {0; 0};\n}\n',
+            'tests/ui/semicolon_inside_block.rs': '#![allow(\n    unused,\n    clippy::unused_unit,\n    clippy::unnecessary_operation,\n    clippy::no_effect,\n    clippy::single_element_loop,\n    clippy::double_parens\n)]\n#![warn(clippy::semicolon_inside_block)]\n\nmacro_rules! m {\n    (()) => {\n        ()\n    };\n    (0) => {{\n        0\n    };};\n    (1) => {{\n        1;\n    }};\n    (2) => {{\n        2;\n    }};\n}\n\nfn unit_fn_block() {\n    ()\n}\n\n#[rustfmt::skip]\nfn main() {\n    { unit_fn_block() }\n    unsafe { unit_fn_block() }\n\n    {\n        unit_fn_block()\n    }\n\n    { unit_fn_block() };\n    //~^ semicolon_inside_block\n    unsafe { unit_fn_block() };\n    //~^ semicolon_inside_block\n\n    { unit_fn_block(); }\n    unsafe { unit_fn_block(); }\n\n    { unit_fn_block(); };\n    unsafe { unit_fn_block(); };\n\n    {\n    //~^ semicolon_inside_block\n        unit_fn_block();\n        unit_fn_block()\n    };\n    {\n        unit_fn_block();\n        unit_fn_block();\n    }\n    {\n        unit_fn_block();\n        unit_fn_block();\n    };\n\n    { m!(()) };\n    //~^ semicolon_inside_block\n    { m!(()); }\n    { m!(()); };\n    m!(0);\n    m!(1);\n    m!(2);\n\n    for _ in [()] {\n        unit_fn_block();\n    }\n    for _ in [()] {\n        unit_fn_block()\n    }\n\n    let _d = || {\n        unit_fn_block();\n    };\n    let _d = || {\n        unit_fn_block()\n    };\n\n    { unit_fn_block(); };\n\n    unit_fn_block()\n}\n\n#[rustfmt::skip]\nfn issue15380() {\n    ( {0;0});\n\n    ({\n        0;\n        0\n    });\n\n    (({ 0 }))      ;\n\n    ( ( { 0 } ) ) ;\n}\n\npub fn issue15388() {\n    #[rustfmt::skip]\n    {0; 0};\n}\n',
+            'tests/ui/semicolon_inside_block.stderr': 'error: consider moving the `;` inside the block for consistent formatting\n  --> tests/ui/semicolon_inside_block.rs:39:5\n   |\nLL |     { unit_fn_block() };\n   |     ^^^^^^^^^^^^^^^^^^^^\n   |\n   = note: `-D clippy::semicolon-inside-block` implied by `-D warnings`\n   = help: to override `-D warnings` add `#[allow(clippy::semicolon_inside_block)]`\nhelp: put the `;` here\n   |\nLL -     { unit_fn_block() };\nLL +     { unit_fn_block(); }\n   |\n\nerror: consider moving the `;` inside the block for consistent formatting\n  --> tests/ui/semicolon_inside_block.rs:41:5\n   |\nLL |     unsafe { unit_fn_block() };\n   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   |\nhelp: put the `;` here\n   |\nLL -     unsafe { unit_fn_block() };\nLL +     unsafe { unit_fn_block(); }\n   |\n\nerror: consider moving the `;` inside the block for consistent formatting\n  --> tests/ui/semicolon_inside_block.rs:50:5\n   |\nLL | /     {\nLL | |\nLL | |         unit_fn_block();\nLL | |         unit_fn_block()\nLL | |     };\n   | |______^\n   |\nhelp: put the `;` here\n   |\nLL ~         unit_fn_block();\nLL ~     }\n   |\n\nerror: consider moving the `;` inside the block for consistent formatting\n  --> tests/ui/semicolon_inside_block.rs:64:5\n   |\nLL |     { m!(()) };\n   |     ^^^^^^^^^^^\n   |\nhelp: put the `;` here\n   |\nLL -     { m!(()) };\nLL +     { m!(()); }\n   |\n\nerror: aborting due to 4 previous errors\n\n',
+        }

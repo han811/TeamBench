@@ -1,0 +1,9 @@
+{
+  "seed": 0,
+  "race_type": "double_spend",
+  "service": "WalletService",
+  "fix": "use database-level row lock (SELECT FOR UPDATE) or optimistic locking with version check",
+  "initial_balance": 297,
+  "debit_amount": 36,
+  "n_concurrent": 5
+}

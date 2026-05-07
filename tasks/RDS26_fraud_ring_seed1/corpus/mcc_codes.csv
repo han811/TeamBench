@@ -1,0 +1,18 @@
+mcc_code,category,description,fraud_risk_tier
+5065,Electronics,Electronic parts and equipment,HIGH
+5734,Electronics,Computer and software stores,HIGH
+5732,Electronics,Electronics stores,HIGH
+5045,Electronics,Computers and peripherals wholesale,HIGH
+5094,Jewelry,Jewelry, watches, and silverware wholesale,HIGH
+5944,Jewelry,Jewelry stores,HIGH
+5311,Retail,Department stores,MEDIUM
+5411,Grocery,Grocery stores and supermarkets,LOW
+5912,Health,Drug stores and pharmacies,LOW
+5812,Food,Eating places and restaurants,LOW
+5411,Grocery,Grocery stores,LOW
+5999,Misc,Miscellaneous retail stores,MEDIUM
+5533,Auto,Automotive parts and accessories,MEDIUM
+7011,Travel,Hotels and lodging,MEDIUM
+4111,Transit,Transportation and transit,LOW
+6051,Quasi-Cash,Non-financial institutions quasi-cash,HIGH
+6010,Financial,Financial institutions cash disbursements,HIGH

@@ -83,3 +83,20 @@ class TaskConfig:
     workspace_file_count: int = 0  # Approximate files in workspace
     lines_changed_expected: int = 0  # Approximate solution size
     parameterized: bool = False  # True if generator exists for this task
+
+
+@dataclass
+class ModelConfig:
+    """Model configuration for experiments"""
+    name: str  # e.g., "gpt-4", "claude-3-opus"
+    provider: str  # "openai", "anthropic", "google", etc.
+    api_key_env: Optional[str] = None  # Environment variable for API key
+    params_estimate: Optional[str] = None  # e.g., "~1T", "~500B"
+    cost_per_1k_input: float = 0.01  # USD per 1K input tokens
+    cost_per_1k_output: float = 0.03  # USD per 1K output tokens
+    capability_score: Optional[float] = None  # 0-100 capability index
+    max_context: int = 8192  # Maximum context window
+    supports_tools: bool = True  # Whether model supports tool/function calling
+    
+    def to_dict(self) -> dict:
+        return asdict(self)

@@ -1,0 +1,7 @@
+task_id: RINC9_race_condition
+category: incident
+difficulty: hard
+domain: incident
+languages: ['python']
+parameterized: true
+seeds: [0, 1, 2]

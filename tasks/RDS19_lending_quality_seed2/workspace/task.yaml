@@ -1,0 +1,9 @@
+task_id: RDS19_lending_quality
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: lending_club
+  license: CC BY 4.0 (synthetic placeholder)
+  source: Kaggle / Lending Club

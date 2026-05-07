@@ -1,0 +1,22 @@
+\begin{table}[htbp]
+\centering
+\caption{Author vs.\ Empirical Difficulty Calibration. Empirical difficulty $= 1 - \bar{s}_{\text{oracle}}$ averaged across all models and seeds. Recalibrated labels use thresholds: easy $<$ 0.20, medium 0.20--0.50, hard 0.50--0.80, expert $>$ 0.80.}
+\label{tab:difficulty_calibration}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Author Label & \multicolumn{4}{c}{Recalibrated (Empirical) Label} \\
+\cmidrule(lr){2-5}
+ & Easy & Medium & Hard & Expert \\
+\midrule
+Easy & \textbf{2} & 4 & 1 & 0 \\
+Medium & 7 & \textbf{7} & 10 & 1 \\
+Hard & 35 & 37 & \textbf{26} & 5 \\
+Expert & 6 & 3 & 4 & \textbf{3} \\
+\midrule
+Total & 50 & 51 & 41 & 9 \\
+\bottomrule
+\end{tabular}
+\vspace{2pt}
+{\footnotesize Spearman $\rho = 0.010$ (n.s., $p = 0.9074$, $n = 151$ tasks). Diagonal cells (bold) indicate agreement between author and recalibrated labels (38/151, 25\%).}
+\end{table}

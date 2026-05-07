@@ -1,0 +1,9 @@
+task_id: RDS21_health_missing
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: who_gho
+  license: CC BY-NC-SA 3.0 IGO (WHO)
+  source: WHO Global Health Observatory

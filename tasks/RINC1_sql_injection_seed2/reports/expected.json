@@ -1,0 +1,14 @@
+{
+  "seed": 2,
+  "domain": "users",
+  "vulnerable_patterns": [
+    "f\"SELECT * FROM users WHERE username LIKE '%{query}%'\"",
+    "f\"SELECT * FROM users WHERE user_id = {item_id}\"",
+    "f\"DELETE FROM users WHERE user_id = {item_id}\""
+  ],
+  "fix": "parameterized_queries",
+  "endpoint_search": "/search",
+  "endpoint_get": "/user",
+  "endpoint_delete": "/admin/delete",
+  "table": "users"
+}

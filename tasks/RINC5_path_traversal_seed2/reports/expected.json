@@ -1,0 +1,13 @@
+{
+  "seed": 2,
+  "technique": "null_byte",
+  "service": "ReportExporter",
+  "base_dir": "reports",
+  "fix": "reject filenames containing null bytes (\\x00) and normalize with os.path.realpath()",
+  "attack_payload": "report.pdf\u0000/../../../etc/passwd",
+  "sample_files": [
+    "report_193.txt",
+    "data_186.csv",
+    "export_469.json"
+  ]
+}

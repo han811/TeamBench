@@ -1,0 +1,9 @@
+task_id: RDS24_retail_quality
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: online_retail
+  license: CC BY 4.0
+  source: UCI ML Repository / Online Retail Dataset

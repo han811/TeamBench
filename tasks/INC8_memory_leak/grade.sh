@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # INC8 grader: verify memory leak triage — only real leak fixed, others untouched
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

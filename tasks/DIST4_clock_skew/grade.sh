@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # DIST4 grader: verify Lamport clock bugs fixed and vector clock unchanged
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

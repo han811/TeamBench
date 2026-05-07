@@ -1,0 +1,21 @@
+{
+  "seed": 2,
+  "service": "DatabasePoolService",
+  "drifted_keys": [
+    "max_connections",
+    "connection_timeout_ms",
+    "enable_ssl",
+    "debug_mode"
+  ],
+  "correct_config": {
+    "max_connections": 50,
+    "min_connections": 5,
+    "connection_timeout_ms": 5000,
+    "idle_timeout_seconds": 600,
+    "max_lifetime_seconds": 3600,
+    "enable_ssl": true,
+    "ssl_mode": "verify-full"
+  },
+  "drift_explanation": "max_connections reduced to debug pool exhaustion, SSL disabled to bypass cert issue, neither reverted",
+  "extra_key": "debug_mode"
+}

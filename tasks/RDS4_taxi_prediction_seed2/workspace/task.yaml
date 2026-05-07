@@ -1,0 +1,9 @@
+task_id: RDS4_taxi_prediction
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: nyc_taxi
+  license: Public Domain
+  source: NYC TLC

@@ -1,0 +1,9 @@
+task_id: RDS8_churn_survival
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: telco_churn
+  license: Apache 2.0
+  source: IBM Telco Customer Churn

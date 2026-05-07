@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # TRAP2 grader: verify genuine bugs fixed and false issues preserved
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

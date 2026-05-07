@@ -22,6 +22,7 @@ from harness.agent_interface import (
     make_verifier_config,
     make_analysis_planner_config,
     make_expertise_verifier_config,
+    make_prompt_only_config,
     RoleConfig,
 )
 from harness.agent_interface import ToolCallAdapter
@@ -42,6 +43,7 @@ class OrchestratorResult:
     verdict: str = "fail"
     remediation_loops: int = 0
     total_turns: int = 0
+    role_usage: dict = field(default_factory=dict)  # role -> {input_tokens, output_tokens, model, wall_sec}
 
 
 def _relay_planner_text(turns: list[AgentTurn], messages_dir: str) -> None:
@@ -715,3 +717,380 @@ class ExpertiseOrchestrator:
             return verdict
 
         return "missing"
+
+
+# ---------------------------------------------------------------------------
+# Variable-enforcement orchestrator (role_enforcement_ablation experiment)
+# ---------------------------------------------------------------------------
+#
+# Used by the `prompt_only`, `enforced_shared_history`, and (for auditing) the
+# `enforced` ablation conditions. Parameterised by two orthogonal knobs:
+#
+#   share_tools=False, share_history=False  -> identical to TaskOrchestrator
+#                                              (matches FULL condition semantics)
+#   share_tools=False, share_history=True   -> enforced_shared_history:
+#                                              role-specific tool gating is kept,
+#                                              but each role sees prior phases'
+#                                              transcripts in its LLM context.
+#   share_tools=True,  share_history=True   -> prompt_only: every role uses the
+#                                              permissive prompt_only config
+#                                              (same tools for P/E/V) AND sees
+#                                              prior phases' transcripts. Only
+#                                              the system prompt distinguishes
+#                                              roles. This operationalises the
+#                                              precise hypothesis under test (H1).
+#
+# The (share_tools=True, share_history=False) cell is intentionally not wired
+# into ablation.py. It is a diagnostic configuration (agents with identical
+# tools but no memory of prior phases) that is not part of the pre-registered
+# hypothesis space. It can be invoked directly for post-hoc analyses.
+#
+# Design constraints (so reviewer 2 has nothing to attack):
+#   * Remediation budget (max_remediation_loops) is identical to TaskOrchestrator.
+#   * Tool execution semantics (cwd, path maps) are identical — no "harder" or
+#     "easier" tools in one condition.
+#   * System prompts in prompt_only are content-matched to enforced (same role
+#     instructions; only workspace-access language differs). No prompt-engineering
+#     confound between conditions.
+#   * Seed-context format is provider-agnostic plain text so OpenAI/Anthropic/
+#     Google all see the same transcript in the same representation.
+
+
+def _serialise_turn(turn: AgentTurn) -> str:
+    """Serialise one AgentTurn to a provider-agnostic plain-text block."""
+    lines: list[str] = [f"Turn {turn.turn} — {turn.role}:"]
+    if turn.text:
+        lines.append(turn.text)
+    for call, res in zip(turn.tool_calls, turn.tool_results or [{}] * len(turn.tool_calls)):
+        name = call.get("name", "?")
+        args = call.get("args", {})
+        try:
+            args_repr = json.dumps(args)[:400]
+        except (TypeError, ValueError):
+            args_repr = str(args)[:400]
+        lines.append(f"  tool_call: {name}({args_repr})")
+        if res:
+            stdout = (res.get("stdout") or "")[:500]
+            stderr = (res.get("stderr") or "")[:200]
+            exit_code = res.get("exit_code", "?")
+            lines.append(f"    exit_code={exit_code}")
+            if stdout:
+                lines.append(f"    stdout: {stdout}")
+            if stderr:
+                lines.append(f"    stderr: {stderr}")
+    return "\n".join(lines)
+
+
+def build_transcript_seed(prior_phases: list[PhaseResult]) -> list[dict]:
+    """Build a seed_context list from completed phases.
+
+    Returns a single-element list `[{role: user, content: <transcript>}]` so
+    the LLM sees prior turns as context before its own initial prompt.
+    """
+    if not prior_phases:
+        return []
+    blocks: list[str] = ["# Prior conversation transcript (from earlier role phases)"]
+    for phase in prior_phases:
+        blocks.append(f"\n## Phase: {phase.phase}")
+        for turn in phase.turns:
+            blocks.append(_serialise_turn(turn))
+    blocks.append(
+        "\n# End of prior transcript.\n"
+        "You will now receive your own instructions below. Use the prior transcript\n"
+        "only as context; do not repeat completed work."
+    )
+    return [{"role": "user", "content": "\n".join(blocks)}]
+
+
+class VariableEnforcementOrchestrator:
+    """Ablation-aware orchestrator for the role_enforcement_ablation experiment.
+
+    Mirrors `TaskOrchestrator`'s 3-phase + remediation protocol with two additional
+    knobs (`share_tools`, `share_history`). All other timing, budget, and scoring
+    behavior is intentionally identical to avoid confounds.
+    """
+
+    def __init__(
+        self,
+        task_dir: str,
+        run_dir: str,
+        adapter: ToolCallAdapter,
+        share_tools: bool,
+        share_history: bool,
+        max_turns_per_phase: int = 20,
+        max_remediation_loops: int = 2,
+    ):
+        self.task_dir = task_dir
+        self.run_dir = run_dir
+        self.adapter = adapter
+        self.share_tools = share_tools
+        self.share_history = share_history
+        self.max_turns_per_phase = max_turns_per_phase
+        self.max_remediation_loops = max_remediation_loops
+
+        self.workspace = os.path.join(run_dir, "workspace")
+        self.reports = os.path.join(run_dir, "reports")
+        self.messages = os.path.join(run_dir, "messages")
+        self.submission = os.path.join(run_dir, "submission")
+
+        self.spec_path = os.path.join(task_dir, "spec.md")
+        self.brief_path = os.path.join(task_dir, "brief.md")
+
+        self._condition_tag = (
+            "prompt_only" if share_tools
+            else ("enforced_shared_history" if share_history else "enforced")
+        )
+
+    def _planner_config(self) -> RoleConfig:
+        if self.share_tools:
+            return make_prompt_only_config(
+                role_name="planner",
+                spec_path=self.spec_path, brief_path=self.brief_path,
+                workspace_dir=self.workspace, reports_dir=self.reports,
+                messages_dir=self.messages, submission_dir=self.submission,
+                task_dir=self.task_dir,
+            )
+        return make_planner_config(
+            spec_path=self.spec_path,
+            messages_dir=self.messages,
+            task_dir=self.task_dir,
+        )
+
+    def _executor_config(self) -> RoleConfig:
+        if self.share_tools:
+            return make_prompt_only_config(
+                role_name="executor",
+                spec_path=self.spec_path, brief_path=self.brief_path,
+                workspace_dir=self.workspace, reports_dir=self.reports,
+                messages_dir=self.messages, submission_dir=self.submission,
+                task_dir=self.task_dir,
+            )
+        return make_executor_config(
+            brief_path=self.brief_path,
+            workspace_dir=self.workspace,
+            reports_dir=self.reports,
+            messages_dir=self.messages,
+            submission_dir=self.submission,
+            task_dir=self.task_dir,
+        )
+
+    def _verifier_config(self) -> RoleConfig:
+        if self.share_tools:
+            return make_prompt_only_config(
+                role_name="verifier",
+                spec_path=self.spec_path, brief_path=self.brief_path,
+                workspace_dir=self.workspace, reports_dir=self.reports,
+                messages_dir=self.messages, submission_dir=self.submission,
+                task_dir=self.task_dir,
+            )
+        return make_verifier_config(
+            spec_path=self.spec_path,
+            workspace_dir=self.workspace,
+            reports_dir=self.reports,
+            messages_dir=self.messages,
+            submission_dir=self.submission,
+            task_dir=self.task_dir,
+        )
+
+    def _seed_if_shared(
+        self, prior_phases: list[PhaseResult], role_label: str = "role",
+    ) -> Optional[list[dict]]:
+        """Build seed_context when share_history=True, otherwise None.
+
+        When a seed is produced, also persist it to
+        `<run_dir>/logs/<role_label>/seed_context.json` so that tests can verify
+        the seed actually materialised (turn logs only record LLM OUTPUTS, not the
+        messages list the LLM receives — without this file, seed delivery is
+        unobservable post-hoc).
+        """
+        if not self.share_history:
+            return None
+        seed = build_transcript_seed(prior_phases)
+        if seed:
+            seed_log_dir = os.path.join(self.run_dir, "logs", role_label)
+            os.makedirs(seed_log_dir, exist_ok=True)
+            seed_path = os.path.join(seed_log_dir, "seed_context.json")
+            with open(seed_path, "w", encoding="utf-8") as f:
+                json.dump({
+                    "condition_tag": self._condition_tag,
+                    "role_label": role_label,
+                    "num_prior_phases": len(prior_phases),
+                    "seed_messages": seed,
+                }, f, indent=2, default=str)
+        return seed
+
+    def _read_file(self, path: str) -> str:
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return f.read()
+        except FileNotFoundError:
+            return ""
+
+    def _check_attestation(self) -> str:
+        att_path = os.path.join(self.submission, "attestation.json")
+        try:
+            with open(att_path, "r", encoding="utf-8") as f:
+                raw = f.read()
+        except FileNotFoundError:
+            return "missing"
+        try:
+            att = json.loads(raw)
+            return att.get("verdict", "fail")
+        except json.JSONDecodeError:
+            import re
+            m = re.search(r'"verdict"\s*:\s*"(pass|fail)"', raw)
+            if m:
+                return m.group(1)
+            return "missing"
+
+    def run(self) -> OrchestratorResult:
+        task_id = os.path.basename(self.task_dir)
+        result = OrchestratorResult(task_id=task_id)
+
+        spec_text = self._read_file(self.spec_path)
+        brief_text = self._read_file(self.brief_path)
+
+        # --- Phase 1: Planning --------------------------------------------------
+        print(f"\n{'='*50}\n  PHASE 1: PLANNING [{self._condition_tag}]\n{'='*50}")
+        planner_loop = AgentLoop(
+            role_config=self._planner_config(),
+            adapter=self.adapter,
+            messages_dir=self.messages,
+            log_dir=os.path.join(self.run_dir, "logs", "planner"),
+            max_turns=self.max_turns_per_phase,
+        )
+        planner_prompt = (
+            f"You are the Planner for task: {task_id}\n\n"
+            f"## Full Specification\n{spec_text}\n\n"
+            f"## Instructions\n"
+            f"1. Read and understand all requirements in the specification.\n"
+            f"2. Create a detailed plan for the Executor.\n"
+            f"3. IMPORTANT: Send the plan to the Executor by calling: "
+            f"send_message(to='executor', content='<your detailed plan>')\n"
+            f"4. Include ALL specific requirements, exact values, edge cases, and constraints.\n"
+            f"5. The Executor only has a brief summary — they need YOUR detailed instructions.\n"
+            f"6. When done sending the plan, output DONE."
+        )
+        planner_turns = planner_loop.run(
+            planner_prompt,
+            seed_context=self._seed_if_shared([], role_label="planner"),
+        )
+        phase1 = PhaseResult(phase="planning", turns=planner_turns)
+        result.phases.append(phase1)
+        result.total_turns += len(planner_turns)
+        _relay_planner_text(planner_turns, self.messages)
+
+        # --- Phase 2: Execution -------------------------------------------------
+        print(f"\n{'='*50}\n  PHASE 2: EXECUTION [{self._condition_tag}]\n{'='*50}")
+        executor_loop = AgentLoop(
+            role_config=self._executor_config(),
+            adapter=self.adapter,
+            messages_dir=self.messages,
+            log_dir=os.path.join(self.run_dir, "logs", "executor"),
+            max_turns=self.max_turns_per_phase,
+        )
+        executor_prompt = (
+            f"You are the Executor for task: {task_id}\n\n"
+            f"## Brief\n{brief_text}\n\n"
+            f"## Instructions\n"
+            f"1. Check messages from the Planner for detailed instructions.\n"
+            f"2. Explore the workspace using run(cmd='ls -R') or read(path='<relative_path>').\n"
+            f"3. Use relative paths for files (e.g., read(path='app/main.py')).\n"
+            f"4. Follow the Planner's instructions to fix the code/config.\n"
+            f"5. Write files using write(path='<relative_path>', content='...').\n"
+            f"6. Run tests or validation using run(cmd='...').\n"
+            f"7. Send a completion message to the Verifier: "
+            f"send_message(to='verifier', content='Work complete.').\n"
+            f"8. When done, output DONE."
+        )
+        executor_turns = executor_loop.run(
+            executor_prompt,
+            seed_context=self._seed_if_shared([phase1], role_label="executor"),
+        )
+        phase2 = PhaseResult(phase="execution", turns=executor_turns)
+        result.phases.append(phase2)
+        result.total_turns += len(executor_turns)
+
+        # --- Phase 3: Verification + Remediation --------------------------------
+        for loop_num in range(self.max_remediation_loops + 1):
+            print(f"\n{'='*50}\n  PHASE 3: VERIFICATION attempt {loop_num + 1} "
+                  f"[{self._condition_tag}]\n{'='*50}")
+            verifier_loop = AgentLoop(
+                role_config=self._verifier_config(),
+                adapter=self.adapter,
+                messages_dir=self.messages,
+                log_dir=os.path.join(self.run_dir, "logs", "verifier", f"attempt_{loop_num}"),
+                max_turns=self.max_turns_per_phase,
+            )
+            verifier_prompt = (
+                f"You are the Verifier for task: {task_id}\n\n"
+                f"## Full Specification\n{spec_text}\n\n"
+                f"## Instructions\n"
+                f"1. Read the specification carefully.\n"
+                f"2. Check the workspace files to verify all requirements are met.\n"
+                f"3. For EACH requirement, verify compliance.\n"
+                f"4. Write attestation.json. Must be valid JSON with keys: "
+                f"task_id, verdict ('pass'|'fail'), checklist (list of {{id, ok, note}}).\n"
+                f"5. Set verdict='pass' only if all core requirements are met.\n"
+                f"6. If 'fail', send actionable feedback to the executor via send_message.\n"
+                f"7. Output DONE when finished."
+            )
+            verifier_turns = verifier_loop.run(
+                verifier_prompt,
+                seed_context=self._seed_if_shared(
+                    list(result.phases), role_label=f"verifier_attempt_{loop_num}",
+                ),
+            )
+            phase3 = PhaseResult(phase=f"verification_{loop_num}", turns=verifier_turns)
+            result.phases.append(phase3)
+            result.total_turns += len(verifier_turns)
+
+            verdict = self._check_attestation()
+            if verdict == "pass":
+                result.verdict = "pass"
+                result.remediation_loops = loop_num
+                print(f"\n  VERDICT: PASS (after {loop_num} remediation loops)")
+                return result
+
+            if loop_num < self.max_remediation_loops:
+                print(f"\n  VERDICT: FAIL — starting remediation loop {loop_num + 1}")
+                result.remediation_loops = loop_num + 1
+
+                snapshot_dir = os.path.join(
+                    self.run_dir, "workspace_snapshots", f"pre_remediation_{loop_num}",
+                )
+                os.makedirs(os.path.dirname(snapshot_dir), exist_ok=True)
+                shutil.copytree(self.workspace, snapshot_dir)
+
+                remediation_loop = AgentLoop(
+                    role_config=self._executor_config(),
+                    adapter=self.adapter,
+                    messages_dir=self.messages,
+                    log_dir=os.path.join(
+                        self.run_dir, "logs", "executor", f"remediation_{loop_num}",
+                    ),
+                    max_turns=self.max_turns_per_phase,
+                )
+                remediation_prompt = (
+                    f"You are the Executor for task: {task_id}\n\n"
+                    f"## Brief\n{brief_text}\n\n"
+                    f"The Verifier found issues with your work. Check messages for feedback.\n"
+                    f"Only make targeted fixes for the specific issues mentioned.\n"
+                    f"Do NOT rewrite files from scratch or make sweeping changes.\n"
+                    f"Fix the issues and notify the Verifier when done.\n"
+                    f"Output DONE when finished."
+                )
+                remediation_turns = remediation_loop.run(
+                    remediation_prompt,
+                    seed_context=self._seed_if_shared(
+                        list(result.phases), role_label=f"executor_remediation_{loop_num}",
+                    ),
+                )
+                phase_fix = PhaseResult(
+                    phase=f"remediation_{loop_num}", turns=remediation_turns,
+                )
+                result.phases.append(phase_fix)
+                result.total_turns += len(remediation_turns)
+
+        print(f"\n  FINAL VERDICT: FAIL (exhausted {self.max_remediation_loops} remediation attempts)")
+        return result

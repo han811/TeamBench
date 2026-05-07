@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # CRYPTO1 grader: verify 3 crypto bugs fixed + false positive preserved
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

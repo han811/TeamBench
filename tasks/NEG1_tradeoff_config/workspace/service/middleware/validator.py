@@ -1,22 +1,18 @@
-"""Input validation middleware — currently too slow."""
-import time
+"""Input validation middleware — optimized for performance."""
 import re
+
+# Pre-compile regex patterns at module load time (not per-request)
+_EMAIL_RE = re.compile(r'^[^@]+@[^@]+\.[^@]+$')
 
 
 def validate_input(data):
     """Validate request input data.
 
-    Current implementation: uses heavyweight parsing approach.
-    Takes ~200ms per validation call.
+    Optimized: no blocking I/O, pre-compiled regex, fast type checks.
     """
     errors = []
 
-    # Simulate slow validation (heavyweight approach)
-    # In production, this would be calling an external validation service
-    # or doing complex schema validation
-    time.sleep(0.2)  # 200ms — this is the performance bottleneck
-
-    # Basic field checks
+    # Basic type check first (fast path)
     if not isinstance(data, dict):
         errors.append("input_must_be_object")
         return False, errors
@@ -26,7 +22,7 @@ def validate_input(data):
         errors.append("invalid_name")
 
     email = data.get("email", "")
-    if email and not re.match(r'^[^@]+@[^@]+\.[^@]+$', email):
+    if email and not _EMAIL_RE.match(email):
         errors.append("invalid_email")
 
     value = data.get("value")

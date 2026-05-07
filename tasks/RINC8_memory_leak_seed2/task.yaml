@@ -1,0 +1,7 @@
+task_id: RINC8_memory_leak
+category: incident
+difficulty: hard
+domain: incident
+languages: ['python']
+parameterized: true
+seeds: [0, 1, 2]

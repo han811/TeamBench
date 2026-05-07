@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # SPEC7 grader: verify config validator implementation
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

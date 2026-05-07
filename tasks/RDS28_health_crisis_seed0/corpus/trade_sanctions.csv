@@ -1,0 +1,37 @@
+year,country_code,imposing_body,sanction_type,healthcare_import_impact,gdp_impact_pct
+2011,SYR,none,none,3,0.7
+2011,YEM,none,none,2,0.8
+2011,AFG,none,none,2,0.3
+2012,SYR,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,48,4.5
+2012,YEM,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,58,4.5
+2012,AFG,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,48,5.8
+2013,SYR,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,44,11.9
+2013,YEM,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,27,5.6
+2013,AFG,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,43,8.7
+2014,SYR,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,30,7.0
+2014,YEM,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,27,8.6
+2014,AFG,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,44,3.3
+2015,SYR,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,43,8.1
+2015,YEM,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,43,4.4
+2015,AFG,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,47,11.1
+2016,SYR,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,47,3.0
+2016,YEM,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,40,7.8
+2016,AFG,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,38,11.7
+2017,SYR,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,41,9.7
+2017,YEM,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,27,10.8
+2017,AFG,UN Security Council and EU,medical equipment imports restricted due to dual-use classification,49,6.7
+2018,SYR,none,none,3,0.4
+2018,YEM,none,none,3,1.0
+2018,AFG,none,none,2,0.5
+2012,IRN,US Treasury,financial sector,35,4.6
+2013,IRN,US Treasury,financial sector,32,3.0
+2014,IRN,US Treasury,financial sector,29,2.6
+2015,IRN,US Treasury,financial sector,37,2.6
+2016,IRN,US Treasury,financial sector,28,2.0
+2017,IRN,US Treasury,financial sector,18,3.3
+2012,CUB,US Treasury,financial sector,17,4.3
+2013,CUB,US Treasury,financial sector,21,1.2
+2014,CUB,US Treasury,financial sector,20,2.2
+2015,CUB,US Treasury,financial sector,37,2.6
+2016,CUB,US Treasury,financial sector,19,4.4
+2017,CUB,US Treasury,financial sector,33,1.8

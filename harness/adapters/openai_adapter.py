@@ -11,10 +11,104 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import time
 from typing import Any
 
 from harness.agent_interface import AdapterResponse, ModelAdapter, ToolCallAdapter
+
+
+_THINK_TAG_RE = re.compile(r"<think>.*?</think>", re.DOTALL | re.IGNORECASE)
+_TRAILING_COMMA_RE = re.compile(r",\s*([}\]])")
+_CODE_BLOCK_RE = re.compile(r"```(?:json)?\s*([\s\S]*?)```")
+_INLINE_JSON_RE = re.compile(r"\{[\s\S]*\}")
+
+
+def _strip_thinking(text: str) -> str:
+    """Remove <think>...</think> reasoning blocks from model output."""
+    return _THINK_TAG_RE.sub("", text).strip()
+
+
+def _sanitize_tool_args(raw: str) -> dict:
+    """Try multiple strategies to parse tool call arguments from a raw string.
+
+    Handles common open-source model issues: trailing commas, markdown
+    code fences, and minor JSON formatting errors.
+    """
+    if not raw:
+        return {}
+
+    # Strategy 1: direct parse
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        pass
+
+    # Strategy 2: strip thinking tags then parse
+    cleaned = _strip_thinking(raw)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        pass
+
+    # Strategy 3: extract from markdown code block
+    m = _CODE_BLOCK_RE.search(cleaned)
+    if m:
+        try:
+            return json.loads(m.group(1).strip())
+        except json.JSONDecodeError:
+            pass
+
+    # Strategy 4: fix trailing commas then parse
+    fixed = _TRAILING_COMMA_RE.sub(r"\1", cleaned)
+    try:
+        return json.loads(fixed)
+    except json.JSONDecodeError:
+        pass
+
+    # Strategy 5: find the outermost {...} blob
+    m2 = _INLINE_JSON_RE.search(fixed)
+    if m2:
+        try:
+            return json.loads(m2.group(0))
+        except json.JSONDecodeError:
+            pass
+
+    # Fallback: return raw string under a reserved key
+    return {"_raw": raw}
+
+
+def _extract_tool_calls_from_text(text: str) -> list[dict]:
+    """Try to extract tool calls embedded in plain text.
+
+    Some open-source models emit tool calls as JSON in their text
+    response instead of using the structured tool_calls field.
+    Supported shapes:
+      {"name": "...", "args": {...}}
+      {"tool_name": "...", "arguments": {...}}
+    """
+    results = []
+    cleaned = _strip_thinking(text)
+    # Look for all {...} blobs that look like tool calls
+    for m in _INLINE_JSON_RE.finditer(cleaned):
+        try:
+            obj = json.loads(m.group(0))
+        except json.JSONDecodeError:
+            # Try fixing trailing commas
+            candidate = _TRAILING_COMMA_RE.sub(r"\1", m.group(0))
+            try:
+                obj = json.loads(candidate)
+            except json.JSONDecodeError:
+                continue
+        if not isinstance(obj, dict):
+            continue
+        # Shape 1: {"name": "...", "args": {...}}
+        if "name" in obj and isinstance(obj.get("args"), dict):
+            results.append({"name": obj["name"], "args": obj["args"]})
+        # Shape 2: {"tool_name": "...", "arguments": {...}}
+        elif "tool_name" in obj and isinstance(obj.get("arguments"), dict):
+            results.append({"name": obj["tool_name"], "args": obj["arguments"]})
+    return results
 
 
 def _standard_to_openai_functions(tools: list[dict]) -> list[dict]:
@@ -66,6 +160,8 @@ class OpenAIAdapter(ModelAdapter, ToolCallAdapter):
         model: str = "gpt-4o",
         temperature: float = 0.2,
         max_tokens: int = 8192,
+        base_url: str | None = None,
+        lenient_mode: bool = False,
     ):
         try:
             import openai
@@ -79,10 +175,21 @@ class OpenAIAdapter(ModelAdapter, ToolCallAdapter):
         self.model = model
         self.temperature = temperature
         self.max_tokens = max_tokens
+        self.base_url = base_url
+        self.lenient_mode = lenient_mode
         self._total_input_tokens = 0
         self._total_output_tokens = 0
+        self._is_or_anthropic = bool(
+            base_url and "openrouter.ai" in base_url
+            and model.startswith("anthropic/")
+        )
+        if self._is_or_anthropic:
+            print(f"  [openrouter-anthropic] prompt caching enabled for {model}")
 
-        if api_key:
+        if base_url:
+            # Local server (vLLM, etc.) — no real API key needed
+            self._keys = [api_key or "dummy"]
+        elif api_key:
             self._keys = [api_key]
         else:
             self._keys = _load_all_openai_keys()
@@ -91,16 +198,26 @@ class OpenAIAdapter(ModelAdapter, ToolCallAdapter):
                 "No OPENAI_API_KEY found. Provide api_key or set the environment variable."
             )
         self._key_index = 0
-        self._client = self._openai.OpenAI(api_key=self._keys[0])
+        client_kwargs: dict[str, Any] = {"api_key": self._keys[0]}
+        if base_url:
+            client_kwargs["base_url"] = base_url
+            # Timeout for local vLLM servers to avoid hung requests
+            client_kwargs["timeout"] = 300.0  # 5 minutes
+        self._client = self._openai.OpenAI(**client_kwargs)
         if len(self._keys) > 1:
             print(f"  [openai] Loaded {len(self._keys)} API keys for rotation")
+        if base_url:
+            print(f"  [openai] Using custom base_url: {base_url}")
 
     def _rotate_key(self) -> None:
         """Switch to the next API key in the rotation."""
         if len(self._keys) <= 1:
             return
         self._key_index = (self._key_index + 1) % len(self._keys)
-        self._client = self._openai.OpenAI(api_key=self._keys[self._key_index])
+        client_kwargs: dict[str, Any] = {"api_key": self._keys[self._key_index]}
+        if self.base_url:
+            client_kwargs["base_url"] = self.base_url
+        self._client = self._openai.OpenAI(**client_kwargs)
 
     # ------------------------------------------------------------------
     # ModelAdapter (simple text generation)
@@ -180,18 +297,41 @@ class OpenAIAdapter(ModelAdapter, ToolCallAdapter):
     # ------------------------------------------------------------------
 
     def _build_messages(self, messages: list[dict], system_prompt: str) -> list[dict]:
-        """Prepend system prompt and convert roles to OpenAI format."""
+        """Prepend system prompt and convert roles to OpenAI format.
+
+        Merges consecutive same-role messages to satisfy chat templates
+        that require strict user/assistant alternation (e.g., Gemma).
+        """
         oai: list[dict] = []
         if system_prompt:
             oai.append({"role": "system", "content": system_prompt})
         for msg in messages:
             role = msg.get("role", "user")
             content = msg.get("content", "")
-            # "tool" role in standard format -> "user" in OpenAI (results already formatted as text)
+            # "tool" role in standard format -> "user" in OpenAI
             if role == "tool":
-                oai.append({"role": "user", "content": content})
+                role = "user"
+            # Merge consecutive same-role messages
+            if oai and oai[-1]["role"] == role:
+                oai[-1]["content"] += "\n\n" + content
             else:
                 oai.append({"role": role, "content": content})
+
+        # For OpenRouter→Anthropic routes, mark the first system and first
+        # user message as cache breakpoints (Anthropic allows up to 4;
+        # 2 covers the stable system prompt + task spec prefix).
+        if self._is_or_anthropic:
+            marked = 0
+            for m in oai:
+                if marked >= 2:
+                    break
+                if m["role"] in ("system", "user") and isinstance(m["content"], str):
+                    m["content"] = [{
+                        "type": "text",
+                        "text": m["content"],
+                        "cache_control": {"type": "ephemeral"},
+                    }]
+                    marked += 1
         return oai
 
     def _parse_response(self, response: Any) -> AdapterResponse:
@@ -209,17 +349,29 @@ class OpenAIAdapter(ModelAdapter, ToolCallAdapter):
 
         if msg.tool_calls:
             for tc in msg.tool_calls:
-                try:
-                    args = json.loads(tc.function.arguments) if tc.function.arguments else {}
-                except json.JSONDecodeError:
-                    args = {"_raw": tc.function.arguments}
+                args = _sanitize_tool_args(tc.function.arguments or "")
                 tool_calls.append({"name": tc.function.name, "args": args})
+
+        # Lenient mode: strip reasoning tokens from text, then try to recover
+        # tool calls embedded in the text (common open-source model behavior).
+        if self.lenient_mode:
+            text = _strip_thinking(text)
+            if not tool_calls and text:
+                recovered = _extract_tool_calls_from_text(text)
+                if recovered:
+                    tool_calls = recovered
 
         done = "DONE" in text or "TASK_COMPLETE" in text
         return AdapterResponse(text=text, tool_calls=tool_calls, done=done)
 
     def _call_with_retry(self, max_retries: int = 8, **kwargs) -> Any:
         """Call OpenAI API with exponential backoff and key rotation."""
+        # Force direct Anthropic routing on OR so cache_control is preserved
+        # (Bedrock/Google fallbacks don't honor Anthropic prompt caching).
+        if self._is_or_anthropic:
+            extra = kwargs.get("extra_body") or {}
+            extra.setdefault("provider", {"order": ["anthropic"], "allow_fallbacks": False})
+            kwargs["extra_body"] = extra
         for attempt in range(max_retries):
             try:
                 return self._client.chat.completions.create(**kwargs)

@@ -1,0 +1,7 @@
+task_id: RINC2_ssrf_cloud
+category: security
+difficulty: hard
+domain: security
+languages: ['python']
+parameterized: true
+seeds: [0, 1, 2]

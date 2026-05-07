@@ -1,0 +1,26 @@
+{
+  "cause_var": "UNRATE",
+  "effect_var": "CPIAUCSL",
+  "research_question": "Does the unemployment rate Granger-cause the CPI inflation rate? Test whether past values of UNRATE improve forecasts of CPIAUCSL beyond what CPIAUCSL's own lags provide.",
+  "key_cols": [
+    "UNRATE",
+    "CPIAUCSL"
+  ],
+  "hidden_col_keywords": [
+    "UNRATE",
+    "CPIAUCSL"
+  ],
+  "n_rows": 780,
+  "columns": [
+    "date",
+    "UNRATE",
+    "CPIAUCSL",
+    "FEDFUNDS",
+    "GDP"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

@@ -1,0 +1,13 @@
+model,model_id,type,oracle,restricted,team_no_plan,team_no_verify,full,uplift,total_pass
+Claude Sonnet 4.6,sonnet46,closed,21.4,17.9,35.7,35.7,42.9,21.4,43
+GPT-5 Mini,gpt5mini,closed,17.9,10.7,28.6,32.1,35.7,17.9,35
+Gemini 3 Flash,g3flash,closed,17.9,17.9,14.3,25.0,35.7,17.9,31
+Claude Haiku 4.5,haiku45,closed,10.7,10.7,17.9,21.4,42.9,32.1,29
+Gemini 3.1 Lite,g31lite,closed,10.7,14.3,14.3,21.4,32.1,21.4,26
+GPT-5 Nano,gpt5nano,closed,14.3,0.0,14.3,7.1,17.9,3.6,15
+Qwen3.5-27B,qwen3.5_27b,open,3.6,0.0,0.0,3.6,3.6,0.0,3
+Qwen3-Coder-30B,qwen3_coder_30b,open,3.6,0.0,3.6,3.6,0.0,-3.6,3
+Qwen3-14B,qwen3_14b,open,0.0,0.0,0.0,0.0,7.1,7.1,2
+Qwen3-4B,qwen3_4b,open,0.0,0.0,0.0,3.6,0.0,0.0,1
+Qwen3-8B,qwen3_8b,open,0.0,0.0,0.0,0.0,3.6,3.6,1
+DeepSeek-R1-D-32B,deepseek_r1_distill_32b,open,0.0,0.0,0.0,0.0,0.0,0.0,0

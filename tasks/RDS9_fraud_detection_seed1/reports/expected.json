@@ -1,0 +1,40 @@
+{
+  "analysis_type": "anomaly_detection",
+  "research_question": "Apply an unsupervised anomaly detection method (Isolation Forest or Local Outlier Factor) to detect fraud. Compare its precision and recall against a supervised baseline (logistic regression).",
+  "key_cols": [
+    "Class",
+    "Amount",
+    "V1",
+    "V14",
+    "V17"
+  ],
+  "hidden_col_keywords": [
+    "Class",
+    "Amount"
+  ],
+  "n_rows": 1500,
+  "columns": [
+    "Time",
+    "V1",
+    "V2",
+    "V3",
+    "V4",
+    "V5",
+    "V10",
+    "V11",
+    "V12",
+    "V14",
+    "V17",
+    "V19",
+    "V21",
+    "V27",
+    "V28",
+    "Amount",
+    "Class"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

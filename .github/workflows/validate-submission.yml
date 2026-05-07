@@ -1,0 +1,126 @@
+name: Validate Leaderboard Submission
+
+on:
+  pull_request:
+    paths:
+      - 'shared/submissions/*.json'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -e ".[dev]" 2>/dev/null || pip install -e .
+
+      - name: Find submission files
+        id: find
+        run: |
+          # Get list of added/modified submission files in this PR
+          FILES=$(git diff --name-only --diff-filter=AM origin/${{ github.base_ref }}...HEAD -- 'shared/submissions/*.json')
+          if [ -z "$FILES" ]; then
+            echo "No submission files found in PR"
+            exit 0
+          fi
+          echo "files<<EOF" >> $GITHUB_OUTPUT
+          echo "$FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          echo "Found submissions: $FILES"
+
+      - name: Validate submissions
+        if: steps.find.outputs.files != ''
+        run: |
+          ERRORS=0
+          SUMMARY=""
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            echo "=== Validating: $file ==="
+
+            # Run schema validation via CLI
+            if python -m harness.cli submit "$file" 2>&1; then
+              SUMMARY="$SUMMARY\n:white_check_mark: \`$file\` — schema valid"
+            else
+              SUMMARY="$SUMMARY\n:x: \`$file\` — schema validation failed"
+              ERRORS=$((ERRORS + 1))
+            fi
+
+            # Additional integrity checks
+            python3 -c "
+          import json, sys
+          d = json.load(open('$file'))
+          agg = d.get('aggregate', {})
+          per_task = d.get('per_task', [])
+          raw_runs = d.get('raw_runs', [])
+          errors = []
+
+          # Check task count consistency
+          if agg.get('task_count') and len(per_task) != agg['task_count']:
+              errors.append(f'task_count mismatch: aggregate says {agg[\"task_count\"]}, per_task has {len(per_task)}')
+
+          # Check run count consistency
+          if agg.get('run_count') and raw_runs and len(raw_runs) != agg['run_count']:
+              errors.append(f'run_count mismatch: aggregate says {agg[\"run_count\"]}, raw_runs has {len(raw_runs)}')
+
+          # Check scores are in valid range
+          for entry in per_task:
+              for key in ('oracle', 'restricted', 'team', 'no_plan', 'no_verify'):
+                  val = entry.get(key)
+                  if val is not None and not (0.0 <= val <= 1.0):
+                      errors.append(f'{entry[\"task_id\"]}.{key} = {val} out of [0,1]')
+
+          if errors:
+              print('Integrity errors:')
+              for e in errors:
+                  print(f'  - {e}')
+              sys.exit(1)
+          else:
+              print('Integrity checks passed')
+          " 2>&1 || {
+              SUMMARY="$SUMMARY\n:x: \`$file\` — integrity check failed"
+              ERRORS=$((ERRORS + 1))
+            }
+
+          done <<< "${{ steps.find.outputs.files }}"
+
+          echo -e "\n## Submission Validation Summary\n$SUMMARY" >> $GITHUB_STEP_SUMMARY
+
+          if [ "$ERRORS" -gt 0 ]; then
+            echo "::error::$ERRORS submission(s) failed validation"
+            exit 1
+          fi
+
+      - name: Comment on PR
+        if: always() && steps.find.outputs.files != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const files = `${{ steps.find.outputs.files }}`.trim().split('\n').filter(f => f);
+            let body = '## TeamBench Submission Validation\n\n';
+            body += `Found ${files.length} submission file(s):\n\n`;
+            for (const f of files) {
+              body += `- \`${f}\`\n`;
+            }
+            body += '\n';
+            if ('${{ job.status }}' === 'success' || '${{ job.status }}' === 'Success') {
+              body += ':white_check_mark: All submissions passed schema and integrity validation.\n\n';
+              body += 'A maintainer will review and merge to update the leaderboard.';
+            } else {
+              body += ':x: One or more submissions failed validation. Please check the workflow logs.\n\n';
+              body += 'Fix the errors and push again.';
+            }
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });

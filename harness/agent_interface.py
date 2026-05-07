@@ -222,10 +222,10 @@ class WriteFileTool(Tool):
     def _resolve(self, path: str) -> str:
         for prefix, replacement in self.path_map.items():
             if path.startswith(prefix):
-                return os.path.join(replacement, path[len(prefix):].lstrip("/"))
+                return os.path.normpath(os.path.join(replacement, path[len(prefix):].lstrip("/")))
         if not os.path.isabs(path):
-            return os.path.join(self.base_dir, path)
-        return os.path.abspath(path)
+            return os.path.normpath(os.path.join(self.base_dir, path))
+        return os.path.normpath(os.path.abspath(path))
 
     def execute(self, path: str = "", content: str = "", **kwargs) -> ToolResult:
         if not path:
@@ -547,9 +547,9 @@ def make_verifier_config(
         role="verifier",
         system_prompt=(
             "You are the Verifier. You independently verify whether the task was completed correctly.\n"
-            "You have read-only access to the workspace and reports.\n"
             "You have access to the full task specification for checking compliance.\n"
-            "You CANNOT execute commands or modify the workspace.\n"
+            "You CAN execute commands to run tests or verify behavior, but you cannot permanently modify the workspace.\n"
+            "You MUST run validation scripts (e.g., `python check_training.py` or `pytest`) and observe their output before writing the attestation.\n"
             "Your job: check every requirement, identify violations, and produce attestation.json.\n"
             "Write attestation using: write(path='attestation.json', content=...)\n"
             "If requirements are not met, send feedback to the Executor and set verdict='fail'.\n"
@@ -557,6 +557,7 @@ def make_verifier_config(
             "When done, output DONE."
         ),
         tools=[
+            RunCommandTool(cwd=workspace_dir, allowed=True),
             ReadFileTool(
                 allowed_roots=[
                     os.path.dirname(spec_path), workspace_dir, reports_dir, messages_dir, submission_dir,
@@ -566,5 +567,98 @@ def make_verifier_config(
             ),
             WriteFileTool(allowed_roots=[submission_dir], path_map=pm, base_dir=submission_dir),
             SendMessageTool(messages_dir=messages_dir, sender_role="verifier"),
+        ],
+    )
+
+
+def make_prompt_only_config(
+    role_name: str,
+    spec_path: str,
+    brief_path: str,
+    workspace_dir: str,
+    reports_dir: str,
+    messages_dir: str,
+    submission_dir: str,
+    task_dir: str = "",
+) -> RoleConfig:
+    """Config for the `prompt_only` ablation condition.
+
+    Reviewer2-proof design: all three "roles" receive **identical tool access**.
+    The only thing that distinguishes Planner from Executor from Verifier here is
+    the role-specific system prompt. This operationalises the precise hypothesis
+    under test (H1): does prompt-only role assignment produce coordination, or
+    does it merely request role compliance that agents may or may not honor?
+
+    Access granted (union of planner/executor/verifier):
+      * Read: spec, brief, workspace, reports, messages, submission
+      * Write: workspace, reports, submission
+      * Run commands in workspace
+      * Send messages
+
+    The role_name parameter sets the `role` field (used for message routing and
+    tool attribution) and picks the system prompt. The prompts are identical in
+    content to the enforced-condition prompts so no prompt-engineering confound
+    can arise between conditions.
+    """
+    if not task_dir:
+        task_dir = os.path.dirname(spec_path)
+    pm = _build_path_map(
+        workspace_dir=workspace_dir, reports_dir=reports_dir,
+        messages_dir=messages_dir, submission_dir=submission_dir,
+        task_dir=task_dir,
+    )
+    # System prompts mirror the enforced-condition prompts; only the role label
+    # and the workspace-access language differs (which is the legitimate, pre-
+    # registered difference — see HYPOTHESIS.md §Implementation Guarantees).
+    #
+    # NOTE on the verifier prompt: enforced-mode verifier writes attestation via
+    # bare path='attestation.json' because its WriteFileTool has base_dir=submission.
+    # In prompt_only, tools are shared across all three roles (base_dir=workspace),
+    # so the verifier must address submission explicitly. We use the path_map alias
+    # '/shared/submission/attestation.json' which resolves to the real submission
+    # directory via the existing path_map mechanism. This preserves the "same task
+    # requirements" semantic while respecting the shared-tools design constraint.
+    prompts = {
+        "planner": (
+            "You are the Planner. You have access to the full task specification.\n"
+            "Create a detailed plan for the Executor. Read the spec, understand the requirements,\n"
+            "and send instructions to the Executor via send_message(to='executor', ...).\n"
+            "You have shared workspace tools, but your job is to plan, not to implement.\n"
+            "Output DONE after sending the plan."
+        ),
+        "executor": (
+            "You are the Executor. You can run commands and edit files in the workspace.\n"
+            "Follow the Planner's instructions carefully.\n"
+            "For file reads/writes, use paths relative to the workspace (e.g., 'app/main.py').\n"
+            "When done with your work, send a message to the verifier and output DONE.\n"
+            "Ask the Planner for clarification if requirements are unclear."
+        ),
+        "verifier": (
+            "You are the Verifier. You independently verify whether the task was completed correctly.\n"
+            "You have access to the full task specification for checking compliance.\n"
+            "Run validation scripts and observe their output before writing attestation.json.\n"
+            "IMPORTANT: Write the attestation to the submission area using the absolute path:\n"
+            "  write(path='/shared/submission/attestation.json', content=...)\n"
+            "If requirements are not met, send feedback to the Executor and set verdict='fail'.\n"
+            "Only set verdict='pass' when ALL requirements are satisfied.\n"
+            "Output DONE when the attestation is written."
+        ),
+    }
+    if role_name not in prompts:
+        raise ValueError(f"role_name must be one of {list(prompts)}; got {role_name!r}")
+    read_roots = [
+        os.path.dirname(spec_path),
+        os.path.dirname(brief_path),
+        workspace_dir, reports_dir, messages_dir, submission_dir,
+    ]
+    write_roots = [workspace_dir, reports_dir, submission_dir]
+    return RoleConfig(
+        role=role_name,
+        system_prompt=prompts[role_name],
+        tools=[
+            RunCommandTool(cwd=workspace_dir, allowed=True),
+            ReadFileTool(allowed_roots=read_roots, path_map=pm, base_dir=workspace_dir),
+            WriteFileTool(allowed_roots=write_roots, path_map=pm, base_dir=workspace_dir),
+            SendMessageTool(messages_dir=messages_dir, sender_role=role_name),
         ],
     )

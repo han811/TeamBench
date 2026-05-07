@@ -1,0 +1,9 @@
+{
+  "seed": 2,
+  "race_type": "idempotency_missing",
+  "service": "PaymentService",
+  "fix": "add idempotency_key to payment table; use INSERT OR IGNORE or upsert to deduplicate",
+  "initial_balance": 128,
+  "debit_amount": 15,
+  "n_concurrent": 5
+}

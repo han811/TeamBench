@@ -1,0 +1,35 @@
+{
+  "treatment": "married",
+  "treatment_label": "being married (spouse present)",
+  "research_question": "Does being married (spouse present) causally increase the probability of earning more than $50,000 per year?",
+  "confounders": [
+    "age",
+    "education",
+    "hours_per_week",
+    "occupation"
+  ],
+  "hidden_confounder_keywords": [
+    "age",
+    "occupation"
+  ],
+  "n_rows": 814,
+  "columns": [
+    "age",
+    "workclass",
+    "education",
+    "education_num",
+    "marital_status",
+    "occupation",
+    "sex",
+    "capital_gain",
+    "capital_loss",
+    "hours_per_week",
+    "native_country",
+    "income"
+  ],
+  "required_output_files": [
+    "analysis.py",
+    "results.json",
+    "report.md"
+  ]
+}

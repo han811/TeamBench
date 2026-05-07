@@ -1,0 +1,50 @@
+{
+  "focus": "prediction",
+  "selected_columns": [
+    "SalePrice",
+    "GrLivArea",
+    "OverallQual",
+    "YearBuilt",
+    "TotalBsmtSF",
+    "GarageCars",
+    "LotFrontage",
+    "OverallCond",
+    "HalfBath",
+    "TotRmsAbvGrd",
+    "Fireplaces",
+    "GarageArea",
+    "HeatingQC",
+    "MSSubClass",
+    "BedroomAbvGr",
+    "FullBath",
+    "MoSold",
+    "KitchenQual",
+    "YearRemodAdd",
+    "ExterQual"
+  ],
+  "n_rows": 2930,
+  "core_columns": [
+    "SalePrice",
+    "GrLivArea",
+    "OverallQual",
+    "YearBuilt",
+    "TotalBsmtSF",
+    "GarageCars"
+  ],
+  "extra_columns": [
+    "LotFrontage",
+    "OverallCond",
+    "HalfBath",
+    "TotRmsAbvGrd",
+    "Fireplaces",
+    "GarageArea",
+    "HeatingQC",
+    "MSSubClass",
+    "BedroomAbvGr",
+    "FullBath",
+    "MoSold",
+    "KitchenQual",
+    "YearRemodAdd",
+    "ExterQual"
+  ]
+}

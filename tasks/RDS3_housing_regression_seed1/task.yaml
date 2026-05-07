@@ -1,0 +1,8 @@
+task_id: RDS3_housing_regression
+category: Data Science
+difficulty: hard
+domain: data_science
+languages: ['python']
+parameterized: true
+seeds: [0, 1, 2]
+real_dataset: ames_housing

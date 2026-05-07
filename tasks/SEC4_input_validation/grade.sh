@@ -42,7 +42,7 @@ patterns = [
     r'len\(',
     r'not in\b',
     r'raise\s+ValueError',
-    r'return.*jsonify.*[\"\\']error[\"\\'].*400',
+    r'return.*jsonify.*[\x22\x27]error[\x22\x27].*400',
 ]
 hits = sum(1 for p in patterns if re.search(p, code))
 assert hits >= 3, f'Too few validation patterns in app.py (found {hits}/3 required)'
@@ -56,12 +56,12 @@ with open('app.py') as f:
 import ast, re
 
 # Check for parameterized query markers
-has_param = bool(re.search(r'cursor\.execute\s*\(\s*[\"\\'][^\"\\']*(\\?|%s)[^\"\\']', code))
-has_named  = bool(re.search(r'cursor\.execute\s*\(\s*[\"\\'][^\"\\\']*(:[\w]+)', code))
+has_param = bool(re.search(r'cursor\.execute\s*\(\s*[\x22\x27][^\"\\']*(\\?|%s)[^\"\\']', code))
+has_named  = bool(re.search(r'cursor\.execute\s*\(\s*[\x22\x27][^\"\\\']*(:[\w]+)', code))
 has_db_query = bool(re.search(r'db\.query\s*\(', code))
 
 # Check that vulnerable string-interpolation INSERT is gone
-still_vulnerable = bool(re.search(r'f[\"\\']INSERT.*\\{', code))
+still_vulnerable = bool(re.search(r'f[\x22\x27]INSERT.*\\{', code))
 assert not still_vulnerable, 'SQL string interpolation (f-string INSERT) still present'
 assert has_param or has_named or has_db_query, \
     'No parameterized query found (need ?, %s, or :name placeholders)'
@@ -96,14 +96,14 @@ import re
 has_traversal_check = bool(re.search(r'\.\./|\.\\\\|\\.\\.',  code))  # check for the pattern
 has_traversal_guard = bool(re.search(r'(not in|raise|return.*400).*\.\.|\.\..*(?:not in|raise|return.*400)', code))
 has_allowlist_dest  = bool(re.search(r'(destination|filename|path).*not in.*\[', code))
-has_re_path         = bool(re.search(r're\.(match|fullmatch)\s*\(\s*r?[\"\\'][^\"\\\']*[A-Za-z0-9].*[\"\\'],', code))
+has_re_path         = bool(re.search(r're\.(match|fullmatch)\s*\(\s*r?[\x22\x27][^\"\\\']*[A-Za-z0-9].*[\x22\x27],', code))
 # Check that validation rejects sequences with ..
 has_dotdot_reject   = bool(re.search(r'(\\.\\.|\\.\\./).*(?:return|raise)|(?:return|raise).*(\\.\\.|\\.\\./)|\\.\\.\\.split', code))
 # If the app type doesn't have path fields, check is relaxed
 # (We check that at minimum there are allowlist checks or explicit path validation)
 has_any_guard = has_traversal_guard or has_allowlist_dest or has_re_path or has_dotdot_reject
 # Also acceptable: allowlist of permitted values for directory fields
-has_enum_check = bool(re.search(r'in\s*\[[\"\\']uploads|documents|images|temp', code))
+has_enum_check = bool(re.search(r'in\s*\[[\x22\x27]uploads|documents|images|temp', code))
 assert has_any_guard or has_enum_check, \
     'No path traversal prevention found (need ../ rejection or allowlist for path fields)'
 print('PATH_TRAVERSAL_PREVENTION_OK')
@@ -125,7 +125,7 @@ if not os.path.exists(exp_path):
 has_url_field = bool(re.search(r'(image_url|website|url)', code))
 if has_url_field:
     has_https_check = bool(re.search(r'https://', code))
-    has_scheme_check = bool(re.search(r'startswith\s*\(\s*[\"\\']https', code))
+    has_scheme_check = bool(re.search(r'startswith\s*\(\s*[\x22\x27]https', code))
     has_scheme_reject = bool(re.search(r'(http://|javascript:|file://|ftp://)', code))
     assert has_https_check and (has_scheme_check or has_scheme_reject), \
         'URL field present but no https:// scheme enforcement found'
@@ -187,7 +187,7 @@ import re
 # Must have check for missing/None fields
 has_none_check    = bool(re.search(r'is\s+None|== None', code))
 has_missing_check = bool(re.search(r'not\s+\w+\b|if\s+\w+\s+is\s+None', code))
-has_400_on_missing = bool(re.search(r'return.*jsonify.*[\"\\']error[\"\\'].*,\s*400', code))
+has_400_on_missing = bool(re.search(r'return.*jsonify.*[\x22\x27]error[\x22\x27].*,\s*400', code))
 assert has_none_check or has_missing_check, \
     'No None/missing field check found in app.py'
 assert has_400_on_missing, \
@@ -202,14 +202,14 @@ with open('app.py') as f:
 import re
 # Must reject SQL metacharacters in text fields: quotes, semicolons, double-dash
 has_sql_char_check = bool(re.search(
-    r'[\"\\'][\\'\"](in|not in)|re\.(search|match).*[\\';]|'
+    r'[\x22\x27][\x22\x27](in|not in)|re\.(search|match).*[\\';]|'
     r'\\\\x27|\\\\x22|QUOTE|single_quote|semicolon',
     code
 ))
 # Also acceptable: parameterized queries prevent injection regardless
-has_param_query = bool(re.search(r'cursor\.execute\s*\(\s*[^f][\"\\'].*(\?|%s)', code))
+has_param_query = bool(re.search(r'cursor\.execute\s*\(\s*[^f][\x22\x27].*(\?|%s)', code))
 # Or field-level allowlist (alphanumeric-only via regex)
-has_alnum_regex = bool(re.search(r're\.(match|fullmatch)\s*\(\s*r?[\"\\'][^\"\\\']*[A-Za-z0-9]\+', code))
+has_alnum_regex = bool(re.search(r're\.(match|fullmatch)\s*\(\s*r?[\x22\x27][^\"\\\']*[A-Za-z0-9]\+', code))
 assert has_sql_char_check or has_param_query or has_alnum_regex, \
     'No SQL injection character rejection or parameterized query mitigation found'
 print('SQL_INJECTION_CHARS_REJECTED')

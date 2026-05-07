@@ -1,0 +1,5507 @@
+{
+  "summary": {
+    "total_tasks_analyzed": 149,
+    "total_runs_loaded": 1280,
+    "mean_full_score": 0.4684,
+    "mean_no_verify_score": 0.494,
+    "mean_oracle_score": 0.4716,
+    "mean_verification_value": -0.0575,
+    "heuristic_gain_no_verify_vs_full": 0.0256,
+    "taxonomy_per_task": {
+      "true_positive": 18,
+      "false_rejection": 30,
+      "verification_neutral": 58,
+      "true_negative": 35,
+      "hallucinated_req": 8
+    },
+    "taxonomy_per_seed_observation": {
+      "true_positive": 34,
+      "false_rejection": 38,
+      "verification_neutral": 111,
+      "true_negative": 64,
+      "hallucinated_req": 9
+    },
+    "n_tasks_verification_helped": 18,
+    "n_tasks_verification_hurt": 38,
+    "n_tasks_neutral_or_tn": 93,
+    "mean_score_drop_false_rejections": 0.3846,
+    "frac_tasks_nv_better": 0.255
+  },
+  "per_task": {
+    "S3_refactor_extract": {
+      "task_id": "S3_refactor_extract",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.17,
+          "nv_score": 0.0,
+          "oracle_score": 0.17,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.17,
+          "failure_modes_full": [
+            "missing_module_files",
+            "module_not_independently_importable",
+            "circular_imports_detected",
+            "public_api_missing",
+            "module_contents_wrong",
+            "tests_fail",
+            "tests_have_failures",
+            "monolith_not_split",
+            "too_few_lines",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.17,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "S4_backward_compat": {
+      "task_id": "S4_backward_compat",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.21,
+          "nv_score": 0.29,
+          "oracle_score": 0.21,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.07999999999999999,
+          "failure_modes_full": [
+            "new_feature_not_implemented",
+            "feat_func_returns_wrong_object",
+            "process_shape_broken",
+            "constructor_compat_broken",
+            "deprecated_alias_broken",
+            "deprecation_warning_suppressed",
+            "error_message_changed",
+            "enhancement_not_instance_scoped",
+            "enhancement_not_idempotent",
+            "pytest_suite_failed",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.08,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "S5_error_handling": {
+      "task_id": "S5_error_handling",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.33,
+          "nv_score": 0.13,
+          "oracle_score": 0.2,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.2,
+          "failure_modes_full": [
+            "missing_error_classes",
+            "wrong_http_statuses",
+            "e001_wrong_status",
+            "e002_wrong_status",
+            "e003_wrong_status_or_missing_header",
+            "e005_wrong_status",
+            "e005_session_not_cleared",
+            "e004_wrong_status",
+            "error_code_field_missing",
+            "bad_attestation"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.2,
+      "category": "Software",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "S6_caching": {
+      "task_id": "S6_caching",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.62,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.62,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.62,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "S7_env_config": {
+      "task_id": "S7_env_config",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.86,
+          "nv_score": 0.86,
+          "oracle_score": 0.71,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "bug2_no_typecast"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "easy",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "SQL2_query_optimize": {
+      "task_id": "SQL2_query_optimize",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.87,
+          "nv_score": 0.47,
+          "oracle_score": 0.47,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.4,
+          "failure_modes_full": [
+            "missing_required_index_names",
+            "wrong_index_columns"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.4,
+      "category": "Data",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "D2_data_quality": {
+      "task_id": "D2_data_quality",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.36,
+          "nv_score": 0.36,
+          "oracle_score": 0.27,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "wrong_columns",
+            "wrong_row_count",
+            "range_check_fail",
+            "missing_values_not_replaced",
+            "dedup_higher_score_fail",
+            "sort_order_wrong",
+            "department_correction_fail"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Data",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "D3_schema_migration": {
+      "task_id": "D3_schema_migration",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.82,
+          "nv_score": 0.82,
+          "oracle_score": 0.73,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "data_not_preserved",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Data",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "D4_data_pipeline": {
+      "task_id": "D4_data_pipeline",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.65,
+          "oracle_score": 0.59,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.65,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.65,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Data",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "D5_query_optimize": {
+      "task_id": "D5_query_optimize",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.8,
+          "nv_score": 0.87,
+          "oracle_score": 0.8,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.06999999999999995,
+          "failure_modes_full": [
+            "n_plus_1_pattern_present",
+            "performance_target_missed",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.07,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Data",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "D6_data_reconcile": {
+      "task_id": "D6_data_reconcile",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.89,
+          "nv_score": 0.72,
+          "oracle_score": 0.83,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.17000000000000004,
+          "failure_modes_full": [
+            "manual_override_wrong",
+            "per_record_values_wrong"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.17,
+      "category": "Data",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "D7_etl_reconciliation": {
+      "task_id": "D7_etl_reconciliation",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 1.0,
+          "nv_score": 0.9,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.09999999999999998,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.1,
+      "category": "Data",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "D8_csv_cleanup": {
+      "task_id": "D8_csv_cleanup",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.89,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Data",
+      "difficulty_yaml": "easy",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "D9_schema_validation": {
+      "task_id": "D9_schema_validation",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.9,
+          "nv_score": 0.8,
+          "oracle_score": 0.8,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.09999999999999998,
+          "failure_modes_full": [
+            "missing_email_accepted"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.1,
+      "category": "Data",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "SCALE1_codebase_migration": {
+      "task_id": "SCALE1_codebase_migration",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.71,
+          "nv_score": 0.71,
+          "oracle_score": 0.57,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "requests_import_found",
+            "auth_not_migrated",
+            "conftest_not_migrated",
+            "tests_not_migrated"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "SYNTH1_distributed_debug": {
+      "task_id": "SYNTH1_distributed_debug",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.55,
+          "nv_score": 0.45,
+          "oracle_score": 0.27,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.10000000000000003,
+          "failure_modes_full": [
+            "email_update_broken",
+            "regression_detected",
+            "excessive_changes",
+            "wrong_field_name",
+            "bad_attestation"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.1,
+      "category": "Debugging",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "SEC2_auth_bypass": {
+      "task_id": "SEC2_auth_bypass",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.7,
+          "nv_score": 0.7,
+          "oracle_score": 0.9,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "admin_missing_role_check",
+            "auth_decorator_missing",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Security",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "SEC3_crypto_upgrade": {
+      "task_id": "SEC3_crypto_upgrade",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.69,
+          "nv_score": 0.54,
+          "oracle_score": 0.69,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.1499999999999999,
+          "failure_modes_full": [
+            "md5_still_used",
+            "des_rc4_ecb_still_used",
+            "key_derivation_raw_hash",
+            "new_vulnerability_introduced"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.15,
+      "category": "Security",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "SEC4_input_validation": {
+      "task_id": "SEC4_input_validation",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.38,
+          "oracle_score": 0.31,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.38,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.38,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Security",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "SEC5_secrets_rotation": {
+      "task_id": "SEC5_secrets_rotation",
+      "aggregate_classification": "hallucinated_req",
+      "per_seed": {
+        "0": {
+          "classification": "hallucinated_req",
+          "full_score": 0.92,
+          "nv_score": 1.0,
+          "oracle_score": 0.92,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": -0.07999999999999996,
+          "failure_modes_full": [
+            "vault_not_imported_in_entrypoint"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.08,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Security",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "SEC6_csrf_protection": {
+      "task_id": "SEC6_csrf_protection",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.46,
+          "nv_score": 0.54,
+          "oracle_score": 0.85,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.08000000000000002,
+          "failure_modes_full": [
+            "csrf_token_not_generated",
+            "csrf_token_not_in_form",
+            "double_submit_cookie_missing",
+            "csrf_validation_missing",
+            "csrf_failure_wrong_response",
+            "csrf_error_body_wrong",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.08,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Security",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "SEC7_rate_limiting": {
+      "task_id": "SEC7_rate_limiting",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.6,
+          "nv_score": 0.67,
+          "oracle_score": 0.47,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.07000000000000006,
+          "failure_modes_full": [
+            "valid_key_rejected",
+            "rate_limit_not_enforced",
+            "429_body_missing_fields",
+            "remaining_not_decrementing",
+            "unlimited_tier_gets_429",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.07,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Security",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "SEC8_dependency_audit": {
+      "task_id": "SEC8_dependency_audit",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.92,
+          "nv_score": 0.67,
+          "oracle_score": 0.83,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.25,
+          "failure_modes_full": [
+            "vulnerable_pin_remains"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.25,
+      "category": "Security",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "SEC9_vuln_triage": {
+      "task_id": "SEC9_vuln_triage",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.77,
+          "oracle_score": 0.77,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.77,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.77,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Security",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "P2_spec_arbitration": {
+      "task_id": "P2_spec_arbitration",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.5,
+          "oracle_score": 0.25,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.5,
+          "failure_modes_full": [
+            "missing_resolved_config",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.5,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Policy",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "P3_access_control": {
+      "task_id": "P3_access_control",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.33,
+          "nv_score": 0.91,
+          "oracle_score": 0.82,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.5800000000000001,
+          "failure_modes_full": [
+            "rbac_py_syntax_error",
+            "app_py_syntax_error"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.58,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Policy",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "P4_data_retention": {
+      "task_id": "P4_data_retention",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.57,
+          "nv_score": 0.64,
+          "oracle_score": 0.86,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.07000000000000006,
+          "failure_modes_full": [
+            "audit_log_not_written",
+            "exempt_records_not_skipped",
+            "pii_not_anonymized",
+            "audit_entries_malformed",
+            "delete_count_incorrect",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.07,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Policy",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "P5_audit_logging": {
+      "task_id": "P5_audit_logging",
+      "aggregate_classification": "hallucinated_req",
+      "per_seed": {
+        "0": {
+          "classification": "hallucinated_req",
+          "full_score": 0.93,
+          "nv_score": 1.0,
+          "oracle_score": 0.93,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": -0.06999999999999995,
+          "failure_modes_full": [
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.07,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Policy",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "P6_license_check": {
+      "task_id": "P6_license_check",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.86,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Policy",
+      "difficulty_yaml": "easy",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "P7_data_retention": {
+      "task_id": "P7_data_retention",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.89,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Policy",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "P8_access_control": {
+      "task_id": "P8_access_control",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.4,
+          "nv_score": 0.4,
+          "oracle_score": 0.3,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "violations_not_fixed",
+            "exceptions_broken",
+            "violation_1_not_fixed",
+            "violation_2_not_fixed",
+            "violation_3_not_fixed",
+            "violation_4_not_fixed"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Policy",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "NEG2_cost_perf": {
+      "task_id": "NEG2_cost_perf",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "NEG3_tech_debt": {
+      "task_id": "NEG3_tech_debt",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.8,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "NEG4_resource_allocation": {
+      "task_id": "NEG4_resource_allocation",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.9,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "NEG5_sla_tradeoff": {
+      "task_id": "NEG5_sla_tradeoff",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.9,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "INC10_rollback_plan": {
+      "task_id": "INC10_rollback_plan",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.4,
+          "oracle_score": 0.4,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.4,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.4,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Incident",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "INC2_data_corruption": {
+      "task_id": "INC2_data_corruption",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.9,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Incident",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "INC3_memory_leak": {
+      "task_id": "INC3_memory_leak",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.92,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Incident",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "INC4_dns_miscfg": {
+      "task_id": "INC4_dns_miscfg",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.92,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Incident",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "INC5_cert_expiry": {
+      "task_id": "INC5_cert_expiry",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.91,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Incident",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "INC6_deadlock": {
+      "task_id": "INC6_deadlock",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.67,
+          "nv_score": 0.75,
+          "oracle_score": 0.67,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.07999999999999996,
+          "failure_modes_full": [
+            "lock_ordering_not_fixed",
+            "check_fix_fails",
+            "lock_hierarchy_inconsistent",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.08,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Incident",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "INC7_rollback": {
+      "task_id": "INC7_rollback",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.83,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.83,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.83,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Incident",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "INC8_cascading_timeout": {
+      "task_id": "INC8_cascading_timeout",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.7,
+          "nv_score": 0.8,
+          "oracle_score": 0.6,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.10000000000000009,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.1,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Incident",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "INC8_memory_leak": {
+      "task_id": "INC8_memory_leak",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.7,
+          "nv_score": 0.8,
+          "oracle_score": 0.8,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.10000000000000009,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.1,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Incident",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "INC9_log_forensics": {
+      "task_id": "INC9_log_forensics",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.3,
+          "nv_score": 0.3,
+          "oracle_score": 0.3,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Incident",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "O1_service_health": {
+      "task_id": "O1_service_health",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.25,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.25,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.25,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "O3_log_analysis": {
+      "task_id": "O3_log_analysis",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.31,
+          "nv_score": 0.31,
+          "oracle_score": 0.31,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "missing_root_cause_file",
+            "root_cause_missing_signal_a",
+            "root_cause_missing_signal_b",
+            "root_cause_missing_subsystem",
+            "root_cause_missing_fix_file",
+            "fix_not_applied",
+            "code_fix_not_applied",
+            "primary_endpoint_not_200",
+            "service_crashed_after_start"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "O4_monitoring": {
+      "task_id": "O4_monitoring",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "O5_container_debug": {
+      "task_id": "O5_container_debug",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.73,
+          "nv_score": 0.0,
+          "oracle_score": 0.6,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.73,
+          "failure_modes_full": [
+            "wrong_base_image",
+            "missing_fix_notes",
+            "fix_notes_incomplete",
+            "dockerfile_not_modified"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.73,
+      "category": "Operations",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "O6_perf_tuning": {
+      "task_id": "O6_perf_tuning",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.77,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "O7_capacity_planning": {
+      "task_id": "O7_capacity_planning",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "O8_dockerfile_fix": {
+      "task_id": "O8_dockerfile_fix",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.86,
+          "nv_score": 0.0,
+          "oracle_score": 0.71,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.86,
+          "failure_modes_full": [
+            "wrong_port"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.86,
+      "category": "Operations",
+      "difficulty_yaml": "easy",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "O9_logging_config": {
+      "task_id": "O9_logging_config",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.6,
+          "nv_score": 0.6,
+          "oracle_score": 0.5,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "root_level_wrong",
+            "missing_structured_fields",
+            "pii_email_leaked",
+            "pii_password_leaked"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "TEST2_regression": {
+      "task_id": "TEST2_regression",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 1.0,
+          "nv_score": 0.82,
+          "oracle_score": 0.73,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.18000000000000005,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.18,
+      "category": "Testing",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "TEST3_integration": {
+      "task_id": "TEST3_integration",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.92,
+          "nv_score": 0.83,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.09000000000000008,
+          "failure_modes_full": [
+            "schema_not_verified"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.09,
+      "category": "Testing",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "TEST4_property": {
+      "task_id": "TEST4_property",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.86,
+          "nv_score": 0.86,
+          "oracle_score": 0.86,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "tests_fail_on_correct_module"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Testing",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "TEST5_mutation_resistant": {
+      "task_id": "TEST5_mutation_resistant",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.83,
+          "nv_score": 0.92,
+          "oracle_score": 0.83,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.09000000000000008,
+          "failure_modes_full": [
+            "mutant_05_not_caught",
+            "insufficient_mutation_detection"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.09,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Testing",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "TEST6_property_based": {
+      "task_id": "TEST6_property_based",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.9,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Testing",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "TEST7_integration_suite": {
+      "task_id": "TEST7_integration_suite",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Testing",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "TEST8_unit_basic": {
+      "task_id": "TEST8_unit_basic",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.88,
+          "nv_score": 0.88,
+          "oracle_score": 0.75,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "too_few_tests"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Testing",
+      "difficulty_yaml": "easy",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "TEST9_mock_service": {
+      "task_id": "TEST9_mock_service",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.89,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Testing",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "SPEC2_api_design": {
+      "task_id": "SPEC2_api_design",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.67,
+          "nv_score": 0.75,
+          "oracle_score": 0.75,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.07999999999999996,
+          "failure_modes_full": [
+            "duplicate_title_not_409",
+            "duplicate_title_case_sensitive",
+            "invalid_priority_not_400",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.08,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "specification",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "SPEC3_data_model": {
+      "task_id": "SPEC3_data_model",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.857,
+          "nv_score": 0.071,
+          "oracle_score": 0.786,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.786,
+          "failure_modes_full": [
+            "review_unique_constraint_missing",
+            "order_item_cascade_delete_missing"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.786,
+      "category": "specification",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "SPEC4_migration": {
+      "task_id": "SPEC4_migration",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.85,
+          "nv_score": 0.85,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "migration_crash",
+            "not_idempotent"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Data",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "SPEC5_config_system": {
+      "task_id": "SPEC5_config_system",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.37,
+          "nv_score": 0.0,
+          "oracle_score": 0.37,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.37,
+          "failure_modes_full": [
+            "missing_keys",
+            "defaults_wrong",
+            "env_override_fail",
+            "cli_priority_fail",
+            "int_range_validation_fail",
+            "enum_validation_fail",
+            "bool_coercion_fail",
+            "bool_env_fail",
+            "bool_invalid_fail",
+            "int_coercion_fail",
+            "int_parse_error_fail",
+            "schema_structure_fail"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.37,
+      "category": "specification",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "SPEC6_rfc_impl": {
+      "task_id": "SPEC6_rfc_impl",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.95,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "SPEC7_config_schema": {
+      "task_id": "SPEC7_config_schema",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "CR1_review_respond": {
+      "task_id": "CR1_review_respond",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.62,
+          "oracle_score": 0.5,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.62,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.62,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Code Review",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "CR2_style_enforce": {
+      "task_id": "CR2_style_enforce",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.77,
+          "nv_score": 0.69,
+          "oracle_score": 0.92,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.08000000000000007,
+          "failure_modes_full": [
+            "import_order_incorrect",
+            "line_length_exceeded",
+            "trailing_commas_missing"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.08,
+      "category": "Code Review",
+      "difficulty_yaml": "easy",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "CR3_perf_review": {
+      "task_id": "CR3_perf_review",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.9,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Code Review",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "CR5_test_coverage": {
+      "task_id": "CR5_test_coverage",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.38,
+          "nv_score": 0.46,
+          "oracle_score": 0.38,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.08000000000000002,
+          "failure_modes_full": [
+            "too_few_tests",
+            "some_paths_not_tested",
+            "path_invalid_bool_not_tested",
+            "path_invalid_int_not_tested",
+            "path_invalid_log_level_not_tested",
+            "path_merge_does_not_mutate_not_tested",
+            "path_timeout_too_high_not_tested",
+            "bad_attestation"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.08,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Testing",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "CR6_review_checklist": {
+      "task_id": "CR6_review_checklist",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.91,
+          "nv_score": 0.91,
+          "oracle_score": 0.18,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "missing_or_insufficient_findings"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Code Review",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "LH3_multi_service": {
+      "task_id": "LH3_multi_service",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.95,
+          "nv_score": 0.95,
+          "oracle_score": 0.9,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "LH4_staged_deploy": {
+      "task_id": "LH4_staged_deploy",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.43,
+          "nv_score": 0.14,
+          "oracle_score": 0.43,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.29,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.29,
+      "category": "Long Horizon",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "LH5_data_migration": {
+      "task_id": "LH5_data_migration",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.09,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.09,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.09,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Long Horizon",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "LH6_audit_trail": {
+      "task_id": "LH6_audit_trail",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.55,
+          "oracle_score": 0.55,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.55,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.55,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Long Horizon",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "LH7_zero_downtime": {
+      "task_id": "LH7_zero_downtime",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.91,
+          "oracle_score": 0.82,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.91,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.91,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Long Horizon",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "PIPE2_api_gateway": {
+      "task_id": "PIPE2_api_gateway",
+      "aggregate_classification": "hallucinated_req",
+      "per_seed": {
+        "0": {
+          "classification": "hallucinated_req",
+          "full_score": 0.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.92,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": -1.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 1.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Pipeline",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "PIPE2_data_pipeline": {
+      "task_id": "PIPE2_data_pipeline",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.8,
+          "nv_score": 0.8,
+          "oracle_score": 0.8,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Data",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "PIPE3_msg_queue": {
+      "task_id": "PIPE3_msg_queue",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.85,
+          "oracle_score": 0.77,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.85,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.85,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Pipeline",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "PIPE3_stream_processing": {
+      "task_id": "PIPE3_stream_processing",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Data",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "PIPE4_ci_cd": {
+      "task_id": "PIPE4_ci_cd",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.93,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Pipeline",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "IR2_misinformation_trap": {
+      "task_id": "IR2_misinformation_trap",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.29,
+          "nv_score": 0.43,
+          "oracle_score": 0.29,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.14,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.14,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Info Retrieval",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "IR3_multi_source": {
+      "task_id": "IR3_multi_source",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.92,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Info Retrieval",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "IR4_temporal": {
+      "task_id": "IR4_temporal",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 1.0,
+          "nv_score": 0.87,
+          "oracle_score": 0.93,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.13,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.13,
+      "category": "Info Retrieval",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "IR5_search_ranking": {
+      "task_id": "IR5_search_ranking",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.89,
+          "nv_score": 0.89,
+          "oracle_score": 0.78,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Info Retrieval",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "IR6_search_index": {
+      "task_id": "IR6_search_index",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Info Retrieval",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "IR7_doc_clustering": {
+      "task_id": "IR7_doc_clustering",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.75,
+          "nv_score": 0.88,
+          "oracle_score": 0.75,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.13,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.13,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Info Retrieval",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "IR8_search_index": {
+      "task_id": "IR8_search_index",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.9,
+          "oracle_score": 0.8,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.9,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.9,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Info Retrieval",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "MULTI2_api_frontend": {
+      "task_id": "MULTI2_api_frontend",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.5,
+          "nv_score": 0.56,
+          "oracle_score": 0.5,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.06000000000000005,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.06,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "MULTI2_microservice_debug": {
+      "task_id": "MULTI2_microservice_debug",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.9,
+          "nv_score": 0.9,
+          "oracle_score": 0.9,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Multi-language",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "MULTI3_polyglot": {
+      "task_id": "MULTI3_polyglot",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Multi-Language",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "MULTI4_monorepo_fix": {
+      "task_id": "MULTI4_monorepo_fix",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.9,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Multi-language",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "MULTI5_deploy_pipeline": {
+      "task_id": "MULTI5_deploy_pipeline",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.8,
+          "nv_score": 0.9,
+          "oracle_score": 0.5,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.09999999999999998,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.1,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "MULTI6_fullstack_bug": {
+      "task_id": "MULTI6_fullstack_bug",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.9,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "MULTI7_polyglot_test": {
+      "task_id": "MULTI7_polyglot_test",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.9,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "MULTI8_sdk_mismatch": {
+      "task_id": "MULTI8_sdk_mismatch",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.88,
+          "nv_score": 0.88,
+          "oracle_score": 0.75,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Multi-language",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "INT2_api_versioning": {
+      "task_id": "INT2_api_versioning",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "INT3_db_migration": {
+      "task_id": "INT3_db_migration",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.7,
+          "oracle_score": 0.5,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.7,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.7,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "TRAP6_deprecated_api": {
+      "task_id": "TRAP6_deprecated_api",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Adversarial",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "TRAP7_test_pollution": {
+      "task_id": "TRAP7_test_pollution",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.8,
+          "nv_score": 0.8,
+          "oracle_score": 0.8,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Adversarial",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "TRAP8_config_override": {
+      "task_id": "TRAP8_config_override",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.9,
+          "nv_score": 0.9,
+          "oracle_score": 0.9,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Adversarial",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "CROSS5_event_schema": {
+      "task_id": "CROSS5_event_schema",
+      "aggregate_classification": "hallucinated_req",
+      "per_seed": {
+        "0": {
+          "classification": "hallucinated_req",
+          "full_score": 0.7,
+          "nv_score": 1.0,
+          "oracle_score": 0.7,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": -0.30000000000000004,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.3,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Cross-System",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "CROSS6_grpc_rest_bridge": {
+      "task_id": "CROSS6_grpc_rest_bridge",
+      "aggregate_classification": "hallucinated_req",
+      "per_seed": {
+        "0": {
+          "classification": "hallucinated_req",
+          "full_score": 0.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": -1.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 1.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Multi-language",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "CROSS7_config_drift": {
+      "task_id": "CROSS7_config_drift",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.6,
+          "nv_score": 0.6,
+          "oracle_score": 0.6,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "CRYPTO5_tls_config": {
+      "task_id": "CRYPTO5_tls_config",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.9,
+          "nv_score": 0.6,
+          "oracle_score": 0.9,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.30000000000000004,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.3,
+      "category": "Security",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "CRYPTO6_token_validation": {
+      "task_id": "CRYPTO6_token_validation",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.9,
+          "nv_score": 0.9,
+          "oracle_score": 0.9,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Security",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "DIST5_leader_election": {
+      "task_id": "DIST5_leader_election",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.2,
+          "nv_score": 0.2,
+          "oracle_score": 0.2,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Distributed",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "DIST6_distributed_lock": {
+      "task_id": "DIST6_distributed_lock",
+      "aggregate_classification": "hallucinated_req",
+      "per_seed": {
+        "0": {
+          "classification": "hallucinated_req",
+          "full_score": 0.9,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": -0.09999999999999998,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.1,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Distributed",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "GO1_concurrency_fix": {
+      "task_id": "GO1_concurrency_fix",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.88,
+          "oracle_score": 0.75,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.88,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.88,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "GO2_race_condition": {
+      "task_id": "GO2_race_condition",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.92,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "JS1_api_migration": {
+      "task_id": "JS1_api_migration",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.43,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "JS2_xss_sanitize": {
+      "task_id": "JS2_xss_sanitize",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.87,
+          "nv_score": 0.0,
+          "oracle_score": 0.78,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.87,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.87,
+      "category": "JavaScript",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "crypto1_nonce_reuse": {
+      "task_id": "crypto1_nonce_reuse",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.2,
+          "nv_score": 0.2,
+          "oracle_score": 0.2,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.2,
+          "nv_score": 0.2,
+          "oracle_score": 0.2,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.2,
+          "nv_score": 0.2,
+          "oracle_score": 0.2,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "crypto2_timing_safe": {
+      "task_id": "crypto2_timing_safe",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "crypto3_cert_chain": {
+      "task_id": "crypto3_cert_chain",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.2,
+          "nv_score": 0.2,
+          "oracle_score": 0.2,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "false_rejection",
+          "full_score": 0.0,
+          "nv_score": 0.2,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.2,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.2,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "crypto4_kdf_migration": {
+      "task_id": "crypto4_kdf_migration",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.2,
+          "nv_score": 0.2,
+          "oracle_score": 0.2,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.2,
+          "nv_score": 0.2,
+          "oracle_score": 0.2,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.2,
+          "nv_score": 0.2,
+          "oracle_score": 0.2,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "dist1_queue_race": {
+      "task_id": "dist1_queue_race",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.5,
+          "nv_score": 0.4167,
+          "oracle_score": 0.4167,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.08329999999999999,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0833,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "dist2_consensus_partition": {
+      "task_id": "dist2_consensus_partition",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.4167,
+          "nv_score": 0.4167,
+          "oracle_score": 0.4167,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.4167,
+          "nv_score": 0.4167,
+          "oracle_score": 0.4167,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_positive",
+          "full_score": 0.5,
+          "nv_score": 0.4167,
+          "oracle_score": 0.4167,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.08329999999999999,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0833,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "dist3_idempotency": {
+      "task_id": "dist3_idempotency",
+      "aggregate_classification": "hallucinated_req",
+      "per_seed": {
+        "0": {
+          "classification": "hallucinated_req",
+          "full_score": 0.25,
+          "nv_score": 1.0,
+          "oracle_score": 0.5833,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": -0.75,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_positive",
+          "full_score": 0.75,
+          "nv_score": 0.5833,
+          "oracle_score": 0.4167,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.16669999999999996,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "false_rejection",
+          "full_score": 0.25,
+          "nv_score": 0.8333,
+          "oracle_score": 0.5833,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.5833,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 2,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.6666,
+      "mean_score_lift_when_helped": 0.1667,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "dist4_clock_skew": {
+      "task_id": "dist4_clock_skew",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.9167,
+          "nv_score": 0.3333,
+          "oracle_score": 0.9167,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.5833999999999999,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_positive",
+          "full_score": 1.0,
+          "nv_score": 0.9167,
+          "oracle_score": 0.9167,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.08330000000000004,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_positive",
+          "full_score": 1.0,
+          "nv_score": 0.9167,
+          "oracle_score": 0.9167,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.08330000000000004,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 3,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.25,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "trap1_spec_conflict": {
+      "task_id": "trap1_spec_conflict",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.9,
+          "nv_score": 0.9,
+          "oracle_score": 0.9,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.9,
+          "nv_score": 0.9,
+          "oracle_score": 0.9,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "trap2_false_fix": {
+      "task_id": "trap2_false_fix",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 1.0,
+          "nv_score": 0.375,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.625,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.625,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "trap3_metric_mirage": {
+      "task_id": "trap3_metric_mirage",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.6,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "trap4_version_paradox": {
+      "task_id": "trap4_version_paradox",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 1.0,
+          "nv_score": 0.25,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.75,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "false_rejection",
+          "full_score": 0.25,
+          "nv_score": 0.33,
+          "oracle_score": 0.33,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.08000000000000002,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.33,
+          "nv_score": 0.33,
+          "oracle_score": 0.33,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 1,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.08,
+      "mean_score_lift_when_helped": 0.75,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "trap5_security_theater": {
+      "task_id": "trap5_security_theater",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.79,
+          "nv_score": 0.71,
+          "oracle_score": 0.86,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.08000000000000007,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.08,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "cross1_api_contract": {
+      "task_id": "cross1_api_contract",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "hallucinated_req",
+          "full_score": 0.9,
+          "nv_score": 1.0,
+          "oracle_score": 0.4,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": -0.09999999999999998,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.8,
+          "nv_score": 0.8,
+          "oracle_score": 0.3,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.8,
+          "nv_score": 0.8,
+          "oracle_score": 0.8,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.1,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "cross2_schema_evolution": {
+      "task_id": "cross2_schema_evolution",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_positive",
+          "full_score": 1.0,
+          "nv_score": 0.6667,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.33330000000000004,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.3333,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "cross3_protocol_bridge": {
+      "task_id": "cross3_protocol_bridge",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.6,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "cross4_auth_federation": {
+      "task_id": "cross4_auth_federation",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Unknown",
+      "difficulty_yaml": "unknown",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "MULTI1_fullstack_fix": {
+      "task_id": "MULTI1_fullstack_fix",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 0.88,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "true_negative",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "TEST1_spec_to_tests": {
+      "task_id": "TEST1_spec_to_tests",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 1.0,
+          "nv_score": 0.9,
+          "oracle_score": 0.4,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.09999999999999998,
+          "failure_modes_full": []
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.1,
+      "category": "Testing",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "PIPE1_etl_fix": {
+      "task_id": "PIPE1_etl_fix",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.82,
+          "nv_score": 0.82,
+          "oracle_score": 0.73,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "type_conversions_wrong",
+            "nested_fields_not_flattened"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Pipeline",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "SEC1_vuln_patch": {
+      "task_id": "SEC1_vuln_patch",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.75,
+          "nv_score": 0.75,
+          "oracle_score": 0.67,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "path_traversal_present",
+            "routes_missing",
+            "excessive_changes"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Security",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "LH2_budgeted_workflow": {
+      "task_id": "LH2_budgeted_workflow",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 2,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Long Horizon",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "O2_incident_rootcause": {
+      "task_id": "O2_incident_rootcause",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.8,
+          "nv_score": 0.8,
+          "oracle_score": 0.6,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "endpoint_no_response"
+          ]
+        },
+        "1": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        },
+        "2": {
+          "classification": "verification_neutral",
+          "full_score": 0.0,
+          "nv_score": 0.0,
+          "oracle_score": 0.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 3,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Operations",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q1_hardest"
+    },
+    "TRAP1_spec_conflict": {
+      "task_id": "TRAP1_spec_conflict",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Adversarial",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "TRAP3_metric_mirage": {
+      "task_id": "TRAP3_metric_mirage",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 1.0,
+          "nv_score": 0.6,
+          "oracle_score": 0.6,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.4,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.4,
+      "category": "Operations",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "TRAP5_security_theater": {
+      "task_id": "TRAP5_security_theater",
+      "aggregate_classification": "hallucinated_req",
+      "per_seed": {
+        "0": {
+          "classification": "hallucinated_req",
+          "full_score": 0.79,
+          "nv_score": 0.86,
+          "oracle_score": 0.86,
+          "full_pass": false,
+          "nv_pass": true,
+          "score_delta": -0.06999999999999995,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.07,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Adversarial",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "CROSS1_api_contract": {
+      "task_id": "CROSS1_api_contract",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.9,
+          "nv_score": 0.9,
+          "oracle_score": 1.0,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Cross-System",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "CROSS3_protocol_bridge": {
+      "task_id": "CROSS3_protocol_bridge",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Cross-System",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "CRYPTO1_nonce_reuse": {
+      "task_id": "CRYPTO1_nonce_reuse",
+      "aggregate_classification": "true_negative",
+      "per_seed": {
+        "0": {
+          "classification": "true_negative",
+          "full_score": 1.0,
+          "nv_score": 1.0,
+          "oracle_score": 1.0,
+          "full_pass": true,
+          "nv_pass": true,
+          "score_delta": 0.0,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Security",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "DIST1_queue_race": {
+      "task_id": "DIST1_queue_race",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 0.4167,
+          "nv_score": 0.3333,
+          "oracle_score": 0.5,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.08340000000000003,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0834,
+      "category": "Distributed",
+      "difficulty_yaml": "expert",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "D1_schema_drift": {
+      "task_id": "D1_schema_drift",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.69,
+          "nv_score": 0.94,
+          "oracle_score": 0.88,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.25,
+          "failure_modes_full": [
+            "value_mapping_fail",
+            "missing_category_fill_fail",
+            "dedup_higher_value_fail",
+            "nonnumeric_value_not_replaced",
+            "negative_value_not_replaced"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.25,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Data",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "P1_policy_config": {
+      "task_id": "P1_policy_config",
+      "aggregate_classification": "true_positive",
+      "per_seed": {
+        "0": {
+          "classification": "true_positive",
+          "full_score": 1.0,
+          "nv_score": 0.57,
+          "oracle_score": 0.93,
+          "full_pass": true,
+          "nv_pass": false,
+          "score_delta": 0.43000000000000005,
+          "failure_modes_full": []
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.43,
+      "category": "Policy",
+      "difficulty_yaml": "medium",
+      "difficulty_quintile": "Q5_easiest"
+    },
+    "SPEC1_feature_impl": {
+      "task_id": "SPEC1_feature_impl",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.73,
+          "nv_score": 0.73,
+          "oracle_score": 0.64,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "title_too_long_wrong_code",
+            "forbidden_transition_wrong_code",
+            "list_tasks_sort_wrong"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Software",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q3_medium"
+    },
+    "INC1_cascade_failure": {
+      "task_id": "INC1_cascade_failure",
+      "aggregate_classification": "verification_neutral",
+      "per_seed": {
+        "0": {
+          "classification": "verification_neutral",
+          "full_score": 0.9,
+          "nv_score": 0.9,
+          "oracle_score": 0.9,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": 0.0,
+          "failure_modes_full": [
+            "wrong_fix_order"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.0,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Incident",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q4_easy"
+    },
+    "IR1_evidence_qa": {
+      "task_id": "IR1_evidence_qa",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.33,
+          "nv_score": 0.5,
+          "oracle_score": 0.33,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.16999999999999998,
+          "failure_modes_full": [
+            "wrong_answer",
+            "evidence_not_from_different_docs",
+            "invalid_evidence_content",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.17,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Info Retrieval",
+      "difficulty_yaml": "easy",
+      "difficulty_quintile": "Q2_hard"
+    },
+    "NEG1_tradeoff_config": {
+      "task_id": "NEG1_tradeoff_config",
+      "aggregate_classification": "false_rejection",
+      "per_seed": {
+        "0": {
+          "classification": "false_rejection",
+          "full_score": 0.6,
+          "nv_score": 0.8,
+          "oracle_score": 0.3,
+          "full_pass": false,
+          "nv_pass": false,
+          "score_delta": -0.20000000000000007,
+          "failure_modes_full": [
+            "perf_test_fail",
+            "no_retry_logic",
+            "hardcoded_credentials",
+            "bad_attestation"
+          ]
+        }
+      },
+      "n_seeds": 1,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "mean_score_drop_when_hurt": 0.2,
+      "mean_score_lift_when_helped": 0.0,
+      "category": "Configuration",
+      "difficulty_yaml": "hard",
+      "difficulty_quintile": "Q2_hard"
+    }
+  },
+  "per_category": {
+    "Software": {
+      "n_tasks": 19,
+      "taxonomy": {
+        "true_positive": 1,
+        "false_rejection": 5,
+        "verification_neutral": 5,
+        "true_negative": 8
+      },
+      "sum_delta": -2.1033333333333335,
+      "n_hurt": 5,
+      "n_helped": 1,
+      "n_neutral_tn": 13,
+      "mean_verif_value": -0.1107
+    },
+    "Data": {
+      "n_tasks": 13,
+      "taxonomy": {
+        "true_positive": 4,
+        "verification_neutral": 4,
+        "false_rejection": 3,
+        "true_negative": 2
+      },
+      "sum_delta": -0.19999999999999996,
+      "n_hurt": 3,
+      "n_helped": 4,
+      "n_neutral_tn": 6,
+      "mean_verif_value": -0.0154
+    },
+    "Debugging": {
+      "n_tasks": 1,
+      "taxonomy": {
+        "verification_neutral": 1
+      },
+      "sum_delta": 0.03333333333333335,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "n_neutral_tn": 1,
+      "mean_verif_value": 0.0333
+    },
+    "Security": {
+      "n_tasks": 12,
+      "taxonomy": {
+        "verification_neutral": 5,
+        "false_rejection": 4,
+        "hallucinated_req": 1,
+        "true_positive": 1,
+        "true_negative": 1
+      },
+      "sum_delta": -0.9266666666666669,
+      "n_hurt": 5,
+      "n_helped": 1,
+      "n_neutral_tn": 6,
+      "mean_verif_value": -0.0772
+    },
+    "Policy": {
+      "n_tasks": 8,
+      "taxonomy": {
+        "false_rejection": 2,
+        "verification_neutral": 2,
+        "hallucinated_req": 1,
+        "true_negative": 2,
+        "true_positive": 1
+      },
+      "sum_delta": -0.4033333333333333,
+      "n_hurt": 3,
+      "n_helped": 1,
+      "n_neutral_tn": 4,
+      "mean_verif_value": -0.0504
+    },
+    "Operations": {
+      "n_tasks": 16,
+      "taxonomy": {
+        "verification_neutral": 11,
+        "true_negative": 3,
+        "true_positive": 2
+      },
+      "sum_delta": 1.3,
+      "n_hurt": 0,
+      "n_helped": 2,
+      "n_neutral_tn": 14,
+      "mean_verif_value": 0.0813
+    },
+    "Incident": {
+      "n_tasks": 11,
+      "taxonomy": {
+        "false_rejection": 5,
+        "true_negative": 3,
+        "verification_neutral": 3
+      },
+      "sum_delta": -1.5100000000000002,
+      "n_hurt": 5,
+      "n_helped": 0,
+      "n_neutral_tn": 6,
+      "mean_verif_value": -0.1373
+    },
+    "Testing": {
+      "n_tasks": 10,
+      "taxonomy": {
+        "true_positive": 1,
+        "verification_neutral": 7,
+        "true_negative": 2
+      },
+      "sum_delta": 0.06666666666666668,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "n_neutral_tn": 9,
+      "mean_verif_value": 0.0067
+    },
+    "specification": {
+      "n_tasks": 3,
+      "taxonomy": {
+        "false_rejection": 1,
+        "verification_neutral": 2
+      },
+      "sum_delta": 0.3053333333333334,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "n_neutral_tn": 2,
+      "mean_verif_value": 0.1018
+    },
+    "Code Review": {
+      "n_tasks": 4,
+      "taxonomy": {
+        "false_rejection": 1,
+        "true_positive": 1,
+        "true_negative": 1,
+        "verification_neutral": 1
+      },
+      "sum_delta": -0.5399999999999999,
+      "n_hurt": 1,
+      "n_helped": 1,
+      "n_neutral_tn": 2,
+      "mean_verif_value": -0.135
+    },
+    "Long Horizon": {
+      "n_tasks": 5,
+      "taxonomy": {
+        "true_positive": 1,
+        "false_rejection": 3,
+        "verification_neutral": 1
+      },
+      "sum_delta": -1.2600000000000002,
+      "n_hurt": 3,
+      "n_helped": 1,
+      "n_neutral_tn": 1,
+      "mean_verif_value": -0.252
+    },
+    "Pipeline": {
+      "n_tasks": 4,
+      "taxonomy": {
+        "hallucinated_req": 1,
+        "false_rejection": 1,
+        "true_negative": 1,
+        "verification_neutral": 1
+      },
+      "sum_delta": -1.85,
+      "n_hurt": 2,
+      "n_helped": 0,
+      "n_neutral_tn": 2,
+      "mean_verif_value": -0.4625
+    },
+    "Info Retrieval": {
+      "n_tasks": 8,
+      "taxonomy": {
+        "false_rejection": 4,
+        "true_negative": 1,
+        "true_positive": 1,
+        "verification_neutral": 2
+      },
+      "sum_delta": -1.21,
+      "n_hurt": 4,
+      "n_helped": 1,
+      "n_neutral_tn": 3,
+      "mean_verif_value": -0.1512
+    },
+    "Multi-language": {
+      "n_tasks": 4,
+      "taxonomy": {
+        "verification_neutral": 2,
+        "true_negative": 1,
+        "hallucinated_req": 1
+      },
+      "sum_delta": -1.0,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "n_neutral_tn": 3,
+      "mean_verif_value": -0.25
+    },
+    "Multi-Language": {
+      "n_tasks": 1,
+      "taxonomy": {
+        "true_negative": 1
+      },
+      "sum_delta": 0.0,
+      "n_hurt": 0,
+      "n_helped": 0,
+      "n_neutral_tn": 1,
+      "mean_verif_value": 0.0
+    },
+    "Adversarial": {
+      "n_tasks": 5,
+      "taxonomy": {
+        "true_negative": 2,
+        "verification_neutral": 2,
+        "hallucinated_req": 1
+      },
+      "sum_delta": -0.06999999999999995,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "n_neutral_tn": 4,
+      "mean_verif_value": -0.014
+    },
+    "Cross-System": {
+      "n_tasks": 3,
+      "taxonomy": {
+        "hallucinated_req": 1,
+        "verification_neutral": 1,
+        "true_negative": 1
+      },
+      "sum_delta": -0.30000000000000004,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "n_neutral_tn": 2,
+      "mean_verif_value": -0.1
+    },
+    "Distributed": {
+      "n_tasks": 3,
+      "taxonomy": {
+        "verification_neutral": 1,
+        "hallucinated_req": 1,
+        "true_positive": 1
+      },
+      "sum_delta": 0.050066666666666704,
+      "n_hurt": 1,
+      "n_helped": 1,
+      "n_neutral_tn": 1,
+      "mean_verif_value": 0.0167
+    },
+    "JavaScript": {
+      "n_tasks": 1,
+      "taxonomy": {
+        "true_positive": 1
+      },
+      "sum_delta": 0.87,
+      "n_hurt": 0,
+      "n_helped": 1,
+      "n_neutral_tn": 0,
+      "mean_verif_value": 0.87
+    },
+    "Unknown": {
+      "n_tasks": 17,
+      "taxonomy": {
+        "verification_neutral": 7,
+        "true_negative": 6,
+        "hallucinated_req": 1,
+        "true_positive": 3
+      },
+      "sum_delta": 0.3861,
+      "n_hurt": 1,
+      "n_helped": 3,
+      "n_neutral_tn": 13,
+      "mean_verif_value": 0.0227
+    },
+    "Configuration": {
+      "n_tasks": 1,
+      "taxonomy": {
+        "false_rejection": 1
+      },
+      "sum_delta": -0.20000000000000007,
+      "n_hurt": 1,
+      "n_helped": 0,
+      "n_neutral_tn": 0,
+      "mean_verif_value": -0.2
+    }
+  },
+  "per_difficulty_quintile": {
+    "Q1_hardest": {
+      "n_tasks": 30,
+      "taxonomy": {
+        "true_positive": 1,
+        "false_rejection": 4,
+        "verification_neutral": 24,
+        "true_negative": 1
+      },
+      "sum_delta": -1.0088999999999997,
+      "mean_verif_value": -0.0336
+    },
+    "Q3_medium": {
+      "n_tasks": 30,
+      "taxonomy": {
+        "true_positive": 7,
+        "verification_neutral": 8,
+        "false_rejection": 13,
+        "hallucinated_req": 2
+      },
+      "sum_delta": -3.2654666666666667,
+      "mean_verif_value": -0.1088
+    },
+    "Q2_hard": {
+      "n_tasks": 30,
+      "taxonomy": {
+        "verification_neutral": 15,
+        "true_negative": 5,
+        "false_rejection": 6,
+        "hallucinated_req": 2,
+        "true_positive": 2
+      },
+      "sum_delta": -1.5968999999999998,
+      "mean_verif_value": -0.0532
+    },
+    "Q4_easy": {
+      "n_tasks": 30,
+      "taxonomy": {
+        "false_rejection": 7,
+        "true_positive": 3,
+        "verification_neutral": 8,
+        "true_negative": 11,
+        "hallucinated_req": 1
+      },
+      "sum_delta": -1.9300000000000002,
+      "mean_verif_value": -0.0643
+    },
+    "Q5_easiest": {
+      "n_tasks": 29,
+      "taxonomy": {
+        "true_positive": 5,
+        "hallucinated_req": 3,
+        "verification_neutral": 3,
+        "true_negative": 18
+      },
+      "sum_delta": -0.7605666666666665,
+      "mean_verif_value": -0.0262
+    }
+  },
+  "false_rejection_details": [
+    {
+      "task_id": "PIPE2_api_gateway",
+      "category": "Pipeline",
+      "classification": "hallucinated_req",
+      "mean_score_drop": 1.0,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "CROSS6_grpc_rest_bridge",
+      "category": "Multi-language",
+      "classification": "hallucinated_req",
+      "mean_score_drop": 1.0,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "LH7_zero_downtime",
+      "category": "Long Horizon",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.91,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "IR8_search_index",
+      "category": "Info Retrieval",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.9,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "GO1_concurrency_fix",
+      "category": "Software",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.88,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "PIPE3_msg_queue",
+      "category": "Pipeline",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.85,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "INC7_rollback",
+      "category": "Incident",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.83,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "SEC9_vuln_triage",
+      "category": "Security",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.77,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "INT3_db_migration",
+      "category": "Software",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.7,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "dist3_idempotency",
+      "category": "Unknown",
+      "classification": "hallucinated_req",
+      "mean_score_drop": 0.6666,
+      "n_seeds_hurt": 2
+    },
+    {
+      "task_id": "D4_data_pipeline",
+      "category": "Data",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.65,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "S6_caching",
+      "category": "Software",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.62,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "CR1_review_respond",
+      "category": "Code Review",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.62,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "LH6_audit_trail",
+      "category": "Long Horizon",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.55,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "P2_spec_arbitration",
+      "category": "Policy",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.5,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "INC10_rollback_plan",
+      "category": "Incident",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.4,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "SEC4_input_validation",
+      "category": "Security",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.38,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "CROSS5_event_schema",
+      "category": "Cross-System",
+      "classification": "hallucinated_req",
+      "mean_score_drop": 0.3,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "D1_schema_drift",
+      "category": "Data",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.25,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "NEG1_tradeoff_config",
+      "category": "Configuration",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.2,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "IR1_evidence_qa",
+      "category": "Info Retrieval",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.17,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "IR2_misinformation_trap",
+      "category": "Info Retrieval",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.14,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "IR7_doc_clustering",
+      "category": "Info Retrieval",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.13,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "INC8_cascading_timeout",
+      "category": "Incident",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.1,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "INC8_memory_leak",
+      "category": "Incident",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.1,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "DIST6_distributed_lock",
+      "category": "Distributed",
+      "classification": "hallucinated_req",
+      "mean_score_drop": 0.1,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "LH5_data_migration",
+      "category": "Long Horizon",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.09,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "S4_backward_compat",
+      "category": "Software",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.08,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "SEC5_secrets_rotation",
+      "category": "Security",
+      "classification": "hallucinated_req",
+      "mean_score_drop": 0.08,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "SEC6_csrf_protection",
+      "category": "Security",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.08,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "INC6_deadlock",
+      "category": "Incident",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.08,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "SPEC2_api_design",
+      "category": "specification",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.08,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "D5_query_optimize",
+      "category": "Data",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.07,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "SEC7_rate_limiting",
+      "category": "Security",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.07,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "P4_data_retention",
+      "category": "Policy",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.07,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "P5_audit_logging",
+      "category": "Policy",
+      "classification": "hallucinated_req",
+      "mean_score_drop": 0.07,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "TRAP5_security_theater",
+      "category": "Adversarial",
+      "classification": "hallucinated_req",
+      "mean_score_drop": 0.07,
+      "n_seeds_hurt": 1
+    },
+    {
+      "task_id": "MULTI2_api_frontend",
+      "category": "Software",
+      "classification": "false_rejection",
+      "mean_score_drop": 0.06,
+      "n_seeds_hurt": 1
+    }
+  ]
+}

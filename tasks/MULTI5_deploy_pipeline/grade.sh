@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # MULTI5 grader: verify CI/CD pipeline stages are fixed
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

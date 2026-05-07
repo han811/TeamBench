@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # PIPE3 grader: verify all 3 serialization mismatch bugs are fixed
-set -euo pipefail
+set -uo pipefail
 
 WORKSPACE="${1:-${WORKSPACE_DIR:-/workspace}}"
 REPORTS="${2:-${REPORTS_DIR:-/reports}}"

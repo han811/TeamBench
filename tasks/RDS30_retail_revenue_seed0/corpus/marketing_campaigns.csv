@@ -1,0 +1,5 @@
+campaign_name,start_date,end_date,channel,budget_gbp,target_segment,expected_uplift_pct
+Holiday Season Promotional Drive,2011-10-01,2011-12-31,Email+Display,20977,All customers,25
+Spring Newsletter,2010-03-01,2010-03-31,Email,5000,Existing,12
+Summer Preview,2010-05-15,2010-06-30,Display,8000,New,18
+Flash Sale Jan,2010-01-10,2010-01-15,Email,3000,Lapsed,25

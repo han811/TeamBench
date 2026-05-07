@@ -1,0 +1,8 @@
+{
+  "seed": 0,
+  "leak_type": "unbounded_cache",
+  "service": "ProductCacheService",
+  "fix": "add LRU eviction with maxsize limit using functools.lru_cache or manual dict with size cap",
+  "max_size": 500,
+  "n_requests": 415
+}

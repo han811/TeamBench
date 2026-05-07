@@ -18,9 +18,9 @@ dataset_info:
     - name: classification
       dtype: string
   splits:
-    - name: full
+    - name: train
       num_examples: 153
-    - name: hard
+    - name: test
       num_examples: 120
 license: mit
 task_categories:
@@ -145,7 +145,8 @@ print(f"Mean team uplift: {sum(uplifts)/len(uplifts):.3f}")
 ```python
 from datasets import load_dataset
 
-ds = load_dataset("ybkim95/teambench", split="full")
+ds = load_dataset("ybkim95/teambench", split="train")  # all 153 tasks
+# ds = load_dataset("ybkim95/teambench", split="test")  # 120 hard/expert tasks only
 print(ds[0])
 ```
 

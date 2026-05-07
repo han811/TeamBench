@@ -1,0 +1,9 @@
+task_id: RDS6_macro_granger
+domain: data_science
+difficulty: hard
+languages:
+  - python
+dataset:
+  name: fred_macro
+  license: Public Domain (FRED)
+  source: Federal Reserve Bank of St. Louis
